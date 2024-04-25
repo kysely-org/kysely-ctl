@@ -1,0 +1,14 @@
+{
+  "name": "kysely-ctl",
+  "version": "0.0.0",
+  "description": "Command-line tool for Kysely",
+  "bin": {
+    "kysely": "./bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Igal Klebanov <igalklebanov@gmail.com>",
+  "license": "MIT"
+}
