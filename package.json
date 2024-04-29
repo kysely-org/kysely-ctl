@@ -3,12 +3,57 @@
   "version": "0.0.0",
   "description": "Command-line tool for Kysely",
   "bin": {
-    "kysely": "./bin/index.js"
+    "kysely": "./bin/index.cjs"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "cli",
+    "ctl",
+    "kysely",
+    "migration",
+    "seeding",
+    "codegen"
+  ],
   "author": "Igal Klebanov <igalklebanov@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "peerDependencies": {
+    "@babel/register": "*",
+    "@swc-node/register": "*",
+    "esbuild-register": "*",
+    "esbuild-runner": "*",
+    "std-env": "~3.x",
+    "ts-node": "*",
+    "tsx": "*"
+  },
+  "peerDependenciesMeta": {
+    "@babel/register": {
+      "optional": true
+    },
+    "@swc-node/register": {
+      "optional": true
+    },
+    "esbuild-register": {
+      "optional": true
+    },
+    "esbuild-runner": {
+      "optional": true
+    },
+    "ts-node": {
+      "optional": true
+    },
+    "tsx": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@babel/register": "^7.23.7",
+    "@swc-node/register": "^1.9.0",
+    "esbuild-register": "^3.5.0",
+    "std-env": "^3.7.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.7.3",
+    "typescript": "^5.4.5"
+  }
 }
