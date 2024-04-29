@@ -1,23 +1,37 @@
 {
   "name": "kysely-ctl",
   "version": "0.0.0",
-  "description": "Command-line tool for Kysely",
+  "type": "module",
   "bin": {
-    "kysely": "./bin/index.cjs"
+    "kysely": "./dist/bin.js"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
   },
-  "keywords": [
-    "cli",
-    "ctl",
-    "kysely",
-    "migration",
-    "seeding",
-    "codegen"
+  "files": [
+    "dist"
   ],
-  "author": "Igal Klebanov <igalklebanov@gmail.com>",
+  "description": "Command-line tool for Kysely",
+  "author": "Igal Klebanov <igalklebanov@gmail.com> (https://github.com/igalklebanov)",
   "license": "MIT",
+  "repository": "git://github.com/kysely-org/kysely-ctl.git",
+  "scripts": {
+    "build": "tsup-node src/index.mts src/bin.mts --clean --dts --format esm,cjs",
+    "check:dts": "attw --pack ."
+  },
   "peerDependencies": {
     "@babel/register": "*",
     "@swc-node/register": "*",
@@ -48,12 +62,27 @@
     }
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.15.3",
     "@babel/register": "^7.23.7",
     "@swc-node/register": "^1.9.0",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^20.12.7",
     "esbuild-register": "^3.5.0",
     "std-env": "^3.7.0",
     "ts-node": "^10.9.2",
+    "tsup": "^8.0.2",
     "tsx": "^4.7.3",
     "typescript": "^5.4.5"
-  }
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "cli",
+    "ctl",
+    "kysely",
+    "migration",
+    "seeding",
+    "codegen"
+  ]
 }

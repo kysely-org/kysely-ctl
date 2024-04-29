@@ -1,5 +1,5 @@
-const { isBun, isDeno } = require("std-env");
-const { safeRequire } = require("./utils.cjs");
+import { isBun, isDeno } from "std-env";
+import { safeRequire } from "./safe-require.mjs";
 
 /**
  * These are ordered by popularity.
@@ -12,7 +12,7 @@ const TRANSPILER_PACKAGES = [
   "tsx/cjs",
   "@swc-node/register",
   "esbuild-runner/register",
-];
+] as const;
 
 /**
  * Tries to load various popular TypeScript loaders.
@@ -20,11 +20,8 @@ const TRANSPILER_PACKAGES = [
  *
  * Inspired by acro5piano (Kay Gosho)'s  kysely-migration-cli
  * https://github.com/acro5piano/kysely-migration-cli/blob/main/bin/kysely-migration-cli.js
- *
- * @returns {boolean}
  */
-function installTSTranspiler() {
-  // Bun and Deno support TypeScript natively.
+export function installTSTranspiler(): boolean {
   if (isBun || isDeno) {
     return true;
   }
@@ -37,4 +34,3 @@ function installTSTranspiler() {
 
   return false;
 }
-exports.installTSTranspiler = installTSTranspiler;

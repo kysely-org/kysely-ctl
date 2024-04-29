@@ -3,11 +3,10 @@
  *
  * Inspired by acro5piano (Kay Gosho)'s  kysely-migration-cli
  * https://github.com/acro5piano/kysely-migration-cli/blob/main/bin/kysely-migration-cli.js
- *
- * @param {string | [string, unknown[]]} pkg
- * @returns {boolean}
  */
-function safeRequire(pkg) {
+export function safeRequire(
+  pkg: string | readonly [string, readonly unknown[]]
+): boolean {
   try {
     const [packageName, args] = Array.isArray(pkg) ? pkg : [pkg];
     const mod = require(packageName);
@@ -19,4 +18,3 @@ function safeRequire(pkg) {
     return false;
   }
 }
-exports.safeRequire = safeRequire;
