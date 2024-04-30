@@ -38,6 +38,9 @@ importers:
       kysely:
         specifier: ^0.27.3
         version: 0.27.3
+      pkg-types:
+        specifier: ^1.1.0
+        version: 1.1.0
       std-env:
         specifier: ^3.7.0
         version: 3.7.0
@@ -50,9 +53,6 @@ importers:
       tsx:
         specifier: ^4.7.3
         version: 4.7.3
-      type-fest:
-        specifier: ^4.18.0
-        version: 4.18.0
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -758,6 +758,9 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
+  confbox@0.1.7:
+    resolution: {integrity: sha512-uJcB/FKZtBMCJpK8MQji6bJHgu1tixKPxRLeGkNzBoOZzpnZUJm0jm2/sBDWcuBx1dYgxV4JU+g5hmNxCyAmdA==}
+
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
 
@@ -1094,6 +1097,9 @@ packages:
     resolution: {integrity: sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==}
     engines: {node: '>=16 || 14 >=14.17'}
 
+  mlly@1.6.1:
+    resolution: {integrity: sha512-vLgaHvaeunuOXHSmEbZ9izxPx3USsk8KCQ8iC+aTlp5sKRSoZvwhHh5L9VbKSaVC6sJDqbyohIS76E2VmHIPAA==}
+
   ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
 
@@ -1154,6 +1160,9 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
 
+  pathe@1.1.2:
+    resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
+
   picocolors@1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
 
@@ -1172,6 +1181,9 @@ packages:
   pkg-dir@3.0.0:
     resolution: {integrity: sha512-/E57AYkoeQ25qkxMj5PBOVgF8Kiu/h7cYS30Z5+R7WaiCCBfLq58ZI/dSeaEKb9WVJV5n/03QwrN3IeWIFllvw==}
     engines: {node: '>=6'}
+
+  pkg-types@1.1.0:
+    resolution: {integrity: sha512-/RpmvKdxKf8uILTtoOhAgf30wYbP2Qw+L9p3Rvshx1JZVX+XQNZQFjlbmGHEGIm4CkVPlSn+NXmIM8+9oWQaSA==}
 
   postcss-load-config@4.0.2:
     resolution: {integrity: sha512-bSVhyJGL00wMVoPUzAVAnbEoWyqRxkjv64tUl427SKnPrENtq6hJwUojroMz2VB+Q1edmi4IfrAPpami5VVgMQ==}
@@ -1412,10 +1424,6 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-  type-fest@4.18.0:
-    resolution: {integrity: sha512-+dbmiyliDY/2TTcjCS7NpI9yV2iEFlUDk5TKnsbkN7ZoRu5s7bT+zvYtNFhFXC2oLwURGT2frACAZvbbyNBI+w==}
-    engines: {node: '>=16'}
-
   typescript@5.3.3:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
     engines: {node: '>=14.17'}
@@ -1430,6 +1438,9 @@ packages:
     resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  ufo@1.5.3:
+    resolution: {integrity: sha512-Y7HYmWaFwPUmkoQCUIAYpKqkOf+SbVj/2fJJZ4RJMCfZp0rTGwRbzQD+HghfnhKOjL9E01okqz+ncJskGYfBNw==}
 
   undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
@@ -2168,6 +2179,8 @@ snapshots:
   concat-map@0.0.1:
     optional: true
 
+  confbox@0.1.7: {}
+
   convert-source-map@2.0.0: {}
 
   create-require@1.1.1: {}
@@ -2490,6 +2503,13 @@ snapshots:
 
   minipass@7.0.4: {}
 
+  mlly@1.6.1:
+    dependencies:
+      acorn: 8.11.3
+      pathe: 1.1.2
+      pkg-types: 1.1.0
+      ufo: 1.5.3
+
   ms@2.1.2: {}
 
   mz@2.7.0:
@@ -2543,6 +2563,8 @@ snapshots:
 
   path-type@4.0.0: {}
 
+  pathe@1.1.2: {}
+
   picocolors@1.0.0: {}
 
   picomatch@2.3.1: {}
@@ -2554,6 +2576,12 @@ snapshots:
   pkg-dir@3.0.0:
     dependencies:
       find-up: 3.0.0
+
+  pkg-types@1.1.0:
+    dependencies:
+      confbox: 0.1.7
+      mlly: 1.6.1
+      pathe: 1.1.2
 
   postcss-load-config@4.0.2(ts-node@10.9.2(@swc/core@1.4.17)(@types/node@20.12.7)(typescript@5.4.5)):
     dependencies:
@@ -2806,14 +2834,14 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  type-fest@4.18.0: {}
-
   typescript@5.3.3: {}
 
   typescript@5.4.2:
     optional: true
 
   typescript@5.4.5: {}
+
+  ufo@1.5.3: {}
 
   undici-types@5.26.5: {}
 
