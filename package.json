@@ -33,13 +33,14 @@
     "check:dts": "attw --pack ."
   },
   "peerDependencies": {
-    "@babel/register": "*",
-    "@swc-node/register": "*",
-    "esbuild-register": "*",
-    "esbuild-runner": "*",
+    "@babel/register": "~7.x",
+    "@swc-node/register": "~1.x",
+    "esbuild-register": "~3.x",
+    "esbuild-runner": "~2.x",
+    "jit": "~1.x",
     "std-env": "~3.x",
-    "ts-node": "*",
-    "tsx": "*"
+    "ts-node": "~10.x",
+    "tsx": "~4.x"
   },
   "peerDependenciesMeta": {
     "@babel/register": {
@@ -52,6 +53,9 @@
       "optional": true
     },
     "esbuild-runner": {
+      "optional": true
+    },
+    "jit": {
       "optional": true
     },
     "ts-node": {
@@ -67,11 +71,16 @@
     "@swc-node/register": "^1.9.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^20.12.7",
+    "@types/yargs": "^17.0.32",
     "esbuild-register": "^3.5.0",
+    "esbuild-runner": "^2.2.2",
+    "jiti": "^1.21.0",
+    "kysely": "^0.27.3",
     "std-env": "^3.7.0",
     "ts-node": "^10.9.2",
     "tsup": "^8.0.2",
     "tsx": "^4.7.3",
+    "type-fest": "^4.18.0",
     "typescript": "^5.4.5"
   },
   "engines": {

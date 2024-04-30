@@ -4,17 +4,42 @@
  * Inspired by acro5piano (Kay Gosho)'s  kysely-migration-cli
  * https://github.com/acro5piano/kysely-migration-cli/blob/main/bin/kysely-migration-cli.js
  */
-export function safeRequire(
-  pkg: string | readonly [string, readonly unknown[]]
-): boolean {
+export async function safeRequire<T>(
+  pkg:
+    | string
+    | readonly [string, readonly unknown[]]
+    | readonly [string, readonly unknown[], string, readonly unknown[]]
+): Promise<T | null> {
+  const [packageName, rootArgs, subCommand, subCommandArgs] = Array.isArray(pkg)
+    ? pkg
+    : [pkg];
+  let err;
+
   try {
-    const [packageName, args] = Array.isArray(pkg) ? pkg : [pkg];
-    const mod = require(packageName);
-    if (args) {
-      mod(...args);
+    const mod = await import(packageName);
+
+    if (!rootArgs) {
+      return mod;
     }
-    return true;
+
+    const output0 = mod.default(...rootArgs);
+
+    if (!subCommand) {
+      return output0;
+    }
+
+    return output0[subCommand](...subCommandArgs);
   } catch (error) {
-    return false;
+    err = error;
+    return null;
+  } finally {
+    if (!err) {
+      console.log(`Loaded ${packageName}`);
+    }
   }
 }
+
+export type Requireable =
+  | string
+  | readonly [string, readonly unknown[]]
+  | readonly [string, readonly unknown[], string, readonly unknown[]];

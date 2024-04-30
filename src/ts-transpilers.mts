@@ -1,5 +1,5 @@
 import { isBun, isDeno } from "std-env";
-import { safeRequire } from "./safe-require.mjs";
+import { type Requireable, safeRequire } from "./safe-require.mjs";
 
 /**
  * These are ordered by popularity.
@@ -7,12 +7,13 @@ import { safeRequire } from "./safe-require.mjs";
  */
 const TRANSPILER_PACKAGES = [
   "ts-node/register/transpile-only",
+  ["jiti", [], "register", []],
   ["@babel/register", [{ extensions: [".ts"] }]],
   "esbuild-register",
   "tsx/cjs",
   "@swc-node/register",
   "esbuild-runner/register",
-] as const;
+] as const satisfies Requireable[];
 
 /**
  * Tries to load various popular TypeScript loaders.
@@ -21,13 +22,13 @@ const TRANSPILER_PACKAGES = [
  * Inspired by acro5piano (Kay Gosho)'s  kysely-migration-cli
  * https://github.com/acro5piano/kysely-migration-cli/blob/main/bin/kysely-migration-cli.js
  */
-export function installTSTranspiler(): boolean {
+export async function installTSTranspiler(): Promise<boolean> {
   if (isBun || isDeno) {
     return true;
   }
 
   for (const pkg of TRANSPILER_PACKAGES) {
-    if (safeRequire(pkg)) {
+    if (await safeRequire(pkg)) {
       return true;
     }
   }
