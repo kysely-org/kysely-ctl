@@ -15,6 +15,9 @@ export async function getKyselyVersion(): Promise<string | null> {
   }
 }
 
+/**
+ * Returns the version of this package.
+ */
 export async function getCLIVersion(): Promise<string> {
   const { version } = await readPackageJSON();
 

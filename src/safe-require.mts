@@ -4,12 +4,7 @@
  * Inspired by acro5piano (Kay Gosho)'s  kysely-migration-cli
  * https://github.com/acro5piano/kysely-migration-cli/blob/main/bin/kysely-migration-cli.js
  */
-export async function safeRequire<T>(
-  pkg:
-    | string
-    | readonly [string, readonly unknown[]]
-    | readonly [string, readonly unknown[], string, readonly unknown[]]
-): Promise<T | null> {
+export async function safeRequire<T>(pkg: Requireable): Promise<T | null> {
   const [packageName, rootArgs, subCommand, subCommandArgs] = Array.isArray(pkg)
     ? pkg
     : [pkg];

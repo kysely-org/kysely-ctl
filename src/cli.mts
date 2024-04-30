@@ -1,7 +1,16 @@
-import { createMain, defineCommand, showUsage } from "citty";
+import {
+  type RunMainOptions,
+  createMain,
+  defineCommand,
+  showUsage,
+} from "citty";
 import { getCLIVersion, getKyselyVersion } from "./version.mjs";
 
-export async function buildCLI() {
+export interface CLI {
+  parse(options?: RunMainOptions): Promise<void>;
+}
+
+export async function buildCLI(): Promise<CLI> {
   const main = defineCommand({
     meta: {
       name: "kysely",
