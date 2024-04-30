@@ -1,5 +1,9 @@
-import { installTSTranspiler } from "./ts-transpilers.mjs";
+import { buildCLI } from "./cli.mjs";
 
 export async function main(argv: string[]): Promise<void> {
-  await installTSTranspiler();
+  const cli = await buildCLI();
+
+  await cli.parse({
+    rawArgs: argv,
+  });
 }
