@@ -27,3 +27,18 @@ export async function getCLIVersion(): Promise<string> {
 
   return version;
 }
+
+/**
+ * Prints the version of the CLI and the Kysely package.
+ */
+export async function printVersions(): Promise<void> {
+  const [cliVersion, kyselyVersion] = await Promise.all([
+    getCLIVersion(),
+    getKyselyVersion(),
+  ]);
+
+  console.log(
+    `kysely ${kyselyVersion ? `v${kyselyVersion}` : "[not installed]"}`
+  );
+  console.log(`kysely-ctl v${cliVersion}`);
+}

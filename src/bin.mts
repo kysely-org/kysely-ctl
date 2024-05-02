@@ -3,4 +3,4 @@
 import { process } from "std-env";
 import { main } from "./index.mjs";
 
-main(process.argv!);
+main(process.argv!.slice(2));

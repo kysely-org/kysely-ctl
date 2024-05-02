@@ -30,7 +30,8 @@
   "repository": "git://github.com/kysely-org/kysely-ctl.git",
   "scripts": {
     "build": "tsup-node src/index.mts src/bin.mts --clean --dts --format esm,cjs",
-    "check:dts": "attw --pack ."
+    "check:dts": "attw --pack .",
+    "start": "pnpm build --watch"
   },
   "peerDependencies": {
     "@babel/register": "~7.x",
