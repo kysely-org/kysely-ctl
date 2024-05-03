@@ -31,6 +31,7 @@
   "scripts": {
     "build": "tsup",
     "check:dts": "attw --pack .",
+    "prepublishOnly": "pnpm build && pnpm check:dts",
     "start": "pnpm build --watch"
   },
   "peerDependencies": {
