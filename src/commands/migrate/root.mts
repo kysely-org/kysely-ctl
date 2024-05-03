@@ -1,6 +1,7 @@
 import { showUsage, type SubCommandsDef } from "citty";
+import { consola } from "consola";
 import { MakeCommand } from "./make.mjs";
-import { isInSubcommand } from "../../is-in-subcommand.js";
+import { isInSubcommand } from "../../utils/is-in-subcommand.mjs";
 import { RootCommand } from "../root.mjs";
 import { DebugArg } from "../../arguments/debug.mjs";
 
@@ -18,7 +19,7 @@ export const MigrateCommand = {
     },
     async run(context) {
       if (context.args.debug) {
-        console.log(context);
+        consola.log(context);
       }
 
       if (!isInSubcommand(context)) {

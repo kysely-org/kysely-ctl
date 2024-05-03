@@ -6,7 +6,7 @@
     "kysely": "./dist/bin.js"
   },
   "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     "./package.json": "./package.json",
@@ -29,7 +29,7 @@
   "license": "MIT",
   "repository": "git://github.com/kysely-org/kysely-ctl.git",
   "scripts": {
-    "build": "tsup-node src/index.mts src/bin.mts --clean --dts --format esm,cjs",
+    "build": "tsup",
     "check:dts": "attw --pack .",
     "start": "pnpm build --watch"
   },
@@ -39,7 +39,8 @@
     "citty": "~0.x",
     "esbuild-register": "~3.x",
     "esbuild-runner": "~2.x",
-    "jit": "~1.x",
+    "jiti": "~1.x",
+    "pathe": "~1.x",
     "pkg-types": "~1.x",
     "std-env": "~3.x",
     "ts-node": "~10.x",
@@ -58,7 +59,7 @@
     "esbuild-runner": {
       "optional": true
     },
-    "jit": {
+    "jiti": {
       "optional": true
     },
     "ts-node": {
@@ -71,20 +72,22 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.15.3",
     "@babel/register": "^7.23.7",
-    "@swc-node/register": "^1.9.0",
+    "@swc-node/register": "^1.9.1",
     "@tsconfig/node20": "^20.1.4",
-    "@types/node": "^20.12.7",
+    "@types/node": "^20.12.8",
     "@types/yargs": "^17.0.32",
     "citty": "^0.1.6",
+    "consola": "^3.2.3",
     "esbuild-register": "^3.5.0",
     "esbuild-runner": "^2.2.2",
     "jiti": "^1.21.0",
     "kysely": "^0.27.3",
+    "pathe": "^1.1.2",
     "pkg-types": "^1.1.0",
     "std-env": "^3.7.0",
     "ts-node": "^10.9.2",
     "tsup": "^8.0.2",
-    "tsx": "^4.7.3",
+    "tsx": "^4.9.0",
     "typescript": "^5.4.5"
   },
   "engines": {

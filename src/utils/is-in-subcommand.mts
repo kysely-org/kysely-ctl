@@ -1,11 +1,12 @@
-import { CommandContext } from "citty";
+import type { ArgsDef, CommandContext } from "citty";
 
 /**
  * Check if the current command is a subcommand.
  */
-export function isInSubcommand(context: CommandContext): boolean {
+export function isInSubcommand<A extends ArgsDef>(
+  context: CommandContext<A>
+): boolean {
   const {
-    args,
     cmd: { subCommands },
     rawArgs,
   } = context;

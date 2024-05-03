@@ -8,7 +8,7 @@ export async function safeRequire<T>(pkg: Requireable): Promise<T | null> {
   const [packageName, rootArgs, subCommand, subCommandArgs] = Array.isArray(pkg)
     ? pkg
     : [pkg];
-  let err;
+  let err: unknown;
 
   try {
     const mod = await import(packageName);
