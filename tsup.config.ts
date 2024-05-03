@@ -7,12 +7,11 @@ export default defineConfig({
   dts: true,
   entryPoints: ["./src/index.mts", "./src/bin.mts"],
   format: ["cjs", "esm"],
-  // publicDir: "./src/templates",
   shims: true,
   async onSuccess() {
     const distPath = join(__dirname, "dist");
 
-    await rm(join(distPath, "migrations")).catch(() => {});
+    // `publicDir` is not working on re-builds in `watch` mode.
     await cp(join(__dirname, "src/templates"), join(distPath, "templates"), {
       recursive: true,
     });
@@ -31,6 +30,8 @@ export default defineConfig({
 
         await writeFile(
           filePath,
+          // esm output imports node built-in modules without `node:` specifiers,
+          // which fails in Deno.
           file.replace(/"(fs\/promises|path|url)"/g, '"node:$1"')
         );
       }
