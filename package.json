@@ -38,6 +38,7 @@
     "@babel/register": "~7.x",
     "@swc-node/register": "~1.x",
     "citty": "~0.x",
+    "consola": "~3.x",
     "esbuild-register": "~3.x",
     "esbuild-runner": "~2.x",
     "jiti": "~1.x",
