@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import type { ArgsDef, CommandDef, SubCommandsDef } from "citty";
+import { process } from "std-env";
 import { join } from "pathe";
 import { consola } from "consola";
 import { DebugArg } from "../../arguments/debug.mjs";
@@ -47,7 +48,7 @@ const BaseMakeCommand = {
       consola.log("Timestamp:", timestamp);
     }
 
-    const migrationsFolderPath = join(__dirname, "migrations");
+    const migrationsFolderPath = join(process.cwd!(), "migrations");
 
     if (args.debug) {
       consola.log("Migrations folder path:", migrationsFolderPath);
