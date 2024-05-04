@@ -1,8 +1,12 @@
 import { type CommandDef, showUsage, type ArgsDef } from "citty";
-import { printVersions } from "../utils/version.mjs";
+import {
+  printInstalledVersions,
+  printUpgradeNotice,
+} from "../utils/version.mjs";
 import { MigrateCommand } from "./migrate/root.mjs";
 import { isInSubcommand } from "../utils/is-in-subcommand.mjs";
 import { LegacyMakeCommand } from "./migrate/make.mjs";
+import { consola } from "consola";
 
 const args = {
   debug: {
@@ -29,20 +33,20 @@ export const RootCommand = {
     ...LegacyMakeCommand,
   },
   async run(context) {
-    if (isInSubcommand(context)) {
-      return;
+    if (!isInSubcommand(context)) {
+      const { args } = context;
+
+      if (args.debug) {
+        console.log(context);
+      }
+
+      if (args.version) {
+        return await printInstalledVersions();
+      }
+
+      await showUsage(context.cmd);
     }
 
-    const { args } = context;
-
-    if (args.debug) {
-      console.log(context);
-    }
-
-    if (args.version) {
-      return await printVersions();
-    }
-
-    await showUsage(context.cmd);
+    await printUpgradeNotice();
   },
 } satisfies CommandDef<typeof args>;
