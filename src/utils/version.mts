@@ -1,7 +1,6 @@
 import { execSync } from "node:child_process";
 import { readPackageJSON } from "pkg-types";
 import { process } from "std-env";
-import { ensureDependencyInstalled } from "nypm";
 import { consola } from "consola";
 import { getPackageManager } from "./package-manager.mjs";
 
@@ -48,16 +47,6 @@ export async function printInstalledVersions(): Promise<void> {
   console.log(`kysely-ctl v${cliVersion}`);
 }
 
-export async function assertKyselyInstalled(): Promise<void> {
-  const isInstalled = await ensureDependencyInstalled("kysely", {
-    cwd: process.cwd!(),
-  });
-
-  if (!isInstalled) {
-    throw new Error("Kysely is not installed! aborting...");
-  }
-}
-
 export async function getKyselyLatestVersion(): Promise<string | null> {
   return await getPackageLatestVersion("kysely");
 }
@@ -72,7 +61,7 @@ async function getPackageLatestVersion(
   const packageManager = await getPackageManager();
 
   if (packageManager.name === "bun") {
-    return null;
+    packageManager.command = "bunx npm";
   }
 
   if (packageManager.name === "deno") {
@@ -110,6 +99,10 @@ export async function printUpgradeNotice(): Promise<void> {
 
   if (cliLatestVersion && cliInstalledVersion !== cliLatestVersion) {
     notices.push(["KyselyCTL", "kysely-ctl", cliLatestVersion]);
+  }
+
+  if (!notices.length) {
+    return;
   }
 
   const packageManager = await getPackageManager();

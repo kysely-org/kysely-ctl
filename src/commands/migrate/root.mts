@@ -4,6 +4,7 @@ import { MakeCommand } from "./make.mjs";
 import { isInSubcommand } from "../../utils/is-in-subcommand.mjs";
 import { RootCommand } from "../root.mjs";
 import { DebugArg } from "../../arguments/debug.mjs";
+import { LatestCommand } from "./latest.mjs";
 
 export const MigrateCommand = {
   migrate: {
@@ -16,13 +17,14 @@ export const MigrateCommand = {
     },
     subCommands: {
       ...MakeCommand,
+      ...LatestCommand,
     },
     async run(context) {
-      if (context.args.debug) {
-        consola.log(context);
-      }
-
       if (!isInSubcommand(context)) {
+        if (context.args.debug) {
+          consola.log(context);
+        }
+
         await showUsage(context.cmd, RootCommand);
       }
     },
