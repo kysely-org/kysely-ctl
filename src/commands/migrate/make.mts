@@ -4,6 +4,7 @@ import { process } from "std-env";
 import { join } from "pathe";
 import { consola } from "consola";
 import { DebugArg } from "../../arguments/debug.mjs";
+import { createSubcommand } from "../../utils/create-subcommand.mjs";
 
 const args = {
   migration_name: {
@@ -86,19 +87,8 @@ const BaseMakeCommand = {
   },
 } satisfies CommandDef<typeof args>;
 
-function createMakeCommand<Name extends string>(
-  name: Name
-): { [Key in Name]: typeof BaseMakeCommand } {
-  return {
-    [name]: {
-      ...BaseMakeCommand,
-      meta: {
-        ...BaseMakeCommand.meta,
-        name,
-      },
-    },
-  } satisfies SubCommandsDef as any;
-}
-
-export const MakeCommand = createMakeCommand("make");
-export const LegacyMakeCommand = createMakeCommand("migrate:make");
+export const MakeCommand = createSubcommand("make", BaseMakeCommand);
+export const LegacyMakeCommand = createSubcommand(
+  "migrate:make",
+  BaseMakeCommand
+);
