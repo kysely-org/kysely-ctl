@@ -35,64 +35,31 @@
     "start": "pnpm build --watch"
   },
   "peerDependencies": {
-    "@babel/register": "~7.x",
-    "@swc-node/register": "~1.x",
-    "c12": "~1.x",
-    "citty": "~0.x",
-    "consola": "~3.x",
-    "esbuild-register": "~3.x",
-    "esbuild-runner": "~2.x",
-    "jiti": "~1.x",
-    "kysely": "~0.x",
-    "kysely-postgres-js": "~2.x",
-    "nypm": "~0.3",
-    "pathe": "~1.x",
-    "pkg-types": "~1.x",
-    "std-env": "~3.x",
-    "ts-node": "~10.x",
-    "tsx": "~4.x"
+    "c12": "^1.10",
+    "citty": "^0.1",
+    "consola": "^3.2",
+    "kysely": "^0.27",
+    "kysely-postgres-js": "^2",
+    "nypm": "^0.3",
+    "pathe": "^1.1",
+    "pkg-types": "^1.1",
+    "std-env": "^3.7",
+    "tsx": "^4.9"
   },
   "peerDependenciesMeta": {
-    "@babel/register": {
-      "optional": true
-    },
-    "@swc-node/register": {
-      "optional": true
-    },
-    "esbuild-register": {
-      "optional": true
-    },
-    "esbuild-runner": {
-      "optional": true
-    },
-    "kysely": {
-      "optional": true
-    },
     "kysely-postgres-js": {
-      "optional": true
-    },
-    "ts-node": {
-      "optional": true
-    },
-    "tsx": {
       "optional": true
     }
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.15.3",
-    "@babel/register": "^7.23.7",
-    "@swc-node/register": "^1.9.1",
     "@tsconfig/node20": "^20.1.4",
     "@types/better-sqlite3": "^7.6.10",
     "@types/node": "^20.12.8",
-    "@types/yargs": "^17.0.32",
     "better-sqlite3": "^9.6.0",
     "c12": "^1.10.0",
     "citty": "^0.1.6",
     "consola": "^3.2.3",
-    "esbuild-register": "^3.5.0",
-    "esbuild-runner": "^2.2.2",
-    "jiti": "^1.21.0",
     "kysely": "^0.27.3",
     "kysely-postgres-js": "^2.0.0",
     "mysql2": "^3.9.7",
@@ -104,7 +71,6 @@
     "std-env": "^3.7.0",
     "tarn": "^3.0.2",
     "tedious": "^18.2.0",
-    "ts-node": "^10.9.2",
     "tsup": "^8.0.2",
     "tsx": "^4.9.1",
     "typescript": "^5.4.5"
