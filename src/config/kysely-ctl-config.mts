@@ -41,7 +41,7 @@ export type KyselyCTLConfig<Dialect extends KyselyDialect = KyselyDialect> =
           dialectConfig: KyselyDialectConfig<Dialect>;
         }
       : {
-          dialect?: Dialect;
+          dialect: Dialect;
         });
 
 export interface KyselyCTLConfigBase {
