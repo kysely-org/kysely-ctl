@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 import { process } from "std-env";
-import { main } from "./index.mjs";
+import { buildCLI } from "./cli.mjs";
 
-main(process.argv!.slice(2));
+const cli = buildCLI();
+
+cli.parse(process.argv!.slice(2));

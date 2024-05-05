@@ -37,11 +37,14 @@
   "peerDependencies": {
     "@babel/register": "~7.x",
     "@swc-node/register": "~1.x",
+    "c12": "~1.x",
     "citty": "~0.x",
     "consola": "~3.x",
     "esbuild-register": "~3.x",
     "esbuild-runner": "~2.x",
     "jiti": "~1.x",
+    "kysely": "~0.x",
+    "kysely-postgres-js": "~2.x",
     "nypm": "~0.3",
     "pathe": "~1.x",
     "pkg-types": "~1.x",
@@ -62,7 +65,10 @@
     "esbuild-runner": {
       "optional": true
     },
-    "jiti": {
+    "kysely": {
+      "optional": true
+    },
+    "kysely-postgres-js": {
       "optional": true
     },
     "ts-node": {
@@ -79,12 +85,14 @@
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^20.12.8",
     "@types/yargs": "^17.0.32",
+    "c12": "^1.10.0",
     "citty": "^0.1.6",
     "consola": "^3.2.3",
     "esbuild-register": "^3.5.0",
     "esbuild-runner": "^2.2.2",
     "jiti": "^1.21.0",
     "kysely": "^0.27.3",
+    "kysely-postgres-js": "^2.0.0",
     "nypm": "^0.3.8",
     "pathe": "^1.1.2",
     "pkg-types": "^1.1.0",
