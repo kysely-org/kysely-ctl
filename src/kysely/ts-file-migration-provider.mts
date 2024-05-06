@@ -1,4 +1,4 @@
-import { readdir } from "node:fs/promises";
+import { mkdir, readdir } from "node:fs/promises";
 import type { Migration, MigrationProvider } from "kysely";
 import { join } from "pathe";
 import { tsImport } from "tsx/esm/api";
@@ -18,7 +18,15 @@ export class TSFileMigrationProvider implements MigrationProvider {
 
   async getMigrations(): Promise<Record<string, Migration>> {
     const migrations: Record<string, Migration> = {};
-    const files = await readdir(this.#props.migrationFolder);
+
+    let files: string[];
+
+    try {
+      files = await readdir(this.#props.migrationFolder);
+    } catch (err) {
+      await mkdir(this.#props.migrationFolder);
+      files = await readdir(this.#props.migrationFolder);
+    }
 
     for (const fileName of files) {
       if (
