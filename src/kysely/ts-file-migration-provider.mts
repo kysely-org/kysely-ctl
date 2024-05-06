@@ -2,6 +2,7 @@ import { readdir } from "node:fs/promises";
 import type { Migration, MigrationProvider } from "kysely";
 import { join } from "pathe";
 import { tsImport } from "tsx/esm/api";
+import { runtime } from "std-env";
 
 /**
  * An opinionated migration provider that reads migrations from TypeScript files.
@@ -25,10 +26,13 @@ export class TSFileMigrationProvider implements MigrationProvider {
         (fileName.endsWith(".cts") && !fileName.endsWith(".d.cts")) ||
         (fileName.endsWith(".mts") && !fileName.endsWith(".d.mts"))
       ) {
-        const migration = await tsImport(
-          join(this.#props.migrationFolder, fileName),
-          { parentURL: import.meta.url }
-        );
+        const filePath = join(this.#props.migrationFolder, fileName);
+
+        const migration =
+          runtime === "node"
+            ? await tsImport(filePath, { parentURL: import.meta.url })
+            : await import(filePath);
+
         const migrationKey = fileName.substring(0, fileName.lastIndexOf("."));
 
         if (isMigration(migration?.default)) {
