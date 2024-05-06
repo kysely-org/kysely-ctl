@@ -6,7 +6,7 @@ import {
 import { MigrateCommand } from "./migrate/root.mjs";
 import { isInSubcommand } from "../utils/is-in-subcommand.mjs";
 import { LegacyMakeCommand } from "./migrate/make.mjs";
-import { consola } from "consola";
+import { LegacyListCommand } from "./migrate/list.mjs";
 
 const args = {
   debug: {
@@ -29,8 +29,9 @@ export const RootCommand = {
   },
   args,
   subCommands: {
-    ...MigrateCommand,
+    ...LegacyListCommand,
     ...LegacyMakeCommand,
+    ...MigrateCommand,
   },
   async run(context) {
     if (!isInSubcommand(context)) {

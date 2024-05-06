@@ -4,7 +4,7 @@ import { MakeCommand } from "./make.mjs";
 import { isInSubcommand } from "../../utils/is-in-subcommand.mjs";
 import { RootCommand } from "../root.mjs";
 import { DebugArg } from "../../arguments/debug.mjs";
-import { LatestCommand } from "./latest.mjs";
+import { ListCommand } from "./list.mjs";
 
 export const MigrateCommand = {
   migrate: {
@@ -16,8 +16,8 @@ export const MigrateCommand = {
       debug: DebugArg,
     },
     subCommands: {
+      ...ListCommand,
       ...MakeCommand,
-      ...LatestCommand,
     },
     async run(context) {
       if (!isInSubcommand(context)) {
