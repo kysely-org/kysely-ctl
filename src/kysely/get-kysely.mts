@@ -7,8 +7,10 @@ export async function getKysely<DB = any>(
   config: KyselyCTLConfig,
   debug: boolean = false
 ): Promise<Kysely<DB>> {
+  const dialect = await getDialect(config);
+
   return new Kysely<DB>({
-    dialect: await getDialect(config),
+    dialect,
     log: debug
       ? (event) => {
           if (event.level === "error") {

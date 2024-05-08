@@ -8,12 +8,22 @@ import { TSFileMigrationProvider } from "./ts-file-migration-provider.mjs";
 export async function getMigrator(config: KyselyCTLConfig) {
   const kysely = await getKysely(config);
 
-  const migrationFolder = join(process.cwd!(), "migrations");
+  const { migrationFolder, migrator, provider, ...migrations } =
+    config.migrations || {};
 
-  return new Migrator({
-    db: kysely,
-    provider:
-      config.migrations?.provider ||
-      new TSFileMigrationProvider({ migrationFolder }),
-  });
+  return (
+    migrator ||
+    new Migrator({
+      db: kysely,
+      ...migrations,
+      provider:
+        provider ||
+        new TSFileMigrationProvider({
+          migrationFolder: join(
+            process.cwd!(),
+            migrationFolder || "migrations"
+          ),
+        }),
+    })
+  );
 }

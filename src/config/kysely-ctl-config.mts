@@ -1,11 +1,13 @@
 import type {
   Dialect as KyselyDialectInstance,
   KyselyPlugin,
+  MigratorProps,
   MigrationProvider,
   MssqlDialectConfig,
   MysqlDialectConfig,
   PostgresDialectConfig,
   SqliteDialectConfig,
+  Migrator,
 } from "kysely";
 import type { PostgresJSDialectConfig } from "kysely-postgres-js";
 
@@ -41,12 +43,32 @@ export type KyselyCTLConfig<Dialect extends KyselyDialect = KyselyDialect> =
           dialectConfig: KyselyDialectConfig<Dialect>;
         }
       : {
-          dialect: Dialect;
-        });
+          dialect: KyselyDialectInstance;
+        }) &
+    (
+      | {
+          migrations: Omit<MigratorProps, "db" | "provider"> & {
+            migrationFolder: string;
+            migrator?: never;
+            provider?: never;
+          };
+        }
+      | {
+          migrations?: Omit<MigratorProps, "db" | "provider"> & {
+            migrationFolder?: never;
+            migrator?: never;
+            provider: MigrationProvider;
+          };
+        }
+      | {
+          migrations?: {
+            migrationFolder?: never;
+            migrator: Migrator;
+            provider?: never;
+          };
+        }
+    );
 
 export interface KyselyCTLConfigBase {
-  migrations?: {
-    provider?: MigrationProvider;
-  };
   plugins?: KyselyPlugin[];
 }
