@@ -1,17 +1,15 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import type { ArgsDef, CommandDef, SubCommandsDef } from "citty";
+import type { ArgsDef, CommandDef } from "citty";
 import { process } from "std-env";
 import { join } from "pathe";
 import { consola } from "consola";
 import { DebugArg } from "../../arguments/debug.mjs";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
+import { createMigrationNameArg } from "../../arguments/migration-name.mjs";
 
 const args = {
-  migration_name: {
-    description: "The name of the migration file",
-    type: "positional",
-  },
-  debug: DebugArg,
+  ...createMigrationNameArg(true),
+  ...DebugArg,
   extension: {
     alias: "x",
     default: "ts",

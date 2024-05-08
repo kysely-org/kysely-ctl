@@ -8,7 +8,7 @@ import { getConfig } from "../../config/get-config.mjs";
 import { getMigrator } from "../../kysely/get-migrator.mjs";
 
 const args = {
-  debug: DebugArg,
+  ...DebugArg,
 } satisfies ArgsDef;
 
 const BaseListCommand = {
@@ -42,9 +42,11 @@ const BaseListCommand = {
       return consola.info("No migrations found.");
     }
 
-    consola.info(`Found ${migrations.length} migrations:`);
+    consola.info(
+      `Found ${migrations.length} migration${migrations.length > 1 ? "s" : ""}:`
+    );
+    consola.options.formatOptions.date = false;
     migrations.forEach((migration) => {
-      consola.options.formatOptions.date = false;
       consola.log(`[${migration.executedAt ? "X" : " "}] ${migration.name}`);
     });
     consola.options.formatOptions.date = true;

@@ -7,6 +7,10 @@ import { MigrateCommand } from "./migrate/root.mjs";
 import { isInSubcommand } from "../utils/is-in-subcommand.mjs";
 import { LegacyMakeCommand } from "./migrate/make.mjs";
 import { LegacyListCommand } from "./migrate/list.mjs";
+import { LegacyLatestCommand } from "./migrate/latest.mjs";
+import { LegacyRollbackCommand } from "./migrate/rollback.mjs";
+import { LegacyDownCommand } from "./migrate/down.mjs";
+import { LegacyUpCommand } from "./migrate/up.mjs";
 
 const args = {
   debug: {
@@ -29,8 +33,12 @@ export const RootCommand = {
   },
   args,
   subCommands: {
+    ...LegacyDownCommand,
+    ...LegacyLatestCommand,
     ...LegacyListCommand,
     ...LegacyMakeCommand,
+    ...LegacyRollbackCommand,
+    ...LegacyUpCommand,
     ...MigrateCommand,
   },
   async run(context) {
