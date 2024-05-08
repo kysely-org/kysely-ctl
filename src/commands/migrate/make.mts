@@ -34,24 +34,15 @@ const BaseMakeCommand = {
     }
   },
   async run(context) {
-    const { args } = context;
-    const { debug } = args;
-
-    if (debug) {
-      consola.log(context);
-    }
+    consola.debug(context, []);
 
     const timestamp = Date.now();
 
-    if (args.debug) {
-      consola.log("Timestamp:", timestamp);
-    }
+    consola.debug("Timestamp:", timestamp);
 
     const migrationsFolderPath = join(process.cwd!(), "migrations");
 
-    if (args.debug) {
-      consola.log("Migrations folder path:", migrationsFolderPath);
-    }
+    consola.debug("Migrations folder path:", migrationsFolderPath);
 
     const wasMigrationsFolderCreated = Boolean(
       await mkdir(migrationsFolderPath, {
@@ -59,21 +50,17 @@ const BaseMakeCommand = {
       })
     );
 
-    if (args.debug && wasMigrationsFolderCreated) {
-      consola.log("Migrations folder created");
+    if (wasMigrationsFolderCreated) {
+      consola.debug("Migrations folder created");
     }
 
-    const filename = `${timestamp}_${args.migration_name}.${args.extension}`;
+    const filename = `${timestamp}_${context.args.migration_name}.${context.args.extension}`;
 
-    if (args.debug) {
-      consola.log("Filename:", filename);
-    }
+    consola.debug("Filename:", filename);
 
     const filePath = join(migrationsFolderPath, filename);
 
-    if (args.debug) {
-      consola.log("File path:", filePath);
-    }
+    consola.debug("File path:", filePath);
 
     const migrationTemplate = await readFile(
       join(__dirname, "templates/migration-template.ts")

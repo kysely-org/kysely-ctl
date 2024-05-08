@@ -1,4 +1,5 @@
 import { type CommandDef, showUsage, type ArgsDef } from "citty";
+import { consola, LogLevels } from "consola";
 import {
   printInstalledVersions,
   printUpgradeNotice,
@@ -41,15 +42,16 @@ export const RootCommand = {
     ...LegacyUpCommand,
     ...MigrateCommand,
   },
+  setup(context) {
+    if (context.args.debug) {
+      consola.level = LogLevels.debug;
+    }
+  },
   async run(context) {
     if (!isInSubcommand(context)) {
-      const { args } = context;
+      consola.debug(context, []);
 
-      if (args.debug) {
-        console.log(context);
-      }
-
-      if (args.version) {
+      if (context.args.version) {
         return await printInstalledVersions();
       }
 

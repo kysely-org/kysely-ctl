@@ -29,9 +29,7 @@ export const MigrateCommand = {
     },
     async run(context) {
       if (!isInSubcommand(context)) {
-        if (context.args.debug) {
-          consola.log(context);
-        }
+        consola.debug(context, []);
 
         await showUsage(context.cmd, RootCommand);
       }

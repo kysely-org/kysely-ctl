@@ -1,16 +1,18 @@
 import type { ArgsDef, CommandDef } from "citty";
-import { DebugArg } from "../../arguments/debug.mjs";
 import { ensureDependencyInstalled } from "nypm";
 import { runtime } from "std-env";
+import { consola } from "consola";
+import { DebugArg } from "../../arguments/debug.mjs";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
 import { getConfig } from "../../config/get-config.mjs";
 import { getMigrator } from "../../kysely/get-migrator.mjs";
-import { consola } from "consola";
 import { createMigrationNameArg } from "../../arguments/migration-name.mjs";
+import { EnvironmentArg } from "../../arguments/environment.mjs";
 
 const args = {
-  ...createMigrationNameArg(true),
+  ...createMigrationNameArg(),
   ...DebugArg,
+  ...EnvironmentArg,
 } satisfies ArgsDef;
 
 const BaseDownCommand = {
@@ -20,17 +22,15 @@ const BaseDownCommand = {
   },
   args,
   async run(context) {
-    const { debug, migration_name } = context.args;
+    const { migration_name } = context.args;
 
-    if (debug) {
-      console.log(context);
-    }
+    consola.debug(context, []);
 
     if (runtime === "node") {
       await ensureDependencyInstalled("kysely", { cwd: process.cwd!() });
     }
 
-    const config = await getConfig(debug);
+    const config = await getConfig(context.args);
 
     const migrator = await getMigrator(config);
 
@@ -40,9 +40,7 @@ const BaseDownCommand = {
       ? await migrator.migrateTo(migration_name) // TODO: verify direction is down!
       : await migrator.migrateDown();
 
-    if (debug) {
-      consola.log(resultSet);
-    }
+    consola.debug(resultSet);
 
     const { error, results } = resultSet;
 

@@ -2,10 +2,10 @@ import type { ArgsDef, CommandDef } from "citty";
 import { DebugArg } from "../../arguments/debug.mjs";
 import { ensureDependencyInstalled } from "nypm";
 import { runtime } from "std-env";
+import { consola } from "consola";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
 import { getConfig } from "../../config/get-config.mjs";
 import { getMigrator } from "../../kysely/get-migrator.mjs";
-import { consola } from "consola";
 import { createMigrationNameArg } from "../../arguments/migration-name.mjs";
 
 const args = {
@@ -20,17 +20,15 @@ const BaseUpCommand = {
   },
   args,
   async run(context) {
-    const { debug, migration_name } = context.args;
+    const { migration_name } = context.args;
 
-    if (debug) {
-      console.log(context);
-    }
+    consola.debug(context, []);
 
     if (runtime === "node") {
       await ensureDependencyInstalled("kysely", { cwd: process.cwd!() });
     }
 
-    const config = await getConfig(debug);
+    const config = await getConfig();
 
     const migrator = await getMigrator(config);
 
@@ -40,9 +38,7 @@ const BaseUpCommand = {
       ? await migrator.migrateTo(migration_name) // TODO: verify direction is up!
       : await migrator.migrateUp();
 
-    if (debug) {
-      consola.log(resultSet);
-    }
+    consola.debug(resultSet);
 
     const { error, results } = resultSet;
 

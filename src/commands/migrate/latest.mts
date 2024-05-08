@@ -6,9 +6,11 @@ import { DebugArg } from "../../arguments/debug.mjs";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
 import { getConfig } from "../../config/get-config.mjs";
 import { getMigrator } from "../../kysely/get-migrator.mjs";
+import { EnvironmentArg } from "../../arguments/environment.mjs";
 
 const args = {
   ...DebugArg,
+  ...EnvironmentArg,
 } satisfies ArgsDef;
 
 const BaseLatestCommand = {
@@ -18,17 +20,13 @@ const BaseLatestCommand = {
   },
   args,
   async run(context) {
-    const { debug } = context.args;
-
-    if (debug) {
-      console.log(context);
-    }
+    consola.debug(context, []);
 
     if (runtime === "node") {
       await ensureDependencyInstalled("kysely", { cwd: process.cwd!() });
     }
 
-    const config = await getConfig(debug);
+    const config = await getConfig(context.args);
 
     const migrator = await getMigrator(config);
 
@@ -36,9 +34,7 @@ const BaseLatestCommand = {
 
     const resultSet = await migrator.migrateToLatest();
 
-    if (debug) {
-      consola.log(resultSet);
-    }
+    consola.debug(resultSet);
 
     const { error, results } = resultSet;
 

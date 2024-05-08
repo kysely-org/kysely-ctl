@@ -1,7 +1,4 @@
-import type { KyselyCTLConfig, KyselyDialect } from "./kysely-ctl-config.mjs";
+import { createDefineConfig } from "c12";
+import type { KyselyCTLConfig } from "./kysely-ctl-config.mjs";
 
-export function defineConfig<Dialect extends KyselyDialect>(
-  config: KyselyCTLConfig<Dialect>
-): KyselyCTLConfig<Dialect> {
-  return config;
-}
+export const defineConfig = createDefineConfig<KyselyCTLConfig>();

@@ -5,6 +5,7 @@ import { getMigrator } from "../../kysely/get-migrator.mjs";
 import { consola } from "consola";
 import { NO_MIGRATIONS } from "kysely";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
+import { EnvironmentArg } from "../../arguments/environment.mjs";
 
 const args = {
   all: {
@@ -13,6 +14,7 @@ const args = {
     type: "boolean",
   },
   ...DebugArg,
+  ...EnvironmentArg,
 } satisfies ArgsDef;
 
 const BaseRollbackCommand = {
@@ -22,13 +24,9 @@ const BaseRollbackCommand = {
   },
   args,
   async run(context) {
-    const { debug } = context.args;
+    consola.debug(context, []);
 
-    if (debug) {
-      console.log(context);
-    }
-
-    const config = await getConfig(debug);
+    const config = await getConfig(context.args);
 
     const migrator = await getMigrator(config);
 
@@ -36,9 +34,7 @@ const BaseRollbackCommand = {
 
     const resultSet = await migrator.migrateTo(NO_MIGRATIONS);
 
-    if (debug) {
-      consola.log(resultSet);
-    }
+    consola.debug(resultSet);
 
     const { error, results } = resultSet;
 
