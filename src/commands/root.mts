@@ -12,13 +12,10 @@ import { LegacyLatestCommand } from "./migrate/latest.mjs";
 import { LegacyRollbackCommand } from "./migrate/rollback.mjs";
 import { LegacyDownCommand } from "./migrate/down.mjs";
 import { LegacyUpCommand } from "./migrate/up.mjs";
+import { CommonArgs } from "../arguments/common.mjs";
 
 const args = {
-  debug: {
-    default: false,
-    description: "Show debug information",
-    type: "boolean",
-  },
+  ...CommonArgs,
   version: {
     alias: "v",
     default: false,
@@ -46,18 +43,22 @@ export const RootCommand = {
     if (context.args.debug) {
       consola.level = LogLevels.debug;
     }
+
+    consola.options.formatOptions.date = false;
   },
   async run(context) {
+    const { args } = context;
+
     if (!isInSubcommand(context)) {
       consola.debug(context, []);
 
-      if (context.args.version) {
-        return await printInstalledVersions();
+      if (args.version) {
+        return await printInstalledVersions(args);
       }
 
       await showUsage(context.cmd);
     }
 
-    await printUpgradeNotice();
+    await printUpgradeNotice(args);
   },
 } satisfies CommandDef<typeof args>;

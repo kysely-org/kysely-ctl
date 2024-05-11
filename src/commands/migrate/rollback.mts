@@ -1,11 +1,11 @@
-import { ArgsDef, CommandDef } from "citty";
-import { DebugArg } from "../../arguments/debug.mjs";
-import { getConfig } from "../../config/get-config.mjs";
-import { getMigrator } from "../../kysely/get-migrator.mjs";
+import type { ArgsDef, CommandDef } from "citty";
 import { consola } from "consola";
 import { NO_MIGRATIONS } from "kysely";
+import { getConfig } from "../../config/get-config.mjs";
+import { getMigrator } from "../../kysely/get-migrator.mjs";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
-import { EnvironmentArg } from "../../arguments/environment.mjs";
+import { CommonArgs } from "../../arguments/common.mjs";
+import { processMigrationResultSet } from "../../kysely/process-migration-result-set.mjs";
 
 const args = {
   all: {
@@ -13,8 +13,7 @@ const args = {
     required: true, // remove this if and when Migrator supports migration batches.
     type: "boolean",
   },
-  ...DebugArg,
-  ...EnvironmentArg,
+  ...CommonArgs,
 } satisfies ArgsDef;
 
 const BaseRollbackCommand = {
@@ -34,31 +33,7 @@ const BaseRollbackCommand = {
 
     const resultSet = await migrator.migrateTo(NO_MIGRATIONS);
 
-    consola.debug(resultSet);
-
-    const { error, results } = resultSet;
-
-    if (error) {
-      const failedMigration = results?.find(
-        (result) => result.status === "Error"
-      );
-
-      return consola.fail(
-        `Migration failed with \`${error}\`${
-          failedMigration ? ` @ "${failedMigration.migrationName}"` : ""
-        }`
-      );
-    }
-
-    if (!results?.length) {
-      return consola.info("Migration skipped: no completed migrations found");
-    }
-
-    consola.success(
-      `Migration complete: rolled back ${results.length} migration${
-        results.length > 1 ? "s" : ""
-      }`
-    );
+    await processMigrationResultSet(resultSet, "down", migrator);
   },
 } satisfies CommandDef<typeof args>;
 

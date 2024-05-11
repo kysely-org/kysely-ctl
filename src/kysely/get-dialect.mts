@@ -5,9 +5,11 @@ import {
   SqliteDialect,
   type Dialect,
 } from "kysely";
-import type { KyselyCTLConfig } from "../config/kysely-ctl-config.mjs";
+import type { ResolvedKyselyCTLConfig } from "../config/kysely-ctl-config.mjs";
 
-export async function getDialect(config: KyselyCTLConfig): Promise<Dialect> {
+export async function getDialect(
+  config: ResolvedKyselyCTLConfig
+): Promise<Dialect> {
   if (config.dialect === "better-sqlite3") {
     return new SqliteDialect(config.dialectConfig);
   }

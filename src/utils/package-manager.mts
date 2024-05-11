@@ -1,5 +1,10 @@
-import { isBun, isDeno, process } from "std-env";
-import { detectPackageManager, type PackageManager } from "nypm";
+import { isBun, isDeno, runtime } from "std-env";
+import {
+  detectPackageManager,
+  ensureDependencyInstalled,
+  type PackageManager,
+} from "nypm";
+import { type HasCWD, getCWD } from "../config/get-cwd.mjs";
 
 export interface EnrichedPackageManager {
   name: PackageManager["name"] | "deno";
@@ -7,8 +12,10 @@ export interface EnrichedPackageManager {
   inProject: boolean;
 }
 
-export async function getPackageManager(): Promise<EnrichedPackageManager> {
-  const packageManager = await detectPackageManager(process.cwd!(), {
+export async function getPackageManager(
+  args?: HasCWD
+): Promise<EnrichedPackageManager> {
+  const packageManager = await detectPackageManager(getCWD(args), {
     ignoreArgv: true,
     includeParentDirs: true,
   });
@@ -20,4 +27,12 @@ export async function getPackageManager(): Promise<EnrichedPackageManager> {
   const name = isDeno ? "deno" : isBun ? "bun" : "npm";
 
   return { name, command: name, inProject: false };
+}
+
+export async function ensureDependenciesInstalled(
+  args?: HasCWD
+): Promise<void> {
+  if (runtime === "node") {
+    await ensureDependencyInstalled("kysely", { cwd: getCWD(args) });
+  }
 }

@@ -1,18 +1,16 @@
 import type { ArgsDef, CommandDef } from "citty";
-import { ensureDependencyInstalled } from "nypm";
-import { runtime } from "std-env";
 import { consola } from "consola";
-import { DebugArg } from "../../arguments/debug.mjs";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
 import { getConfig } from "../../config/get-config.mjs";
 import { getMigrator } from "../../kysely/get-migrator.mjs";
 import { createMigrationNameArg } from "../../arguments/migration-name.mjs";
-import { EnvironmentArg } from "../../arguments/environment.mjs";
+import { CommonArgs } from "../../arguments/common.mjs";
+import { processMigrationResultSet as processMigrationResultSet } from "../../kysely/process-migration-result-set.mjs";
+import { isWrongDirection } from "../../kysely/is-wrong-direction.mjs";
 
 const args = {
+  ...CommonArgs,
   ...createMigrationNameArg(),
-  ...DebugArg,
-  ...EnvironmentArg,
 } satisfies ArgsDef;
 
 const BaseDownCommand = {
@@ -22,49 +20,28 @@ const BaseDownCommand = {
   },
   args,
   async run(context) {
+    const { args } = context;
     const { migration_name } = context.args;
 
     consola.debug(context, []);
 
-    if (runtime === "node") {
-      await ensureDependencyInstalled("kysely", { cwd: process.cwd!() });
-    }
-
-    const config = await getConfig(context.args);
+    const config = await getConfig(args);
 
     const migrator = await getMigrator(config);
+
+    if (await isWrongDirection(migration_name, "down", migrator)) {
+      return consola.info(
+        `Migration skipped: "${migration_name}" has not been run yet`
+      );
+    }
 
     consola.start("Starting migration down");
 
     const resultSet = migration_name
-      ? await migrator.migrateTo(migration_name) // TODO: verify direction is down!
+      ? await migrator.migrateTo(migration_name)
       : await migrator.migrateDown();
 
-    consola.debug(resultSet);
-
-    const { error, results } = resultSet;
-
-    if (error) {
-      const failedMigration = results?.find(
-        (result) => result.status === "Error"
-      );
-
-      return consola.fail(
-        `Migration failed with \`${error}\`${
-          failedMigration ? ` @ "${failedMigration.migrationName}"` : ""
-        }`
-      );
-    }
-
-    if (!results?.length) {
-      return consola.info("Migration skipped: no completed migrations found");
-    }
-
-    consola.success(
-      `Migration complete: undone ${results.length} migration${
-        results.length > 1 ? "s" : ""
-      }`
-    );
+    await processMigrationResultSet(resultSet, "down", migrator);
   },
 } satisfies CommandDef<typeof args>;
 

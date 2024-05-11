@@ -1,16 +1,13 @@
 import type { ArgsDef, CommandDef } from "citty";
-import consola from "consola";
-import { ensureDependencyInstalled } from "nypm";
-import { process, runtime } from "std-env";
-import { DebugArg } from "../../arguments/debug.mjs";
+import { consola } from "consola";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
 import { getConfig } from "../../config/get-config.mjs";
 import { getMigrator } from "../../kysely/get-migrator.mjs";
-import { EnvironmentArg } from "../../arguments/environment.mjs";
+import { CommonArgs } from "../../arguments/common.mjs";
+import { getMigrations } from "../../kysely/get-migrations.mjs";
 
 const args = {
-  ...DebugArg,
-  ...EnvironmentArg,
+  ...CommonArgs,
 } satisfies ArgsDef;
 
 const BaseListCommand = {
@@ -22,15 +19,11 @@ const BaseListCommand = {
   async run(context) {
     consola.debug(context, []);
 
-    if (runtime === "node") {
-      await ensureDependencyInstalled("kysely", { cwd: process.cwd!() });
-    }
-
     const config = await getConfig(context.args);
 
     const migrator = await getMigrator(config);
 
-    const migrations = await migrator.getMigrations();
+    const migrations = await getMigrations(migrator);
 
     consola.debug(migrations);
 
@@ -41,11 +34,9 @@ const BaseListCommand = {
     consola.info(
       `Found ${migrations.length} migration${migrations.length > 1 ? "s" : ""}:`
     );
-    consola.options.formatOptions.date = false;
     migrations.forEach((migration) => {
-      consola.log(`[${migration.executedAt ? "X" : " "}] ${migration.name}`);
+      consola.log(`[${migration.executedAt ? "`✓`" : " "}] ${migration.name}`);
     });
-    consola.options.formatOptions.date = true;
   },
 } satisfies CommandDef<typeof args>;
 

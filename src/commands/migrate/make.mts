@@ -1,15 +1,15 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import type { ArgsDef, CommandDef } from "citty";
-import { process } from "std-env";
 import { join } from "pathe";
 import { consola } from "consola";
-import { DebugArg } from "../../arguments/debug.mjs";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
 import { createMigrationNameArg } from "../../arguments/migration-name.mjs";
+import { getConfig } from "../../config/get-config.mjs";
+import { CommonArgs } from "../../arguments/common.mjs";
 
 const args = {
+  ...CommonArgs,
   ...createMigrationNameArg(true),
-  ...DebugArg,
   extension: {
     alias: "x",
     default: "ts",
@@ -34,13 +34,20 @@ const BaseMakeCommand = {
     }
   },
   async run(context) {
+    const { args } = context;
+
     consola.debug(context, []);
 
     const timestamp = Date.now();
 
     consola.debug("Timestamp:", timestamp);
 
-    const migrationsFolderPath = join(process.cwd!(), "migrations");
+    const config = await getConfig(args);
+
+    const migrationsFolderPath = join(
+      config.cwd,
+      config.migrations.migrationFolder
+    );
 
     consola.debug("Migrations folder path:", migrationsFolderPath);
 
@@ -54,7 +61,7 @@ const BaseMakeCommand = {
       consola.debug("Migrations folder created");
     }
 
-    const filename = `${timestamp}_${context.args.migration_name}.${context.args.extension}`;
+    const filename = `${timestamp}_${args.migration_name}.${args.extension}`;
 
     consola.debug("Filename:", filename);
 

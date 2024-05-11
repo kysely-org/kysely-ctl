@@ -1,19 +1,29 @@
 import { execSync } from "node:child_process";
 import { readPackageJSON } from "pkg-types";
-import { process } from "std-env";
 import { consola } from "consola";
+import { isCI } from "std-env";
 import { getPackageManager } from "./package-manager.mjs";
+import { HasCWD, getCWD } from "../config/get-cwd.mjs";
 
 /**
  * Returns the version of the Kysely package.
  */
-export async function getKyselyInstalledVersion(): Promise<string | null> {
+export async function getKyselyInstalledVersion(
+  args: HasCWD
+): Promise<string | null> {
   try {
-    const { version } = await readPackageJSON("kysely", {
-      reverse: true,
+    const pkgJSON = await readPackageJSON("kysely", {
+      startingFrom: getCWD(args),
     });
 
-    return version || null;
+    if (pkgJSON.name === "kysely") {
+      return pkgJSON.version || null;
+    }
+
+    const rawVersion =
+      pkgJSON.dependencies?.["kysely"] || pkgJSON.devDependencies?.["kysely"];
+
+    return rawVersion?.replace(/^[\^~]?(.+)$/, "$1") || null;
   } catch (err) {
     return null;
   }
@@ -35,10 +45,10 @@ export async function getCLIInstalledVersion(): Promise<string> {
 /**
  * Prints the version of the CLI and the Kysely package.
  */
-export async function printInstalledVersions(): Promise<void> {
+export async function printInstalledVersions(args: HasCWD): Promise<void> {
   const [cliVersion, kyselyVersion] = await Promise.all([
     getCLIInstalledVersion(),
-    getKyselyInstalledVersion(),
+    getKyselyInstalledVersion(args),
   ]);
 
   console.log(
@@ -47,18 +57,23 @@ export async function printInstalledVersions(): Promise<void> {
   console.log(`kysely-ctl v${cliVersion}`);
 }
 
-export async function getKyselyLatestVersion(): Promise<string | null> {
-  return await getPackageLatestVersion("kysely");
+export async function getKyselyLatestVersion(
+  args: HasCWD
+): Promise<string | null> {
+  return await getPackageLatestVersion("kysely", args);
 }
 
-export async function getCLILatestVersion(): Promise<string | null> {
-  return await getPackageLatestVersion("kysely-ctl");
+export async function getCLILatestVersion(
+  args: HasCWD
+): Promise<string | null> {
+  return await getPackageLatestVersion("kysely-ctl", args);
 }
 
 async function getPackageLatestVersion(
-  packageName: string
+  packageName: string,
+  args: HasCWD
 ): Promise<string | null> {
-  const packageManager = await getPackageManager();
+  const packageManager = await getPackageManager(args);
 
   if (packageManager.name === "bun") {
     packageManager.command = "bunx npm";
@@ -69,7 +84,7 @@ async function getPackageLatestVersion(
   }
 
   const info = execSync(`${packageManager.command} info ${packageName}`, {
-    cwd: process.cwd!(),
+    cwd: getCWD(args),
     encoding: "utf-8",
   });
 
@@ -78,17 +93,23 @@ async function getPackageLatestVersion(
   return version || null;
 }
 
-export async function printUpgradeNotice(): Promise<void> {
+export async function printUpgradeNotice(
+  args: HasCWD & { "outdated-check"?: boolean }
+): Promise<void> {
+  if (args["outdated-check"] === false || isCI) {
+    return;
+  }
+
   const [
     kyselyInstalledVersion,
     kyselyLatestVersion,
     cliInstalledVersion,
     cliLatestVersion,
   ] = await Promise.all([
-    getKyselyInstalledVersion(),
-    getKyselyLatestVersion(),
+    getKyselyInstalledVersion(args),
+    getKyselyLatestVersion(args),
     getCLIInstalledVersion(),
-    getCLILatestVersion(),
+    getCLILatestVersion(args),
   ]);
 
   const notices: [string, string, string][] = [];
