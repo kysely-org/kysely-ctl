@@ -49,6 +49,24 @@ export default defineConfig({
 
 The `migrate` module mirrors [Knex.js](https://knexjs.org) CLI's module of the same name.
 
+```bash
+knex migrate:<command>
+```
+
+Can now be called as either:
+
+```bash
+kysely migrate:<command>
+```
+
+or 
+
+```bash
+kysely migrate <command>
+```
+
+For more information run `kysely -h` or `kysely migrate -h` in your terminal.
+
 ## Acknowledgements
 
 [acro5piano](https://github.com/acro5piano) who built [kysely-migration-cli](https://github.com/acro5piano/kysely-migration-cli) and inspired this project.
