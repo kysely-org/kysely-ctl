@@ -69,6 +69,9 @@ or
 kysely migrate <command>
 ```
 
+> [!NOTE]
+> `rollback` without `--all` flag is not supported, as [Kysely](https://kysely.dev) doesn't keep track of "migration batches".
+
 ## Acknowledgements
 
 [acro5piano](https://github.com/acro5piano) who built [kysely-migration-cli](https://github.com/acro5piano/kysely-migration-cli) and inspired this project.
