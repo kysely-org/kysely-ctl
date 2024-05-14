@@ -55,7 +55,7 @@
     "@arethetypeswrong/cli": "^0.15.3",
     "@tsconfig/node20": "^20.1.4",
     "@types/better-sqlite3": "^7.6.10",
-    "@types/node": "^20.12.11",
+    "@types/node": "^20.12.12",
     "better-sqlite3": "^9.6.0",
     "c12": "^1.10.0",
     "citty": "^0.1.6",
