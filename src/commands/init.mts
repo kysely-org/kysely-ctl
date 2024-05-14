@@ -1,4 +1,4 @@
-import { copyFile, cp, mkdir, readFile, readdir } from "node:fs/promises";
+import { copyFile, mkdir } from "node:fs/promises";
 import type { ArgsDef, CommandDef, SubCommandsDef } from "citty";
 import { consola } from "consola";
 import { join } from "pathe";
@@ -6,10 +6,7 @@ import { NoOutdatedCheckArg } from "../arguments/no-outdated-notice.mjs";
 import { DebugArg } from "../arguments/debug.mjs";
 import { CWDArg } from "../arguments/cwd.mjs";
 import { ExtensionArg, assertExtension } from "../arguments/extension.mjs";
-import { getCWD } from "../config/get-cwd.mjs";
 import { configFileExists, getConfig } from "../config/get-config.mjs";
-import { writeFile } from "node:fs";
-import { config } from "node:process";
 
 const args = {
   ...CWDArg,

@@ -1,4 +1,4 @@
-import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
+import { copyFile, mkdir } from "node:fs/promises";
 import type { ArgsDef, CommandDef } from "citty";
 import { join } from "pathe";
 import { consola } from "consola";
