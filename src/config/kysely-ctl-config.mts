@@ -1,3 +1,4 @@
+import type { ConfigLayerMeta, ResolvedConfig } from "c12";
 import type {
   Dialect as KyselyDialectInstance,
   KyselyPlugin,
@@ -101,6 +102,10 @@ export type ResolvedKyselyCTLConfig<
   : {
       dialect: KyselyDialectInstance;
     }) & {
+  configMetadata: Omit<
+    ResolvedConfig<KyselyCTLConfig, ConfigLayerMeta>,
+    "config"
+  >;
   cwd: string;
   migrations: {
     migrationFolder: string;

@@ -1,7 +1,7 @@
 import type { ArgsDef, CommandDef } from "citty";
 import { consola } from "consola";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
-import { getConfig } from "../../config/get-config.mjs";
+import { getConfigOrFail } from "../../config/get-config.mjs";
 import { getMigrator } from "../../kysely/get-migrator.mjs";
 import { CommonArgs } from "../../arguments/common.mjs";
 import { processMigrationResultSet } from "../../kysely/process-migration-result-set.mjs";
@@ -19,7 +19,7 @@ const BaseLatestCommand = {
   async run(context) {
     consola.debug(context, []);
 
-    const config = await getConfig(context.args);
+    const config = await getConfigOrFail(context.args);
 
     const migrator = await getMigrator(config);
 

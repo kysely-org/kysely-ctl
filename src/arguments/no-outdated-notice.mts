@@ -1,4 +1,4 @@
-import { ArgsDef } from "citty";
+import type { ArgsDef } from "citty";
 
 export const NoOutdatedCheckArg = {
   "no-outdated-check": {

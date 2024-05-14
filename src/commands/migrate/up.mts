@@ -1,7 +1,7 @@
 import type { ArgsDef, CommandDef } from "citty";
 import { consola } from "consola";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
-import { getConfig } from "../../config/get-config.mjs";
+import { getConfigOrFail } from "../../config/get-config.mjs";
 import { getMigrator } from "../../kysely/get-migrator.mjs";
 import { createMigrationNameArg } from "../../arguments/migration-name.mjs";
 import { CommonArgs } from "../../arguments/common.mjs";
@@ -25,7 +25,7 @@ const BaseUpCommand = {
 
     consola.debug(context, []);
 
-    const config = await getConfig(args);
+    const config = await getConfigOrFail(args);
 
     const migrator = await getMigrator(config);
 

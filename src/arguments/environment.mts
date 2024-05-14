@@ -1,4 +1,4 @@
-import { ArgDef } from "citty";
+import type { ArgsDef } from "citty";
 
 export const EnvironmentArg = {
   environment: {
@@ -6,5 +6,5 @@ export const EnvironmentArg = {
     description: "The environment to use",
     type: "string",
     valueHint: "prod | dev | test | ...",
-  } satisfies ArgDef,
-};
+  },
+} satisfies ArgsDef;

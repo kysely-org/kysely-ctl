@@ -28,10 +28,10 @@ Make sure the following peer dependencies are also installed:
 
 ### Configuration
 
-Currently, a `kysely.config.ts` file is required, in the project root OR `.config` folder.
+Currently, a `kysely.config.ts` file is required, in the project root OR `.config` folder. Run `kysely init` in your terminal to create one.
 
 ```ts
-import { defineConfig } from 'kysely-ctl';
+import { defineConfig } from "kysely-ctl";
 
 export default defineConfig({
   dialect, // a Kysely dialect instance OR the name of an underlying driver library (e.g. `'pg'`).
@@ -45,7 +45,11 @@ export default defineConfig({
 });
 ```
 
-### Migrate
+### Commands
+
+For more information run `kysely -h` in your terminal.
+
+#### Migrate
 
 The `migrate` module mirrors [Knex.js](https://knexjs.org) CLI's module of the same name.
 
@@ -59,13 +63,11 @@ Can now be called as either:
 kysely migrate:<command>
 ```
 
-or 
+or
 
 ```bash
 kysely migrate <command>
 ```
-
-For more information run `kysely -h` or `kysely migrate -h` in your terminal.
 
 ## Acknowledgements
 

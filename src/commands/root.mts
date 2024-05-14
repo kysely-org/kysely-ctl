@@ -13,6 +13,7 @@ import { LegacyRollbackCommand } from "./migrate/rollback.mjs";
 import { LegacyDownCommand } from "./migrate/down.mjs";
 import { LegacyUpCommand } from "./migrate/up.mjs";
 import { CommonArgs } from "../arguments/common.mjs";
+import { InitCommand } from "./init.mjs";
 
 const args = {
   ...CommonArgs,
@@ -31,6 +32,7 @@ export const RootCommand = {
   },
   args,
   subCommands: {
+    ...InitCommand,
     ...LegacyDownCommand,
     ...LegacyLatestCommand,
     ...LegacyListCommand,

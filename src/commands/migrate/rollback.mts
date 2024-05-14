@@ -1,7 +1,7 @@
 import type { ArgsDef, CommandDef } from "citty";
 import { consola } from "consola";
 import { NO_MIGRATIONS } from "kysely";
-import { getConfig } from "../../config/get-config.mjs";
+import { getConfigOrFail } from "../../config/get-config.mjs";
 import { getMigrator } from "../../kysely/get-migrator.mjs";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
 import { CommonArgs } from "../../arguments/common.mjs";
@@ -25,7 +25,7 @@ const BaseRollbackCommand = {
   async run(context) {
     consola.debug(context, []);
 
-    const config = await getConfig(context.args);
+    const config = await getConfigOrFail(context.args);
 
     const migrator = await getMigrator(config);
 

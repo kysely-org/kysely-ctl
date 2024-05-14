@@ -28,19 +28,50 @@ export async function getConfig(
 
   consola.debug(loadedConfig);
 
-  const { config } = loadedConfig;
-
-  if (!config) {
-    throw new Error("Could not find a configuration file");
-  }
+  const { config, ...configMetadata } = loadedConfig;
 
   return {
-    ...config,
+    ...(config || {}),
+    configMetadata,
     cwd,
+    dialect: config?.dialect || {
+      createAdapter() {
+        throw new Error("No dialect specified");
+      },
+      createDriver() {
+        throw new Error("No dialect specified");
+      },
+      createIntrospector() {
+        throw new Error("No dialect specified");
+      },
+      createQueryCompiler() {
+        throw new Error("No dialect specified");
+      },
+    },
+    // @ts-ignore
+    dialectConfig: config?.dialectConfig || {},
     migrations: {
       migrationFolder: "migrations",
-      ...config.migrations,
+      ...config?.migrations,
     },
-    plugins: config.plugins || [],
+    plugins: config?.plugins || [],
   };
+}
+
+export function configFileExists(config: ResolvedKyselyCTLConfig): boolean {
+  const { configFile } = config.configMetadata;
+
+  return configFile !== undefined && configFile !== "kysely.config";
+}
+
+export async function getConfigOrFail(
+  args: ArgsLike
+): Promise<ResolvedKyselyCTLConfig> {
+  const config = await getConfig(args);
+
+  if (!configFileExists(config)) {
+    throw new Error("No config file found");
+  }
+
+  return config;
 }
