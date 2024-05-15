@@ -6,7 +6,7 @@
 npm i -D kysely-ctl
 ```
 
-Make sure the following peer dependencies are also installed:
+Make sure the following dependencies are also installed:
 
 [kysely](https://github.com/kysely-org/kysely) - pretty obvious.
 
