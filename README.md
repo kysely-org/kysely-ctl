@@ -35,7 +35,7 @@ import { defineConfig } from "kysely-ctl";
 
 export default defineConfig({
   dialect, // a Kysely dialect instance OR the name of an underlying driver library (e.g. `'pg'`).
-  dialectOptions, // optional. when `dialect` is the name of an underlying driver library, `dialectOptions` is the options passed to the Kysely dialect that matches that library.
+  dialectConfig, // optional. when `dialect` is the name of an underlying driver library, `dialectConfig` is the options passed to the Kysely dialect that matches that library.
   migrations: { // optional.
     migrationFolder, // optional. name of migrations folder. default is `'migrations'`.
     migrator, // optional. a `Kysely` migrator instance. default is `Kysely`'s `Migrator`.
