@@ -1,9 +1,9 @@
 import { execSync } from "node:child_process";
-import { readPackageJSON } from "pkg-types";
+import { type PackageJson, readPackageJSON } from "pkg-types";
 import { consola } from "consola";
 import { isCI } from "std-env";
 import { getPackageManager } from "./package-manager.mjs";
-import { HasCWD, getCWD } from "../config/get-cwd.mjs";
+import { type HasCWD, getCWD } from "../config/get-cwd.mjs";
 
 /**
  * Returns the version of the Kysely package.
@@ -16,14 +16,7 @@ export async function getKyselyInstalledVersion(
       startingFrom: getCWD(args),
     });
 
-    if (pkgJSON.name === "kysely") {
-      return pkgJSON.version || null;
-    }
-
-    const rawVersion =
-      pkgJSON.dependencies?.["kysely"] || pkgJSON.devDependencies?.["kysely"];
-
-    return rawVersion?.replace(/^[\^~]?(.+)$/, "$1") || null;
+    return getVersionFromPackageJSON("kysely", pkgJSON);
   } catch (err) {
     return null;
   }
@@ -32,14 +25,30 @@ export async function getKyselyInstalledVersion(
 /**
  * Returns the version of this package.
  */
-export async function getCLIInstalledVersion(): Promise<string> {
-  const { version } = await readPackageJSON();
+export async function getCLIInstalledVersion(): Promise<string | null> {
+  try {
+    const pkgJSON = await readPackageJSON("kysely-ctl", {
+      startingFrom: __dirname,
+    });
 
-  if (!version) {
-    throw new Error("Could not find the version of the CLI");
+    return getVersionFromPackageJSON("kysely-ctl", pkgJSON);
+  } catch (err) {
+    return null;
+  }
+}
+
+function getVersionFromPackageJSON(
+  name: string,
+  pkgJSON: PackageJson
+): string | null {
+  if (pkgJSON.name === name) {
+    return pkgJSON.version || null;
   }
 
-  return version;
+  const rawVersion =
+    pkgJSON.dependencies?.[name] || pkgJSON.devDependencies?.[name];
+
+  return rawVersion?.replace(/^[\^~]?(.+)$/, "$1") || null;
 }
 
 /**
