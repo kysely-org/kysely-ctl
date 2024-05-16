@@ -89,6 +89,9 @@ export type KyselyCTLConfig<Dialect extends KyselyDialect = KyselyDialect> =
     );
 
 export interface KyselyCTLConfigBase {
+  seeds?: {
+    seedFolder?: string;
+  };
   plugins?: KyselyPlugin[];
 }
 
@@ -113,4 +116,7 @@ export type ResolvedKyselyCTLConfig<
     provider?: MigrationProvider;
   };
   plugins: KyselyPlugin[];
+  seeds: {
+    seedFolder: string;
+  };
 };

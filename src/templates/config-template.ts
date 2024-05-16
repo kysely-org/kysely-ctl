@@ -26,4 +26,7 @@ export default defineConfig({
   //     migrationFolder: "migrations",
   //   },
   //   plugins: [],
+  //   seeds: {
+  //     seedFolder: "seeds",
+  //   }
 });

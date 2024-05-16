@@ -55,6 +55,10 @@ export async function getConfig(
       ...config?.migrations,
     },
     plugins: config?.plugins || [],
+    seeds: {
+      seedFolder: "seeds",
+      ...config?.seeds,
+    },
   };
 }
 

@@ -6,7 +6,7 @@ import {
 } from "../utils/version.mjs";
 import { MigrateCommand } from "./migrate/root.mjs";
 import { isInSubcommand } from "../utils/is-in-subcommand.mjs";
-import { LegacyMakeCommand } from "./migrate/make.mjs";
+import { LegacyMakeCommand as LegacyMigrateMakeCommand } from "./migrate/make.mjs";
 import { LegacyListCommand } from "./migrate/list.mjs";
 import { LegacyLatestCommand } from "./migrate/latest.mjs";
 import { LegacyRollbackCommand } from "./migrate/rollback.mjs";
@@ -14,6 +14,8 @@ import { LegacyDownCommand } from "./migrate/down.mjs";
 import { LegacyUpCommand } from "./migrate/up.mjs";
 import { CommonArgs } from "../arguments/common.mjs";
 import { InitCommand } from "./init.mjs";
+import { SeedCommand } from "./seed/root.mjs";
+import { LegacyMakeCommand as LegacySeedMakeCommand } from "./seed/make.mjs";
 
 const args = {
   ...CommonArgs,
@@ -36,10 +38,12 @@ export const RootCommand = {
     ...LegacyDownCommand,
     ...LegacyLatestCommand,
     ...LegacyListCommand,
-    ...LegacyMakeCommand,
+    ...LegacyMigrateMakeCommand,
     ...LegacyRollbackCommand,
+    ...LegacySeedMakeCommand,
     ...LegacyUpCommand,
     ...MigrateCommand,
+    ...SeedCommand,
   },
   setup(context) {
     if (context.args.debug) {
