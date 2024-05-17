@@ -69,8 +69,8 @@ importers:
         specifier: ^8.0.2
         version: 8.0.2(@microsoft/api-extractor@7.43.1(@types/node@20.12.12))(@swc/core@1.4.17)(ts-node@10.9.2(@swc/core@1.4.17)(@types/node@20.12.12)(typescript@5.4.5))(typescript@5.4.5)
       tsx:
-        specifier: ^4.9.5
-        version: 4.9.5
+        specifier: ^4.10.3
+        version: 4.10.3
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -1811,8 +1811,8 @@ packages:
       typescript:
         optional: true
 
-  tsx@4.9.5:
-    resolution: {integrity: sha512-bVKowxL5sqd5Pxkkgy6M9IGpxyY9+SPxWPNviZyqNBT/i6/X9EHbmuLDUw/6/Tugw1ca8VXNDtcM/amQjXcEOA==}
+  tsx@4.10.3:
+    resolution: {integrity: sha512-f0g60aFSVRVkzcQkEflh8fPLRfmt+HJHgWi/plG5UgvVaV+9TcpOwJ0sZJSACXmwmjMPg9yQR0BhTLbhkfV2uA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -3637,7 +3637,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  tsx@4.9.5:
+  tsx@4.10.3:
     dependencies:
       esbuild: 0.20.2
       get-tsconfig: 4.7.5
