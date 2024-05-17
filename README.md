@@ -6,23 +6,7 @@
 npm i -D kysely-ctl
 ```
 
-Make sure the following dependencies are also installed:
-
-[kysely](https://github.com/kysely-org/kysely) - pretty obvious.
-
-[c12](https://github.com/unjs/c12) - used to load the `kysely.config.ts` file in your project.
-
-[citty](https://github.com/unjs/citty) - used to build and run the CLI.
-
-[consola](https://github.com/unjs/consola) - used for output.
-
-[nypm](https://github.com/unjs/nypm) - used to detect package manager.
-
-[pathe](https://github.com/unjs/pathe) - used anywhere `node:path` module would've been used.
-
-[pkg-types](https://github.com/unjs/pkg-types) - used to read `package.json` files.
-
-[tsx](https://github.com/privatenumber/tsx) - used to import TS migration files (required only for Node.js as Bun/Deno support importing TS files out the box).
+Requires kysely >= 0.18.1.
 
 ## Use
 

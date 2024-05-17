@@ -1,5 +1,4 @@
 import {
-  MssqlDialect,
   MysqlDialect,
   PostgresDialect,
   SqliteDialect,
@@ -10,29 +9,33 @@ import type { ResolvedKyselyCTLConfig } from "../config/kysely-ctl-config.mjs";
 export async function getDialect(
   config: ResolvedKyselyCTLConfig
 ): Promise<Dialect> {
-  if (config.dialect === "better-sqlite3") {
+  const { dialect } = config;
+
+  if (dialect === "better-sqlite3") {
     return new SqliteDialect(config.dialectConfig);
   }
 
-  if (config.dialect === "mysql2") {
+  if (dialect === "mysql2") {
     return new MysqlDialect(config.dialectConfig);
   }
 
-  if (config.dialect === "pg") {
+  if (dialect === "pg") {
     return new PostgresDialect(config.dialectConfig);
   }
 
-  if (config.dialect === "postgres") {
+  if (dialect === "postgres") {
     return new (await import("kysely-postgres-js")).PostgresJSDialect(
       config.dialectConfig
     );
   }
 
-  if (config.dialect === "tedious") {
-    return new MssqlDialect(config.dialectConfig);
+  if (dialect === "tedious") {
+    // since it was introduced only in kysely v0.27.0
+    // and we want to support older versions too
+    return new (await import("kysely")).MssqlDialect(config.dialectConfig);
   }
 
-  if (typeof config.dialect === "object") {
+  if (typeof dialect === "object") {
     return config.dialect;
   }
 
