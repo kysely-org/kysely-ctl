@@ -34,17 +34,19 @@
     "prepublishOnly": "pnpm build && pnpm check:dts",
     "start": "pnpm build --watch"
   },
+  "dependencies": {
+    "c12": "^1.8.0",
+    "citty": "^0.1.4",
+    "consola": "^3.2.0",
+    "nypm": "^0.3.1",
+    "pathe": "^1.1.2",
+    "pkg-types": "^1.1.0",
+    "std-env": "^3.4.0",
+    "tsx": "^4.9.0"
+  },
   "peerDependencies": {
-    "c12": "^1.10",
-    "citty": "^0.1",
-    "consola": "^3.2",
-    "kysely": "^0.27",
-    "kysely-postgres-js": "^2",
-    "nypm": "^0.3",
-    "pathe": "^1.1",
-    "pkg-types": "^1.1",
-    "std-env": "^3.7",
-    "tsx": "^4.9"
+    "kysely": ">=0.18.1 <0.28.0",
+    "kysely-postgres-js": "^2"
   },
   "peerDependenciesMeta": {
     "kysely-postgres-js": {
@@ -57,22 +59,14 @@
     "@types/better-sqlite3": "^7.6.10",
     "@types/node": "^20.12.12",
     "better-sqlite3": "^10.0.0",
-    "c12": "^1.10.0",
-    "citty": "^0.1.6",
-    "consola": "^3.2.3",
     "kysely": "^0.27.3",
     "kysely-postgres-js": "^2.0.0",
     "mysql2": "^3.9.7",
-    "nypm": "^0.3.8",
-    "pathe": "^1.1.2",
     "pg": "^8.11.5",
-    "pkg-types": "^1.1.1",
     "postgres": "^3.4.4",
-    "std-env": "^3.7.0",
     "tarn": "^3.0.2",
     "tedious": "^18.2.0",
     "tsup": "^8.0.2",
-    "tsx": "^4.9.5",
     "typescript": "^5.4.5"
   },
   "engines": {
