@@ -7,30 +7,12 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
+    target-branch: "deps"
     schedule:
       interval: "daily"
     reviewers:
       - "igalklebanov"
-    versioning-strategy: widen
-    allow: &dependencies
-      - dependency-name: "c12"
-      - dependency-name: "citty"
-      - dependency-name: "consola"
-      - dependency-name: "nypm"
-      - dependency-name: "pathe"
-      - dependency-name: "pkg-types"
-      - dependency-name: "std-env"
-      - dependency-name: "tsx"
-
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    reviewers:
-      - "igalklebanov"
-    versioning-strategy: increase
     groups:
       typescript-eslint:
         patterns:
           - "@typescript-eslint*"
-    ignore: *dependencies
