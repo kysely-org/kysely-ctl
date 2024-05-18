@@ -4,6 +4,8 @@ import { CommonArgs } from "../../arguments/common.mjs";
 import { isInSubcommand } from "../../utils/is-in-subcommand.mjs";
 import { RootCommand } from "../root.mjs";
 import { MakeCommand } from "./make.mjs";
+import { ListCommand } from "./list.mjs";
+import { RunCommand } from "./run.mjs";
 
 export const SeedCommand = {
   seed: {
@@ -14,7 +16,9 @@ export const SeedCommand = {
     },
     args: CommonArgs,
     subCommands: {
+      ...ListCommand,
       ...MakeCommand,
+      ...RunCommand,
     },
     async run(context) {
       if (!isInSubcommand(context)) {

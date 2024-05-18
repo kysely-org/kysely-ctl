@@ -1,4 +1,5 @@
 import { consola } from "consola";
+import { colorize } from "consola/utils";
 import type { MigrationResultSet, Migrator } from "kysely";
 import { getMigrations } from "./get-migrations.mjs";
 
@@ -63,7 +64,9 @@ export async function processMigrationResultSet(
 
   results.forEach((result) => {
     consola.log(
-      `[${result.direction === "Up" ? "`✓`" : "`⍻`"}] ${result.migrationName}`
+      `[${colorize("green", result.direction === "Up" ? "✓" : "⍻")}] ${
+        result.migrationName
+      }`
     );
   });
 

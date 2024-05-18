@@ -1,8 +1,10 @@
-import { mkdir, readdir } from "node:fs/promises";
 import type { Migration, MigrationProvider } from "kysely";
 import { join } from "pathe";
-import { tsImport } from "tsx/esm/api";
-import { runtime } from "std-env";
+import { filename } from "pathe/utils";
+import { consola } from "consola";
+import { safeReaddir } from "../utils/safe-readdir.mjs";
+import { isTSFile } from "../utils/is-ts-file.mjs";
+import { importTSFile } from "../utils/import-ts-file.mjs";
 
 /**
  * An opinionated migration provider that reads migrations from TypeScript files.
@@ -19,35 +21,26 @@ export class TSFileMigrationProvider implements MigrationProvider {
   async getMigrations(): Promise<Record<string, Migration>> {
     const migrations: Record<string, Migration> = {};
 
-    let files: string[];
-
-    try {
-      files = await readdir(this.#props.migrationFolder);
-    } catch (err) {
-      await mkdir(this.#props.migrationFolder);
-      files = await readdir(this.#props.migrationFolder);
-    }
+    const files = await safeReaddir(this.#props.migrationFolder);
 
     for (const fileName of files) {
-      if (
-        (fileName.endsWith(".ts") && !fileName.endsWith(".d.ts")) ||
-        (fileName.endsWith(".cts") && !fileName.endsWith(".d.cts")) ||
-        (fileName.endsWith(".mts") && !fileName.endsWith(".d.mts"))
-      ) {
-        const filePath = join(this.#props.migrationFolder, fileName);
+      if (!isTSFile(fileName)) {
+        consola.warn(`Ignoring \`${fileName}\` - not a TS file.`);
+        continue;
+      }
 
-        const migration =
-          runtime === "node"
-            ? await tsImport(filePath, { parentURL: import.meta.url })
-            : await import(filePath);
+      const filePath = join(this.#props.migrationFolder, fileName);
 
-        const migrationKey = fileName.substring(0, fileName.lastIndexOf("."));
+      const migration = await importTSFile(filePath);
 
-        if (isMigration(migration?.default)) {
-          migrations[migrationKey] = migration.default;
-        } else if (isMigration(migration)) {
-          migrations[migrationKey] = migration;
-        }
+      const migrationKey = filename(fileName);
+
+      if (isMigration(migration?.default)) {
+        migrations[migrationKey] = migration.default;
+      } else if (isMigration(migration)) {
+        migrations[migrationKey] = migration;
+      } else {
+        consola.warn(`Ignoring \`${fileName}\` - not a migration.`);
       }
     }
 

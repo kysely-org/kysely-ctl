@@ -11,6 +11,7 @@ import type {
   Migrator,
 } from "kysely";
 import type { PostgresJSDialectConfig } from "kysely-postgres-js";
+import type { SeedProvider, Seeder, SeederProps } from "../seeds/seeder.mjs";
 
 export type KyselyDialect =
   | KyselyCoreDialect
@@ -86,12 +87,32 @@ export type KyselyCTLConfig<Dialect extends KyselyDialect = KyselyDialect> =
             provider?: never;
           };
         }
+    ) &
+    (
+      | {
+          seeds?: Omit<SeederProps, "db" | "provider"> & {
+            provider?: never;
+            seeder?: never;
+            seedFolder: string;
+          };
+        }
+      | {
+          seeds?: Omit<SeederProps, "db" | "provider"> & {
+            provider: SeedProvider;
+            seeder?: never;
+            seedFolder?: never;
+          };
+        }
+      | {
+          seeds?: {
+            provider?: never;
+            seeder: Seeder;
+            seedFolder?: never;
+          };
+        }
     );
 
 export interface KyselyCTLConfigBase {
-  seeds?: {
-    seedFolder?: string;
-  };
   plugins?: KyselyPlugin[];
 }
 
@@ -117,6 +138,8 @@ export type ResolvedKyselyCTLConfig<
   };
   plugins: KyselyPlugin[];
   seeds: {
+    provider?: SeedProvider;
+    seeder?: Seeder;
     seedFolder: string;
   };
 };

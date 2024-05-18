@@ -16,6 +16,7 @@ import { CommonArgs } from "../arguments/common.mjs";
 import { InitCommand } from "./init.mjs";
 import { SeedCommand } from "./seed/root.mjs";
 import { LegacyMakeCommand as LegacySeedMakeCommand } from "./seed/make.mjs";
+import { LegacyRunCommand } from "./seed/run.mjs";
 
 const args = {
   ...CommonArgs,
@@ -40,6 +41,7 @@ export const RootCommand = {
     ...LegacyListCommand,
     ...LegacyMigrateMakeCommand,
     ...LegacyRollbackCommand,
+    ...LegacyRunCommand,
     ...LegacySeedMakeCommand,
     ...LegacyUpCommand,
     ...MigrateCommand,

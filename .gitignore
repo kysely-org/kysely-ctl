@@ -130,3 +130,5 @@ dist
 .pnp.*
 
 migrations
+seeds
+!src/seeds
