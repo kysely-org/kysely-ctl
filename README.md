@@ -56,6 +56,29 @@ kysely migrate <command>
 > [!NOTE]
 > `rollback` without `--all` flag is not supported, as [Kysely](https://kysely.dev) doesn't keep track of "migration batches".
 
+#### Seed
+
+The `seed` module mirrors [Knex.js](https://knexjs.org) CLI's module of the same name.
+
+```bash
+knex seed:<command>
+```
+
+Can now be called as either:
+
+```bash
+kysely seed:<command>
+```
+
+or
+
+```bash
+kysely seed <command>
+```
+
+> [!NOTE]
+> We also provide `kysely seed list`, which is not part of [Knex.js](https://knexjs.org) CLI.
+
 ## Acknowledgements
 
 [acro5piano](https://github.com/acro5piano) who built [kysely-migration-cli](https://github.com/acro5piano/kysely-migration-cli) and inspired this project.
