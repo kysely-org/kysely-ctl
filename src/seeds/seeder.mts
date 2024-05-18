@@ -1,7 +1,7 @@
 import type { Kysely } from "kysely";
 
 export class Seeder {
-  #props: SeederProps;
+  readonly #props: SeederProps;
 
   constructor(props: SeederProps) {
     this.#props = props;
