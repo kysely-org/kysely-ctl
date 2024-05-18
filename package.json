@@ -79,6 +79,5 @@
     "migration",
     "seeding",
     "codegen"
-  ],
-  "packageManager": "pnpm@9.0.6+sha1.648f6014eb363abb36618f2ba59282a9eeb3e879"
+  ]
 }
