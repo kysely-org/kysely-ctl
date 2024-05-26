@@ -17,6 +17,7 @@ import { InitCommand } from "./init.mjs";
 import { SeedCommand } from "./seed/root.mjs";
 import { LegacyMakeCommand as LegacySeedMakeCommand } from "./seed/make.mjs";
 import { LegacyRunCommand } from "./seed/run.mjs";
+import { getCWD } from "../config/get-cwd.mjs";
 
 const args = {
   ...CommonArgs,
@@ -53,6 +54,8 @@ export const RootCommand = {
     }
 
     consola.options.formatOptions.date = false;
+
+    getCWD(context.args); // ensures the CWD is set
   },
   async run(context) {
     const { args } = context;

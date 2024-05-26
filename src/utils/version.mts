@@ -4,6 +4,7 @@ import { consola } from "consola";
 import { isCI } from "std-env";
 import { getPackageManager } from "./package-manager.mjs";
 import { type HasCWD, getCWD } from "../config/get-cwd.mjs";
+import { getCTLPackageJSON, getConsumerPackageJSON } from "./pkg-json.mjs";
 
 /**
  * Returns the version of the Kysely package.
@@ -12,9 +13,7 @@ export async function getKyselyInstalledVersion(
   args: HasCWD
 ): Promise<string | null> {
   try {
-    const pkgJSON = await readPackageJSON("kysely", {
-      startingFrom: getCWD(args),
-    });
+    const pkgJSON = await getConsumerPackageJSON(args);
 
     return getVersionFromPackageJSON("kysely", pkgJSON);
   } catch (err) {
@@ -25,11 +24,9 @@ export async function getKyselyInstalledVersion(
 /**
  * Returns the version of this package.
  */
-export async function getCLIInstalledVersion(): Promise<string | null> {
+export async function getCTLInstalledVersion(): Promise<string | null> {
   try {
-    const pkgJSON = await readPackageJSON("kysely-ctl", {
-      startingFrom: __dirname,
-    });
+    const pkgJSON = await getCTLPackageJSON();
 
     return getVersionFromPackageJSON("kysely-ctl", pkgJSON);
   } catch (err) {
@@ -56,7 +53,7 @@ function getVersionFromPackageJSON(
  */
 export async function printInstalledVersions(args: HasCWD): Promise<void> {
   const [cliVersion, kyselyVersion] = await Promise.all([
-    getCLIInstalledVersion(),
+    getCTLInstalledVersion(),
     getKyselyInstalledVersion(args),
   ]);
 
@@ -72,7 +69,7 @@ export async function getKyselyLatestVersion(
   return await getPackageLatestVersion("kysely", args);
 }
 
-export async function getCLILatestVersion(
+export async function getCTLLatestVersion(
   args: HasCWD
 ): Promise<string | null> {
   return await getPackageLatestVersion("kysely-ctl", args);
@@ -117,8 +114,8 @@ export async function printUpgradeNotice(
   ] = await Promise.all([
     getKyselyInstalledVersion(args),
     getKyselyLatestVersion(args),
-    getCLIInstalledVersion(),
-    getCLILatestVersion(args),
+    getCTLInstalledVersion(),
+    getCTLLatestVersion(args),
   ]);
 
   const notices: [string, string, string][] = [];

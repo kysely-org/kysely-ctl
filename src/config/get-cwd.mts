@@ -7,10 +7,8 @@ export interface HasCWD {
 
 const ACTUAL_CWD = process.cwd!();
 
-export function getCWD(args?: HasCWD): string {
-  if (args?.cwd) {
-    return resolve(ACTUAL_CWD, args.cwd);
-  }
+let cwd: string | undefined;
 
-  return ACTUAL_CWD;
+export function getCWD(args?: HasCWD): string {
+  return (cwd ||= args?.cwd ? resolve(ACTUAL_CWD, args.cwd) : ACTUAL_CWD);
 }
