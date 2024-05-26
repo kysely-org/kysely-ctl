@@ -1,9 +1,9 @@
-import { execSync } from "node:child_process";
-import { type PackageJson, readPackageJSON } from "pkg-types";
+import type { PackageJson } from "pkg-types";
 import { consola } from "consola";
 import { isCI } from "std-env";
+import { ofetch } from "ofetch";
 import { getPackageManager } from "./package-manager.mjs";
-import { type HasCWD, getCWD } from "../config/get-cwd.mjs";
+import type { HasCWD } from "../config/get-cwd.mjs";
 import { getCTLPackageJSON, getConsumerPackageJSON } from "./pkg-json.mjs";
 
 /**
@@ -63,40 +63,20 @@ export async function printInstalledVersions(args: HasCWD): Promise<void> {
   console.log(`kysely-ctl v${cliVersion}`);
 }
 
-export async function getKyselyLatestVersion(
-  args: HasCWD
-): Promise<string | null> {
-  return await getPackageLatestVersion("kysely", args);
+export async function getKyselyLatestVersion(): Promise<string> {
+  return await getPackageLatestVersion("kysely");
 }
 
-export async function getCTLLatestVersion(
-  args: HasCWD
-): Promise<string | null> {
-  return await getPackageLatestVersion("kysely-ctl", args);
+export async function getCTLLatestVersion(): Promise<string> {
+  return await getPackageLatestVersion("kysely-ctl");
 }
 
-async function getPackageLatestVersion(
-  packageName: string,
-  args: HasCWD
-): Promise<string | null> {
-  const packageManager = await getPackageManager(args);
+async function getPackageLatestVersion(packageName: string): Promise<string> {
+  const response = await ofetch<{ "dist-tags": { latest: string } }>(
+    `https://registry.npmjs.org/${packageName}`
+  );
 
-  if (packageManager.name === "bun") {
-    packageManager.command = "bunx npm";
-  }
-
-  if (packageManager.name === "deno") {
-    packageName = `npm:${packageName}`;
-  }
-
-  const info = execSync(`${packageManager.command} info ${packageName}`, {
-    cwd: getCWD(args),
-    encoding: "utf-8",
-  });
-
-  const [version] = info.match(/\d+\.\d+\.\d+/) || [];
-
-  return version || null;
+  return response["dist-tags"].latest;
 }
 
 export async function printUpgradeNotice(
@@ -109,30 +89,33 @@ export async function printUpgradeNotice(
   const [
     kyselyInstalledVersion,
     kyselyLatestVersion,
-    cliInstalledVersion,
-    cliLatestVersion,
+    ctlInstalledVersion,
+    ctlLatestVersion,
   ] = await Promise.all([
     getKyselyInstalledVersion(args),
-    getKyselyLatestVersion(args),
+    getKyselyLatestVersion(),
     getCTLInstalledVersion(),
-    getCTLLatestVersion(args),
+    getCTLLatestVersion(),
   ]);
 
   const notices: [string, string, string][] = [];
 
-  if (kyselyLatestVersion && kyselyInstalledVersion !== kyselyLatestVersion) {
+  if (
+    kyselyInstalledVersion &&
+    kyselyInstalledVersion !== kyselyLatestVersion
+  ) {
     notices.push(["Kysely", "kysely", kyselyLatestVersion]);
   }
 
-  if (cliLatestVersion && cliInstalledVersion !== cliLatestVersion) {
-    notices.push(["KyselyCTL", "kysely-ctl", cliLatestVersion]);
+  if (ctlInstalledVersion !== ctlLatestVersion) {
+    notices.push(["KyselyCTL", "kysely-ctl", ctlLatestVersion]);
   }
 
   if (!notices.length) {
     return;
   }
 
-  const packageManager = await getPackageManager();
+  const packageManager = await getPackageManager(args);
 
   const installCommand = {
     [packageManager.name]: "install",
