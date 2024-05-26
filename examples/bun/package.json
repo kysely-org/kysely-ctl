@@ -1,0 +1,22 @@
+{
+  "name": "bun-example",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "up": "bun --bun kysely migrate:up",
+    "down": "bun --bun kysely migrate:down",
+    "latest": "bun --bun kysely migrate:latest",
+    "rollback": "bun --bun kysely migrate:rollback --all"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "kysely-ctl": "^0.7.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "kysely": "^0.27.3",
+    "kysely-bun-sqlite": "^0.3.2"
+  }
+}
