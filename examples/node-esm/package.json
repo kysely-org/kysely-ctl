@@ -1,0 +1,11 @@
+{
+  "name": "node-esm",
+  "type": "module",
+  "devDependencies": {
+    "kysely-ctl": "link:../.."
+  },
+  "dependencies": {
+    "better-sqlite3": "^10.0.0",
+    "kysely": "^0.27.3"
+  }
+}

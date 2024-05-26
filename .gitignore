@@ -130,5 +130,7 @@ dist
 .pnp.*
 
 migrations
+!examples/**/migrations
 seeds
 !src/seeds
+examples/**/example.db
