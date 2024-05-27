@@ -71,5 +71,7 @@ export const RootCommand = {
     }
 
     await printUpgradeNotice(args);
+
+    consola.debug(`finished running from "${__filename}"`);
   },
 } satisfies CommandDef<typeof args>;
