@@ -1,18 +1,20 @@
 import { runtime } from "std-env";
-import { tsImport } from "tsx/esm/api";
-import { require } from "tsx/cjs/api";
 import { getConsumerPackageJSON } from "./pkg-json.mjs";
 
 export async function importTSFile(path: string): Promise<any> {
-  if (runtime === "node") {
-    const pkgJSON = await getConsumerPackageJSON();
-
-    if (pkgJSON.type === "module") {
-      return await tsImport(path, { parentURL: import.meta.url });
-    }
-
-    return await require(path, __filename);
+  if (runtime !== "node") {
+    return await import(path);
   }
 
-  return await import(path);
+  const pkgJSON = await getConsumerPackageJSON();
+
+  if (pkgJSON.type === "module") {
+    const { tsImport } = await import("tsx/esm/api");
+
+    return await tsImport(path, { parentURL: import.meta.url });
+  }
+
+  const { require: tsRequire } = await import("tsx/cjs/api");
+
+  return await tsRequire(path, __filename);
 }
