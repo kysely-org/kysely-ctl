@@ -51,12 +51,12 @@ jobs:
 
       - name: kysely migrate:list
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:list
+        run: pnpm kysely migrate:list --debug
 
       - name: kysely migrate:latest
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:latest
+        run: pnpm kysely migrate:latest --debug
 
       - name: kysely migrate:rollback --all
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:rollback --all
+        run: pnpm kysely migrate:rollback --all --debug
