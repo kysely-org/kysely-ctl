@@ -2,9 +2,8 @@ import type { ArgsDef, CommandDef } from "citty";
 import { consola } from "consola";
 import { colorize } from "consola/utils";
 import { CommonArgs } from "../../arguments/common.mjs";
-import { getConfigOrFail } from "../../config/get-config.mjs";
-import { getSeeder } from "../../seeds/get-seeder.mjs";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
+import { usingSeeder } from "../../seeds/using-seeder.mjs";
 
 const args = {
   ...CommonArgs,
@@ -26,15 +25,9 @@ const BaseRunCommand = {
 
     consola.debug(context, []);
 
-    const config = await getConfigOrFail(args);
-
-    const seeder = await getSeeder(config);
-
     consola.start("Starting seed run");
 
-    const resultSet = specific
-      ? await seeder.run(specific)
-      : await seeder.run();
+    const resultSet = await usingSeeder(args, (seeder) => seeder.run(specific));
 
     consola.debug(resultSet);
 

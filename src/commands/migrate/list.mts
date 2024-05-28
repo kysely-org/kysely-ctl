@@ -1,10 +1,9 @@
 import type { ArgsDef, CommandDef } from "citty";
 import { consola } from "consola";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
-import { getConfigOrFail } from "../../config/get-config.mjs";
-import { getMigrator } from "../../kysely/get-migrator.mjs";
 import { CommonArgs } from "../../arguments/common.mjs";
 import { getMigrations } from "../../kysely/get-migrations.mjs";
+import { usingMigrator } from "../../kysely/using-migrator.mjs";
 
 const args = {
   ...CommonArgs,
@@ -19,11 +18,7 @@ const BaseListCommand = {
   async run(context) {
     consola.debug(context, []);
 
-    const config = await getConfigOrFail(context.args);
-
-    const migrator = await getMigrator(config);
-
-    const migrations = await getMigrations(migrator);
+    const migrations = await usingMigrator(context.args, getMigrations);
 
     consola.debug(migrations);
 

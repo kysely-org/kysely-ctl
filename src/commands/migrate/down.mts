@@ -1,12 +1,11 @@
 import type { ArgsDef, CommandDef } from "citty";
 import { consola } from "consola";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
-import { getConfigOrFail } from "../../config/get-config.mjs";
-import { getMigrator } from "../../kysely/get-migrator.mjs";
 import { createMigrationNameArg } from "../../arguments/migration-name.mjs";
 import { CommonArgs } from "../../arguments/common.mjs";
 import { processMigrationResultSet as processMigrationResultSet } from "../../kysely/process-migration-result-set.mjs";
 import { isWrongDirection } from "../../kysely/is-wrong-direction.mjs";
+import { usingMigrator } from "../../kysely/using-migrator.mjs";
 
 const args = {
   ...CommonArgs,
@@ -25,23 +24,21 @@ const BaseDownCommand = {
 
     consola.debug(context, []);
 
-    const config = await getConfigOrFail(args);
+    await usingMigrator(args, async (migrator) => {
+      if (await isWrongDirection(migration_name, "down", migrator)) {
+        return consola.info(
+          `Migration skipped: "${migration_name}" has not been run yet`
+        );
+      }
 
-    const migrator = await getMigrator(config);
+      consola.start("Starting migration down");
 
-    if (await isWrongDirection(migration_name, "down", migrator)) {
-      return consola.info(
-        `Migration skipped: "${migration_name}" has not been run yet`
-      );
-    }
+      const resultSet = migration_name
+        ? await migrator.migrateTo(migration_name)
+        : await migrator.migrateDown();
 
-    consola.start("Starting migration down");
-
-    const resultSet = migration_name
-      ? await migrator.migrateTo(migration_name)
-      : await migrator.migrateDown();
-
-    await processMigrationResultSet(resultSet, "down", migrator);
+      await processMigrationResultSet(resultSet, "down", migrator);
+    });
   },
 } satisfies CommandDef<typeof args>;
 

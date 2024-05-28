@@ -1,10 +1,9 @@
 import type { ArgsDef, CommandDef } from "citty";
 import { consola } from "consola";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
-import { getConfigOrFail } from "../../config/get-config.mjs";
-import { getMigrator } from "../../kysely/get-migrator.mjs";
 import { CommonArgs } from "../../arguments/common.mjs";
 import { processMigrationResultSet } from "../../kysely/process-migration-result-set.mjs";
+import { usingMigrator } from "../../kysely/using-migrator.mjs";
 
 const args = {
   ...CommonArgs,
@@ -19,15 +18,13 @@ const BaseLatestCommand = {
   async run(context) {
     consola.debug(context, []);
 
-    const config = await getConfigOrFail(context.args);
+    await usingMigrator(context.args, async (migrator) => {
+      consola.start("Starting migration to latest");
 
-    const migrator = await getMigrator(config);
+      const resultSet = await migrator.migrateToLatest();
 
-    consola.start("Starting migration to latest");
-
-    const resultSet = await migrator.migrateToLatest();
-
-    await processMigrationResultSet(resultSet, "up", migrator);
+      await processMigrationResultSet(resultSet, "up", migrator);
+    });
   },
 } satisfies CommandDef<typeof args>;
 

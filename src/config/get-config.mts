@@ -6,10 +6,10 @@ import type {
 } from "./kysely-ctl-config.mjs";
 import { getCWD } from "./get-cwd.mjs";
 
-type ArgsLike = {
+export interface ArgsLike {
   cwd?: string;
   environment?: string;
-};
+}
 
 export async function getConfig(
   args: ArgsLike

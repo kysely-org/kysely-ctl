@@ -1,11 +1,10 @@
 import type { ArgsDef, CommandDef } from "citty";
 import { consola } from "consola";
 import { NO_MIGRATIONS } from "kysely";
-import { getConfigOrFail } from "../../config/get-config.mjs";
-import { getMigrator } from "../../kysely/get-migrator.mjs";
 import { createSubcommand } from "../../utils/create-subcommand.mjs";
 import { CommonArgs } from "../../arguments/common.mjs";
 import { processMigrationResultSet } from "../../kysely/process-migration-result-set.mjs";
+import { usingMigrator } from "../../kysely/using-migrator.mjs";
 
 const args = {
   all: {
@@ -25,15 +24,13 @@ const BaseRollbackCommand = {
   async run(context) {
     consola.debug(context, []);
 
-    const config = await getConfigOrFail(context.args);
+    await usingMigrator(context.args, async (migrator) => {
+      consola.start("Starting migration rollback");
 
-    const migrator = await getMigrator(config);
+      const resultSet = await migrator.migrateTo(NO_MIGRATIONS);
 
-    consola.start("Starting migration rollback");
-
-    const resultSet = await migrator.migrateTo(NO_MIGRATIONS);
-
-    await processMigrationResultSet(resultSet, "down", migrator);
+      await processMigrationResultSet(resultSet, "down", migrator);
+    });
   },
 } satisfies CommandDef<typeof args>;
 

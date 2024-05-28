@@ -1,14 +1,13 @@
 import { join } from "pathe";
 import type { ResolvedKyselyCTLConfig } from "../config/kysely-ctl-config.mjs";
-import { getKysely } from "../kysely/get-kysely.mjs";
 import { FileSeedProvider } from "./file-seed-provider.mjs";
 import { Seeder } from "./seeder.mjs";
+import type { Kysely } from "kysely";
 
-export async function getSeeder(
+export function getSeeder(
+  kysely: Kysely<any>,
   config: ResolvedKyselyCTLConfig
-): Promise<Seeder> {
-  const kysely = await getKysely(config);
-
+): Seeder {
   const { seedFolder, seeder, provider, ...seeds } = config.seeds;
 
   return (

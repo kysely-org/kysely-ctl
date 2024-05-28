@@ -1,8 +1,7 @@
 import { consola } from "consola";
 import type { ArgsDef, CommandDef, SubCommandsDef } from "citty";
 import { CommonArgs } from "../../arguments/common.mjs";
-import { getConfigOrFail } from "../../config/get-config.mjs";
-import { getSeeder } from "../../seeds/get-seeder.mjs";
+import { usingSeeder } from "../../seeds/using-seeder.mjs";
 
 const args = {
   ...CommonArgs,
@@ -18,11 +17,9 @@ export const ListCommand = {
     async run(context) {
       consola.debug(context, []);
 
-      const config = await getConfigOrFail(context.args);
-
-      const seeder = await getSeeder(config);
-
-      const seeds = await seeder.getSeeds();
+      const seeds = await usingSeeder(context.args, (seeder) =>
+        seeder.getSeeds()
+      );
 
       consola.debug(seeds);
 
