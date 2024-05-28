@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: "postgres"
+    environment:
+      POSTGRES_DB: kysely_test
+      POSTGRES_USER: kysely
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5434:5432"
