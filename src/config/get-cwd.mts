@@ -1,11 +1,11 @@
 import { resolve } from "pathe";
-import { process } from "std-env";
+import { isDeno, process } from "std-env";
 
 export interface HasCWD {
   cwd?: string;
 }
 
-const ACTUAL_CWD = process.cwd!();
+const ACTUAL_CWD = process.cwd?.() || (isDeno ? globalThis.Deno.cwd() : "");
 
 let cwd: string | undefined;
 
