@@ -1,9 +1,6 @@
 {
   "name": "node-cjs",
   "type": "commonjs",
-  "scripts": {
-    "kysely": "kysely"
-  },
   "devDependencies": {
     "kysely-ctl": "link:../.."
   },
