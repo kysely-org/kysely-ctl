@@ -1,4 +1,4 @@
-import { platform, runtime } from "std-env";
+import { isWindows, runtime } from "std-env";
 import { getConsumerPackageJSON } from "./pkg-json.mjs";
 
 export async function importTSFile(path: string): Promise<any> {
@@ -11,9 +11,8 @@ export async function importTSFile(path: string): Promise<any> {
   if (pkgJSON.type === "module") {
     const { tsImport } = await import("tsx/esm/api");
 
-    if (platform === "win32") {
-      console.log("path", path);
-      console.log("parentURL", import.meta.url);
+    if (isWindows && !path.startsWith("file://")) {
+      path = `file://${path}`;
     }
 
     return await tsImport(path, { parentURL: import.meta.url });
