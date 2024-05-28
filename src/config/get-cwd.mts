@@ -5,7 +5,8 @@ export interface HasCWD {
   cwd?: string;
 }
 
-const ACTUAL_CWD = process.cwd?.() || (isDeno ? globalThis.Deno.cwd() : "");
+const ACTUAL_CWD =
+  process.cwd?.() || (isDeno ? (globalThis as any).Deno.cwd() : "");
 
 let cwd: string | undefined;
 
