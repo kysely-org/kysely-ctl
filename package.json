@@ -62,7 +62,7 @@
     "better-sqlite3": "^10.0.0",
     "kysely": "^0.27.3",
     "kysely-postgres-js": "^2.0.0",
-    "mysql2": "^3.9.7",
+    "mysql2": "^3.9.8",
     "pg": "^8.11.5",
     "postgres": "^3.4.4",
     "tarn": "^3.0.2",
