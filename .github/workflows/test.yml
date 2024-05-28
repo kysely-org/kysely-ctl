@@ -1,0 +1,62 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        type: [cjs, esm]
+
+    runs-on: ${{ matrix.os }}
+
+    name: ${{ matrix.os }} + Node.js v${{ matrix.node-version }} + ${{ matrix.type }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm i && pnpm build && cd examples/node-${{ matrix.type }} && pnpm i
+
+      - name: kysely -v
+        working-directory: examples/node-${{ matrix.type }}
+        run: pnpm kysely -v
+
+      - name: kysely migrate:make <migration-name> --cwd=%cd%
+        if: matrix.os == 'windows-latest'
+        working-directory: examples/node-${{ matrix.type }}
+        run: pnpm kysely migrate:make moshe --cwd=%cd% --debug
+
+      - name: kysely migrate:make <migration-name>
+        if: matrix.os != 'windows-latest'
+        working-directory: examples/node-${{ matrix.type }}
+        run: pnpm kysely migrate:make moshe --debug
+
+      - name: kysely migrate:list
+        working-directory: examples/node-${{ matrix.type }}
+        run: pnpm kysely migrate:list --debug
+
+      - name: kysely migrate:latest
+        working-directory: examples/node-${{ matrix.type }}
+        run: pnpm kysely migrate:latest --debug
+
+      - name: kysely migrate:rollback --all
+        working-directory: examples/node-${{ matrix.type }}
+        run: pnpm kysely migrate:rollback --all --debug
