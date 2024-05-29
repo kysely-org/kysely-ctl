@@ -2,15 +2,9 @@
   "name": "bun-example",
   "module": "index.ts",
   "type": "module",
-  "scripts": {
-    "up": "bun --bun kysely migrate:up",
-    "down": "bun --bun kysely migrate:down",
-    "latest": "bun --bun kysely migrate:latest",
-    "rollback": "bun --bun kysely migrate:rollback --all"
-  },
   "devDependencies": {
     "@types/bun": "latest",
-    "kysely-ctl": "^0.8.1"
+    "kysely-ctl": "link:kysely-ctl"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
