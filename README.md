@@ -13,11 +13,37 @@ section or in [kysely's discord server](https://discord.gg/xyBJ3GwvAm).
 
 ## Install
 
+### Prerequisites:
+
+`kysely-ctl` requires `kysely` >= 0.18.1 to be installed.
+
+### Node.js:
+
 ```bash
 npm i -D kysely-ctl
 ```
 
-Requires `kysely` >= 0.18.1.
+or:
+
+```bash
+yarn add -D kysely-ctl
+```
+
+or:
+
+```bash
+pnpm add -D kysely-ctl
+```
+
+### Bun
+
+```bash
+bun add -D kysely-ctl
+```
+
+### Deno
+
+Yes.
 
 ## Use
 
