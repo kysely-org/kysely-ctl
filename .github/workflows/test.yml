@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  node:
     strategy:
       matrix:
         node-version: [18, 20, 22]
@@ -60,3 +60,49 @@ jobs:
       - name: kysely migrate:rollback --all
         working-directory: examples/node-${{ matrix.type }}
         run: pnpm kysely migrate:rollback --all --debug
+
+  bun:
+    runs-on: ubuntu-latest
+
+    name: ubuntu-latest + Bun
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: pnpm i && pnpm build && bun link && cd examples/bun && bun install
+
+      - name: kysely -v
+        working-directory: examples/bun
+        run: bun --bun kysely -v
+
+      - name: kysely migrate:make <migration-name>
+        working-directory: examples/bun
+        run: bun --bun kysely migrate:make moshe --debug
+
+      - name: kysely migrate:list
+        working-directory: examples/bun
+        run: bun --bun kysely migrate:list --debug
+
+      - name: kysely migrate:latest
+        working-directory: examples/bun
+        run: bun --bun kysely migrate:latest --debug
+
+      - name: kysely migrate:rollback --all
+        working-directory: examples/bun
+        run: bun --bun kysely migrate:rollback --all --debug
