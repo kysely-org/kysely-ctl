@@ -74,10 +74,10 @@ jobs:
         with:
           version: 9
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 22
           cache: "pnpm"
 
       - uses: oven-sh/setup-bun@v1
@@ -106,3 +106,53 @@ jobs:
       - name: kysely migrate:rollback --all
         working-directory: examples/bun
         run: bun --bun kysely migrate:rollback --all --debug
+
+  deno:
+    runs-on: ubuntu-latest
+
+    name: ubuntu-latest + Deno
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: vx.x.x
+
+      - name: Install dependencies
+        run: pnpm i && pnpm build && cd examples/deno-package-json && deno cache .config/kysely.config.ts && cd ../.. && pnpx tsx ./scripts/localize-deno-dependency.mts
+
+      - name: Run docker compose
+        working-directory: examples/deno-package-json
+        run: docker compose up -d
+
+      - name: kysely -v
+        working-directory: examples/deno-package-json
+        run: deno task kysely -v
+
+      - name: kysely migrate:make <migration-name>
+        working-directory: examples/deno-package-json
+        run: deno task kysely migrate:make moshe --debug
+
+      - name: kysely migrate:list
+        working-directory: examples/deno-package-json
+        run: deno task kysely migrate:list --debug
+
+      - name: kysely migrate:latest
+        working-directory: examples/deno-package-json
+        run: deno task kysely migrate:latest --debug
+
+      - name: kysely migrate:rollback --all
+        working-directory: examples/deno-package-json
+        run: deno task kysely migrate:rollback --all --debug
