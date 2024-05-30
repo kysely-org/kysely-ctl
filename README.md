@@ -43,7 +43,41 @@ bun add -D kysely-ctl
 
 ### Deno
 
-Yes.
+Add `kysely-ctl` to your `package.json`:
+
+```json
+{
+  ...
+  "scripts": {
+    ...
+    "kysely": "kysely", // allows running commands with `deno task kysely ...`
+    ...
+  },
+  ...
+  "devDependencies": {
+    ...
+    "kysely-ctl": "^0.8.3"
+    ...
+  },
+  ...
+}
+```
+
+Running the following:
+
+```bash
+deno cache <some_file>
+```
+
+will install `kysely-ctl` in a `node_modules` folder.
+
+> [!WARNING]
+> It's complicated.
+> 
+> We use `c12` for configuration file loading, which uses `jiti` to load `.ts` files.
+`jiti` doesn't support `deno` [yet](https://github.com/unjs/jiti/issues/168). If your config file has `Deno`-native URL imports, 
+specifiers (e.g. `npm:`, `jsr:`), import map resolution, it won't work.
+This means you can't use `kysely-ctl` with `SQLite` on `Deno`, as it requires a `Deno`-native `SQLite` library - `Deno` doesn't support `better-sqlite3` [yet](https://github.com/denoland/deno/issues/18444).
 
 ## Use
 

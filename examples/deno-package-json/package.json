@@ -1,13 +1,10 @@
 {
   "name": "deno-package-json",
   "scripts": {
-    "up": "kysely migrate:up",
-    "down": "kysely migrate:down",
-    "latest": "kysely create:latest",
-    "rollback": "kysely migrate:rollback --all"
+    "kysely": "kysely"
   },
   "devDependencies": {
-    "kysely-ctl": "^0.8.1"
+    "kysely-ctl": "^0.8.3"
   },
   "dependencies": {
     "kysely": "^0.27.3",
