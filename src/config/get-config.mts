@@ -5,6 +5,7 @@ import type {
   ResolvedKyselyCTLConfig,
 } from "./kysely-ctl-config.mjs";
 import { getCWD } from "./get-cwd.mjs";
+import { getMillisPrefix } from "./get-file-prefix.mjs";
 
 export interface ArgsLike {
   cwd?: string;
@@ -51,11 +52,13 @@ export async function getConfig(
     // @ts-ignore
     dialectConfig: config?.dialectConfig || {},
     migrations: {
+      getMigrationPrefix: getMillisPrefix,
       migrationFolder: "migrations",
       ...config?.migrations,
     },
     plugins: config?.plugins || [],
     seeds: {
+      getSeedPrefix: getMillisPrefix,
       seedFolder: "seeds",
       ...config?.seeds,
     },

@@ -27,10 +27,6 @@ const BaseMakeCommand = {
 
     assertExtension(extension);
 
-    const timestamp = Date.now();
-
-    consola.debug("Timestamp:", timestamp);
-
     const config = await getConfigOrFail(args);
 
     const migrationsFolderPath = join(
@@ -48,7 +44,9 @@ const BaseMakeCommand = {
       consola.debug("Migrations folder created");
     }
 
-    const filename = `${timestamp}_${args.migration_name}.${extension}`;
+    const filename = `${await config.migrations.getMigrationPrefix()}${
+      args.migration_name
+    }.${extension}`;
 
     consola.debug("Filename:", filename);
 

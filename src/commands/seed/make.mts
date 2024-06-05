@@ -30,10 +30,6 @@ const BaseMakeCommand = {
 
     assertExtension(extension);
 
-    const timestamp = Date.now();
-
-    consola.debug("Timestamp:", timestamp);
-
     const config = await getConfigOrFail(args);
 
     const seedsFolderPath = join(config.cwd, config.seeds.seedFolder);
@@ -48,7 +44,9 @@ const BaseMakeCommand = {
       consola.debug("Seeds folder created");
     }
 
-    const filename = `${timestamp}_${args.seed_name}.${extension}`;
+    const filename = `${await config.seeds.getSeedPrefix()}${
+      args.seed_name
+    }.${extension}`;
 
     consola.debug("Filename:", filename);
 

@@ -11,6 +11,7 @@ import type {
   Migrator,
 } from "kysely";
 import type { PostgresJSDialectConfig } from "kysely-postgres-js";
+import type { SetRequired } from "type-fest";
 import type { SeedProvider, Seeder, SeederProps } from "../seeds/seeder.mjs";
 
 export type KyselyDialect =
@@ -67,21 +68,21 @@ export type KyselyCTLConfig<Dialect extends KyselyDialect = KyselyDialect> =
         }) &
     (
       | {
-          migrations: Omit<MigratorProps, "db" | "provider"> & {
-            migrationFolder: string;
+          migrations: MigrationsBaseConfig & {
+            migrationFolder?: string;
             migrator?: never;
             provider?: never;
           };
         }
       | {
-          migrations?: Omit<MigratorProps, "db" | "provider"> & {
+          migrations?: MigrationsBaseConfig & {
             migrationFolder?: never;
             migrator?: never;
             provider: MigrationProvider;
           };
         }
       | {
-          migrations?: {
+          migrations?: Pick<MigrationsBaseConfig, "getMigrationPrefix"> & {
             migrationFolder?: never;
             migrator: Migrator;
             provider?: never;
@@ -90,21 +91,21 @@ export type KyselyCTLConfig<Dialect extends KyselyDialect = KyselyDialect> =
     ) &
     (
       | {
-          seeds?: Omit<SeederProps, "db" | "provider"> & {
+          seeds?: SeedsBaseConfig & {
             provider?: never;
             seeder?: never;
-            seedFolder: string;
+            seedFolder?: string;
           };
         }
       | {
-          seeds?: Omit<SeederProps, "db" | "provider"> & {
+          seeds?: SeedsBaseConfig & {
             provider: SeedProvider;
             seeder?: never;
             seedFolder?: never;
           };
         }
       | {
-          seeds?: {
+          seeds?: Pick<SeedsBaseConfig, "getSeedPrefix"> & {
             provider?: never;
             seeder: Seeder;
             seedFolder?: never;
@@ -131,15 +132,23 @@ export type ResolvedKyselyCTLConfig<
     "config"
   >;
   cwd: string;
-  migrations: {
+  migrations: SetRequired<MigrationsBaseConfig, "getMigrationPrefix"> & {
     migrationFolder: string;
     migrator?: Migrator;
     provider?: MigrationProvider;
   };
   plugins: KyselyPlugin[];
-  seeds: {
+  seeds: SetRequired<SeedsBaseConfig, "getSeedPrefix"> & {
     provider?: SeedProvider;
     seeder?: Seeder;
     seedFolder: string;
   };
+};
+
+export type MigrationsBaseConfig = Omit<MigratorProps, "db" | "provider"> & {
+  getMigrationPrefix?(): string | Promise<string>;
+};
+
+export type SeedsBaseConfig = Omit<SeederProps, "db" | "provider"> & {
+  getSeedPrefix?(): string | Promise<string>;
 };
