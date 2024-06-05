@@ -59,7 +59,7 @@
     "@tsconfig/node20": "^20.1.4",
     "@types/better-sqlite3": "^7.6.10",
     "@types/node": "^20.12.13",
-    "better-sqlite3": "^10.1.0",
+    "better-sqlite3": "^11.0.0",
     "kysely": "^0.27.3",
     "kysely-postgres-js": "^2.0.0",
     "mysql2": "^3.10.0",
