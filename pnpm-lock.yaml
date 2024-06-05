@@ -47,7 +47,7 @@ importers:
         version: 7.6.10
       '@types/node':
         specifier: ^20.12.13
-        version: 20.12.13
+        version: 20.14.2
       better-sqlite3:
         specifier: ^10.1.0
         version: 10.1.0
@@ -574,8 +574,8 @@ packages:
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
-  '@types/node@20.12.13':
-    resolution: {integrity: sha512-gBGeanV41c1L171rR7wjbMiEpEI/l5XFQdLLfhr/REwpgDy/4U8y89+i8kRiLzDyZdOkXh+cRaTetUnCYutoXA==}
+  '@types/node@20.14.2':
+    resolution: {integrity: sha512-xyu6WAMVwv6AKFLB+e/7ySZVr/0zLCzOa7rSpq6jNwpqOrUbcACDWC+53d4n2QHOnDou0fbIsg8wZu/sxrnI4Q==}
 
   '@types/readable-stream@4.0.14':
     resolution: {integrity: sha512-xZn/AuUbCMShGsqH/ehZtGDwQtbx00M9rZ2ENLe4tOjFZ/JFeWMhEZkk2fEe1jAUqqEAURIkFJ7Az/go8mM1/w==}
@@ -2008,17 +2008,17 @@ snapshots:
 
   '@types/better-sqlite3@7.6.10':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.14.2
 
   '@types/estree@1.0.5': {}
 
-  '@types/node@20.12.13':
+  '@types/node@20.14.2':
     dependencies:
       undici-types: 5.26.5
 
   '@types/readable-stream@4.0.14':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.14.2
       safe-buffer: 5.1.2
 
   abort-controller@3.0.0:
@@ -2978,7 +2978,7 @@ snapshots:
       '@azure/identity': 3.4.2
       '@azure/keyvault-keys': 4.8.0
       '@js-joda/core': 5.6.2
-      '@types/node': 20.12.13
+      '@types/node': 20.14.2
       bl: 6.0.12
       iconv-lite: 0.6.3
       js-md4: 0.3.2
