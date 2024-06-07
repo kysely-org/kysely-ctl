@@ -34,7 +34,7 @@ importers:
         version: 3.7.0
       tsx:
         specifier: ^4.9.0
-        version: 4.12.1
+        version: 4.13.2
     devDependencies:
       '@arethetypeswrong/cli':
         specifier: ^0.15.3
@@ -148,16 +148,16 @@ packages:
     resolution: {integrity: sha512-l170uE7bsKpIU6B/giRc9i4NI0Mj+tANMMMxf7Zi/5cKzEqPayP7+X1WPrG7e+91JgY8N+7K7nF2WOi7iVhXvg==}
     engines: {node: '>=18.0.0'}
 
-  '@azure/msal-browser@3.14.0':
-    resolution: {integrity: sha512-Un85LhOoecJ3HDTS3Uv3UWnXC9/43ZSO+Kc+anSqpZvcEt58SiO/3DuVCAe1A3I5UIBYJNMgTmZPGXQ0MVYrwA==}
+  '@azure/msal-browser@3.16.0':
+    resolution: {integrity: sha512-WKobvIisBK7sFSOwHuchH9tUMekwhJRLgLE9tKhIq0wFYGRcVGK0KivP5vZrobVZEMNCZWto0fI1VcSVoa+cig==}
     engines: {node: '>=0.8.0'}
 
-  '@azure/msal-common@14.10.0':
-    resolution: {integrity: sha512-Zk6DPDz7e1wPgLoLgAp0349Yay9RvcjPM5We/ehuenDNsz/t9QEFI7tRoHpp/e47I4p20XE3FiDlhKwAo3utDA==}
+  '@azure/msal-common@14.11.0':
+    resolution: {integrity: sha512-B6+IKLFs7Lsr06vjX8dPN61ENpTgiFrHf+CVo1UasHcmk5uEOq5D4thrbjsauKX+xtFryYsCDtznVDmWS4/sCg==}
     engines: {node: '>=0.8.0'}
 
-  '@azure/msal-node@2.8.1':
-    resolution: {integrity: sha512-VcZZM+5VvCWRBTOF7SxMKaxrz+EXjntx2u5AQe7QE06e6FuPJElGBrImgNgCh5QmFaNCfVFO+3qNR7UoFD/Gfw==}
+  '@azure/msal-node@2.9.1':
+    resolution: {integrity: sha512-I9Pc78mXwj/K8ydSgTfZ5A20vQ/xvfgnnhSCkienZ29b59zFy/hb2Vxmc6Gvg5pNkimSqkPnAtGoBMxYOLBm1A==}
     engines: {node: '>=16'}
 
   '@colors/colors@1.5.0':
@@ -665,8 +665,8 @@ packages:
   buffer@6.0.3:
     resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
 
-  bundle-require@4.1.0:
-    resolution: {integrity: sha512-FeArRFM+ziGkRViKRnSTbHZc35dgmR9yNog05Kn0+ItI59pOAISGvnnIwW1WgFZQW59IxD9QpJnUPkdIPfZuXg==}
+  bundle-require@4.2.1:
+    resolution: {integrity: sha512-7Q/6vkyYAwOmQNRw75x+4yRtZCZJXUDmHHlFdkiV0wgv/reNjtJwpu1jPJ0w2kbEpIM0uoKI3S4/f39dU7AjSA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     peerDependencies:
       esbuild: '>=0.17'
@@ -738,8 +738,8 @@ packages:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
 
-  debug@4.3.4:
-    resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
+  debug@4.3.5:
+    resolution: {integrity: sha512-pt0bNEmneDIvdL1Xsd9oDQ/wrQRkXDT4AUWlNZNPKvW5x/jyO9VFXkJUP07vQ2upmw5PlaITaPKc31jK13V+jg==}
     engines: {node: '>=6.0'}
     peerDependencies:
       supports-color: '*'
@@ -981,12 +981,12 @@ packages:
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
-  jackspeak@3.1.2:
-    resolution: {integrity: sha512-kWmLKn2tRtfYMF/BakihVVRzBKOxz4gJMiL2Rj91WnAB5TPZumSH99R/Yf1qE1u4uRimvCSJfm6hnxohXeEXjQ==}
+  jackspeak@3.4.0:
+    resolution: {integrity: sha512-JVYhQnN59LVPFCEcVa2C3CrEKYacvjRfqIQl+h8oi91aLYQVWRYbxjPcv1bUiUy/kLmQaANrYfNMCO3kuEDHfw==}
     engines: {node: '>=14'}
 
-  jiti@1.21.0:
-    resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
+  jiti@1.21.3:
+    resolution: {integrity: sha512-uy2bNX5zQ+tESe+TiC7ilGRz8AtRGmnJH55NC5S0nSUjvvvM2hJHmefHErugGXN4pNv4Qx7vLsnNw9qJ9mtIsw==}
     hasBin: true
 
   joycon@3.1.1:
@@ -1137,8 +1137,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  mlly@1.7.0:
-    resolution: {integrity: sha512-U9SDaXGEREBYQgfejV97coK0UL1r+qnF2SyO9A3qcI8MzKnsIFKHNVEkrDyNncQTKQQumsasmeq84eNMdBfsNQ==}
+  mlly@1.7.1:
+    resolution: {integrity: sha512-rrVRZRELyQzrIUAVMHxP97kv+G786pHmOKzuFII8zDYahFBS7qnHh2AlYSl1GAHhaMPCz6/oHjVMcfFYgFYHgA==}
 
   ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
@@ -1163,8 +1163,8 @@ packages:
   native-duplexpair@1.0.0:
     resolution: {integrity: sha512-E7QQoM+3jvNtlmyfqRZ0/U75VFgCls+fSkbml2MpgWkWyz3ox8Y58gNhfuziuQYGNNQAbFZJQck55LHCnCK6CA==}
 
-  node-abi@3.62.0:
-    resolution: {integrity: sha512-CPMcGa+y33xuL1E0TcNIu4YyaZCxnnvkVaEXrsosR3FxN+fV8xvb7Mzpb7IgKler10qeMkE6+Dp8qJhpzdq35g==}
+  node-abi@3.63.0:
+    resolution: {integrity: sha512-vAszCsOUrUxjGAmdnM/pq7gUgie0IRteCQMX6d4A534fQCR93EJU5qgzBvU6EkFfK27s0T3HEV3BOyJIr7OMYw==}
     engines: {node: '>=10'}
 
   node-emoji@2.1.3:
@@ -1530,8 +1530,8 @@ packages:
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  tslib@2.6.2:
-    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
+  tslib@2.6.3:
+    resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
 
   tsup@8.1.0:
     resolution: {integrity: sha512-UFdfCAXukax+U6KzeTNO2kAARHcWxmKsnvSPXUcfA1D+kU05XDccCrkffCQpFaWDsZfV0jMyTsxU39VfCp6EOg==}
@@ -1552,8 +1552,8 @@ packages:
       typescript:
         optional: true
 
-  tsx@4.12.1:
-    resolution: {integrity: sha512-roBBguHaP2EpOheka1uHkD4XMSsp1/K5KqtMOjuA+TqRzUsmwpVjHdoNTm/XJWltjB3opmPmYQoE8c2rCS2bqQ==}
+  tsx@4.13.2:
+    resolution: {integrity: sha512-s+WGqChkA77uU8xij1IdO9jQnwJAiWJto0bF5yJLbAZpLtNs82Qa5CwMBxWjJ7QOYU9MzBf4MCNt6lZduwkQ+g==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -1624,8 +1624,8 @@ packages:
   yallist@4.0.0:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
 
-  yaml@2.4.2:
-    resolution: {integrity: sha512-B3VqDZ+JAg1nZpaEmWtTXUlBneoGx6CPM9b0TENK6aoSu5t73dItudwdgmi6tHlIZZId4dZ9skcAQ2UbcyAeVA==}
+  yaml@2.4.3:
+    resolution: {integrity: sha512-sntgmxj8o7DE7g/Qi60cqpLBA3HG3STcDA0kO+WfB05jEKhZMbY7umNm2rBpQvsmZ16/lPXCJGW2672dgOUkrg==}
     engines: {node: '>= 14'}
     hasBin: true
 
@@ -1654,17 +1654,17 @@ snapshots:
 
   '@azure/abort-controller@1.1.0':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   '@azure/abort-controller@2.1.2':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   '@azure/core-auth@1.7.2':
     dependencies:
       '@azure/abort-controller': 2.1.2
       '@azure/core-util': 1.9.0
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   '@azure/core-client@1.9.2':
     dependencies:
@@ -1674,7 +1674,7 @@ snapshots:
       '@azure/core-tracing': 1.1.2
       '@azure/core-util': 1.9.0
       '@azure/logger': 1.1.2
-      tslib: 2.6.2
+      tslib: 2.6.3
     transitivePeerDependencies:
       - supports-color
 
@@ -1691,11 +1691,11 @@ snapshots:
       '@azure/abort-controller': 2.1.2
       '@azure/core-util': 1.9.0
       '@azure/logger': 1.1.2
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   '@azure/core-paging@1.6.2':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   '@azure/core-rest-pipeline@1.16.0':
     dependencies:
@@ -1706,18 +1706,18 @@ snapshots:
       '@azure/logger': 1.1.2
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.4
-      tslib: 2.6.2
+      tslib: 2.6.3
     transitivePeerDependencies:
       - supports-color
 
   '@azure/core-tracing@1.1.2':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   '@azure/core-util@1.9.0':
     dependencies:
       '@azure/abort-controller': 2.1.2
-      tslib: 2.6.2
+      tslib: 2.6.3
 
   '@azure/identity@3.4.2':
     dependencies:
@@ -1728,13 +1728,13 @@ snapshots:
       '@azure/core-tracing': 1.1.2
       '@azure/core-util': 1.9.0
       '@azure/logger': 1.1.2
-      '@azure/msal-browser': 3.14.0
-      '@azure/msal-node': 2.8.1
+      '@azure/msal-browser': 3.16.0
+      '@azure/msal-node': 2.9.1
       events: 3.3.0
       jws: 4.0.0
       open: 8.4.2
       stoppable: 1.1.0
-      tslib: 2.6.2
+      tslib: 2.6.3
     transitivePeerDependencies:
       - supports-color
 
@@ -1750,23 +1750,23 @@ snapshots:
       '@azure/core-tracing': 1.1.2
       '@azure/core-util': 1.9.0
       '@azure/logger': 1.1.2
-      tslib: 2.6.2
+      tslib: 2.6.3
     transitivePeerDependencies:
       - supports-color
 
   '@azure/logger@1.1.2':
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.6.3
 
-  '@azure/msal-browser@3.14.0':
+  '@azure/msal-browser@3.16.0':
     dependencies:
-      '@azure/msal-common': 14.10.0
+      '@azure/msal-common': 14.11.0
 
-  '@azure/msal-common@14.10.0': {}
+  '@azure/msal-common@14.11.0': {}
 
-  '@azure/msal-node@2.8.1':
+  '@azure/msal-node@2.9.1':
     dependencies:
-      '@azure/msal-common': 14.10.0
+      '@azure/msal-common': 14.11.0
       jsonwebtoken: 9.0.2
       uuid: 8.3.2
 
@@ -2029,7 +2029,7 @@ snapshots:
 
   agent-base@7.1.1:
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.5
     transitivePeerDependencies:
       - supports-color
 
@@ -2104,7 +2104,7 @@ snapshots:
       base64-js: 1.5.1
       ieee754: 1.2.1
 
-  bundle-require@4.1.0(esbuild@0.21.4):
+  bundle-require@4.2.1(esbuild@0.21.4):
     dependencies:
       esbuild: 0.21.4
       load-tsconfig: 0.2.5
@@ -2116,8 +2116,8 @@ snapshots:
       defu: 6.1.4
       dotenv: 16.4.5
       giget: 1.2.3
-      jiti: 1.21.0
-      mlly: 1.7.0
+      jiti: 1.21.3
+      mlly: 1.7.1
       ohash: 1.1.3
       pathe: 1.1.2
       perfect-debounce: 1.0.0
@@ -2186,7 +2186,7 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.2
 
-  debug@4.3.4:
+  debug@4.3.5:
     dependencies:
       ms: 2.1.2
 
@@ -2378,7 +2378,7 @@ snapshots:
   glob@10.4.1:
     dependencies:
       foreground-child: 3.1.1
-      jackspeak: 3.1.2
+      jackspeak: 3.4.0
       minimatch: 9.0.4
       minipass: 7.1.2
       path-scurry: 1.11.1
@@ -2397,14 +2397,14 @@ snapshots:
   http-proxy-agent@7.0.2:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.3.4
+      debug: 4.3.5
     transitivePeerDependencies:
       - supports-color
 
   https-proxy-agent@7.0.4:
     dependencies:
       agent-base: 7.1.1
-      debug: 4.3.4
+      debug: 4.3.5
     transitivePeerDependencies:
       - supports-color
 
@@ -2452,13 +2452,13 @@ snapshots:
 
   isexe@2.0.0: {}
 
-  jackspeak@3.1.2:
+  jackspeak@3.4.0:
     dependencies:
       '@isaacs/cliui': 8.0.2
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
 
-  jiti@1.21.0: {}
+  jiti@1.21.3: {}
 
   joycon@3.1.1: {}
 
@@ -2586,7 +2586,7 @@ snapshots:
 
   mkdirp@1.0.4: {}
 
-  mlly@1.7.0:
+  mlly@1.7.1:
     dependencies:
       acorn: 8.11.3
       pathe: 1.1.2
@@ -2622,7 +2622,7 @@ snapshots:
 
   native-duplexpair@1.0.0: {}
 
-  node-abi@3.62.0:
+  node-abi@3.63.0:
     dependencies:
       semver: 7.6.2
 
@@ -2738,13 +2738,13 @@ snapshots:
   pkg-types@1.1.1:
     dependencies:
       confbox: 0.1.7
-      mlly: 1.7.0
+      mlly: 1.7.1
       pathe: 1.1.2
 
   postcss-load-config@4.0.2:
     dependencies:
       lilconfig: 3.1.1
-      yaml: 2.4.2
+      yaml: 2.4.3
 
   postgres-array@2.0.0: {}
 
@@ -2766,7 +2766,7 @@ snapshots:
       minimist: 1.2.8
       mkdirp-classic: 0.5.3
       napi-build-utils: 1.0.2
-      node-abi: 3.62.0
+      node-abi: 3.63.0
       pump: 3.0.0
       rc: 1.2.8
       simple-get: 4.0.1
@@ -3009,14 +3009,14 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  tslib@2.6.2: {}
+  tslib@2.6.3: {}
 
   tsup@8.1.0(typescript@5.4.5):
     dependencies:
-      bundle-require: 4.1.0(esbuild@0.21.4)
+      bundle-require: 4.2.1(esbuild@0.21.4)
       cac: 6.7.14
       chokidar: 3.6.0
-      debug: 4.3.4
+      debug: 4.3.5
       esbuild: 0.21.4
       execa: 5.1.1
       globby: 11.1.0
@@ -3033,7 +3033,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  tsx@4.12.1:
+  tsx@4.13.2:
     dependencies:
       esbuild: 0.20.2
       get-tsconfig: 4.7.5
@@ -3092,4 +3092,4 @@ snapshots:
 
   yallist@4.0.0: {}
 
-  yaml@2.4.2: {}
+  yaml@2.4.3: {}
