@@ -1,6 +1,7 @@
 import { consola } from "consola";
 import { colorize } from "consola/utils";
 import type { MigrationResultSet, Migrator } from "kysely";
+import { process } from "std-env";
 import { getMigrations } from "./get-migrations.mjs";
 
 export async function processMigrationResultSet(
@@ -17,11 +18,13 @@ export async function processMigrationResultSet(
       (result) => result.status === "Error"
     );
 
-    return consola.fail(
+    consola.fail(
       `Migration failed with \`${error}\`${
         failedMigration ? ` @ "${failedMigration.migrationName}"` : ""
       }`
     );
+    process.exit?.(1);
+    throw error;
   }
 
   if (!results?.length) {
