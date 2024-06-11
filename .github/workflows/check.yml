@@ -1,0 +1,35 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Biome
+        run: pnpx @biomejs/biome ci
+
+      - name: Build
+        run: pnpm build
+
+      - name: Attw
+        run: pnpm check:dts
