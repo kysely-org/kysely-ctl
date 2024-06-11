@@ -70,7 +70,7 @@
     "tarn": "^3.0.2",
     "tedious": "^18.2.0",
     "tsup": "^8.1.0",
-    "type-fest": "^4.19.0",
+    "type-fest": "^4.20.0",
     "typescript": "^5.4.5"
   },
   "engines": {
