@@ -1,15 +1,15 @@
-import { resolve } from "pathe";
-import { isDeno, process } from "std-env";
+import { resolve } from 'pathe'
+import { isDeno, process } from 'std-env'
 
 export interface HasCWD {
-  cwd?: string;
+	cwd?: string
 }
 
 const ACTUAL_CWD =
-  process.cwd?.() || (isDeno ? (globalThis as any).Deno.cwd() : "");
+	process.cwd?.() || (isDeno ? (globalThis as any).Deno.cwd() : '')
 
-let cwd: string | undefined;
+let cwd: string | undefined
 
 export function getCWD(args?: HasCWD): string {
-  return (cwd ||= args?.cwd ? resolve(ACTUAL_CWD, args.cwd) : ACTUAL_CWD);
+	return (cwd ||= args?.cwd ? resolve(ACTUAL_CWD, args.cwd) : ACTUAL_CWD)
 }

@@ -1,42 +1,42 @@
-import type { ArgsDef, CommandDef } from "citty";
-import { consola } from "consola";
-import { createSubcommand } from "../../utils/create-subcommand.mjs";
-import { CommonArgs } from "../../arguments/common.mjs";
-import { getMigrations } from "../../kysely/get-migrations.mjs";
-import { usingMigrator } from "../../kysely/using-migrator.mjs";
+import type { ArgsDef, CommandDef } from 'citty'
+import { consola } from 'consola'
+import { createSubcommand } from '../../utils/create-subcommand.mjs'
+import { CommonArgs } from '../../arguments/common.mjs'
+import { getMigrations } from '../../kysely/get-migrations.mjs'
+import { usingMigrator } from '../../kysely/using-migrator.mjs'
 
 const args = {
-  ...CommonArgs,
-} satisfies ArgsDef;
+	...CommonArgs,
+} satisfies ArgsDef
 
 const BaseListCommand = {
-  meta: {
-    name: "list",
-    description: "List both completed and pending migrations",
-  },
-  args,
-  async run(context) {
-    consola.debug(context, []);
+	meta: {
+		name: 'list',
+		description: 'List both completed and pending migrations',
+	},
+	args,
+	async run(context) {
+		consola.debug(context, [])
 
-    const migrations = await usingMigrator(context.args, getMigrations);
+		const migrations = await usingMigrator(context.args, getMigrations)
 
-    consola.debug(migrations);
+		consola.debug(migrations)
 
-    if (!migrations.length) {
-      return consola.info("No migrations found.");
-    }
+		if (!migrations.length) {
+			return consola.info('No migrations found.')
+		}
 
-    consola.info(
-      `Found ${migrations.length} migration${migrations.length > 1 ? "s" : ""}:`
-    );
-    migrations.forEach((migration) => {
-      consola.log(`[${migration.executedAt ? "`✓`" : " "}] ${migration.name}`);
-    });
-  },
-} satisfies CommandDef<typeof args>;
+		consola.info(
+			`Found ${migrations.length} migration${migrations.length > 1 ? 's' : ''}:`,
+		)
+		migrations.forEach((migration) => {
+			consola.log(`[${migration.executedAt ? '`✓`' : ' '}] ${migration.name}`)
+		})
+	},
+} satisfies CommandDef<typeof args>
 
-export const ListCommand = createSubcommand("list", BaseListCommand);
+export const ListCommand = createSubcommand('list', BaseListCommand)
 export const LegacyListCommand = createSubcommand(
-  "migrate:list",
-  BaseListCommand
-);
+	'migrate:list',
+	BaseListCommand,
+)

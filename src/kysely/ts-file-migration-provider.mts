@@ -1,10 +1,10 @@
-import type { Migration, MigrationProvider } from "kysely";
-import { join } from "pathe";
-import { filename } from "pathe/utils";
-import { consola } from "consola";
-import { safeReaddir } from "../utils/safe-readdir.mjs";
-import { isTSFile } from "../utils/is-ts-file.mjs";
-import { importTSFile } from "../utils/import-ts-file.mjs";
+import type { Migration, MigrationProvider } from 'kysely'
+import { join } from 'pathe'
+import { filename } from 'pathe/utils'
+import { consola } from 'consola'
+import { safeReaddir } from '../utils/safe-readdir.mjs'
+import { isTSFile } from '../utils/is-ts-file.mjs'
+import { importTSFile } from '../utils/import-ts-file.mjs'
 
 /**
  * An opinionated migration provider that reads migrations from TypeScript files.
@@ -12,52 +12,52 @@ import { importTSFile } from "../utils/import-ts-file.mjs";
  * and on Windows too.
  */
 export class TSFileMigrationProvider implements MigrationProvider {
-  readonly #props: TSFileMigrationProviderProps;
+	readonly #props: TSFileMigrationProviderProps
 
-  constructor(props: TSFileMigrationProviderProps) {
-    this.#props = props;
-  }
+	constructor(props: TSFileMigrationProviderProps) {
+		this.#props = props
+	}
 
-  async getMigrations(): Promise<Record<string, Migration>> {
-    const migrations: Record<string, Migration> = {};
+	async getMigrations(): Promise<Record<string, Migration>> {
+		const migrations: Record<string, Migration> = {}
 
-    const files = await safeReaddir(this.#props.migrationFolder);
+		const files = await safeReaddir(this.#props.migrationFolder)
 
-    for (const fileName of files) {
-      if (!isTSFile(fileName)) {
-        consola.warn(`Ignoring \`${fileName}\` - not a TS file.`);
-        continue;
-      }
+		for (const fileName of files) {
+			if (!isTSFile(fileName)) {
+				consola.warn(`Ignoring \`${fileName}\` - not a TS file.`)
+				continue
+			}
 
-      const filePath = join(this.#props.migrationFolder, fileName);
+			const filePath = join(this.#props.migrationFolder, fileName)
 
-      const migration = await importTSFile(filePath);
+			const migration = await importTSFile(filePath)
 
-      const migrationKey = filename(fileName);
+			const migrationKey = filename(fileName)
 
-      if (isMigration(migration?.default)) {
-        migrations[migrationKey] = migration.default;
-      } else if (isMigration(migration)) {
-        migrations[migrationKey] = migration;
-      } else {
-        consola.warn(`Ignoring \`${fileName}\` - not a migration.`);
-      }
-    }
+			if (isMigration(migration?.default)) {
+				migrations[migrationKey] = migration.default
+			} else if (isMigration(migration)) {
+				migrations[migrationKey] = migration
+			} else {
+				consola.warn(`Ignoring \`${fileName}\` - not a migration.`)
+			}
+		}
 
-    return migrations;
-  }
+		return migrations
+	}
 }
 
 function isMigration(obj: unknown): obj is Migration {
-  return (
-    typeof obj === "object" &&
-    obj !== null &&
-    !Array.isArray(obj) &&
-    "up" in obj &&
-    typeof obj.up === "function"
-  );
+	return (
+		typeof obj === 'object' &&
+		obj !== null &&
+		!Array.isArray(obj) &&
+		'up' in obj &&
+		typeof obj.up === 'function'
+	)
 }
 
 export interface TSFileMigrationProviderProps {
-  migrationFolder: string;
+	migrationFolder: string
 }

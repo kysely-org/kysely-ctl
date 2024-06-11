@@ -1,139 +1,139 @@
-import type { PackageJson } from "pkg-types";
-import { consola } from "consola";
-import { isCI } from "std-env";
-import { ofetch } from "ofetch";
-import { getPackageManager } from "./package-manager.mjs";
-import type { HasCWD } from "../config/get-cwd.mjs";
-import { getCTLPackageJSON, getConsumerPackageJSON } from "./pkg-json.mjs";
+import type { PackageJson } from 'pkg-types'
+import { consola } from 'consola'
+import { isCI } from 'std-env'
+import { ofetch } from 'ofetch'
+import { getPackageManager } from './package-manager.mjs'
+import type { HasCWD } from '../config/get-cwd.mjs'
+import { getCTLPackageJSON, getConsumerPackageJSON } from './pkg-json.mjs'
 
 /**
  * Returns the version of the Kysely package.
  */
 export async function getKyselyInstalledVersion(
-  args: HasCWD
+	args: HasCWD,
 ): Promise<string | null> {
-  try {
-    const pkgJSON = await getConsumerPackageJSON(args);
+	try {
+		const pkgJSON = await getConsumerPackageJSON(args)
 
-    return getVersionFromPackageJSON("kysely", pkgJSON);
-  } catch (err) {
-    return null;
-  }
+		return getVersionFromPackageJSON('kysely', pkgJSON)
+	} catch (err) {
+		return null
+	}
 }
 
 /**
  * Returns the version of this package.
  */
 export async function getCTLInstalledVersion(): Promise<string | null> {
-  try {
-    const pkgJSON = await getCTLPackageJSON();
+	try {
+		const pkgJSON = await getCTLPackageJSON()
 
-    return getVersionFromPackageJSON("kysely-ctl", pkgJSON);
-  } catch (err) {
-    return null;
-  }
+		return getVersionFromPackageJSON('kysely-ctl', pkgJSON)
+	} catch (err) {
+		return null
+	}
 }
 
 function getVersionFromPackageJSON(
-  name: string,
-  pkgJSON: PackageJson
+	name: string,
+	pkgJSON: PackageJson,
 ): string | null {
-  if (pkgJSON.name === name) {
-    return pkgJSON.version || null;
-  }
+	if (pkgJSON.name === name) {
+		return pkgJSON.version || null
+	}
 
-  const rawVersion =
-    pkgJSON.dependencies?.[name] || pkgJSON.devDependencies?.[name];
+	const rawVersion =
+		pkgJSON.dependencies?.[name] || pkgJSON.devDependencies?.[name]
 
-  return rawVersion?.replace(/^[\^~]?(.+)$/, "$1") || null;
+	return rawVersion?.replace(/^[\^~]?(.+)$/, '$1') || null
 }
 
 /**
  * Prints the version of the CLI and the Kysely package.
  */
 export async function printInstalledVersions(args: HasCWD): Promise<void> {
-  const [cliVersion, kyselyVersion] = await Promise.all([
-    getCTLInstalledVersion(),
-    getKyselyInstalledVersion(args),
-  ]);
+	const [cliVersion, kyselyVersion] = await Promise.all([
+		getCTLInstalledVersion(),
+		getKyselyInstalledVersion(args),
+	])
 
-  console.log(
-    `kysely ${kyselyVersion ? `v${kyselyVersion}` : "[not installed]"}`
-  );
-  console.log(`kysely-ctl v${cliVersion}`);
+	console.log(
+		`kysely ${kyselyVersion ? `v${kyselyVersion}` : '[not installed]'}`,
+	)
+	console.log(`kysely-ctl v${cliVersion}`)
 }
 
 export async function getKyselyLatestVersion(): Promise<string> {
-  return await getPackageLatestVersion("kysely");
+	return await getPackageLatestVersion('kysely')
 }
 
 export async function getCTLLatestVersion(): Promise<string> {
-  return await getPackageLatestVersion("kysely-ctl");
+	return await getPackageLatestVersion('kysely-ctl')
 }
 
 async function getPackageLatestVersion(packageName: string): Promise<string> {
-  const response = await ofetch<{ "dist-tags": { latest: string } }>(
-    `https://registry.npmjs.org/${packageName}`
-  );
+	const response = await ofetch<{ 'dist-tags': { latest: string } }>(
+		`https://registry.npmjs.org/${packageName}`,
+	)
 
-  return response["dist-tags"].latest;
+	return response['dist-tags'].latest
 }
 
 export async function printUpgradeNotice(
-  args: HasCWD & { "outdated-check"?: boolean }
+	args: HasCWD & { 'outdated-check'?: boolean },
 ): Promise<void> {
-  if (args["outdated-check"] === false || isCI) {
-    return;
-  }
+	if (args['outdated-check'] === false || isCI) {
+		return
+	}
 
-  const [
-    kyselyInstalledVersion,
-    kyselyLatestVersion,
-    ctlInstalledVersion,
-    ctlLatestVersion,
-  ] = await Promise.all([
-    getKyselyInstalledVersion(args),
-    getKyselyLatestVersion(),
-    getCTLInstalledVersion(),
-    getCTLLatestVersion(),
-  ]);
+	const [
+		kyselyInstalledVersion,
+		kyselyLatestVersion,
+		ctlInstalledVersion,
+		ctlLatestVersion,
+	] = await Promise.all([
+		getKyselyInstalledVersion(args),
+		getKyselyLatestVersion(),
+		getCTLInstalledVersion(),
+		getCTLLatestVersion(),
+	])
 
-  const notices: [string, string, string][] = [];
+	const notices: [string, string, string][] = []
 
-  if (
-    kyselyInstalledVersion &&
-    kyselyInstalledVersion !== kyselyLatestVersion
-  ) {
-    notices.push(["Kysely", "kysely", kyselyLatestVersion]);
-  }
+	if (
+		kyselyInstalledVersion &&
+		kyselyInstalledVersion !== kyselyLatestVersion
+	) {
+		notices.push(['Kysely', 'kysely', kyselyLatestVersion])
+	}
 
-  if (ctlInstalledVersion !== ctlLatestVersion) {
-    notices.push(["KyselyCTL", "kysely-ctl", ctlLatestVersion]);
-  }
+	if (ctlInstalledVersion !== ctlLatestVersion) {
+		notices.push(['KyselyCTL', 'kysely-ctl', ctlLatestVersion])
+	}
 
-  if (!notices.length) {
-    return;
-  }
+	if (!notices.length) {
+		return
+	}
 
-  const packageManager = await getPackageManager(args);
+	const packageManager = await getPackageManager(args)
 
-  const installCommand = {
-    [packageManager.name]: "install",
-    bun: "add",
-    pnpm: "add",
-    yarn: "add",
-  }[packageManager.name];
+	const installCommand = {
+		[packageManager.name]: 'install',
+		bun: 'add',
+		pnpm: 'add',
+		yarn: 'add',
+	}[packageManager.name]
 
-  consola.box(
-    notices
-      .map(
-        ([prettyName, name, latestVersion]) =>
-          `A new version of ${prettyName} is available: v${latestVersion}\nRun \`${
-            packageManager.command
-          } ${installCommand} ${
-            packageManager.name === "deno" ? "npm:" : ""
-          }${name}@latest\` to upgrade.`
-      )
-      .join("\n\n")
-  );
+	consola.box(
+		notices
+			.map(
+				([prettyName, name, latestVersion]) =>
+					`A new version of ${prettyName} is available: v${latestVersion}\nRun \`${
+						packageManager.command
+					} ${installCommand} ${
+						packageManager.name === 'deno' ? 'npm:' : ''
+					}${name}@latest\` to upgrade.`,
+			)
+			.join('\n\n'),
+	)
 }

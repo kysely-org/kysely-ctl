@@ -1,69 +1,69 @@
-import type { ArgsDef, CommandDef } from "citty";
-import { consola } from "consola";
-import { colorize } from "consola/utils";
-import { CommonArgs } from "../../arguments/common.mjs";
-import { createSubcommand } from "../../utils/create-subcommand.mjs";
-import { usingSeeder } from "../../seeds/using-seeder.mjs";
+import type { ArgsDef, CommandDef } from 'citty'
+import { consola } from 'consola'
+import { colorize } from 'consola/utils'
+import { CommonArgs } from '../../arguments/common.mjs'
+import { createSubcommand } from '../../utils/create-subcommand.mjs'
+import { usingSeeder } from '../../seeds/using-seeder.mjs'
 
 const args = {
-  ...CommonArgs,
-  specific: {
-    description: "Run seed file/s with given name/s",
-    type: "string",
-  },
-} satisfies ArgsDef;
+	...CommonArgs,
+	specific: {
+		description: 'Run seed file/s with given name/s',
+		type: 'string',
+	},
+} satisfies ArgsDef
 
 const BaseRunCommand = {
-  meta: {
-    description: "Run seed files",
-    name: "run",
-  },
-  args,
-  async run(context) {
-    const { args } = context;
-    const { specific } = args;
+	meta: {
+		description: 'Run seed files',
+		name: 'run',
+	},
+	args,
+	async run(context) {
+		const { args } = context
+		const { specific } = args
 
-    consola.debug(context, []);
+		consola.debug(context, [])
 
-    consola.start("Starting seed run");
+		consola.start('Starting seed run')
 
-    const resultSet = await usingSeeder(args, (seeder) => seeder.run(specific));
+		const resultSet = await usingSeeder(args, (seeder) => seeder.run(specific))
 
-    consola.debug(resultSet);
+		consola.debug(resultSet)
 
-    const { error, results } = resultSet;
+		const { error, results } = resultSet
 
-    if (!results.length) {
-      return consola.info("No seeds found.");
-    }
+		if (!results.length) {
+			return consola.info('No seeds found.')
+		}
 
-    if (!error) {
-      consola.success("Seed successful");
-    }
+		if (!error) {
+			consola.success('Seed successful')
+		}
 
-    const actuallyRan = error
-      ? results.filter((result) => result.status !== "NotExecuted")
-      : results;
+		const actuallyRan = error
+			? results.filter((result) => result.status !== 'NotExecuted')
+			: results
 
-    consola.info(
-      `Ran ${actuallyRan.length} seed${actuallyRan.length > 1 ? "s" : ""}:`
-    );
+		consola.info(
+			`Ran ${actuallyRan.length} seed${actuallyRan.length > 1 ? 's' : ''}:`,
+		)
 
-    results.forEach((result) => {
-      consola.log(
-        `[${
-          {
-            Error: colorize("red", "✗"),
-            NotExecuted: " ",
-            Success: colorize("green", "✓"),
-          }[result.status]
-        }] ${result.seedName}${
-          error && result.status === "Error" ? ` - ${error}` : ""
-        }`
-      );
-    });
-  },
-} satisfies CommandDef<typeof args>;
+		results.forEach((result) => {
+			consola.log(
+				`[${
+					{
+						Error: colorize('red', '✗'),
+						NotExecuted: ' ',
+						Success: colorize('green', '✓'),
+					}[result.status]
+				}] ${result.seedName}${
+					error && result.status === 'Error' ? ` - ${error}` : ''
+				}`,
+			)
+		})
+	},
+} satisfies CommandDef<typeof args>
 
-export const RunCommand = createSubcommand("run", BaseRunCommand);
-export const LegacyRunCommand = createSubcommand("seed:run", BaseRunCommand);
+export const RunCommand = createSubcommand('run', BaseRunCommand)
+export const LegacyRunCommand = createSubcommand('seed:run', BaseRunCommand)
