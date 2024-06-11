@@ -1,7 +1,7 @@
 import type { Migrator } from 'kysely'
 import { type ArgsLike, getConfigOrFail } from '../config/get-config.mjs'
-import { usingKysely } from './using-kysely.mjs'
 import { getMigrator } from './get-migrator.mjs'
+import { usingKysely } from './using-kysely.mjs'
 
 export async function usingMigrator<T>(
 	args: ArgsLike,

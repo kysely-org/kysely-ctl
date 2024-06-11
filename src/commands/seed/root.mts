@@ -1,10 +1,10 @@
-import { showUsage, type SubCommandsDef } from 'citty'
+import { type SubCommandsDef, showUsage } from 'citty'
 import { consola } from 'consola'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { isInSubcommand } from '../../utils/is-in-subcommand.mjs'
 import { RootCommand } from '../root.mjs'
-import { MakeCommand } from './make.mjs'
 import { ListCommand } from './list.mjs'
+import { MakeCommand } from './make.mjs'
 import { RunCommand } from './run.mjs'
 
 export const SeedCommand = {

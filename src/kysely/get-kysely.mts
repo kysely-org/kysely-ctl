@@ -1,11 +1,11 @@
-import { Kysely } from 'kysely'
 import { consola } from 'consola'
-import { getDialect } from './get-dialect.mjs'
+import { Kysely } from 'kysely'
 import type { ResolvedKyselyCTLConfig } from '../config/kysely-ctl-config.mjs'
+import { getDialect } from './get-dialect.mjs'
 
 export async function getKysely<DB = any>(
 	config: ResolvedKyselyCTLConfig,
-	debug: boolean = false,
+	debug = false,
 ): Promise<Kysely<DB>> {
 	const dialect = await getDialect(config)
 

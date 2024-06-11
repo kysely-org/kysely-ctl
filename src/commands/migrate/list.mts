@@ -1,9 +1,9 @@
 import type { ArgsDef, CommandDef } from 'citty'
 import { consola } from 'consola'
-import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { getMigrations } from '../../kysely/get-migrations.mjs'
 import { usingMigrator } from '../../kysely/using-migrator.mjs'
+import { createSubcommand } from '../../utils/create-subcommand.mjs'
 
 const args = {
 	...CommonArgs,
@@ -29,9 +29,10 @@ const BaseListCommand = {
 		consola.info(
 			`Found ${migrations.length} migration${migrations.length > 1 ? 's' : ''}:`,
 		)
-		migrations.forEach((migration) => {
+
+		for (const migration of migrations) {
 			consola.log(`[${migration.executedAt ? '`✓`' : ' '}] ${migration.name}`)
-		})
+		}
 	},
 } satisfies CommandDef<typeof args>
 

@@ -1,9 +1,9 @@
-import type { PackageJson } from 'pkg-types'
 import { consola } from 'consola'
-import { isCI } from 'std-env'
 import { ofetch } from 'ofetch'
-import { getPackageManager } from './package-manager.mjs'
+import type { PackageJson } from 'pkg-types'
+import { isCI } from 'std-env'
 import type { HasCWD } from '../config/get-cwd.mjs'
+import { getPackageManager } from './package-manager.mjs'
 import { getCTLPackageJSON, getConsumerPackageJSON } from './pkg-json.mjs'
 
 /**
@@ -57,10 +57,10 @@ export async function printInstalledVersions(args: HasCWD): Promise<void> {
 		getKyselyInstalledVersion(args),
 	])
 
-	console.log(
+	consola.log(
 		`kysely ${kyselyVersion ? `v${kyselyVersion}` : '[not installed]'}`,
 	)
-	console.log(`kysely-ctl v${cliVersion}`)
+	consola.log(`kysely-ctl v${cliVersion}`)
 }
 
 export async function getKyselyLatestVersion(): Promise<string> {

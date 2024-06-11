@@ -4,8 +4,8 @@ import { consola } from 'consola'
 import { join } from 'pathe'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { ExtensionArg, assertExtension } from '../../arguments/extension.mjs'
-import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { getConfigOrFail } from '../../config/get-config.mjs'
+import { createSubcommand } from '../../utils/create-subcommand.mjs'
 
 const args = {
 	...CommonArgs,

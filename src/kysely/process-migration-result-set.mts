@@ -59,19 +59,19 @@ export async function processMigrationResultSet(
 		) + 1,
 	)
 
-	untouchedMigrationsBefore.forEach((migration) => {
+	for (const migration of untouchedMigrationsBefore) {
 		consola.log(`[✓] ${migration.name}`)
-	})
+	}
 
-	results.forEach((result) => {
+	for (const result of results) {
 		consola.log(
 			`[${colorize('green', result.direction === 'Up' ? '✓' : '⍻')}] ${
 				result.migrationName
 			}`,
 		)
-	})
+	}
 
-	untouchedMigrationsAfter.forEach((migration) => {
+	for (const migration of untouchedMigrationsAfter) {
 		consola.log(`[ ] ${migration.name}`)
-	})
+	}
 }

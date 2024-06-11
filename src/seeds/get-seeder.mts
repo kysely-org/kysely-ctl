@@ -1,8 +1,8 @@
+import type { Kysely } from 'kysely'
 import { join } from 'pathe'
 import type { ResolvedKyselyCTLConfig } from '../config/kysely-ctl-config.mjs'
 import { FileSeedProvider } from './file-seed-provider.mjs'
 import { Seeder } from './seeder.mjs'
-import type { Kysely } from 'kysely'
 
 export function getSeeder(
 	kysely: Kysely<any>,

@@ -1,10 +1,10 @@
 import type { ArgsDef, CommandDef } from 'citty'
 import { consola } from 'consola'
 import { NO_MIGRATIONS } from 'kysely'
-import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { processMigrationResultSet } from '../../kysely/process-migration-result-set.mjs'
 import { usingMigrator } from '../../kysely/using-migrator.mjs'
+import { createSubcommand } from '../../utils/create-subcommand.mjs'
 
 const args = {
 	all: {

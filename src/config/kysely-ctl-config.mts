@@ -2,13 +2,13 @@ import type { ConfigLayerMeta, ResolvedConfig } from 'c12'
 import type {
 	Dialect as KyselyDialectInstance,
 	KyselyPlugin,
-	MigratorProps,
 	MigrationProvider,
+	Migrator,
+	MigratorProps,
 	MssqlDialectConfig,
 	MysqlDialectConfig,
 	PostgresDialectConfig,
 	SqliteDialectConfig,
-	Migrator,
 } from 'kysely'
 import type { PostgresJSDialectConfig } from 'kysely-postgres-js'
 import type { SetRequired } from 'type-fest'

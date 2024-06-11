@@ -1,11 +1,11 @@
 import { loadConfig } from 'c12'
 import { consola } from 'consola'
+import { getCWD } from './get-cwd.mjs'
+import { getMillisPrefix } from './get-file-prefix.mjs'
 import type {
 	KyselyCTLConfig,
 	ResolvedKyselyCTLConfig,
 } from './kysely-ctl-config.mjs'
-import { getCWD } from './get-cwd.mjs'
-import { getMillisPrefix } from './get-file-prefix.mjs'
 
 export interface ArgsLike {
 	cwd?: string

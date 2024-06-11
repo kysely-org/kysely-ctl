@@ -1,10 +1,10 @@
 import { consola } from 'consola'
 import { join } from 'pathe'
 import { filename } from 'pathe/utils'
+import { importTSFile } from '../utils/import-ts-file.mjs'
 import { isTSFile } from '../utils/is-ts-file.mjs'
 import { safeReaddir } from '../utils/safe-readdir.mjs'
 import type { Seed, SeedProvider } from './seeder.mjs'
-import { importTSFile } from '../utils/import-ts-file.mjs'
 
 export class FileSeedProvider implements SeedProvider {
 	readonly #props: FileSeedProviderProps
@@ -19,11 +19,11 @@ export class FileSeedProvider implements SeedProvider {
 		let files = await safeReaddir(this.#props.seedFolder)
 
 		if (seedNames) {
-			seedNames = Array.isArray(seedNames) ? seedNames : [seedNames]
+			const seedNameArray = Array.isArray(seedNames) ? seedNames : [seedNames]
 
-			if (seedNames.length) {
+			if (seedNameArray.length) {
 				files = files.filter((fileName) =>
-					seedNames!.includes(filename(fileName)),
+					seedNameArray.includes(filename(fileName)),
 				)
 			}
 		}

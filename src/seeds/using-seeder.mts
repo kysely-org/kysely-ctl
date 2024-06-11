@@ -1,4 +1,4 @@
-import { ArgsLike, getConfigOrFail } from '../config/get-config.mjs'
+import { type ArgsLike, getConfigOrFail } from '../config/get-config.mjs'
 import { usingKysely } from '../kysely/using-kysely.mjs'
 import { getSeeder } from './get-seeder.mjs'
 import type { Seeder } from './seeder.mjs'

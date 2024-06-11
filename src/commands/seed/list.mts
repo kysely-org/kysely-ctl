@@ -1,5 +1,5 @@
-import { consola } from 'consola'
 import type { ArgsDef, CommandDef, SubCommandsDef } from 'citty'
+import { consola } from 'consola'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { usingSeeder } from '../../seeds/using-seeder.mjs'
 
@@ -28,9 +28,10 @@ export const ListCommand = {
 			}
 
 			consola.info(`Found ${seeds.length} seed${seeds.length > 1 ? 's' : ''}:`)
-			seeds.forEach((seed) => {
+
+			for (const seed of seeds) {
 				consola.log(seed.name)
-			})
+			}
 		},
 	} satisfies CommandDef<typeof args>,
 } satisfies SubCommandsDef

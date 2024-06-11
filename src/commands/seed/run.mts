@@ -2,8 +2,8 @@ import type { ArgsDef, CommandDef } from 'citty'
 import { consola } from 'consola'
 import { colorize } from 'consola/utils'
 import { CommonArgs } from '../../arguments/common.mjs'
-import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { usingSeeder } from '../../seeds/using-seeder.mjs'
+import { createSubcommand } from '../../utils/create-subcommand.mjs'
 
 const args = {
 	...CommonArgs,
@@ -49,7 +49,7 @@ const BaseRunCommand = {
 			`Ran ${actuallyRan.length} seed${actuallyRan.length > 1 ? 's' : ''}:`,
 		)
 
-		results.forEach((result) => {
+		for (const result of results) {
 			consola.log(
 				`[${
 					{
@@ -61,7 +61,7 @@ const BaseRunCommand = {
 					error && result.status === 'Error' ? ` - ${error}` : ''
 				}`,
 			)
-		})
+		}
 	},
 } satisfies CommandDef<typeof args>
 

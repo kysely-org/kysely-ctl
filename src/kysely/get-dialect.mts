@@ -1,8 +1,8 @@
 import {
+	type Dialect,
 	MysqlDialect,
 	PostgresDialect,
 	SqliteDialect,
-	type Dialect,
 } from 'kysely'
 import type { ResolvedKyselyCTLConfig } from '../config/kysely-ctl-config.mjs'
 

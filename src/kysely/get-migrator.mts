@@ -1,4 +1,4 @@
-import { Kysely, Migrator } from 'kysely'
+import { type Kysely, Migrator } from 'kysely'
 import { join } from 'pathe'
 import type { ResolvedKyselyCTLConfig } from '../config/kysely-ctl-config.mjs'
 import { TSFileMigrationProvider } from './ts-file-migration-provider.mjs'

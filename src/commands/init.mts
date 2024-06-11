@@ -2,10 +2,10 @@ import { copyFile, mkdir } from 'node:fs/promises'
 import type { ArgsDef, CommandDef, SubCommandsDef } from 'citty'
 import { consola } from 'consola'
 import { join } from 'pathe'
-import { NoOutdatedCheckArg } from '../arguments/no-outdated-notice.mjs'
-import { DebugArg } from '../arguments/debug.mjs'
 import { CWDArg } from '../arguments/cwd.mjs'
+import { DebugArg } from '../arguments/debug.mjs'
 import { ExtensionArg, assertExtension } from '../arguments/extension.mjs'
+import { NoOutdatedCheckArg } from '../arguments/no-outdated-notice.mjs'
 import { configFileExists, getConfig } from '../config/get-config.mjs'
 
 const args = {
@@ -54,7 +54,7 @@ export const InitCommand = {
 
 			consola.debug('File path:', filePath)
 
-			await copyFile(join(__dirname, `templates/config-template.ts`), filePath)
+			await copyFile(join(__dirname, 'templates/config-template.ts'), filePath)
 
 			consola.success(`Config file created at ${filePath}`)
 		},

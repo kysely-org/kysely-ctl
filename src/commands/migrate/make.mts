@@ -1,12 +1,12 @@
 import { copyFile, mkdir } from 'node:fs/promises'
 import type { ArgsDef, CommandDef } from 'citty'
-import { join } from 'pathe'
 import { consola } from 'consola'
-import { createSubcommand } from '../../utils/create-subcommand.mjs'
-import { createMigrationNameArg } from '../../arguments/migration-name.mjs'
-import { getConfigOrFail } from '../../config/get-config.mjs'
+import { join } from 'pathe'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { ExtensionArg, assertExtension } from '../../arguments/extension.mjs'
+import { createMigrationNameArg } from '../../arguments/migration-name.mjs'
+import { getConfigOrFail } from '../../config/get-config.mjs'
+import { createSubcommand } from '../../utils/create-subcommand.mjs'
 
 const args = {
 	...CommonArgs,

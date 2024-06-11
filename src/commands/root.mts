@@ -1,23 +1,23 @@
-import { type CommandDef, showUsage, type ArgsDef } from 'citty'
-import { consola, LogLevels } from 'consola'
+import { type ArgsDef, type CommandDef, showUsage } from 'citty'
+import { LogLevels, consola } from 'consola'
+import { CommonArgs } from '../arguments/common.mjs'
+import { getCWD } from '../config/get-cwd.mjs'
+import { isInSubcommand } from '../utils/is-in-subcommand.mjs'
 import {
 	printInstalledVersions,
 	printUpgradeNotice,
 } from '../utils/version.mjs'
-import { MigrateCommand } from './migrate/root.mjs'
-import { isInSubcommand } from '../utils/is-in-subcommand.mjs'
-import { LegacyMakeCommand as LegacyMigrateMakeCommand } from './migrate/make.mjs'
-import { LegacyListCommand } from './migrate/list.mjs'
-import { LegacyLatestCommand } from './migrate/latest.mjs'
-import { LegacyRollbackCommand } from './migrate/rollback.mjs'
-import { LegacyDownCommand } from './migrate/down.mjs'
-import { LegacyUpCommand } from './migrate/up.mjs'
-import { CommonArgs } from '../arguments/common.mjs'
 import { InitCommand } from './init.mjs'
-import { SeedCommand } from './seed/root.mjs'
+import { LegacyDownCommand } from './migrate/down.mjs'
+import { LegacyLatestCommand } from './migrate/latest.mjs'
+import { LegacyListCommand } from './migrate/list.mjs'
+import { LegacyMakeCommand as LegacyMigrateMakeCommand } from './migrate/make.mjs'
+import { LegacyRollbackCommand } from './migrate/rollback.mjs'
+import { MigrateCommand } from './migrate/root.mjs'
+import { LegacyUpCommand } from './migrate/up.mjs'
 import { LegacyMakeCommand as LegacySeedMakeCommand } from './seed/make.mjs'
+import { SeedCommand } from './seed/root.mjs'
 import { LegacyRunCommand } from './seed/run.mjs'
-import { getCWD } from '../config/get-cwd.mjs'
 
 const args = {
 	...CommonArgs,

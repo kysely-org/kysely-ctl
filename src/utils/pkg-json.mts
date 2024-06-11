@@ -1,5 +1,5 @@
 import { type PackageJson, readPackageJSON } from 'pkg-types'
-import { HasCWD, getCWD } from '../config/get-cwd.mjs'
+import { type HasCWD, getCWD } from '../config/get-cwd.mjs'
 
 export interface GetPackageJSONOptions {
 	id?: string

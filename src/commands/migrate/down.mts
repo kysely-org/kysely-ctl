@@ -1,11 +1,11 @@
 import type { ArgsDef, CommandDef } from 'citty'
 import { consola } from 'consola'
-import { createSubcommand } from '../../utils/create-subcommand.mjs'
-import { createMigrationNameArg } from '../../arguments/migration-name.mjs'
 import { CommonArgs } from '../../arguments/common.mjs'
-import { processMigrationResultSet as processMigrationResultSet } from '../../kysely/process-migration-result-set.mjs'
+import { createMigrationNameArg } from '../../arguments/migration-name.mjs'
 import { isWrongDirection } from '../../kysely/is-wrong-direction.mjs'
+import { processMigrationResultSet } from '../../kysely/process-migration-result-set.mjs'
 import { usingMigrator } from '../../kysely/using-migrator.mjs'
+import { createSubcommand } from '../../utils/create-subcommand.mjs'
 
 const args = {
 	...CommonArgs,

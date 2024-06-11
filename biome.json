@@ -11,7 +11,14 @@
 	},
 	"linter": {
 		"rules": {
+			"nursery": {
+				"noConsole": "error"
+			},
+			"style": {
+				"noParameterAssign": "warn"
+			},
 			"suspicious": {
+				"noAssignInExpressions": "warn",
 				"noExplicitAny": "warn"
 			}
 		}
