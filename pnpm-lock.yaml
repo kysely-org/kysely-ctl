@@ -34,7 +34,7 @@ importers:
         version: 3.7.0
       tsx:
         specifier: ^4.9.0
-        version: 4.15.4
+        version: 4.15.6
     devDependencies:
       '@arethetypeswrong/cli':
         specifier: ^0.15.3
@@ -1470,8 +1470,8 @@ packages:
       typescript:
         optional: true
 
-  tsx@4.15.4:
-    resolution: {integrity: sha512-d++FLCwJLrXaBFtRcqdPBzu6FiVOJ2j+UsvUZPtoTrnYtCGU5CEW7iHXtNZfA2fcRTvJFWPqA6SWBuB0GSva9w==}
+  tsx@4.15.6:
+    resolution: {integrity: sha512-is0VQQlfNZRHEuSSTKA6m4xw74IU4AizmuB6lAYLRt9XtuyeQnyJYexhNZOPCB59SqC4JzmSzPnHGBXxf3k0hA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -2891,7 +2891,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  tsx@4.15.4:
+  tsx@4.15.6:
     dependencies:
       esbuild: 0.21.4
       get-tsconfig: 4.7.5
