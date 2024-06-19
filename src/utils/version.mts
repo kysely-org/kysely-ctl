@@ -6,16 +6,35 @@ import type { HasCWD } from '../config/get-cwd.mjs'
 import { getPackageManager } from './package-manager.mjs'
 import { getCTLPackageJSON, getConsumerPackageJSON } from './pkg-json.mjs'
 
-/**
- * Returns the version of the Kysely package.
- */
 export async function getKyselyInstalledVersion(
 	args: HasCWD,
+): Promise<string | null> {
+	return await getInstalledVersionFromConsumerPackageJSON(args, 'kysely')
+}
+
+export async function getKyselyCodegenInstalledVersion(
+	args: HasCWD,
+): Promise<string | null> {
+	return await getInstalledVersionFromConsumerPackageJSON(
+		args,
+		'kysely-codegen',
+	)
+}
+
+export async function getPrismaKyselyInstalledVersion(
+	args: HasCWD,
+): Promise<string | null> {
+	return await getInstalledVersionFromConsumerPackageJSON(args, 'prisma-kysely')
+}
+
+async function getInstalledVersionFromConsumerPackageJSON(
+	args: HasCWD,
+	name: string,
 ): Promise<string | null> {
 	try {
 		const pkgJSON = await getConsumerPackageJSON(args)
 
-		return getVersionFromPackageJSON('kysely', pkgJSON)
+		return getVersionFromPackageJSON(name, pkgJSON)
 	} catch (err) {
 		return null
 	}

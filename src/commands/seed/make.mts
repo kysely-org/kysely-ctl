@@ -1,4 +1,4 @@
-import { copyFile, mkdir } from 'node:fs/promises'
+import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises'
 import type { ArgsDef, CommandDef } from 'citty'
 import { consola } from 'consola'
 import { join } from 'pathe'
@@ -6,7 +6,10 @@ import { CommonArgs } from '../../arguments/common.mjs'
 import { ExtensionArg, assertExtension } from '../../arguments/extension.mjs'
 import { getConfigOrFail } from '../../config/get-config.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
-import { getTemplateExtension } from '../../utils/get-template-extension.mjs'
+import {
+	getKyselyCodegenInstalledVersion,
+	getPrismaKyselyInstalledVersion,
+} from '../../utils/version.mjs'
 
 const args = {
 	...CommonArgs,
@@ -29,11 +32,11 @@ const BaseMakeCommand = {
 
 		consola.debug(context, [])
 
-		const config = await getConfigOrFail(args)
+		assertExtension(extension)
 
-		assertExtension(extension, config, 'seeds')
+		const { seeds, ...config } = await getConfigOrFail(args)
 
-		const seedsFolderPath = join(config.cwd, config.seeds.seedFolder)
+		const seedsFolderPath = join(config.cwd, seeds.seedFolder)
 
 		consola.debug('Seeds folder path:', seedsFolderPath)
 
@@ -45,28 +48,58 @@ const BaseMakeCommand = {
 			consola.debug('Seeds folder created')
 		}
 
-		const filename = `${await config.seeds.getSeedPrefix()}${
+		const destinationFilename = `${await seeds.getSeedPrefix()}${
 			args.seed_name
 		}.${extension}`
 
-		consola.debug('Filename:', filename)
+		consola.debug('Destination filename:', destinationFilename)
 
-		const filePath = join(seedsFolderPath, filename)
+		const destinationFilePath = join(seedsFolderPath, destinationFilename)
 
-		consola.debug('File path:', filePath)
+		consola.debug('File path:', destinationFilePath)
 
-		const templateExtension = await getTemplateExtension(extension)
+		const databaseInterfacePath =
+			seeds.databaseInterfacePath ||
+			((await getKyselyCodegenInstalledVersion(args))
+				? 'kysely-codegen'
+				: undefined)
 
-		const templatePath = join(
-			__dirname,
-			`templates/seed-template.${templateExtension}`,
-		)
+		consola.debug('Database interface path:', databaseInterfacePath)
 
-		consola.debug('Template path:', templatePath)
+		if (!databaseInterfacePath) {
+			await copyFile(
+				join(__dirname, 'templates/seed-template.ts'),
+				destinationFilePath,
+			)
+		} else {
+			const templateFile = await readFile(
+				join(__dirname, 'templates/seed-type-safe-template.ts'),
+				{ encoding: 'utf8' },
+			)
 
-		await copyFile(templatePath, filePath)
+			consola.debug('templateFile', templateFile)
 
-		consola.success(`Created seed file at ${filePath}`)
+			const [
+				databaseInterfaceFilePath,
+				databaseInterfaceName = databaseInterfaceFilePath ===
+					'kysely-codegen' || (await getPrismaKyselyInstalledVersion(args))
+					? 'DB'
+					: 'Database',
+			] = databaseInterfacePath.split('#')
+
+			consola.debug('Database interface file path: ', databaseInterfaceFilePath)
+			consola.debug('Database interface name: ', databaseInterfaceName)
+
+			const populatedTemplateFile = templateFile
+				.replace(/<typename>/g, databaseInterfaceName)
+				.replace(/<path>/g, databaseInterfaceFilePath)
+
+			consola.debug('Populated template file: ', populatedTemplateFile)
+
+			await writeFile(destinationFilePath, populatedTemplateFile)
+		}
+
+		consola.success(`Created seed file at ${destinationFilePath}`)
 	},
 } satisfies CommandDef<typeof args>
 

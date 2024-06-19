@@ -186,5 +186,13 @@ export type MigrationsBaseConfig = Omit<MigratorProps, 'db' | 'provider'> & {
 }
 
 export type SeedsBaseConfig = Omit<SeederProps, 'db' | 'provider'> & {
+	/**
+	 * `Database` interface relative-to-seed-folder path, e.g. `kysely-codegen`, `../path/to/database#MyDatabaseTypeName`.
+	 *
+	 * Default is `kysely-codegen` if it is installed, otherwise `Kysely<any>`.
+	 *
+	 * If `prisma-kysely` is installed, you can leave out the `#MyDatabaseTypeName` part, it will default to `<path>#DB`.
+	 */
+	databaseInterfacePath?: string
 	getSeedPrefix?(): string | Promise<string>
 }
