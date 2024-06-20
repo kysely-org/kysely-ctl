@@ -6,7 +6,7 @@ export const ExtensionArg = {
 	extension: {
 		alias: 'x',
 		default: 'ts',
-		description: 'The file extension to use',
+		description: 'The file extension to use.',
 		type: 'string',
 		valueHint: EXTENSIONS.map((extension) => `"${extension}"`).join(' | '),
 	},
