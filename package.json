@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.15.3",
-    "@biomejs/biome": "1.8.1",
+    "@biomejs/biome": "1.8.2",
     "@tsconfig/node20": "^20.1.4",
     "@types/better-sqlite3": "^7.6.10",
     "@types/node": "^20.14.6",
