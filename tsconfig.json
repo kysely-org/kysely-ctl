@@ -1,3 +1,5 @@
 {
-  "extends": "./node_modules/@tsconfig/node20/tsconfig.json"
+  "extends": "./node_modules/@tsconfig/node20/tsconfig.json",
+  "exclude": ["node_modules", "dist"],
+  "include": ["src", "tests"],
 }
