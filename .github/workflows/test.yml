@@ -7,6 +7,32 @@ on:
     branches: [main]
 
 jobs:
+  unit:
+    runs-on: ubuntu-latest
+
+    name: Unit Tests
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Build
+        run: pnpm build
+
+      - name: Test
+        run: pnpm test
+
   node:
     strategy:
       matrix:
