@@ -1,5 +1,6 @@
 import type { ConfigLayerMeta, ResolvedConfig } from 'c12'
 import type {
+	Kysely,
 	Dialect as KyselyDialectInstance,
 	KyselyPlugin,
 	MigrationProvider,
@@ -42,102 +43,129 @@ export type KyselyDialectConfig<Dialect extends KyselyDialect> =
 		: never
 
 export type KyselyCTLConfig<Dialect extends KyselyDialect = KyselyDialect> =
-	KyselyCTLConfigBase &
-		(Dialect extends ResolvableKyselyDialect
-			? {
-					/**
-					 * Name of an underlying database driver library, or a Kysely dialect
-					 * instance.
-					 *
-					 * In case of the first, you're required to also pass a suitable `dialectConfig`.
-					 */
-					dialect: Dialect
-					/**
-					 * Configuration passed to a dialect in case a name was passed in `dialect`.
-					 */
-					dialectConfig: KyselyDialectConfig<Dialect>
-				}
-			: {
-					/**
-					 * A name of an underlying database driver library, or a Kysely dialect
-					 * instance.
-					 *
-					 * In case of the first, you're required to also pass a suitable `dialectConfig`.
-					 */
-					dialect: KyselyDialectInstance
-				}) &
-		(
-			| {
-					migrations: MigrationsBaseConfig & {
-						migrationFolder?: string
-						migrator?: never
-						provider?: never
-					}
-			  }
-			| {
-					migrations?: MigrationsBaseConfig & {
-						migrationFolder?: never
-						migrator?: never
-						provider: MigrationProvider
-					}
-			  }
-			| {
-					migrations?: Pick<MigrationsBaseConfig, 'getMigrationPrefix'> & {
-						migrationFolder?: never
-						migrator: Migrator
-						provider?: never
-					}
-			  }
-		) &
-		(
-			| {
-					seeds?: SeedsBaseConfig & {
-						provider?: never
-						seeder?: never
-						seedFolder?: string
-					}
-			  }
-			| {
-					seeds?: SeedsBaseConfig & {
-						provider: SeedProvider
-						seeder?: never
-						seedFolder?: never
-					}
-			  }
-			| {
-					seeds?: Pick<SeedsBaseConfig, 'getSeedPrefix'> & {
-						provider?: never
-						seeder: Seeder
-						seedFolder?: never
-					}
-			  }
-		)
+	Dialect extends ResolvableKyselyDialect
+		?
+				| {
+						dialect: Dialect
+						dialectConfig: KyselyDialectConfig<Dialect>
+						migrations: MigratorfulMigrationsConfig
+						plugins?: KyselyPlugin[]
+						seeds?: SeederlessSeedsConfig
+				  }
+				| {
+						dialect: Dialect
+						dialectConfig: KyselyDialectConfig<Dialect>
+						migrations?: MigratorlessMigrationsConfig
+						plugins?: KyselyPlugin[]
+						seeds: SeederfulSeedsConfig
+				  }
+				| {
+						dialect: Dialect
+						dialectConfig: KyselyDialectConfig<Dialect>
+						migrations?: MigratorlessMigrationsConfig
+						plugins?: KyselyPlugin[]
+						seeds?: SeederlessSeedsConfig
+				  }
+		:
+				| {
+						dialect: KyselyDialectInstance
+						migrations: MigratorfulMigrationsConfig
+						plugins?: KyselyPlugin[]
+						seeds?: SeederlessSeedsConfig
+				  }
+				| {
+						dialect: KyselyDialectInstance
+						migrations?: MigratorlessMigrationsConfig
+						plugins?: KyselyPlugin[]
+						seeds: SeederfulSeedsConfig
+				  }
+				| {
+						dialect: KyselyDialectInstance
+						migrations?: MigratorlessMigrationsConfig
+						plugins?: KyselyPlugin[]
+						seeds?: SeederlessSeedsConfig
+				  }
+				| {
+						kysely: Kysely<any>
+						migrations: MigratorfulMigrationsConfig
+						seeds?: SeederlessSeedsConfig
+				  }
+				| {
+						kysely: Kysely<any>
+						migrations?: MigratorlessMigrationsConfig
+						seeds: SeederfulSeedsConfig
+				  }
+				| {
+						kysely: Kysely<any>
+						migrations?: MigratorlessMigrationsConfig
+						seeds?: SeederlessSeedsConfig
+				  }
+				| {
+						dialect?: never
+						kysely?: never
+						migrations: MigratorfulMigrationsConfig
+						plugins?: never
+						seeds: SeederfulSeedsConfig
+				  }
 
-export interface KyselyCTLConfigBase {
-	plugins?: KyselyPlugin[]
+type MigratorfulMigrationsConfig = Pick<
+	MigrationsBaseConfig,
+	'getMigrationPrefix'
+> & {
+	migrationFolder?: never
+	migrator: Migrator
+	provider?: never
 }
 
-export type ResolvedKyselyCTLConfig<
-	Dialect extends KyselyDialect = KyselyDialect,
-> = (Dialect extends ResolvableKyselyDialect
-	? {
-			dialect: Dialect
-			dialectConfig: KyselyDialectConfig<Dialect>
-		}
-	: {
-			dialect: KyselyDialectInstance
-		}) & {
+type MigratorlessMigrationsConfig = MigrationsBaseConfig &
+	(
+		| {
+				migrationFolder?: string
+				migrator?: never
+				provider?: never
+		  }
+		| {
+				migrationFolder?: never
+				migrator?: never
+				provider: MigrationProvider
+		  }
+	)
+
+type SeederfulSeedsConfig = Pick<SeedsBaseConfig, 'getSeedPrefix'> & {
+	provider?: never
+	seeder: Seeder
+	seedsFolder?: never
+}
+
+type SeederlessSeedsConfig = SeedsBaseConfig &
+	(
+		| {
+				provider?: never
+				seeder?: never
+				seedFolder?: string
+		  }
+		| {
+				provider: SeedProvider
+				seeder?: never
+				seedFolder?: never
+		  }
+	)
+
+export interface ResolvedKyselyCTLConfig {
 	configMetadata: Omit<
 		ResolvedConfig<KyselyCTLConfig, ConfigLayerMeta>,
 		'config'
 	>
 	cwd: string
+	dialect?: KyselyDialect
+	dialectConfig?: KyselyDialectConfig<any>
+	kysely?: Kysely<any>
 	migrations: SetRequired<MigrationsBaseConfig, 'getMigrationPrefix'> & {
 		migrationFolder: string
 		migrator?: Migrator
 		provider?: MigrationProvider
 	}
-	plugins: KyselyPlugin[]
+	plugins?: KyselyPlugin[]
 	seeds: SetRequired<SeedsBaseConfig, 'getSeedPrefix'> & {
 		provider?: SeedProvider
 		seeder?: Seeder

@@ -2,7 +2,6 @@ export * from './config/define-config.mjs'
 export type {
 	KyselyCoreDialect,
 	KyselyCTLConfig,
-	KyselyCTLConfigBase,
 	KyselyDialect,
 	KyselyDialectConfig,
 	KyselyOrganizationDialect,
