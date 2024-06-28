@@ -1,8 +1,8 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"files": {
-		"include": ["src"],
-		"ignore": ["src/templates/seed-type-safe-template.ts"]
+		"include": ["src", "tests"],
+    "ignore": ["src/templates/seed-type-safe-template.ts"]
 	},
 	"javascript": {
 		"formatter": {

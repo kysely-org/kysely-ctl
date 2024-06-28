@@ -9,8 +9,14 @@ export async function usingSeeder<T>(
 ): Promise<T> {
 	const config = await getConfigOrFail(args)
 
+	const { seeder } = config.seeds
+
+	if (seeder) {
+		return await callback(seeder)
+	}
+
 	return await usingKysely(config, async (kysely) => {
-		const seeder = getSeeder(kysely, config)
+		const seeder = getSeeder({ ...config, kysely })
 
 		return await callback(seeder)
 	})
