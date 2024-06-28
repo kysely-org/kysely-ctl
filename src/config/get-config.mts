@@ -35,32 +35,15 @@ export async function getConfig(
 		...(config || {}),
 		configMetadata,
 		cwd,
-		dialect: config?.dialect || {
-			createAdapter() {
-				throw new Error('No dialect specified')
-			},
-			createDriver() {
-				throw new Error('No dialect specified')
-			},
-			createIntrospector() {
-				throw new Error('No dialect specified')
-			},
-			createQueryCompiler() {
-				throw new Error('No dialect specified')
-			},
-		},
-		// @ts-ignore
-		dialectConfig: config?.dialectConfig || {},
 		migrations: {
 			getMigrationPrefix: getMillisPrefix,
 			migrationFolder: 'migrations',
-			...config?.migrations,
+			...(config?.migrations || {}),
 		},
-		plugins: config?.plugins || [],
 		seeds: {
 			getSeedPrefix: getMillisPrefix,
 			seedFolder: 'seeds',
-			...config?.seeds,
+			...(config?.seeds || {}),
 		},
 	}
 }
