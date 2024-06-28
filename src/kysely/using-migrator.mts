@@ -9,8 +9,14 @@ export async function usingMigrator<T>(
 ): Promise<T> {
 	const config = await getConfigOrFail(args)
 
+	const { migrator } = config.migrations
+
+	if (migrator) {
+		return await callback(migrator)
+	}
+
 	return await usingKysely(config, async (kysely) => {
-		const migrator = getMigrator(kysely, config)
+		const migrator = getMigrator({ ...config, kysely })
 
 		return await callback(migrator)
 	})
