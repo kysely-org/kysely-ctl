@@ -409,8 +409,6 @@ describe('defineConfig', () => {
 			defineConfig({
 				// @ts-expect-error
 				dialect: 'moshe',
-				// @ts-expect-error
-				dialectConfig,
 			})
 
 			const dialect: string = 'better-sqlite3'
@@ -418,8 +416,6 @@ describe('defineConfig', () => {
 			defineConfig({
 				// @ts-expect-error
 				dialect,
-				// @ts-expect-error
-				dialectConfig,
 			})
 		})
 
