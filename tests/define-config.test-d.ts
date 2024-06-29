@@ -428,6 +428,22 @@ describe('defineConfig', () => {
 			})
 		})
 	})
+
+	it('environment override issue - https://github.com/kysely-org/kysely-ctl/issues/53', () => {
+		defineConfig({
+			dialect: dialect,
+			plugins: plugins,
+			migrations: {
+				migrationFolder: './src/db/migrations',
+			},
+			$development: {
+				seeds: {
+					// this type-errored before the fix
+					seedFolder: './src/db/seeds/development',
+				},
+			},
+		})
+	})
 })
 
 function init() {
