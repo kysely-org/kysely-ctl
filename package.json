@@ -1,6 +1,6 @@
 {
   "name": "kysely-ctl",
-  "version": "0.8.8",
+  "version": "0.8.9",
   "type": "module",
   "bin": {
     "kysely": "./dist/bin.js"
