@@ -6,6 +6,6 @@ export const EnvironmentArg = {
 		description:
 			'Apply environment-specific overrides to the configuration. See https://github.com/unjs/c12#environment-specific-configuration for more information.',
 		type: 'string',
-		valueHint: 'prod | dev | test | ...',
+		valueHint: 'production | development | test | ...',
 	},
 } satisfies ArgsDef
