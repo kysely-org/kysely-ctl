@@ -134,7 +134,7 @@ type MigratorlessMigrationsConfig = MigrationsBaseConfig &
 type SeederfulSeedsConfig = Pick<SeedsBaseConfig, 'getSeedPrefix'> & {
 	provider?: never
 	seeder: Seeder
-	seedsFolder?: never
+	seedFolder?: never
 }
 
 type SeederlessSeedsConfig = SeedsBaseConfig &
