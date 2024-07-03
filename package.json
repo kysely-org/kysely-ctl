@@ -57,19 +57,19 @@
     }
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.15.3",
+    "@arethetypeswrong/cli": "^0.16.0",
     "@arktype/attest": "^0.8.2",
     "@biomejs/biome": "1.8.3",
     "@tsconfig/node20": "^20.1.4",
-    "@types/better-sqlite3": "^7.6.10",
+    "@types/better-sqlite3": "^7.6.11",
     "@types/node": "^20.14.9",
-    "better-sqlite3": "^11.1.1",
+    "better-sqlite3": "^11.1.2",
     "kysely": "^0.27.3",
     "kysely-postgres-js": "^2.0.0",
     "postgres": "^3.4.4",
     "tsup": "^8.1.0",
-    "type-fest": "^4.20.1",
-    "typescript": "^5.5.2",
+    "type-fest": "^4.21.0",
+    "typescript": "^5.5.3",
     "vitest": "^1.6.0"
   },
   "engines": {
