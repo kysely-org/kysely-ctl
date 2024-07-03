@@ -136,3 +136,4 @@ seeds
 examples/**/example.db
 
 tsconfig.vitest-temp.json
+.attest
