@@ -27,6 +27,12 @@ export async function getPrismaKyselyInstalledVersion(
 	return await getInstalledVersionFromConsumerPackageJSON(args, 'prisma-kysely')
 }
 
+export async function getKanelKyselyInstalledVersion(
+	args: HasCWD,
+): Promise<string | null> {
+	return await getInstalledVersionFromConsumerPackageJSON(args, 'kanel-kysely')
+}
+
 async function getInstalledVersionFromConsumerPackageJSON(
 	args: HasCWD,
 	name: string,
