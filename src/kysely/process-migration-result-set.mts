@@ -21,6 +21,13 @@ export async function processMigrationResultSet(
 				failedMigration ? ` @ "${failedMigration.migrationName}"` : ''
 			}`,
 		)
+
+		if (error instanceof AggregateError) {
+			for (const subError of error.errors) {
+				consola.error(subError)
+			}
+		}
+
 		process.exit?.(1)
 		throw error
 	}
