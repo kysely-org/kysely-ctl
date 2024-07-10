@@ -53,7 +53,7 @@ importers:
         version: 7.6.11
       '@types/node':
         specifier: ^20.14.9
-        version: 20.14.9
+        version: 20.14.10
       better-sqlite3:
         specifier: ^11.1.2
         version: 11.1.2
@@ -77,7 +77,7 @@ importers:
         version: 5.5.3
       vitest:
         specifier: ^2.0.1
-        version: 2.0.1(@types/node@20.14.9)
+        version: 2.0.1(@types/node@20.14.10)
 
 packages:
 
@@ -107,8 +107,8 @@ packages:
   '@arktype/fs@0.0.20':
     resolution: {integrity: sha512-WnoIFrhiDKnWixd7xmcvFTlP7ZVReT7j37nTbCpieUCsVaUldb38pgQjxdvlJN40UL3kkjxyiYIRmc7BOvgy1A==}
 
-  '@arktype/schema@0.1.18':
-    resolution: {integrity: sha512-6xMboHvnO3NtgYNP160PmghElUDpKe/aDMqH2hRRHoMb1Nh0bPilDfr9LJnXQEwfA5hDguqRM+vifOKkROtOLA==}
+  '@arktype/schema@0.1.22':
+    resolution: {integrity: sha512-3HAf9EcIgu/H9IIOtfY2yH1exuF5b7z3GmMrPuI9xhC0OwKw5DK/57MNGSxbx9JMw51RLxL/fcEOnyNiXEDT+g==}
 
   '@arktype/util@0.0.51':
     resolution: {integrity: sha512-lukmZcbSVI27ZJ4uJA7ztCKM5OligUfdTrr0E6k+F0tzz9iSEcplS0KZbVD2WfrLL3HXNKBE6g/w3nhYMAMoqw==}
@@ -446,8 +446,8 @@ packages:
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
-  '@types/node@20.14.9':
-    resolution: {integrity: sha512-06OCtnTXtWOZBJlRApleWndH4JsRVs1pDCc8dLSQp+7PpUpX3ePdHyeNSFTeSe7FtKyQkrlPvHwJOW3SLd8Oyg==}
+  '@types/node@20.14.10':
+    resolution: {integrity: sha512-MdiXf+nDuMvY0gJKxyfZ7/6UFsETO7mGKF54MVD/ekJS6HdFtpZFBgrh6Pseu64XTb2MLyFPlbW6hj8HYRQNOQ==}
 
   '@typescript/analyze-trace@0.10.1':
     resolution: {integrity: sha512-RnlSOPh14QbopGCApgkSx5UBgGda5MX1cHqp2fsqfiDyCwGL/m1jaeB9fzu7didVS81LQqGZZuxFBcg8YU8EVw==}
@@ -512,8 +512,8 @@ packages:
     resolution: {integrity: sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==}
     engines: {node: '>= 8'}
 
-  arktype@2.0.0-dev.26:
-    resolution: {integrity: sha512-L7JkKHPkvEoDRKhtXyrCQcHast2oXFo7sOX1SZ3GSbIFJcEnTRRW12lFvH8M4fFR589CaOE9LleHMg9jZFR2TA==}
+  arktype@2.0.0-dev.29:
+    resolution: {integrity: sha512-SJluMYDyaGOYUntlG0rxd8ErRdTGceUb6Svsf5u1aAzSurwsh6my9ktkHA99wtJGmz/CbTv9T7OOan3cUppzUQ==}
 
   array-union@2.1.0:
     resolution: {integrity: sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==}
@@ -1535,14 +1535,14 @@ snapshots:
       '@arktype/util': 0.0.51
       '@typescript/analyze-trace': 0.10.1
       '@typescript/vfs': 1.5.3(typescript@5.5.3)
-      arktype: 2.0.0-dev.26
+      arktype: 2.0.0-dev.29
       typescript: 5.5.3
     transitivePeerDependencies:
       - supports-color
 
   '@arktype/fs@0.0.20': {}
 
-  '@arktype/schema@0.1.18':
+  '@arktype/schema@0.1.22':
     dependencies:
       '@arktype/util': 0.0.51
 
@@ -1756,11 +1756,11 @@ snapshots:
 
   '@types/better-sqlite3@7.6.11':
     dependencies:
-      '@types/node': 20.14.9
+      '@types/node': 20.14.10
 
   '@types/estree@1.0.5': {}
 
-  '@types/node@20.14.9':
+  '@types/node@20.14.10':
     dependencies:
       undici-types: 5.26.5
 
@@ -1835,9 +1835,9 @@ snapshots:
       normalize-path: 3.0.0
       picomatch: 2.3.1
 
-  arktype@2.0.0-dev.26:
+  arktype@2.0.0-dev.29:
     dependencies:
-      '@arktype/schema': 0.1.18
+      '@arktype/schema': 0.1.22
       '@arktype/util': 0.0.51
 
   array-union@2.1.0: {}
@@ -2699,13 +2699,13 @@ snapshots:
 
   validate-npm-package-name@5.0.1: {}
 
-  vite-node@2.0.1(@types/node@20.14.9):
+  vite-node@2.0.1(@types/node@20.14.10):
     dependencies:
       cac: 6.7.14
       debug: 4.3.5
       pathe: 1.1.2
       picocolors: 1.0.1
-      vite: 5.3.3(@types/node@20.14.9)
+      vite: 5.3.3(@types/node@20.14.10)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -2716,16 +2716,16 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.3.3(@types/node@20.14.9):
+  vite@5.3.3(@types/node@20.14.10):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.39
       rollup: 4.18.0
     optionalDependencies:
-      '@types/node': 20.14.9
+      '@types/node': 20.14.10
       fsevents: 2.3.3
 
-  vitest@2.0.1(@types/node@20.14.9):
+  vitest@2.0.1(@types/node@20.14.10):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@vitest/expect': 2.0.1
@@ -2742,11 +2742,11 @@ snapshots:
       std-env: 3.7.0
       tinybench: 2.8.0
       tinypool: 1.0.0
-      vite: 5.3.3(@types/node@20.14.9)
-      vite-node: 2.0.1(@types/node@20.14.9)
+      vite: 5.3.3(@types/node@20.14.10)
+      vite-node: 2.0.1(@types/node@20.14.10)
       why-is-node-running: 2.2.2
     optionalDependencies:
-      '@types/node': 20.14.9
+      '@types/node': 20.14.10
     transitivePeerDependencies:
       - less
       - lightningcss
