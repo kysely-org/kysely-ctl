@@ -62,7 +62,7 @@
     "@biomejs/biome": "1.8.3",
     "@tsconfig/node20": "^20.1.4",
     "@types/better-sqlite3": "^7.6.11",
-    "@types/node": "^20.14.9",
+    "@types/node": "^20.14.10",
     "better-sqlite3": "^11.1.2",
     "kysely": "^0.27.3",
     "kysely-postgres-js": "^2.0.0",
@@ -70,7 +70,7 @@
     "tsup": "^8.1.0",
     "type-fest": "^4.21.0",
     "typescript": "^5.5.3",
-    "vitest": "^2.0.1"
+    "vitest": "^2.0.2"
   },
   "engines": {
     "node": ">=18"
