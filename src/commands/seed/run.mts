@@ -1,9 +1,11 @@
 import type { ArgsDef, CommandDef } from 'citty'
 import { consola } from 'consola'
 import { colorize } from 'consola/utils'
+import { process } from 'std-env'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { usingSeeder } from '../../seeds/using-seeder.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
+import { exitWithError, handleAggregateError } from '../../utils/error.mjs'
 
 const args = {
 	...CommonArgs,
@@ -61,6 +63,11 @@ const BaseRunCommand = {
 					error && result.status === 'Error' ? ` - ${error}` : ''
 				}`,
 			)
+		}
+
+		if (error) {
+			handleAggregateError(error)
+			exitWithError(error)
 		}
 	},
 } satisfies CommandDef<typeof args>
