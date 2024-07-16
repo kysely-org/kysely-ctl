@@ -40,8 +40,8 @@ importers:
         specifier: ^0.16.0
         version: 0.16.0
       '@arktype/attest':
-        specifier: ^0.8.2
-        version: 0.8.2(typescript@5.5.3)
+        specifier: ^0.9.1
+        version: 0.9.1(typescript@5.5.3)
       '@biomejs/biome':
         specifier: 1.8.3
         version: 1.8.3
@@ -98,20 +98,20 @@ packages:
     resolution: {integrity: sha512-FYp6GBAgsNz81BkfItRz8RLZO03w5+BaeiPma1uCfmxTnxbtuMrI/dbzGiOk8VghO108uFI0oJo0OkewdSHw7g==}
     engines: {node: '>=18'}
 
-  '@arktype/attest@0.8.2':
-    resolution: {integrity: sha512-3CAP+KA1v6U5qAKC9BmtfZGXPEqdv03kMs+0wHzvLr6XRFNugH2nkJPlKMUwKH6l81oI4wacS+CR6+gwwrFUvg==}
+  '@ark/fs@0.1.0':
+    resolution: {integrity: sha512-A7zoIqcO8dPKbzYruYuCro1J4Ai/20rwlIJv2ExbKOBl/XowczKnNV8bh+6azOkkieeZJdrnSXSfNklVHf7zoA==}
+
+  '@ark/schema@0.2.0':
+    resolution: {integrity: sha512-IkNWCSHdjaoemMXpps4uFHEAQzwJPbTAS8K2vcQpk90sa+eNBuPSVyB/81/Qyl1VYW0iX3ceGC5NL/OznQv1jg==}
+
+  '@ark/util@0.1.0':
+    resolution: {integrity: sha512-qCLYICQoCy3kEKDVwirQp8qvxhY7NJd8BhhoHaj1l3wCFAk9NUbcDsxAkPStZEMdPI/d7NcbGJe8SWZuRG2twQ==}
+
+  '@arktype/attest@0.9.1':
+    resolution: {integrity: sha512-ueMMH3BJfyPg3Lt+wmel0C1NGGq2k+Aq7AXZw0eTiF8524p+0PK3pVr4Vwa5OfsZ7cTYJ+GJHC4wrcH1mZ24tg==}
     hasBin: true
     peerDependencies:
       typescript: '*'
-
-  '@arktype/fs@0.0.20':
-    resolution: {integrity: sha512-WnoIFrhiDKnWixd7xmcvFTlP7ZVReT7j37nTbCpieUCsVaUldb38pgQjxdvlJN40UL3kkjxyiYIRmc7BOvgy1A==}
-
-  '@arktype/schema@0.1.22':
-    resolution: {integrity: sha512-3HAf9EcIgu/H9IIOtfY2yH1exuF5b7z3GmMrPuI9xhC0OwKw5DK/57MNGSxbx9JMw51RLxL/fcEOnyNiXEDT+g==}
-
-  '@arktype/util@0.0.51':
-    resolution: {integrity: sha512-lukmZcbSVI27ZJ4uJA7ztCKM5OligUfdTrr0E6k+F0tzz9iSEcplS0KZbVD2WfrLL3HXNKBE6g/w3nhYMAMoqw==}
 
   '@biomejs/biome@1.8.3':
     resolution: {integrity: sha512-/uUV3MV+vyAczO+vKrPdOW0Iaet7UnJMU4bNMinggGJTAnBPjCoLEYcyYtYHNnUNYlv4xZMH6hVIQCAozq8d5w==}
@@ -504,8 +504,8 @@ packages:
     resolution: {integrity: sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==}
     engines: {node: '>= 8'}
 
-  arktype@2.0.0-dev.29:
-    resolution: {integrity: sha512-SJluMYDyaGOYUntlG0rxd8ErRdTGceUb6Svsf5u1aAzSurwsh6my9ktkHA99wtJGmz/CbTv9T7OOan3cUppzUQ==}
+  arktype@2.0.0-beta.0:
+    resolution: {integrity: sha512-fE3ssMiXjr/bLqFPzlDhRlXngdyHQreu7p7i8+dtcY1CA+f8WrVUcue6JxywhnqEJXPG4HOcIwQcC+q4VfeUMQ==}
 
   array-union@2.1.0:
     resolution: {integrity: sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==}
@@ -1514,24 +1514,24 @@ snapshots:
       typescript: 5.3.3
       validate-npm-package-name: 5.0.1
 
-  '@arktype/attest@0.8.2(typescript@5.5.3)':
+  '@ark/fs@0.1.0': {}
+
+  '@ark/schema@0.2.0':
     dependencies:
-      '@arktype/fs': 0.0.20
-      '@arktype/util': 0.0.51
+      '@ark/util': 0.1.0
+
+  '@ark/util@0.1.0': {}
+
+  '@arktype/attest@0.9.1(typescript@5.5.3)':
+    dependencies:
+      '@ark/fs': 0.1.0
+      '@ark/util': 0.1.0
       '@typescript/analyze-trace': 0.10.1
       '@typescript/vfs': 1.5.3(typescript@5.5.3)
-      arktype: 2.0.0-dev.29
+      arktype: 2.0.0-beta.0
       typescript: 5.5.3
     transitivePeerDependencies:
       - supports-color
-
-  '@arktype/fs@0.0.20': {}
-
-  '@arktype/schema@0.1.22':
-    dependencies:
-      '@arktype/util': 0.0.51
-
-  '@arktype/util@0.0.51': {}
 
   '@biomejs/biome@1.8.3':
     optionalDependencies:
@@ -1817,10 +1817,10 @@ snapshots:
       normalize-path: 3.0.0
       picomatch: 2.3.1
 
-  arktype@2.0.0-dev.29:
+  arktype@2.0.0-beta.0:
     dependencies:
-      '@arktype/schema': 0.1.22
-      '@arktype/util': 0.0.51
+      '@ark/schema': 0.2.0
+      '@ark/util': 0.1.0
 
   array-union@2.1.0: {}
 
