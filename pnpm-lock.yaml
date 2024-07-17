@@ -71,7 +71,7 @@ importers:
         version: 8.1.0(postcss@8.4.39)(typescript@5.5.3)
       type-fest:
         specifier: ^4.21.0
-        version: 4.21.0
+        version: 4.22.0
       typescript:
         specifier: ^5.5.3
         version: 5.5.3
@@ -1341,8 +1341,8 @@ packages:
   tunnel-agent@0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
 
-  type-fest@4.21.0:
-    resolution: {integrity: sha512-ADn2w7hVPcK6w1I0uWnM//y1rLXZhzB9mr0a3OirzclKF1Wp6VzevUmzz/NRAWunOT6E8HrnpGY7xOfc6K57fA==}
+  type-fest@4.22.0:
+    resolution: {integrity: sha512-hxMO1k4ip1uTVGgPbs1hVpYyhz2P91A6tQyH2H9POx3U6T3MdhIcfY8L2hRu/LRmzPFdfduOS0RIDjFlP2urPw==}
     engines: {node: '>=16'}
 
   typescript@5.3.3:
@@ -2657,7 +2657,7 @@ snapshots:
     dependencies:
       safe-buffer: 5.2.1
 
-  type-fest@4.21.0: {}
+  type-fest@4.22.0: {}
 
   typescript@5.3.3: {}
 
