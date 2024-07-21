@@ -28,5 +28,5 @@ export default defineConfig({
 	//   plugins: [],
 	seeds: {
 		allowJS: true,
-	}
+	},
 })

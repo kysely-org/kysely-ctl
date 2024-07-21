@@ -3,7 +3,7 @@
  * @returns {Promise<void>}
  */
 exports.up = async (db) => {
-   	// up migration code goes here...
+	// up migration code goes here...
 	// note: up migrations are mandatory. you must implement this function.
 	// For more info, see: https://kysely.dev/docs/migrations
 }

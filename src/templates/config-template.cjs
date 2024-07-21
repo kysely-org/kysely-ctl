@@ -1,13 +1,13 @@
-const { 
-    DummyDriver, 
-    PostgresAdapter, 
-    PostgresIntrospector, 
-    PostgresQueryCompiler,
+const {
+	DummyDriver,
+	PostgresAdapter,
+	PostgresIntrospector,
+	PostgresQueryCompiler,
 } = require('kysely')
 const { defineConfig } = require('kysely-ctl')
 
 exports.default = defineConfig({
-    // replace me with a real dialect instance OR a dialect name + `dialectConfig` prop.
+	// replace me with a real dialect instance OR a dialect name + `dialectConfig` prop.
 	dialect: {
 		createAdapter() {
 			return new PostgresAdapter()
@@ -23,10 +23,10 @@ exports.default = defineConfig({
 		},
 	},
 	migrations: {
-	    allowJS: true,
+		allowJS: true,
 	},
 	//   plugins: [],
-    seeds: {
-        allowJS: true,
-    },
+	seeds: {
+		allowJS: true,
+	},
 })
