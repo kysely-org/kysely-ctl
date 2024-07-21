@@ -7,6 +7,7 @@ import { DebugArg } from '../arguments/debug.mjs'
 import { ExtensionArg, assertExtension } from '../arguments/extension.mjs'
 import { NoOutdatedCheckArg } from '../arguments/no-outdated-notice.mjs'
 import { configFileExists, getConfig } from '../config/get-config.mjs'
+import { getTemplateExtension } from '../utils/get-template-extension.mjs'
 
 const args = {
 	...CWDArg,
@@ -28,8 +29,6 @@ export const InitCommand = {
 
 			consola.debug(context, [])
 
-			assertExtension(extension)
-
 			const config = await getConfig(args)
 
 			if (configFileExists(config)) {
@@ -37,6 +36,8 @@ export const InitCommand = {
 					`Init skipped: config file already exists at ${config.configMetadata.configFile}`,
 				)
 			}
+
+			assertExtension(extension)
 
 			const configFolderPath = join(config.cwd, '.config')
 
@@ -54,7 +55,16 @@ export const InitCommand = {
 
 			consola.debug('File path:', filePath)
 
-			await copyFile(join(__dirname, 'templates/config-template.ts'), filePath)
+			const templateExtension = await getTemplateExtension(extension)
+
+			const templatePath = join(
+				__dirname,
+				`templates/config-template.${templateExtension}`,
+			)
+
+			consola.debug('Template path:', templatePath)
+
+			await copyFile(templatePath, filePath)
 
 			consola.success(`Config file created at ${filePath}`)
 		},
