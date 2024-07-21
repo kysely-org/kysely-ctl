@@ -1,8 +1,8 @@
 import { consola } from 'consola'
 import { join } from 'pathe'
 import { filename } from 'pathe/utils'
+import { getFileType } from '../utils/get-file-type.mjs'
 import { importTSFile } from '../utils/import-ts-file.mjs'
-import { isTSFile } from '../utils/is-ts-file.mjs'
 import { safeReaddir } from '../utils/safe-readdir.mjs'
 import type { Seed, SeedProvider } from './seeder.mjs'
 
@@ -29,14 +29,25 @@ export class FileSeedProvider implements SeedProvider {
 		}
 
 		for (const fileName of files) {
-			if (!isTSFile(fileName)) {
-				consola.warn(`Ignoring \`${fileName}\` - not a TS file.`)
-				continue
+			const fileType = getFileType(fileName)
+
+			const isTS = fileType === 'TS'
+
+			if (!isTS) {
+				if (!this.#props.allowJS) {
+					consola.warn(`Ignoring \`${fileName}\` - not a TS file.`)
+					continue
+				}
+
+				if (fileType !== 'JS') {
+					consola.warn(`Ignoring \`${fileName}\` - not a TS/JS file.`)
+					continue
+				}
 			}
 
 			const filePath = join(this.#props.seedFolder, fileName)
 
-			const seed = await importTSFile(filePath)
+			const seed = await (isTS ? importTSFile(filePath) : import(filePath))
 
 			const seedKey = filename(fileName)
 
@@ -64,5 +75,6 @@ function isSeed(obj: unknown): obj is Seed {
 }
 
 export interface FileSeedProviderProps {
+	allowJS?: boolean
 	seedFolder: string
 }

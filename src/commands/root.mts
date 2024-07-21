@@ -49,13 +49,15 @@ export const RootCommand = {
 		...SeedCommand,
 	},
 	setup(context) {
-		if (context.args.debug) {
+		const { args } = context
+
+		if (args.debug) {
 			consola.level = LogLevels.debug
 		}
 
 		consola.options.formatOptions.date = false
 
-		getCWD(context.args) // ensures the CWD is set
+		getCWD(args) // ensures the CWD is set
 	},
 	async run(context) {
 		const { args } = context

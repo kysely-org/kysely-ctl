@@ -7,6 +7,7 @@ import { ExtensionArg, assertExtension } from '../../arguments/extension.mjs'
 import { createMigrationNameArg } from '../../arguments/migration-name.mjs'
 import { getConfigOrFail } from '../../config/get-config.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
+import { getTemplateExtension } from '../../utils/get-template-extension.mjs'
 
 const args = {
 	...CommonArgs,
@@ -25,9 +26,9 @@ const BaseMakeCommand = {
 
 		consola.debug(context, [])
 
-		assertExtension(extension)
-
 		const config = await getConfigOrFail(args)
+
+		assertExtension(extension, config, 'migrations')
 
 		const migrationsFolderPath = join(
 			config.cwd,
@@ -54,7 +55,16 @@ const BaseMakeCommand = {
 
 		consola.debug('File path:', filePath)
 
-		await copyFile(join(__dirname, 'templates/migration-template.ts'), filePath)
+		const templateExtension = await getTemplateExtension(extension)
+
+		const templatePath = join(
+			__dirname,
+			`templates/migration-template.${templateExtension}`,
+		)
+
+		consola.debug('Template path:', templatePath)
+
+		await copyFile(templatePath, filePath)
 
 		consola.success(`Created migration file at ${filePath}`)
 	},

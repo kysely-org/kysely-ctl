@@ -5,7 +5,7 @@ import { Seeder } from './seeder.mjs'
 
 export function getSeeder(config: ResolvedKyselyCTLConfig): Seeder {
 	const { kysely, seeds } = config
-	const { seedFolder, seeder, provider, ...seederOptions } = seeds
+	const { allowJS, seedFolder, seeder, provider, ...seederOptions } = seeds
 
 	if (seeder) {
 		return seeder
@@ -23,6 +23,7 @@ export function getSeeder(config: ResolvedKyselyCTLConfig): Seeder {
 			provider:
 				provider ||
 				new FileSeedProvider({
+					allowJS,
 					seedFolder: join(config.cwd, seedFolder),
 				}),
 		})

@@ -1,6 +1,9 @@
 import type { ArgsDef } from 'citty'
+import type { ResolvedKyselyCTLConfig } from '../config/kysely-ctl-config.mjs'
 
-const EXTENSIONS = ['ts', 'mts', 'cts'] as const
+const TS_EXTENSIONS = ['ts', 'mts', 'cts'] as const
+const JS_EXTENSIONS = ['js', 'mjs', 'cjs'] as const
+const ALL_EXTENSIONS = [...TS_EXTENSIONS, ...JS_EXTENSIONS] as const
 
 export const ExtensionArg = {
 	extension: {
@@ -8,14 +11,38 @@ export const ExtensionArg = {
 		default: 'ts',
 		description: 'The file extension to use.',
 		type: 'string',
-		valueHint: EXTENSIONS.map((extension) => `"${extension}"`).join(' | '),
+		valueHint: ALL_EXTENSIONS.map((extension) => `"${extension}"`).join(' | '),
 	},
 } satisfies ArgsDef
 
-type Extension = (typeof EXTENSIONS)[number]
+export type Extension = (typeof ALL_EXTENSIONS)[number]
 
-export function assertExtension(thing: unknown): asserts thing is Extension {
-	if (!EXTENSIONS.includes(thing as any)) {
+export function assertExtension(thing: unknown): asserts thing is Extension
+export function assertExtension(
+	thing: unknown,
+	config: ResolvedKyselyCTLConfig,
+	context: 'migrations' | 'seeds',
+): asserts thing is Extension
+
+export function assertExtension(
+	thing: unknown,
+	config?: ResolvedKyselyCTLConfig,
+	context?: 'migrations' | 'seeds',
+): asserts thing is Extension {
+	const allowJS =
+		!config || config[context as keyof ResolvedKyselyCTLConfig]?.allowJS
+
+	if (!allowJS && JS_EXTENSIONS.includes(thing as any)) {
+		throw new Error(
+			`Invalid file extension "${thing}"! Expected ${TS_EXTENSIONS.map(
+				(extension) => `"${extension}"`,
+			).join(' | ')}. To use JS extensions, set "${context}.allowJS" to true.`,
+		)
+	}
+
+	const extensions = allowJS ? ALL_EXTENSIONS : TS_EXTENSIONS
+
+	if (!extensions.includes(thing as any)) {
 		throw new Error(
 			`Invalid file extension "${thing}"! Expected ${ExtensionArg.extension.valueHint}`,
 		)

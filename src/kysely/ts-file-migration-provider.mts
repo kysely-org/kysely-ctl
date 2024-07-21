@@ -2,8 +2,8 @@ import { consola } from 'consola'
 import type { Migration, MigrationProvider } from 'kysely'
 import { join } from 'pathe'
 import { filename } from 'pathe/utils'
+import { getFileType } from '../utils/get-file-type.mjs'
 import { importTSFile } from '../utils/import-ts-file.mjs'
-import { isTSFile } from '../utils/is-ts-file.mjs'
 import { safeReaddir } from '../utils/safe-readdir.mjs'
 
 /**
@@ -24,14 +24,25 @@ export class TSFileMigrationProvider implements MigrationProvider {
 		const files = await safeReaddir(this.#props.migrationFolder)
 
 		for (const fileName of files) {
-			if (!isTSFile(fileName)) {
-				consola.warn(`Ignoring \`${fileName}\` - not a TS file.`)
-				continue
+			const fileType = getFileType(fileName)
+
+			const isTS = fileType === 'TS'
+
+			if (!isTS) {
+				if (!this.#props.allowJS) {
+					consola.warn(`Ignoring \`${fileName}\` - not a TS file.`)
+					continue
+				}
+
+				if (fileType !== 'JS') {
+					consola.warn(`Ignoring \`${fileName}\` - not a TS/JS file.`)
+					continue
+				}
 			}
 
 			const filePath = join(this.#props.migrationFolder, fileName)
 
-			const migration = await importTSFile(filePath)
+			const migration = await (isTS ? importTSFile(filePath) : import(filePath))
 
 			const migrationKey = filename(fileName)
 
@@ -59,5 +70,6 @@ function isMigration(obj: unknown): obj is Migration {
 }
 
 export interface TSFileMigrationProviderProps {
+	allowJS?: boolean
 	migrationFolder: string
 }

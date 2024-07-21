@@ -112,6 +112,7 @@ type MigratorfulMigrationsConfig = Pick<
 	MigrationsBaseConfig,
 	'getMigrationPrefix'
 > & {
+	allowJS?: never
 	migrationFolder?: never
 	migrator: Migrator
 	provider?: never
@@ -120,11 +121,13 @@ type MigratorfulMigrationsConfig = Pick<
 type MigratorlessMigrationsConfig = MigrationsBaseConfig &
 	(
 		| {
+				allowJS?: boolean
 				migrationFolder?: string
 				migrator?: never
 				provider?: never
 		  }
 		| {
+				allowJS?: never
 				migrationFolder?: never
 				migrator?: never
 				provider: MigrationProvider
@@ -132,6 +135,7 @@ type MigratorlessMigrationsConfig = MigrationsBaseConfig &
 	)
 
 type SeederfulSeedsConfig = Pick<SeedsBaseConfig, 'getSeedPrefix'> & {
+	allowJS?: never
 	provider?: never
 	seeder: Seeder
 	seedFolder?: never
@@ -140,11 +144,13 @@ type SeederfulSeedsConfig = Pick<SeedsBaseConfig, 'getSeedPrefix'> & {
 type SeederlessSeedsConfig = SeedsBaseConfig &
 	(
 		| {
+				allowJS?: boolean
 				provider?: never
 				seeder?: never
 				seedFolder?: string
 		  }
 		| {
+				allowJS?: never
 				provider: SeedProvider
 				seeder?: never
 				seedFolder?: never
@@ -161,12 +167,14 @@ export interface ResolvedKyselyCTLConfig {
 	dialectConfig?: KyselyDialectConfig<any>
 	kysely?: Kysely<any>
 	migrations: SetRequired<MigrationsBaseConfig, 'getMigrationPrefix'> & {
+		allowJS: boolean
 		migrationFolder: string
 		migrator?: Migrator
 		provider?: MigrationProvider
 	}
 	plugins?: KyselyPlugin[]
 	seeds: SetRequired<SeedsBaseConfig, 'getSeedPrefix'> & {
+		allowJS: boolean
 		provider?: SeedProvider
 		seeder?: Seeder
 		seedFolder: string

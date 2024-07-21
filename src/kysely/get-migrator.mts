@@ -5,7 +5,8 @@ import { TSFileMigrationProvider } from './ts-file-migration-provider.mjs'
 
 export function getMigrator(config: ResolvedKyselyCTLConfig): Migrator {
 	const { kysely, migrations } = config
-	const { migrationFolder, migrator, provider, ...migratorOptions } = migrations
+	const { allowJS, migrationFolder, migrator, provider, ...migratorOptions } =
+		migrations
 
 	if (migrator) {
 		return migrator
@@ -21,6 +22,7 @@ export function getMigrator(config: ResolvedKyselyCTLConfig): Migrator {
 		provider:
 			provider ||
 			new TSFileMigrationProvider({
+				allowJS,
 				migrationFolder: join(config.cwd, migrationFolder),
 			}),
 	})

@@ -36,11 +36,13 @@ export async function getConfig(
 		configMetadata,
 		cwd,
 		migrations: {
+			allowJS: false,
 			getMigrationPrefix: getMillisPrefix,
 			migrationFolder: 'migrations',
 			...(config?.migrations || {}),
 		},
 		seeds: {
+			allowJS: false,
 			getSeedPrefix: getMillisPrefix,
 			seedFolder: 'seeds',
 			...(config?.seeds || {}),
