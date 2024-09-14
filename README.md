@@ -102,6 +102,7 @@ export default defineConfig({
   plugins, // optional. `Kysely` plugins list. default is `[]`.
   seeds: { // optional.
     allowJS, // optional. controls whether `.js`, `.cjs` or `.mjs` seeds are allowed. default is `false`.
+    databaseInterfacePath, // optional. database interface relative-to-seed-folder path, e.g. `kysely-codegen`, `../path/to/database#MyDatabaseTypeName`. default is `kysely-codegen` if it is installed, otherwise `Kysely<any>` is used. if `prisma-kysely` is installed, you can leave out the `#MyDatabaseTypeName` part, it will default to `<path>#DB`.
     getSeedPrefix, // optional. a function that returns a seed prefix. affects `seed make` command. default is `() => ${Date.now()}_`.
     provider, // optional. a seed provider instance. default is `kysely-ctl`'s `FileSeedProvider`.
     seeder, // optional. a seeder instance. default is `kysely-ctl`'s `Seeder`.
