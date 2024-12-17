@@ -33,8 +33,8 @@ importers:
         specifier: ^3.8.0
         version: 3.8.0
       tsx:
-        specifier: ^4.9.0
-        version: 4.16.2
+        specifier: ^4.19.2
+        version: 4.19.2
     devDependencies:
       '@arethetypeswrong/cli':
         specifier: ^0.16.0
@@ -68,7 +68,7 @@ importers:
         version: 3.4.4
       tsup:
         specifier: ^8.2.1
-        version: 8.2.1(jiti@2.4.1)(postcss@8.4.39)(tsx@4.16.2)(typescript@5.5.3)(yaml@2.4.5)
+        version: 8.2.1(jiti@2.4.1)(postcss@8.4.39)(tsx@4.19.2)(typescript@5.5.3)(yaml@2.4.5)
       type-fest:
         specifier: ^4.22.1
         version: 4.26.1
@@ -1469,8 +1469,8 @@ packages:
       typescript:
         optional: true
 
-  tsx@4.16.2:
-    resolution: {integrity: sha512-C1uWweJDgdtX2x600HjaFaucXTilT7tgUZHbOE4+ypskZ1OP8CRCSDkCxG6Vya9EwaFIVagWwpaVAn5wzypaqQ==}
+  tsx@4.19.2:
+    resolution: {integrity: sha512-pOUl6Vo2LUq/bSa8S5q7b91cgNSjctn9ugq/+Mvow99qW6x/UZYwzxy/3NmqoT66eHYfCVvFvACC58UBPFf28g==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -2596,13 +2596,13 @@ snapshots:
       mlly: 1.7.3
       pathe: 1.1.2
 
-  postcss-load-config@6.0.1(jiti@2.4.1)(postcss@8.4.39)(tsx@4.16.2)(yaml@2.4.5):
+  postcss-load-config@6.0.1(jiti@2.4.1)(postcss@8.4.39)(tsx@4.19.2)(yaml@2.4.5):
     dependencies:
       lilconfig: 3.1.2
     optionalDependencies:
       jiti: 2.4.1
       postcss: 8.4.39
-      tsx: 4.16.2
+      tsx: 4.19.2
       yaml: 2.4.5
 
   postcss@8.4.39:
@@ -2844,7 +2844,7 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  tsup@8.2.1(jiti@2.4.1)(postcss@8.4.39)(tsx@4.16.2)(typescript@5.5.3)(yaml@2.4.5):
+  tsup@8.2.1(jiti@2.4.1)(postcss@8.4.39)(tsx@4.19.2)(typescript@5.5.3)(yaml@2.4.5):
     dependencies:
       bundle-require: 5.0.0(esbuild@0.23.0)
       cac: 6.7.14
@@ -2857,7 +2857,7 @@ snapshots:
       joycon: 3.1.1
       picocolors: 1.0.1
       picomatch: 4.0.2
-      postcss-load-config: 6.0.1(jiti@2.4.1)(postcss@8.4.39)(tsx@4.16.2)(yaml@2.4.5)
+      postcss-load-config: 6.0.1(jiti@2.4.1)(postcss@8.4.39)(tsx@4.19.2)(yaml@2.4.5)
       resolve-from: 5.0.0
       rollup: 4.19.0
       source-map: 0.8.0-beta.0
@@ -2872,9 +2872,9 @@ snapshots:
       - tsx
       - yaml
 
-  tsx@4.16.2:
+  tsx@4.19.2:
     dependencies:
-      esbuild: 0.21.5
+      esbuild: 0.23.0
       get-tsconfig: 4.7.5
     optionalDependencies:
       fsevents: 2.3.3

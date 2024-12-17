@@ -45,7 +45,7 @@
     "pathe": "^1.1.2",
     "pkg-types": "^1.2.1",
     "std-env": "^3.8.0",
-    "tsx": "^4.9.0"
+    "tsx": "^4.19.2"
   },
   "peerDependencies": {
     "kysely": ">=0.18.1 <0.28.0",
