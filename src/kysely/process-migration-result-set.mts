@@ -1,7 +1,6 @@
 import { consola } from 'consola'
 import { colorize } from 'consola/utils'
 import type { MigrationResultSet, Migrator } from 'kysely'
-import { process } from 'std-env'
 import { exitWithError, handleAggregateError } from '../utils/error.mjs'
 import { getMigrations } from './get-migrations.mjs'
 

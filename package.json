@@ -44,7 +44,7 @@
     "ofetch": "^1.4.1",
     "pathe": "^1.1.2",
     "pkg-types": "^1.2.1",
-    "std-env": "^3.4.0",
+    "std-env": "^3.8.0",
     "tsx": "^4.9.0"
   },
   "peerDependencies": {

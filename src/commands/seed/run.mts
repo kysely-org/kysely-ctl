@@ -1,7 +1,6 @@
 import type { ArgsDef, CommandDef } from 'citty'
 import { consola } from 'consola'
 import { colorize } from 'consola/utils'
-import { process } from 'std-env'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { usingSeeder } from '../../seeds/using-seeder.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
