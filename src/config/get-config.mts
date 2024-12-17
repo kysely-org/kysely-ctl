@@ -32,20 +32,20 @@ export async function getConfig(
 	const { config, ...configMetadata } = loadedConfig
 
 	return {
-		...(config || {}),
+		...config,
 		configMetadata,
 		cwd,
 		migrations: {
 			allowJS: false,
 			getMigrationPrefix: getMillisPrefix,
 			migrationFolder: 'migrations',
-			...(config?.migrations || {}),
+			...(config.migrations || {}),
 		},
 		seeds: {
 			allowJS: false,
 			getSeedPrefix: getMillisPrefix,
 			seedFolder: 'seeds',
-			...(config?.seeds || {}),
+			...(config.seeds || {}),
 		},
 	}
 }
