@@ -12,13 +12,15 @@
 	"linter": {
 		"rules": {
 			"nursery": {
-				"noConsole": "error"
+				"noCommonJs": "error",
+				"useDeprecatedReason": "error"
 			},
 			"style": {
 				"noParameterAssign": "warn"
 			},
 			"suspicious": {
 				"noAssignInExpressions": "warn",
+				"noConsole": "error",
 				"noExplicitAny": "warn"
 			}
 		}
