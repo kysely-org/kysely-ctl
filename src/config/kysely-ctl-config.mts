@@ -134,7 +134,10 @@ type MigratorlessMigrationsConfig = MigrationsBaseConfig &
 		  }
 	)
 
-type SeederfulSeedsConfig = Pick<SeedsBaseConfig, 'getSeedPrefix'> & {
+type SeederfulSeedsConfig = Pick<
+	SeedsBaseConfig,
+	'databaseInterface' | 'getSeedPrefix'
+> & {
 	allowJS?: never
 	provider?: never
 	seeder: Seeder
@@ -186,5 +189,45 @@ export type MigrationsBaseConfig = Omit<MigratorProps, 'db' | 'provider'> & {
 }
 
 export type SeedsBaseConfig = Omit<SeederProps, 'db' | 'provider'> & {
+	/**
+	 * Generate type-safe seed files that rely on an existing database interface.
+	 *
+	 * Default is `'auto'`.
+	 *
+	 * When `'auto'`:
+	 *
+	 * - When `kysely-codegen` is installed, it will use `import type { DB } from 'kysely-codegen'`.
+	 * - **SOON** When `prisma-kysely` is installed, it will try to find the right path and use `import type { DB } from 'path/to/types'`.
+	 * - **SOON** When `kanel-kysely` is installed, it will try to find the right path and use `import type Database from 'path/to/Database'`.
+	 * - Otherwise, it will fallback to `Kysely<any>`.
+	 *
+	 * When `'off'`, it will fallback to `Kysely<any>`.
+	 *
+	 * When a config object is passed, it will use the specified database interface path and name.
+	 */
+	databaseInterface?: 'auto' | 'off' | DatabaseInterfaceConfig
 	getSeedPrefix?(): string | Promise<string>
+}
+
+export type DatabaseInterface = 'auto' | 'off' | DatabaseInterfaceConfig
+
+export interface DatabaseInterfaceConfig {
+	/**
+	 * Whether the database interface is the default export.
+	 *
+	 * Default is `false`.
+	 */
+	isDefaultExport?: boolean
+
+	/**
+	 * Name of the database interface.
+	 *
+	 * Default is `'DB'`.
+	 */
+	name?: string
+
+	/**
+	 * Path to the database interface, relative to the seed folder.
+	 */
+	path: string
 }
