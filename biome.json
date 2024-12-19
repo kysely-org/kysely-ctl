@@ -1,7 +1,7 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"files": {
-		"include": ["src", "tests"]
+		"include": ["src", "tests", "scripts"]
 	},
 	"javascript": {
 		"formatter": {
@@ -16,6 +16,7 @@
 				"useDeprecatedReason": "error"
 			},
 			"style": {
+				"noNonNullAssertion": "warn",
 				"noParameterAssign": "warn"
 			},
 			"suspicious": {

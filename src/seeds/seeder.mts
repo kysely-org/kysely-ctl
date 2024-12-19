@@ -31,11 +31,13 @@ export class Seeder {
 		}
 
 		for (let i = 0, len = seeds.length; i < len && !resultSet.error; ++i) {
+			const result = resultSet.results[i]
+
 			try {
-				await seeds[i].seed.seed(this.#props.db)
-				resultSet.results[i].status = 'Success'
+				await seeds[i]!.seed.seed(this.#props.db)
+				result!.status = 'Success'
 			} catch (err) {
-				resultSet.results[i].status = 'Error'
+				result!.status = 'Error'
 				resultSet.error = err
 			}
 		}

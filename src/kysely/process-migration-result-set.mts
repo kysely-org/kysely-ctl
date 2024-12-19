@@ -48,15 +48,20 @@ export async function processMigrationResultSet(
 
 	const migrations = await getMigrations(migrator)
 
+	const { migrationName: firstResultMigrationName } = results[0]!
+
 	const untouchedMigrationsBefore = migrations.slice(
 		0,
 		migrations.findIndex(
-			(migration) => migration.name === results[0].migrationName,
+			(migration) => migration.name === firstResultMigrationName,
 		),
 	)
+
+	const { migrationName: lastResultMigrationName } = results.at(-1)!
+
 	const untouchedMigrationsAfter = migrations.slice(
 		migrations.findIndex(
-			(migration) => migration.name === results.at(-1)?.migrationName,
+			(migration) => migration.name === lastResultMigrationName,
 		) + 1,
 	)
 

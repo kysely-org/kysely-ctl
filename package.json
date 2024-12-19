@@ -61,7 +61,6 @@
     "@arethetypeswrong/cli": "^0.17.2",
     "@arktype/attest": "^0.32.0",
     "@biomejs/biome": "1.9.4",
-    "@tsconfig/node22": "^22.0.0",
     "@types/better-sqlite3": "^7.6.12",
     "@types/node": "^22.10.2",
     "better-sqlite3": "^11.7.0",
