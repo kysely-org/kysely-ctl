@@ -1,14 +1,14 @@
 {
-  "name": "deno-package-json",
-  "scripts": {
-    "kysely": "kysely"
-  },
-  "devDependencies": {
-    "kysely-ctl": "^0.9.0"
-  },
-  "dependencies": {
-    "kysely": "^0.27.5",
-    "kysely-postgres-js": "^2.0.0",
-    "postgres": "^3.4.4"
-  }
+	"name": "deno-package-json",
+	"scripts": {
+		"kysely": "kysely"
+	},
+	"devDependencies": {
+		"kysely-ctl": "^0.9.0"
+	},
+	"dependencies": {
+		"kysely": "^0.27.5",
+		"kysely-postgres-js": "^2.0.0",
+		"postgres": "^3.4.4"
+	}
 }
