@@ -34,7 +34,7 @@ export class Seeder {
 			const result = resultSet.results[i]
 
 			try {
-				await seeds[i]!.seed.seed(this.#props.db)
+				await seeds[i]?.seed.seed(this.#props.db)
 				result!.status = 'Success'
 			} catch (err) {
 				result!.status = 'Error'

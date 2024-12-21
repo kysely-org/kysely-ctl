@@ -45,7 +45,7 @@ bun add -D kysely-ctl
 
 Add `kysely-ctl` to your `package.json`:
 
-```json
+```ts
 {
   ...
   "scripts": {
