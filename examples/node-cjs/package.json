@@ -1,11 +1,11 @@
 {
-  "name": "node-cjs",
-  "type": "commonjs",
-  "devDependencies": {
-    "kysely-ctl": "link:../.."
-  },
-  "dependencies": {
-    "better-sqlite3": "^11.7.0",
-    "kysely": "^0.27.5"
-  }
+	"name": "node-cjs",
+	"type": "commonjs",
+	"devDependencies": {
+		"kysely-ctl": "link:../.."
+	},
+	"dependencies": {
+		"better-sqlite3": "^11.7.0",
+		"kysely": "^0.27.5"
+	}
 }

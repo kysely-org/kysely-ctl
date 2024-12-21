@@ -1,0 +1,21 @@
+{
+	"extends": "./node_modules/@tsconfig/node22/tsconfig.json",
+	"compilerOptions": {
+		// overrides
+		"module": "preserve",
+		"moduleResolution": "bundler",
+
+		// custom
+		"allowJs": true,
+		"resolveJsonModule": true,
+		"moduleDetection": "force",
+		"isolatedModules": true,
+		"verbatimModuleSyntax": true,
+		"noUncheckedIndexedAccess": true,
+		"noImplicitOverride": true,
+		"noEmit": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true
+	}
+}

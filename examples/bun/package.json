@@ -1,16 +1,16 @@
 {
-  "name": "bun-example",
-  "module": "index.ts",
-  "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest",
-    "kysely-ctl": "link:kysely-ctl"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "kysely": "^0.27.5",
-    "kysely-bun-sqlite": "^0.3.2"
-  }
+	"name": "bun-example",
+	"module": "index.ts",
+	"type": "module",
+	"devDependencies": {
+		"@types/bun": "latest",
+		"kysely-ctl": "link:kysely-ctl"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"kysely": "^0.27.5",
+		"kysely-bun-sqlite": "^0.3.2"
+	}
 }

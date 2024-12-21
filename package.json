@@ -1,88 +1,79 @@
 {
-  "name": "kysely-ctl",
-  "version": "0.9.0",
-  "type": "module",
-  "bin": {
-    "kysely": "./dist/bin.js"
-  },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "description": "Command-line tool for Kysely",
-  "author": "Igal Klebanov <igalklebanov@gmail.com> (https://github.com/igalklebanov)",
-  "license": "MIT",
-  "repository": "git://github.com/kysely-org/kysely-ctl.git",
-  "scripts": {
-    "biome": "biome",
-    "build": "tsup",
-    "check:dts": "attw --pack .",
-    "prepublishOnly": "biome check && pnpm build && pnpm check:dts",
-    "release:preview": "pkg-pr-new publish --template './examples/node-esm'",
-    "start": "pnpm build --watch",
-    "test": "vitest"
-  },
-  "dependencies": {
-    "c12": "^2.0.1",
-    "citty": "^0.1.6",
-    "consola": "^3.2.3",
-    "nypm": "^0.4.1",
-    "ofetch": "^1.4.1",
-    "pathe": "^1.1.2",
-    "pkg-types": "^1.2.1",
-    "std-env": "^3.8.0",
-    "tsx": "^4.19.2"
-  },
-  "peerDependencies": {
-    "kysely": ">=0.18.1 <0.28.0",
-    "kysely-postgres-js": "^2"
-  },
-  "peerDependenciesMeta": {
-    "kysely-postgres-js": {
-      "optional": true
-    }
-  },
-  "devDependencies": {
-    "@arethetypeswrong/cli": "^0.17.2",
-    "@arktype/attest": "^0.32.0",
-    "@biomejs/biome": "1.9.4",
-    "@types/better-sqlite3": "^7.6.12",
-    "@types/node": "^22.10.2",
-    "better-sqlite3": "^11.7.0",
-    "kysely": "^0.27.5",
-    "kysely-postgres-js": "^2.0.0",
-    "pkg-pr-new": "^0.0.39",
-    "postgres": "^3.4.5",
-    "tsup": "^8.3.5",
-    "type-fest": "^4.30.2",
-    "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
-  },
-  "engines": {
-    "node": ">=18"
-  },
-  "keywords": [
-    "cli",
-    "ctl",
-    "kysely",
-    "migration",
-    "seeding",
-    "codegen"
-  ],
-  "packageManager": "pnpm@9.2.0+sha512.98a80fd11c2e7096747762304106432b3ddc67dcf54b5a8c01c93f68a2cd5e05e6821849522a06fb76284d41a2660d5e334f2ee3bbf29183bf2e739b1dafa771"
+	"name": "kysely-ctl",
+	"version": "0.9.0",
+	"type": "module",
+	"bin": {
+		"kysely": "./dist/bin.js"
+	},
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"files": ["dist"],
+	"description": "Command-line tool for Kysely",
+	"author": "Igal Klebanov <igalklebanov@gmail.com> (https://github.com/igalklebanov)",
+	"license": "MIT",
+	"repository": "git://github.com/kysely-org/kysely-ctl.git",
+	"scripts": {
+		"biome": "biome",
+		"build": "tsup",
+		"check:dts": "attw --pack .",
+		"prepublishOnly": "biome check && pnpm build && pnpm check:dts",
+		"release:preview": "pkg-pr-new publish --template './examples/node-esm'",
+		"start": "pnpm build --watch",
+		"test": "vitest"
+	},
+	"dependencies": {
+		"c12": "^2.0.1",
+		"citty": "^0.1.6",
+		"consola": "^3.2.3",
+		"nypm": "^0.4.1",
+		"ofetch": "^1.4.1",
+		"pathe": "^1.1.2",
+		"pkg-types": "^1.2.1",
+		"std-env": "^3.8.0",
+		"tsx": "^4.19.2"
+	},
+	"peerDependencies": {
+		"kysely": ">=0.18.1 <0.28.0",
+		"kysely-postgres-js": "^2"
+	},
+	"peerDependenciesMeta": {
+		"kysely-postgres-js": {
+			"optional": true
+		}
+	},
+	"devDependencies": {
+		"@arethetypeswrong/cli": "^0.17.2",
+		"@arktype/attest": "^0.32.0",
+		"@biomejs/biome": "1.9.4",
+		"@types/better-sqlite3": "^7.6.12",
+		"@types/node": "^22.10.2",
+		"better-sqlite3": "^11.7.0",
+		"kysely": "^0.27.5",
+		"kysely-postgres-js": "^2.0.0",
+		"pkg-pr-new": "^0.0.39",
+		"postgres": "^3.4.5",
+		"tsup": "^8.3.5",
+		"type-fest": "^4.30.2",
+		"typescript": "^5.7.2",
+		"vitest": "^2.1.8"
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"keywords": ["cli", "ctl", "kysely", "migration", "seeding", "codegen"],
+	"packageManager": "pnpm@9.2.0+sha512.98a80fd11c2e7096747762304106432b3ddc67dcf54b5a8c01c93f68a2cd5e05e6821849522a06fb76284d41a2660d5e334f2ee3bbf29183bf2e739b1dafa771"
 }
