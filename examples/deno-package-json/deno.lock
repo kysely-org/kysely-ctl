@@ -3,8 +3,9 @@
   "specifiers": {
     "npm:kysely-ctl@0.9": "0.9.0_kysely@0.27.5_kysely-postgres-js@2.0.0__kysely@0.27.5__postgres@3.4.5_postgres@3.4.5",
     "npm:kysely-postgres-js@2": "2.0.0_kysely@0.27.5_postgres@3.4.5",
+    "npm:kysely@~0.27.2": "0.27.5",
     "npm:kysely@~0.27.5": "0.27.5",
-    "npm:postgres@^3.4.4": "3.4.5"
+    "npm:postgres@^3.4.5": "3.4.5"
   },
   "npm": {
     "@esbuild/aix-ppc64@0.23.1": {
@@ -480,7 +481,7 @@
         "npm:kysely-ctl@0.9",
         "npm:kysely-postgres-js@2",
         "npm:kysely@~0.27.5",
-        "npm:postgres@^3.4.4"
+        "npm:postgres@^3.4.5"
       ]
     }
   }
