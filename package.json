@@ -21,7 +21,9 @@
 			}
 		}
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"description": "Command-line tool for Kysely",
 	"author": "Igal Klebanov <igalklebanov@gmail.com> (https://github.com/igalklebanov)",
 	"license": "MIT",
@@ -59,6 +61,7 @@
 		"@arethetypeswrong/cli": "^0.17.2",
 		"@arktype/attest": "^0.32.0",
 		"@biomejs/biome": "1.9.4",
+		"@tsconfig/node22": "^22.0.0",
 		"@types/better-sqlite3": "^7.6.12",
 		"@types/node": "^22.10.2",
 		"better-sqlite3": "^11.7.0",
@@ -74,6 +77,13 @@
 	"engines": {
 		"node": ">=18"
 	},
-	"keywords": ["cli", "ctl", "kysely", "migration", "seeding", "codegen"],
+	"keywords": [
+		"cli",
+		"ctl",
+		"kysely",
+		"migration",
+		"seeding",
+		"codegen"
+	],
 	"packageManager": "pnpm@9.2.0+sha512.98a80fd11c2e7096747762304106432b3ddc67dcf54b5a8c01c93f68a2cd5e05e6821849522a06fb76284d41a2660d5e334f2ee3bbf29183bf2e739b1dafa771"
 }
