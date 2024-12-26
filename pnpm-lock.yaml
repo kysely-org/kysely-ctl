@@ -74,7 +74,7 @@ importers:
         version: 8.3.5(jiti@2.4.1)(postcss@8.4.39)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.4.5)
       type-fest:
         specifier: ^4.30.2
-        version: 4.30.2
+        version: 4.31.0
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -1704,8 +1704,8 @@ packages:
     resolution: {integrity: sha512-Acylog8/luQ8L7il+geoSxhEkazvkslg7PSNKOX59mbB9cOveP5aq9h74Y7YU8yDpJwetzQQrfIwtf4Wp4LKcw==}
     engines: {node: '>=4'}
 
-  type-fest@4.30.2:
-    resolution: {integrity: sha512-UJShLPYi1aWqCdq9HycOL/gwsuqda1OISdBO3t8RlXQC4QvtuIz4b5FCfe2dQIWEpmlRExKmcTBfP1r9bhY7ig==}
+  type-fest@4.31.0:
+    resolution: {integrity: sha512-yCxltHW07Nkhv/1F6wWBr8kz+5BGMfP+RbRSYFnegVb0qV/UMT0G0ElBloPVerqn4M2ZV80Ir1FtCcYv1cT6vQ==}
     engines: {node: '>=16'}
 
   typescript@5.6.1-rc:
@@ -3303,7 +3303,7 @@ snapshots:
 
   type-detect@4.1.0: {}
 
-  type-fest@4.30.2: {}
+  type-fest@4.31.0: {}
 
   typescript@5.6.1-rc: {}
 
