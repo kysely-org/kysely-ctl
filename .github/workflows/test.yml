@@ -36,7 +36,7 @@ jobs:
   node:
     strategy:
       matrix:
-        node-version: [18, 20, 22]
+        node-version: [18, 20, 22, 23]
         os: [macos-latest, ubuntu-latest, windows-latest]
         type: [cjs, esm]
 
