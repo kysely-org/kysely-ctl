@@ -1,29 +1,31 @@
 import { copyFile, cp } from 'node:fs/promises'
-import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { dirname, join, resolve } from 'pathe'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 async function main() {
-	await copyFile(
-		resolve(__dirname, '../dist/bin.js'),
-		resolve(
-			__dirname,
-			'../examples/deno-package-json/node_modules/.bin/kysely',
-		),
-	)
+	const distPath = resolve(__dirname, '../dist')
 
-	await cp(
-		resolve(__dirname, '../dist'),
-		resolve(
-			__dirname,
-			'../examples/deno-package-json/node_modules/kysely-ctl/dist',
-		),
-		{
-			force: true,
-			recursive: true,
-		},
+	await Promise.allSettled(
+		['deno-json', 'package-json'].map(async (flavor) => {
+			const exampleNodeModulesPath = resolve(
+				__dirname,
+				`../examples/deno-${flavor}/node_modules`,
+			)
+
+			await Promise.all([
+				copyFile(
+					join(distPath, 'bin.js'),
+					join(exampleNodeModulesPath, '.bin/kysely'),
+				),
+				cp(distPath, resolve(exampleNodeModulesPath, 'kysely-ctl/dist'), {
+					force: true,
+					recursive: true,
+				}),
+			])
+		}),
 	)
 }
 

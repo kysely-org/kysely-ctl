@@ -1,0 +1,11 @@
+{
+	"tasks": {
+		"kysely": "node_modules/kysely-ctl/dist/bin.js"
+	},
+	"imports": {
+		"kysely": "npm:kysely@^0.27.5",
+		"kysely-ctl": "npm:kysely-ctl@^0.10.1",
+		"kysely-postgres-js": "npm:kysely-postgres-js@^2.0.0",
+		"postgres": "npm:postgres@^3.4.5"
+	}
+}

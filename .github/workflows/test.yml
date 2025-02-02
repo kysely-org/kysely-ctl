@@ -39,6 +39,7 @@ jobs:
         node-version: [18, 20, 22, 23]
         os: [macos-latest, ubuntu-latest, windows-latest]
         type: [cjs, esm]
+      fail-fast: false
 
     runs-on: ${{ matrix.os }}
 
@@ -130,9 +131,14 @@ jobs:
         run: bun --bun kysely migrate:rollback --all --debug
 
   deno:
+    strategy:
+      matrix:
+        config-flavor: [deno-json, package-json]
+      fail-fast: false
+
     runs-on: ubuntu-latest
 
-    name: ubuntu-latest + Deno
+    name: ubuntu-latest + Deno + ${{ matrix.config-flavor }}
 
     steps:
       - uses: actions/checkout@v4
@@ -151,28 +157,28 @@ jobs:
           deno-version: vx.x.x
 
       - name: Install dependencies
-        run: pnpm i && pnpm build && cd examples/deno-package-json && deno install && cd ../.. && pnpx tsx ./scripts/localize-deno-dependency.mts
+        run: pnpm i && pnpm build && cd examples/deno-${{ matrix.config-flavor }} && deno install --node-modules-dir && cd ../.. && pnpx tsx ./scripts/localize-deno-dependency.mts
 
       - name: Run docker compose
-        working-directory: examples/deno-package-json
+        working-directory: examples/deno-${{ matrix.config-flavor }}
         run: docker compose up -d
 
       - name: kysely -v
-        working-directory: examples/deno-package-json
+        working-directory: examples/deno-${{ matrix.config-flavor }}
         run: deno task kysely -v
 
       - name: kysely migrate:make <migration-name>
-        working-directory: examples/deno-package-json
+        working-directory: examples/deno-${{ matrix.config-flavor }}
         run: deno task kysely migrate:make moshe --debug
 
       - name: kysely migrate:list
-        working-directory: examples/deno-package-json
+        working-directory: examples/deno-${{ matrix.config-flavor }}
         run: deno task kysely migrate:list --debug
 
       - name: kysely migrate:latest
-        working-directory: examples/deno-package-json
+        working-directory: examples/deno-${{ matrix.config-flavor }}
         run: deno task kysely migrate:latest --debug
 
       - name: kysely migrate:rollback --all
-        working-directory: examples/deno-package-json
+        working-directory: examples/deno-${{ matrix.config-flavor }}
         run: deno task kysely migrate:rollback --all --debug
