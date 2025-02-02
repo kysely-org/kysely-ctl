@@ -40,8 +40,8 @@ importers:
         specifier: ^0.17.2
         version: 0.17.2
       '@arktype/attest':
-        specifier: ^0.34.0
-        version: 0.34.0(typescript@5.7.2)
+        specifier: ^0.41.2
+        version: 0.41.2(typescript@5.7.2)
       '@biomejs/biome':
         specifier: 1.9.4
         version: 1.9.4
@@ -96,17 +96,17 @@ packages:
     resolution: {integrity: sha512-JYeLgS4rQ2l3gHCabaka3atsEyskfpx+WqUbo+6l8LApILJgr0/XDb7KNC9Ovevp4iPVF2Q73oshpgOKJ3uDRQ==}
     engines: {node: '>=18'}
 
-  '@ark/fs@0.30.0':
-    resolution: {integrity: sha512-tS9GZ2XqV4OjbXZ0B3y9NPcrsLL8VWmxRAnBq+hI90K3nfFwoee3kNF5r03oE9b+yKafAgXKkGylR51JRwBLoA==}
+  '@ark/fs@0.39.0':
+    resolution: {integrity: sha512-FTigJLbfi0yUwsTG9JU4fqVFi2ANlres53QmCtFgryReG6SkNW1/Ok2CI8RiY0qSrHHNFeNIpSxkGWjRsf6R6A==}
 
-  '@ark/schema@0.30.0':
-    resolution: {integrity: sha512-g6JqrAqsIXtVRfeE9vanQMSAZv+eh6Qv2y4PLc2bpWPVd4b2fdZThctbnYer3V2ZnuZNuX6UKQwV3EOqZZgQsQ==}
+  '@ark/schema@0.39.0':
+    resolution: {integrity: sha512-LQbQUb3Sj461LgklXObAyUJNtsUUCBxZlO2HqRLYvRSqpStm0xTMrXn51DwBNNxeSULvKVpXFwoxiSec9kwKww==}
 
-  '@ark/util@0.30.0':
-    resolution: {integrity: sha512-mc6r0WlN+BAd8xhw6XnihkrHovekJb1fkUahtrFnlhb1sRnMl9hdFeJSEvJfcTM235eEin3lnq0TQYD+VCLXTw==}
+  '@ark/util@0.39.0':
+    resolution: {integrity: sha512-90APHVklk8BP4kku7hIh1BgrhuyKYqoZ4O7EybtFRo7cDl9mIyc/QUbGvYDg//73s0J2H0I/gW9pzroA1R4IBQ==}
 
-  '@arktype/attest@0.34.0':
-    resolution: {integrity: sha512-G+rjxW/s3vR+5Atxo9l4Ti+jBmHSo9Emj0ak6q7WpWExddJNYC10ysspXdLAnyYHqhB37WsNUdPezIC6FUXs0Q==}
+  '@arktype/attest@0.41.2':
+    resolution: {integrity: sha512-8jKVKwb4PaW4I4RWDgySp4f+XB2gqNft7rr153I4x31fmMW6pJ1nmTXt9o23MJtufFGShT6rJ4H5LZNMYj9h4Q==}
     hasBin: true
     peerDependencies:
       typescript: '*'
@@ -870,8 +870,8 @@ packages:
   any-promise@1.3.0:
     resolution: {integrity: sha512-7UvmKalWRt1wgjL1RrGxoSJW/0QZFIegpeGvZG9kjp8vrRu55XTHbwnqq2GpXm9uLbcuhxm3IqX9OB4MZR1b2A==}
 
-  arktype@2.0.0-rc.30:
-    resolution: {integrity: sha512-6xZU4tbimwDZSfJTPuf+AaohtnJa2bQqMEdcfobjSZQIwFHCAFlC+u/SdiuL/AKdq/Tpj6j7OBMMitL3mDJ0hQ==}
+  arktype@2.0.4:
+    resolution: {integrity: sha512-S68rWVDnJauwH7/QCm8zCUM3aTe9Xk6oRihdcc3FSUAtxCo/q1Fwq46JhcwB5Ufv1YStwdQRz+00Y/URlvbhAQ==}
 
   assertion-error@2.0.1:
     resolution: {integrity: sha512-Izi8RQcffqCeNVgFigKli1ssklIbpHnCYc6AknXGYoB6grJqyeby7jv12JUQgmTAnIDnbck1uxksT4dzN3PWBA==}
@@ -1905,22 +1905,22 @@ snapshots:
       typescript: 5.6.1-rc
       validate-npm-package-name: 5.0.1
 
-  '@ark/fs@0.30.0': {}
+  '@ark/fs@0.39.0': {}
 
-  '@ark/schema@0.30.0':
+  '@ark/schema@0.39.0':
     dependencies:
-      '@ark/util': 0.30.0
+      '@ark/util': 0.39.0
 
-  '@ark/util@0.30.0': {}
+  '@ark/util@0.39.0': {}
 
-  '@arktype/attest@0.34.0(typescript@5.7.2)':
+  '@arktype/attest@0.41.2(typescript@5.7.2)':
     dependencies:
-      '@ark/fs': 0.30.0
-      '@ark/util': 0.30.0
+      '@ark/fs': 0.39.0
+      '@ark/util': 0.39.0
       '@prettier/sync': 0.5.2(prettier@3.4.2)
       '@typescript/analyze-trace': 0.10.1
       '@typescript/vfs': 1.6.0(typescript@5.7.2)
-      arktype: 2.0.0-rc.30
+      arktype: 2.0.4
       prettier: 3.4.2
       typescript: 5.7.2
     transitivePeerDependencies:
@@ -2441,10 +2441,10 @@ snapshots:
 
   any-promise@1.3.0: {}
 
-  arktype@2.0.0-rc.30:
+  arktype@2.0.4:
     dependencies:
-      '@ark/schema': 0.30.0
-      '@ark/util': 0.30.0
+      '@ark/schema': 0.39.0
+      '@ark/util': 0.39.0
 
   assertion-error@2.0.1: {}
 
