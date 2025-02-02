@@ -41,7 +41,7 @@ importers:
         version: 0.17.3
       '@arktype/attest':
         specifier: ^0.41.2
-        version: 0.41.2(typescript@5.7.2)
+        version: 0.41.2(typescript@5.7.3)
       '@biomejs/biome':
         specifier: 1.9.4
         version: 1.9.4
@@ -71,13 +71,13 @@ importers:
         version: 3.4.5
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(jiti@2.4.1)(postcss@8.4.39)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.4.5)
+        version: 8.3.5(jiti@2.4.1)(postcss@8.4.39)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.4.5)
       type-fest:
         specifier: ^4.33.0
         version: 4.33.0
       typescript:
-        specifier: ^5.7.2
-        version: 5.7.2
+        specifier: ^5.7.3
+        version: 5.7.3
       vitest:
         specifier: ^3.0.4
         version: 3.0.4(@types/node@22.13.0)
@@ -1713,8 +1713,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typescript@5.7.2:
-    resolution: {integrity: sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==}
+  typescript@5.7.3:
+    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -1900,16 +1900,16 @@ snapshots:
 
   '@ark/util@0.39.0': {}
 
-  '@arktype/attest@0.41.2(typescript@5.7.2)':
+  '@arktype/attest@0.41.2(typescript@5.7.3)':
     dependencies:
       '@ark/fs': 0.39.0
       '@ark/util': 0.39.0
       '@prettier/sync': 0.5.2(prettier@3.4.2)
       '@typescript/analyze-trace': 0.10.1
-      '@typescript/vfs': 1.6.0(typescript@5.7.2)
+      '@typescript/vfs': 1.6.0(typescript@5.7.3)
       arktype: 2.0.4
       prettier: 3.4.2
-      typescript: 5.7.2
+      typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
 
@@ -2361,10 +2361,10 @@ snapshots:
       treeify: 1.1.0
       yargs: 16.2.0
 
-  '@typescript/vfs@1.6.0(typescript@5.7.2)':
+  '@typescript/vfs@1.6.0(typescript@5.7.3)':
     dependencies:
       debug: 4.4.0
-      typescript: 5.7.2
+      typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
 
@@ -3264,7 +3264,7 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  tsup@8.3.5(jiti@2.4.1)(postcss@8.4.39)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.4.5):
+  tsup@8.3.5(jiti@2.4.1)(postcss@8.4.39)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.4.5):
     dependencies:
       bundle-require: 5.0.0(esbuild@0.24.0)
       cac: 6.7.14
@@ -3284,7 +3284,7 @@ snapshots:
       tree-kill: 1.2.2
     optionalDependencies:
       postcss: 8.4.39
-      typescript: 5.7.2
+      typescript: 5.7.3
     transitivePeerDependencies:
       - jiti
       - supports-color
@@ -3308,7 +3308,7 @@ snapshots:
 
   typescript@5.6.1-rc: {}
 
-  typescript@5.7.2: {}
+  typescript@5.7.3: {}
 
   ufo@1.5.3: {}
 
