@@ -5,6 +5,7 @@ import {
 	SqliteDialect,
 } from 'kysely'
 import type { ResolvedKyselyCTLConfig } from '../config/kysely-ctl-config.mjs'
+import { isObject } from '../utils/is-object.mjs'
 
 export async function getDialect(
 	config: ResolvedKyselyCTLConfig,
@@ -15,7 +16,7 @@ export async function getDialect(
 		throw new Error('No dialect provided')
 	}
 
-	if (typeof dialect === 'object') {
+	if (isObject(dialect)) {
 		return dialect
 	}
 

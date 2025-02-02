@@ -4,6 +4,7 @@ import { join } from 'pathe'
 import { filename } from 'pathe/utils'
 import { getFileType } from '../utils/get-file-type.mjs'
 import { importTSFile } from '../utils/import-ts-file.mjs'
+import { isObject } from '../utils/is-object.mjs'
 import { safeReaddir } from '../utils/safe-readdir.mjs'
 
 /**
@@ -19,9 +20,9 @@ export class TSFileMigrationProvider implements MigrationProvider {
 	}
 
 	async getMigrations(): Promise<Record<string, Migration>> {
-		const migrations: Record<string, Migration> = {}
-
 		const files = await safeReaddir(this.#props.migrationFolder)
+
+		const migrations: Record<string, Migration> = {}
 
 		for (const fileName of files) {
 			const fileType = getFileType(fileName)
@@ -42,31 +43,36 @@ export class TSFileMigrationProvider implements MigrationProvider {
 
 			const filePath = join(this.#props.migrationFolder, fileName)
 
-			const migration = await (isTS ? importTSFile(filePath) : import(filePath))
+			const migrationModule = await (isTS
+				? importTSFile(filePath)
+				: import(filePath))
 
 			const migrationKey = filename(fileName)
 
-			if (isMigration(migration?.default)) {
-				migrations[migrationKey] = migration.default
-			} else if (isMigration(migration)) {
-				migrations[migrationKey] = migration
-			} else {
-				consola.warn(`Ignoring \`${fileName}\` - not a migration.`)
+			if (!migrationKey) {
+				continue
 			}
+
+			const migration = isMigration(migrationModule?.default)
+				? migrationModule.default
+				: isMigration(migrationModule)
+					? migrationModule
+					: null
+
+			if (!migration) {
+				consola.warn(`Ignoring \`${fileName}\` - not a migration.`)
+				continue
+			}
+
+			migrations[migrationKey] = migration
 		}
 
 		return migrations
 	}
 }
 
-function isMigration(obj: unknown): obj is Migration {
-	return (
-		typeof obj === 'object' &&
-		obj !== null &&
-		!Array.isArray(obj) &&
-		'up' in obj &&
-		typeof obj.up === 'function'
-	)
+function isMigration(thing: unknown): thing is Migration {
+	return isObject(thing) && typeof thing.up === 'function'
 }
 
 export interface TSFileMigrationProviderProps {
