@@ -9,6 +9,7 @@ import type {
 
 export interface ArgsLike {
 	cwd?: string
+	debug?: boolean
 	environment?: string
 	'filesystem-caching'?: boolean
 }
@@ -23,6 +24,7 @@ export async function getConfig(
 		dotenv: true,
 		envName: args.environment,
 		jitiOptions: {
+			debug: Boolean(args.debug),
 			fsCache: Boolean(args['filesystem-caching']),
 		},
 		globalRc: false,
