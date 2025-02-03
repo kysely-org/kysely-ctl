@@ -1,5 +1,5 @@
 /**
- * @param {import('kysely').Kysely<any>} db
+ * @param {import('kysely').Kysely<any>} db `any` is required here since migrations should be frozen in time. alternatively, keep a "snapshot" db interface.
  * @returns {Promise<void>}
  */
 exports.up = async (db) => {
@@ -9,7 +9,7 @@ exports.up = async (db) => {
 }
 
 /**
- * @param {import('kysely').Kysely<any>} db
+ * @param {import('kysely').Kysely<any>} db `any` is required here since migrations should be frozen in time. alternatively, keep a "snapshot" db interface.
  * @returns {Promise<void>}
  */
 exports.down = async (db) => {

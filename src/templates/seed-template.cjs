@@ -1,5 +1,5 @@
 /**
- * @param {import('kysely').Kysely<any>} db
+ * @param {import('kysely').Kysely<any>} db replace `any` with your database type
  * @returns {Promise<void>}
  */
 exports.seed = async (db) => {
