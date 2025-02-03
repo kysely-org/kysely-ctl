@@ -12,5 +12,6 @@ export function createSubcommand<
 				name,
 			},
 		},
+		// biome-ignore lint/suspicious/noExplicitAny: this is perfectly fine
 	} satisfies SubCommandsDef as any
 }
