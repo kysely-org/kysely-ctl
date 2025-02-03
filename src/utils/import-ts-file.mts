@@ -38,11 +38,10 @@ function isRequireESMEnabled(): boolean {
 async function useTsImport(path: string): Promise<unknown> {
 	const { tsImport } = await import('tsx/esm/api')
 
-	if (isWindows && !path.startsWith('file://')) {
-		path = `file://${path}`
-	}
+	const normalizedPath =
+		isWindows && !path.startsWith('file://') ? `file://${path}` : path
 
-	return await tsImport(path, { parentURL: import.meta.url })
+	return await tsImport(normalizedPath, { parentURL: import.meta.url })
 }
 
 async function useTsRequire(path: string): Promise<unknown> {
