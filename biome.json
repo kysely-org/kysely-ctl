@@ -20,7 +20,7 @@
 				"noParameterAssign": "warn"
 			},
 			"suspicious": {
-				"noAssignInExpressions": "warn",
+				"noAssignInExpressions": "off",
 				"noConsole": "error",
 				"noExplicitAny": "warn"
 			}
