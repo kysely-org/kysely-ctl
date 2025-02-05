@@ -4,6 +4,7 @@ import { getKysely } from './get-kysely.mjs'
 
 export async function usingKysely<T>(
 	config: ResolvedKyselyCTLConfig,
+	// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 	callback: (kysely: Kysely<any>) => Promise<T>,
 ): Promise<T> {
 	const kysely = await getKysely(config)

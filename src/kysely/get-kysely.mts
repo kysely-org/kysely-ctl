@@ -3,6 +3,7 @@ import { Kysely } from 'kysely'
 import type { ResolvedKyselyCTLConfig } from '../config/kysely-ctl-config.mjs'
 import { getDialect } from './get-dialect.mjs'
 
+// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 export async function getKysely<DB = any>(
 	config: ResolvedKyselyCTLConfig,
 	debug = false,

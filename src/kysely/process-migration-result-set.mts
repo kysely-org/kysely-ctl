@@ -1,6 +1,7 @@
 import { consola } from 'consola'
 import { colorize } from 'consola/utils'
 import type { MigrationResultSet, Migrator } from 'kysely'
+import { assertDefined } from '../utils/assert-defined.mjs'
 import { exitWithError, handleAggregateError } from '../utils/error.mjs'
 import { getMigrations } from './get-migrations.mjs'
 
@@ -48,7 +49,10 @@ export async function processMigrationResultSet(
 
 	const migrations = await getMigrations(migrator)
 
-	const { migrationName: firstResultMigrationName } = results[0]!
+	const firstResult = results[0]
+	assertDefined(firstResult)
+
+	const { migrationName: firstResultMigrationName } = firstResult
 
 	const untouchedMigrationsBefore = migrations.slice(
 		0,
@@ -57,7 +61,10 @@ export async function processMigrationResultSet(
 		),
 	)
 
-	const { migrationName: lastResultMigrationName } = results.at(-1)!
+	const lastResult = results.at(-1)
+	assertDefined(lastResult)
+
+	const { migrationName: lastResultMigrationName } = lastResult
 
 	const untouchedMigrationsAfter = migrations.slice(
 		migrations.findIndex(
