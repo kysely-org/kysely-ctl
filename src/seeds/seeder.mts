@@ -1,4 +1,5 @@
 import type { Kysely } from 'kysely'
+import { assertDefined } from '../utils/assert-defined.mjs'
 
 export class Seeder {
 	readonly #props: SeederProps
@@ -32,12 +33,16 @@ export class Seeder {
 
 		for (let i = 0, len = seeds.length; i < len && !resultSet.error; ++i) {
 			const result = resultSet.results[i]
+			assertDefined(result)
+
+			const seedInfo = seeds[i]
+			assertDefined(seedInfo)
 
 			try {
-				await seeds[i]?.seed.seed(this.#props.db)
-				result!.status = 'Success'
+				await seedInfo.seed.seed(this.#props.db)
+				result.status = 'Success'
 			} catch (err) {
-				result!.status = 'Error'
+				result.status = 'Error'
 				resultSet.error = err
 			}
 		}
@@ -47,6 +52,7 @@ export class Seeder {
 }
 
 export interface Seed {
+	// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 	seed(db: Kysely<any>): Promise<void>
 }
 
@@ -55,6 +61,7 @@ export interface SeedProvider {
 }
 
 export interface SeederProps {
+	// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 	db: Kysely<any>
 	provider: SeedProvider
 }
