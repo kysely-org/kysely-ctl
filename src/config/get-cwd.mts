@@ -6,6 +6,7 @@ export interface HasCWD {
 }
 
 const ACTUAL_CWD =
+	// biome-ignore lint/suspicious/noExplicitAny: it's fine
 	process.cwd?.() || (isDeno ? (globalThis as any).Deno.cwd() : '')
 
 let cwd: string | undefined

@@ -32,7 +32,10 @@ export function assertExtension(
 	const allowJS =
 		!config || config[context as keyof ResolvedKyselyCTLConfig]?.allowJS
 
-	if (!allowJS && JS_EXTENSIONS.includes(thing as any)) {
+	if (
+		!allowJS &&
+		JS_EXTENSIONS.includes(thing as (typeof JS_EXTENSIONS)[number])
+	) {
 		throw new Error(
 			`Invalid file extension "${thing}"! Expected ${TS_EXTENSIONS.map(
 				(extension) => `"${extension}"`,
@@ -42,7 +45,7 @@ export function assertExtension(
 
 	const extensions = allowJS ? ALL_EXTENSIONS : TS_EXTENSIONS
 
-	if (!extensions.includes(thing as any)) {
+	if (!extensions.includes(thing as (typeof TS_EXTENSIONS)[number])) {
 		throw new Error(
 			`Invalid file extension "${thing}"! Expected ${ExtensionArg.extension.valueHint}`,
 		)

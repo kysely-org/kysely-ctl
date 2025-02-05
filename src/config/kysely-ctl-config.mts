@@ -86,16 +86,19 @@ export type KyselyCTLConfig<Dialect extends KyselyDialect = KyselyDialect> =
 						seeds?: SeederlessSeedsConfig
 				  }
 				| {
+						// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 						kysely: Kysely<any>
 						migrations: MigratorfulMigrationsConfig
 						seeds?: SeederlessSeedsConfig
 				  }
 				| {
+						// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 						kysely: Kysely<any>
 						migrations?: MigratorlessMigrationsConfig
 						seeds: SeederfulSeedsConfig
 				  }
 				| {
+						// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 						kysely: Kysely<any>
 						migrations?: MigratorlessMigrationsConfig
 						seeds?: SeederlessSeedsConfig
@@ -164,7 +167,9 @@ export interface ResolvedKyselyCTLConfig {
 	>
 	cwd: string
 	dialect?: KyselyDialect
+	// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 	dialectConfig?: KyselyDialectConfig<any>
+	// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 	kysely?: Kysely<any>
 	migrations: SetRequired<MigrationsBaseConfig, 'getMigrationPrefix'> & {
 		allowJS: boolean
