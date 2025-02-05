@@ -1,5 +1,6 @@
 import { loadConfig } from 'c12'
 import { consola } from 'consola'
+import { getJitiAlias } from '../utils/jiti'
 import { getCWD } from './get-cwd.mjs'
 import { getMillisPrefix } from './get-file-prefix.mjs'
 import type {
@@ -24,6 +25,7 @@ export async function getConfig(
 		dotenv: true,
 		envName: args.environment,
 		jitiOptions: {
+			alias: await getJitiAlias(),
 			debug: Boolean(args.debug),
 			fsCache: Boolean(args['filesystem-caching']),
 		},
