@@ -7,4 +7,7 @@ export default defineConfig({
 	dialect: new BunSqliteDialect({
 		database: new Database('./example.db'),
 	}),
+	migrations: {
+		migrationFolder: '../../.migrations',
+	},
 })
