@@ -1,7 +1,12 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"files": {
-		"include": ["src", "tests", "scripts", "examples", "*.ts"]
+		"ignore": [
+			"examples/**/migrations",
+			"examples/**/seeds",
+			"package.json",
+			"tsconfig*.json"
+		]
 	},
 	"javascript": {
 		"formatter": {
@@ -25,5 +30,10 @@
 				"noExplicitAny": "warn"
 			}
 		}
+	},
+	"vcs": {
+		"clientKind": "git",
+		"enabled": true,
+		"useIgnoreFile": true
 	}
 }

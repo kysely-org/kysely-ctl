@@ -133,6 +133,7 @@ migrations
 !examples/**/migrations
 seeds
 !src/seeds
+!examples/**/seeds
 examples/**/example.db
 
 tsconfig.vitest-temp.json
