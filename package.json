@@ -63,7 +63,7 @@
 		"@biomejs/biome": "1.9.4",
 		"@tsconfig/node22": "^22.0.0",
 		"@types/better-sqlite3": "^7.6.12",
-		"@types/node": "^22.13.0",
+		"@types/node": "^22.13.1",
 		"better-sqlite3": "^11.8.1",
 		"kysely": "^0.27.5",
 		"kysely-postgres-js": "^2.0.0",
