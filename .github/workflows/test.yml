@@ -80,19 +80,19 @@ jobs:
         working-directory: examples/node-${{ matrix.type }}
         run: pnpm kysely -v
 
-      - name: kysely migrate:make <migration-name>
+      - name: kysely migrate:make <migration-name> ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
         working-directory: examples/node-${{ matrix.type }}
         run: pnpm kysely migrate:make moshe ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
-      - name: kysely migrate:list
+      - name: kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
         working-directory: examples/node-${{ matrix.type }}
         run: pnpm kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
-      - name: kysely migrate:latest
+      - name: kysely migrate:latest ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
         working-directory: examples/node-${{ matrix.type }}
         run: pnpm kysely migrate:latest ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
-      - name: kysely migrate:rollback --all
+      - name: kysely migrate:rollback --all ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
         working-directory: examples/node-${{ matrix.type }}
         run: pnpm kysely migrate:rollback --all ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
