@@ -60,7 +60,7 @@ jobs:
       - name: Calculate additional flags
         if: matrix.type == 'esm-tsconfig-paths'
         id: flags
-        run: echo "ADDITIONAL_FLAGS=--experimental-resolve-tsconfig-paths" >> "$GITHUB_OUTPUT"
+        run: echo "ADDITIONAL_FLAGS='--experimental-resolve-tsconfig-paths'" >> "$GITHUB_OUTPUT"
 
       - name: Install dependencies
         run: pnpm i && pnpm build && cd examples/node-${{ matrix.type }} && pnpm i
