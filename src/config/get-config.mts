@@ -1,5 +1,6 @@
 import { loadConfig } from 'c12'
 import { consola } from 'consola'
+import { getJitiAlias } from '../utils/jiti'
 import { getCWD } from './get-cwd.mjs'
 import { getMillisPrefix } from './get-file-prefix.mjs'
 import type {
@@ -11,6 +12,7 @@ export interface ArgsLike {
 	cwd?: string
 	debug?: boolean
 	environment?: string
+	'experimental-resolve-tsconfig-paths'?: boolean
 	'filesystem-caching'?: boolean
 }
 
@@ -24,6 +26,9 @@ export async function getConfig(
 		dotenv: true,
 		envName: args.environment,
 		jitiOptions: {
+			alias: args['experimental-resolve-tsconfig-paths']
+				? await getJitiAlias()
+				: undefined,
 			debug: Boolean(args.debug),
 			fsCache: Boolean(args['filesystem-caching']),
 		},
