@@ -58,7 +58,6 @@ jobs:
           cache: "pnpm"
 
       - name: Calculate additional flags
-        if: matrix.type == 'esm-tsconfig-paths'
         id: flags
         shell: bash
         run: |
