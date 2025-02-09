@@ -3,10 +3,6 @@ import type { CompilerOptions } from 'typescript'
 import { getCWD } from '../config/get-cwd.mjs'
 import { getTSConfig } from './tsconfig.mjs'
 
-export interface ArgsLike {
-	cwd?: string
-}
-
 export async function getJitiAlias(): Promise<
 	Record<string, string> | undefined
 > {

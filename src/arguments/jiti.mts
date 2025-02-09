@@ -1,5 +1,14 @@
 import type { ArgsDef } from 'citty'
 
+const ExperimentalResolveTSConfigPathsArg = {
+	'experimental-resolve-tsconfig-paths': {
+		default: false,
+		description:
+			'Attempts to resolve path aliases using the tsconfig.json file.',
+		type: 'boolean',
+	},
+} satisfies ArgsDef
+
 const NoFilesystemCachingArg = {
 	'no-filesystem-caching': {
 		default: false,
@@ -10,5 +19,6 @@ const NoFilesystemCachingArg = {
 } satisfies ArgsDef
 
 export const JitiArgs = {
+	...ExperimentalResolveTSConfigPathsArg,
 	...NoFilesystemCachingArg,
 } satisfies ArgsDef

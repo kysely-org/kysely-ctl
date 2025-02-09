@@ -12,6 +12,7 @@ export interface ArgsLike {
 	cwd?: string
 	debug?: boolean
 	environment?: string
+	'experimental-resolve-tsconfig-paths'?: boolean
 	'filesystem-caching'?: boolean
 }
 
@@ -25,7 +26,9 @@ export async function getConfig(
 		dotenv: true,
 		envName: args.environment,
 		jitiOptions: {
-			alias: await getJitiAlias(),
+			alias: args['experimental-resolve-tsconfig-paths']
+				? await getJitiAlias()
+				: undefined,
 			debug: Boolean(args.debug),
 			fsCache: Boolean(args['filesystem-caching']),
 		},

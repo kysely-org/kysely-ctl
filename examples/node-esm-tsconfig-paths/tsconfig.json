@@ -2,8 +2,7 @@
 	"compilerOptions": {
 		"baseUrl": "./",
 		"paths": {
-			"@/*": ["src/*"],
-			"@config/*": ["src/config/*"]
+		 	"@/*": ["./src/*"]
 		}
 	},
 	"extends": "../../tsconfig.base.json",
