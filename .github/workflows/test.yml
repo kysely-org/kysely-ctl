@@ -72,24 +72,24 @@ jobs:
       - name: kysely migrate:make <migration-name> --cwd=%cd%
         if: matrix.os == 'windows-latest'
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:make moshe --cwd=%cd% --debug {{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        run: pnpm kysely migrate:make moshe --cwd=%cd% --debug ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
       - name: kysely migrate:make <migration-name>
         if: matrix.os != 'windows-latest'
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:make moshe --debug {{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        run: pnpm kysely migrate:make moshe --debug ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
       - name: kysely migrate:list
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:list --debug {{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        run: pnpm kysely migrate:list --debug ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
       - name: kysely migrate:latest
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:latest --debug {{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        run: pnpm kysely migrate:latest --debug ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
       - name: kysely migrate:rollback --all
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:rollback --all --debug {{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        run: pnpm kysely migrate:rollback --all --debug ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
   bun:
     runs-on: ubuntu-latest
