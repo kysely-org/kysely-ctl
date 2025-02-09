@@ -61,7 +61,18 @@ jobs:
         if: matrix.type == 'esm-tsconfig-paths'
         id: flags
         shell: bash
-        run: echo "ADDITIONAL_FLAGS='--experimental-resolve-tsconfig-paths'" >> "$GITHUB_OUTPUT"
+        run: |
+          ADDITIONAL_FLAGS="--debug"
+
+          if [[ ${{ matrix.type }} == 'esm-tsconfig-paths' ]]; then
+            ADDITIONAL_FLAGS+=" --experimental-resolve-tsconfig-paths"
+          fi
+          
+          if [[ ${{ matrix.os }} == 'windows-latest' ]]; then
+            ADDITIONAL_FLAGS+=" --cwd=%cd%"
+          fi
+
+          echo "ADDITIONAL_FLAGS=$ADDITIONAL_FLAGS" >> $GITHUB_OUTPUT
 
       - name: Install dependencies
         run: pnpm i && pnpm build && cd examples/node-${{ matrix.type }} && pnpm i
@@ -70,27 +81,21 @@ jobs:
         working-directory: examples/node-${{ matrix.type }}
         run: pnpm kysely -v
 
-      - name: kysely migrate:make <migration-name> --cwd=%cd%
-        if: matrix.os == 'windows-latest'
-        working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:make moshe --cwd=%cd% --debug ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
-
       - name: kysely migrate:make <migration-name>
-        if: matrix.os != 'windows-latest'
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:make moshe --debug ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        run: pnpm kysely migrate:make moshe ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
       - name: kysely migrate:list
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:list --debug ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        run: pnpm kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
       - name: kysely migrate:latest
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:latest --debug ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        run: pnpm kysely migrate:latest ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
       - name: kysely migrate:rollback --all
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:rollback --all --debug ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        run: pnpm kysely migrate:rollback --all ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
   bun:
     runs-on: ubuntu-latest
