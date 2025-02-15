@@ -1,5 +1,5 @@
 import { extname } from 'pathe'
-import { isWindows, process, runtime } from 'std-env'
+import { isWindows, runtime } from 'std-env'
 import { getConsumerPackageJSON } from './pkg-json.mjs'
 
 export async function importTSFile(path: string): Promise<unknown> {
@@ -14,11 +14,7 @@ export async function importTSFile(path: string): Promise<unknown> {
 		return await useTsImport(path)
 	}
 
-	if (
-		extension === '.cts' ||
-		// getting the consumer's package JSON (in following lines) is probably slower than require(esm)'ing.
-		isRequireESMEnabled()
-	) {
+	if (extension === '.cts') {
 		return await useTsRequire(path)
 	}
 
@@ -29,10 +25,6 @@ export async function importTSFile(path: string): Promise<unknown> {
 	}
 
 	return await useTsRequire(path)
-}
-
-function isRequireESMEnabled(): boolean {
-	return Boolean(process.features?.require_module)
 }
 
 async function useTsImport(path: string): Promise<unknown> {
