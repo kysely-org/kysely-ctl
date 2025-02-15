@@ -1,5 +1,5 @@
 {
-	"name": "node-esm",
+	"name": "node-esm-tsconfig-paths",
 	"type": "module",
 	"devDependencies": {
 		"@types/better-sqlite3": "^7.6.12",
