@@ -18,6 +18,7 @@ import { LegacyUpCommand } from './migrate/up.mjs'
 import { LegacyMakeCommand as LegacySeedMakeCommand } from './seed/make.mjs'
 import { SeedCommand } from './seed/root.mjs'
 import { LegacyRunCommand } from './seed/run.mjs'
+import { SqlCommand } from './sql.mjs'
 
 const args = {
 	...CommonArgs,
@@ -47,6 +48,7 @@ export const RootCommand = {
 		...LegacyUpCommand,
 		...MigrateCommand,
 		...SeedCommand,
+		...SqlCommand,
 	},
 	setup(context) {
 		const { args } = context
