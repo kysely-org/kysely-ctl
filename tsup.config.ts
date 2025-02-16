@@ -1,13 +1,12 @@
-import { cp, readFile, readdir, rm, writeFile } from 'node:fs/promises'
+import { cp, readFile, readdir, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
 	clean: true,
 	dts: true,
-	entryPoints: ['./src/index.mts', './src/bin.mts'],
+	entry: ['./src/index.mts', './src/bin.mts'],
 	format: ['cjs', 'esm'],
-	shims: true,
 	async onSuccess() {
 		const distPath = join(__dirname, 'dist')
 
@@ -40,4 +39,5 @@ export default defineConfig({
 			}
 		}
 	},
+	shims: true,
 })
