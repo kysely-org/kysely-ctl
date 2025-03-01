@@ -17,6 +17,9 @@ importers:
       consola:
         specifier: ^3.4.0
         version: 3.4.0
+      jiti:
+        specifier: ^2.4.2
+        version: 2.4.2
       nypm:
         specifier: ^0.5.2
         version: 0.5.2
@@ -32,9 +35,6 @@ importers:
       std-env:
         specifier: ^3.8.0
         version: 3.8.0
-      tsx:
-        specifier: ^4.19.2
-        version: 4.19.2
     devDependencies:
       '@arethetypeswrong/cli':
         specifier: ^0.17.3
@@ -71,7 +71,7 @@ importers:
         version: 3.4.5
       tsup:
         specifier: ^8.3.6
-        version: 8.3.6(jiti@2.4.1)(postcss@8.4.39)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.4.5)
+        version: 8.3.6(jiti@2.4.2)(postcss@8.4.39)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.4.5)
       type-fest:
         specifier: ^4.34.1
         version: 4.34.1
@@ -1199,8 +1199,8 @@ packages:
     resolution: {integrity: sha512-JVYhQnN59LVPFCEcVa2C3CrEKYacvjRfqIQl+h8oi91aLYQVWRYbxjPcv1bUiUy/kLmQaANrYfNMCO3kuEDHfw==}
     engines: {node: '>=14'}
 
-  jiti@2.4.1:
-    resolution: {integrity: sha512-yPBThwecp1wS9DmoA4x4KR2h3QoslacnDR8ypuFM962kI4/456Iy1oHx2RAgh4jfZNdn0bctsdadceiBUgpU1g==}
+  jiti@2.4.2:
+    resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
 
   joycon@3.1.1:
@@ -2469,7 +2469,7 @@ snapshots:
       defu: 6.1.4
       dotenv: 16.4.5
       giget: 1.2.3
-      jiti: 2.4.1
+      jiti: 2.4.2
       mlly: 1.7.1
       ohash: 1.1.4
       pathe: 1.1.2
@@ -2649,6 +2649,7 @@ snapshots:
       '@esbuild/win32-arm64': 0.23.0
       '@esbuild/win32-ia32': 0.23.0
       '@esbuild/win32-x64': 0.23.0
+    optional: true
 
   esbuild@0.24.0:
     optionalDependencies:
@@ -2732,6 +2733,7 @@ snapshots:
   get-tsconfig@4.7.5:
     dependencies:
       resolve-pkg-maps: 1.0.0
+    optional: true
 
   giget@1.2.3:
     dependencies:
@@ -2783,7 +2785,7 @@ snapshots:
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
 
-  jiti@2.4.1: {}
+  jiti@2.4.2: {}
 
   joycon@3.1.1: {}
 
@@ -2993,11 +2995,11 @@ snapshots:
       mlly: 1.7.4
       pathe: 2.0.2
 
-  postcss-load-config@6.0.1(jiti@2.4.1)(postcss@8.4.39)(tsx@4.19.2)(yaml@2.4.5):
+  postcss-load-config@6.0.1(jiti@2.4.2)(postcss@8.4.39)(tsx@4.19.2)(yaml@2.4.5):
     dependencies:
       lilconfig: 3.1.2
     optionalDependencies:
-      jiti: 2.4.1
+      jiti: 2.4.2
       postcss: 8.4.39
       tsx: 4.19.2
       yaml: 2.4.5
@@ -3075,7 +3077,8 @@ snapshots:
 
   resolve-from@5.0.0: {}
 
-  resolve-pkg-maps@1.0.0: {}
+  resolve-pkg-maps@1.0.0:
+    optional: true
 
   rollup@4.28.1:
     dependencies:
@@ -3254,7 +3257,7 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  tsup@8.3.6(jiti@2.4.1)(postcss@8.4.39)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.4.5):
+  tsup@8.3.6(jiti@2.4.2)(postcss@8.4.39)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.4.5):
     dependencies:
       bundle-require: 5.0.0(esbuild@0.24.0)
       cac: 6.7.14
@@ -3264,7 +3267,7 @@ snapshots:
       esbuild: 0.24.0
       joycon: 3.1.1
       picocolors: 1.1.1
-      postcss-load-config: 6.0.1(jiti@2.4.1)(postcss@8.4.39)(tsx@4.19.2)(yaml@2.4.5)
+      postcss-load-config: 6.0.1(jiti@2.4.2)(postcss@8.4.39)(tsx@4.19.2)(yaml@2.4.5)
       resolve-from: 5.0.0
       rollup: 4.28.1
       source-map: 0.8.0-beta.0
@@ -3287,6 +3290,7 @@ snapshots:
       get-tsconfig: 4.7.5
     optionalDependencies:
       fsevents: 2.3.3
+    optional: true
 
   tunnel-agent@0.6.0:
     dependencies:
