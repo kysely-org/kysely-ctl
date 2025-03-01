@@ -1,6 +1,6 @@
 import { loadConfig } from 'c12'
 import { consola } from 'consola'
-import { getJitiAlias } from '../utils/jiti'
+import { getJiti } from '../utils/jiti.mjs'
 import { getCWD } from './get-cwd.mjs'
 import { getMillisPrefix } from './get-file-prefix.mjs'
 import type {
@@ -8,7 +8,7 @@ import type {
 	ResolvedKyselyCTLConfig,
 } from './kysely-ctl-config.mjs'
 
-export interface ArgsLike {
+export interface GetConfigArgs {
 	cwd?: string
 	debug?: boolean
 	environment?: string
@@ -17,21 +17,22 @@ export interface ArgsLike {
 }
 
 export async function getConfig(
-	args: ArgsLike,
+	args: GetConfigArgs,
 ): Promise<ResolvedKyselyCTLConfig> {
 	const cwd = getCWD(args)
+
+	const jiti = await getJiti({
+		debug: args.debug,
+		filesystemCaching: args['filesystem-caching'],
+		experimentalResolveTSConfigPaths:
+			args['experimental-resolve-tsconfig-paths'],
+	})
 
 	const loadedConfig = await loadConfig<KyselyCTLConfig>({
 		cwd,
 		dotenv: true,
 		envName: args.environment,
-		jitiOptions: {
-			alias: args['experimental-resolve-tsconfig-paths']
-				? await getJitiAlias()
-				: undefined,
-			debug: Boolean(args.debug),
-			fsCache: Boolean(args['filesystem-caching']),
-		},
+		jiti,
 		globalRc: false,
 		name: 'kysely',
 		packageJson: false,
@@ -44,6 +45,7 @@ export async function getConfig(
 
 	return {
 		...config,
+		args,
 		configMetadata,
 		cwd,
 		migrations: {
@@ -68,7 +70,7 @@ export function configFileExists(config: ResolvedKyselyCTLConfig): boolean {
 }
 
 export async function getConfigOrFail(
-	args: ArgsLike,
+	args: GetConfigArgs,
 ): Promise<ResolvedKyselyCTLConfig> {
 	const config = await getConfig(args)
 

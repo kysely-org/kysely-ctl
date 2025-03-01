@@ -5,6 +5,7 @@ import { asArray } from '../utils/as-array.mjs'
 import { getFileType } from '../utils/get-file-type.mjs'
 import { importTSFile } from '../utils/import-ts-file.mjs'
 import { isObject } from '../utils/is-object.mjs'
+import type { GetJitiArgs } from '../utils/jiti.mjs'
 import { safeReaddir } from '../utils/safe-readdir.mjs'
 import type { Seed, SeedProvider } from './seeder.mjs'
 
@@ -54,7 +55,7 @@ export class FileSeedProvider implements SeedProvider {
 			const filePath = join(this.#props.seedFolder, fileName)
 
 			const seedModule = await (isTS
-				? importTSFile(filePath)
+				? importTSFile(filePath, this.#props)
 				: import(filePath))
 
 			const seed = isSeed(seedModule?.default)
@@ -79,7 +80,7 @@ function isSeed(thing: unknown): thing is Seed {
 	return isObject(thing) && typeof thing.seed === 'function'
 }
 
-export interface FileSeedProviderProps {
+export interface FileSeedProviderProps extends GetJitiArgs {
 	allowJS?: boolean
 	seedFolder: string
 }

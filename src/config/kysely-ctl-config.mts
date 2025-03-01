@@ -14,6 +14,7 @@ import type {
 import type { PostgresJSDialectConfig } from 'kysely-postgres-js'
 import type { SetRequired } from 'type-fest'
 import type { SeedProvider, Seeder, SeederProps } from '../seeds/seeder.mjs'
+import type { GetConfigArgs } from './get-config.mjs'
 
 export type KyselyDialect =
 	| KyselyCoreDialect
@@ -161,6 +162,7 @@ type SeederlessSeedsConfig = SeedsBaseConfig &
 	)
 
 export interface ResolvedKyselyCTLConfig {
+	args: GetConfigArgs
 	configMetadata: Omit<
 		ResolvedConfig<KyselyCTLConfig, ConfigLayerMeta>,
 		'config'

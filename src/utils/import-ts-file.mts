@@ -1,15 +1,18 @@
-import { createJiti } from 'jiti'
 import { extname } from 'pathe'
 import { runtime } from 'std-env'
+import { type GetJitiArgs, getJiti } from './jiti.mjs'
 import { getConsumerPackageJSON } from './pkg-json.mjs'
 
-export async function importTSFile(path: string): Promise<unknown> {
+export async function importTSFile(
+	path: string,
+	args: GetJitiArgs,
+): Promise<unknown> {
 	// a runtime that supports importing TypeScript files
 	if (runtime !== 'node') {
 		return await import(path)
 	}
 
-	const jiti = createJiti(import.meta.url, { fsCache: false })
+	const jiti = await getJiti(args)
 
 	const extension = extname(path)
 
