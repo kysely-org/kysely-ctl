@@ -3,9 +3,9 @@
 		"kysely": "node_modules/kysely-ctl/dist/bin.js"
 	},
 	"imports": {
+		"@db/sqlite": "jsr:@db/sqlite@^0.12.0",
+		"@soapbox/kysely-deno-sqlite": "jsr:@soapbox/kysely-deno-sqlite@^2.2.0",
 		"kysely": "npm:kysely@^0.27.5",
-		"kysely-ctl": "npm:kysely-ctl@^0.10.1",
-		"kysely-postgres-js": "npm:kysely-postgres-js@^2.0.0",
-		"postgres": "npm:postgres@^3.4.5"
+		"kysely-ctl": "npm:kysely-ctl@^0.12.0"
 	}
 }

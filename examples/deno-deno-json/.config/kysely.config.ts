@@ -1,14 +1,9 @@
+import { Database } from '@db/sqlite'
+import { DenoSqlite3Dialect } from '@soapbox/kysely-deno-sqlite'
 import { defineConfig } from 'kysely-ctl'
-import postgres from 'postgres'
 
 export default defineConfig({
-	dialect: 'postgres',
-	dialectConfig: {
-		postgres: postgres({
-			database: 'kysely_test',
-			host: 'localhost',
-			port: 5434,
-			user: 'kysely',
-		}),
-	},
+	dialect: new DenoSqlite3Dialect({
+		database: new Database('example.db'),
+	}),
 })
