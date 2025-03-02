@@ -28,6 +28,7 @@ async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 			: undefined,
 		debug: Boolean(args.debug),
 		fsCache: Boolean(args.filesystemCaching),
+		importMeta: import.meta,
 	}
 }
 
