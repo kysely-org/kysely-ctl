@@ -14,9 +14,7 @@ export interface GetJitiArgs {
 export async function getJiti(args: GetJitiArgs): Promise<Jiti> {
 	const jitiOptions = await getJitiOptions(args)
 
-	const { createJiti } = await (runtime === 'node'
-		? import('jiti')
-		: import('jiti/native'))
+	const { createJiti } = await import('jiti')
 
 	return createJiti(import.meta.url, jitiOptions)
 }
@@ -29,6 +27,7 @@ async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 		debug: Boolean(args.debug),
 		fsCache: Boolean(args.filesystemCaching),
 		importMeta: import.meta,
+		tryNative: runtime !== 'node',
 	}
 }
 
