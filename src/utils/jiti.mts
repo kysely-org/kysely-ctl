@@ -31,7 +31,7 @@ async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 }
 
 async function getJitiAlias(): Promise<Record<string, string>> {
-	const [jitiAliasFromTSConfig, jitiAliasFromDenoJSON] = Promise.all([
+	const [jitiAliasFromTSConfig, jitiAliasFromDenoJSON] = await Promise.all([
 		getJitiAliasFromTSConfig(),
 		getJitiAliasFromDenoJSON(),
 	])
