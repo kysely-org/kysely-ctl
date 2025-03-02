@@ -1,6 +1,6 @@
 import type { Jiti, JitiOptions } from 'jiti'
 import { join } from 'pathe'
-import { isDeno, runtime } from 'std-env'
+import { runtime } from 'std-env'
 import type { CompilerOptions } from 'typescript'
 import { getCWD } from '../config/get-cwd.mjs'
 import { getTSConfig } from './tsconfig.mjs'
