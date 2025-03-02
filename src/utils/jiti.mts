@@ -1,11 +1,34 @@
+import type { Jiti, JitiOptions } from 'jiti'
 import { join } from 'pathe'
 import type { CompilerOptions } from 'typescript'
 import { getCWD } from '../config/get-cwd.mjs'
 import { getTSConfig } from './tsconfig.mjs'
 
-export async function getJitiAlias(): Promise<
-	Record<string, string> | undefined
-> {
+export interface GetJitiArgs {
+	debug?: boolean
+	experimentalResolveTSConfigPaths?: boolean
+	filesystemCaching?: boolean
+}
+
+export async function getJiti(args: GetJitiArgs): Promise<Jiti> {
+	const jitiOptions = await getJitiOptions(args)
+
+	const { createJiti } = await import('jiti')
+
+	return createJiti(import.meta.url, jitiOptions)
+}
+
+async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
+	return {
+		alias: args.experimentalResolveTSConfigPaths
+			? await getJitiAlias()
+			: undefined,
+		debug: Boolean(args.debug),
+		fsCache: Boolean(args.filesystemCaching),
+	}
+}
+
+async function getJitiAlias(): Promise<Record<string, string> | undefined> {
 	try {
 		const tsconfig = await getTSConfig()
 

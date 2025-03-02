@@ -5,6 +5,7 @@ import { filename } from 'pathe/utils'
 import { getFileType } from '../utils/get-file-type.mjs'
 import { importTSFile } from '../utils/import-ts-file.mjs'
 import { isObject } from '../utils/is-object.mjs'
+import type { GetJitiArgs } from '../utils/jiti.mjs'
 import { safeReaddir } from '../utils/safe-readdir.mjs'
 
 /**
@@ -44,7 +45,7 @@ export class TSFileMigrationProvider implements MigrationProvider {
 			const filePath = join(this.#props.migrationFolder, fileName)
 
 			const migrationModule = await (isTS
-				? importTSFile(filePath)
+				? importTSFile(filePath, this.#props)
 				: import(filePath))
 
 			const migrationKey = filename(fileName)
@@ -75,7 +76,7 @@ function isMigration(thing: unknown): thing is Migration {
 	return isObject(thing) && typeof thing.up === 'function'
 }
 
-export interface TSFileMigrationProviderProps {
+export interface TSFileMigrationProviderProps extends GetJitiArgs {
 	allowJS?: boolean
 	migrationFolder: string
 }

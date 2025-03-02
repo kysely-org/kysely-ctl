@@ -4,7 +4,7 @@ import { FileSeedProvider } from './file-seed-provider.mjs'
 import { Seeder } from './seeder.mjs'
 
 export function getSeeder(config: ResolvedKyselyCTLConfig): Seeder {
-	const { kysely, seeds } = config
+	const { args, kysely, seeds } = config
 	const { allowJS, seedFolder, seeder, provider, ...seederOptions } = seeds
 
 	if (seeder) {
@@ -24,6 +24,10 @@ export function getSeeder(config: ResolvedKyselyCTLConfig): Seeder {
 				provider ||
 				new FileSeedProvider({
 					allowJS,
+					debug: args.debug,
+					filesystemCaching: args['filesystem-caching'],
+					experimentalResolveTSConfigPaths:
+						args['experimental-resolve-tsconfig-paths'],
 					seedFolder: join(config.cwd, seedFolder),
 				}),
 		})

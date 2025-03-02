@@ -4,7 +4,7 @@ import type { ResolvedKyselyCTLConfig } from '../config/kysely-ctl-config.mjs'
 import { TSFileMigrationProvider } from './ts-file-migration-provider.mjs'
 
 export function getMigrator(config: ResolvedKyselyCTLConfig): Migrator {
-	const { kysely, migrations } = config
+	const { args, kysely, migrations } = config
 	const { allowJS, migrationFolder, migrator, provider, ...migratorOptions } =
 		migrations
 
@@ -23,6 +23,10 @@ export function getMigrator(config: ResolvedKyselyCTLConfig): Migrator {
 			provider ||
 			new TSFileMigrationProvider({
 				allowJS,
+				debug: args.debug,
+				experimentalResolveTSConfigPaths:
+					args['experimental-resolve-tsconfig-paths'],
+				filesystemCaching: args['filesystem-caching'],
 				migrationFolder: join(config.cwd, migrationFolder),
 			}),
 	})
