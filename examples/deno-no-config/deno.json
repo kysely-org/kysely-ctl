@@ -1,5 +1,5 @@
 {
 	"tasks": {
-		"kysely": "deno run --allow-env --allow-ffi --allow-net --allow-read --allow-write ../../dist/bin.js"
+		"kysely": "deno run -A ../../dist/bin.js"
 	}
 }
