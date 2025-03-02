@@ -14,7 +14,7 @@ export interface GetJitiArgs {
 export async function getJiti(args: GetJitiArgs): Promise<Jiti> {
 	const jitiOptions = await getJitiOptions(args)
 
-	const { createJiti } = await (isDeno ? import('jiti/native') : import('jiti'))
+	const { createJiti } = await import('jiti')
 
 	return createJiti(import.meta.url, jitiOptions)
 }
@@ -31,18 +31,6 @@ async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 }
 
 async function getJitiAlias(): Promise<Record<string, string>> {
-	const [jitiAliasFromTSConfig, jitiAliasFromDenoJSON] = await Promise.all([
-		getJitiAliasFromTSConfig(),
-		getJitiAliasFromDenoJSON(),
-	])
-
-	return {
-		...jitiAliasFromDenoJSON,
-		...jitiAliasFromTSConfig,
-	}
-}
-
-async function getJitiAliasFromTSConfig(): Promise<Record<string, string>> {
 	try {
 		const tsconfig = await getTSConfig()
 
@@ -71,16 +59,6 @@ async function getJitiAliasFromTSConfig(): Promise<Record<string, string>> {
 	} catch (error) {
 		return {}
 	}
-}
-
-async function getJitiAliasFromDenoJSON(): Promise<Record<string, string>> {
-	// if (!isDeno) {
-	return {}
-	// }
-
-	// return {
-	// 	'@db/sqlite': 'jsr:@db/sqlite@^0.12.0',
-	// }
 }
 
 function removeWildcards(path: string): string {
