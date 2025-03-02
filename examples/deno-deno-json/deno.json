@@ -1,6 +1,6 @@
 {
 	"tasks": {
-		"kysely": "deno run -A ../../dist/bin.js"
+		"kysely": "node_modules/kysely-ctl/dist/bin.js"
 	},
 	"imports": {
 		"@jsr/db__sqlite": "npm:@jsr/db__sqlite@^0.12.0",
