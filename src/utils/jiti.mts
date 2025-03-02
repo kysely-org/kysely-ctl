@@ -74,13 +74,13 @@ async function getJitiAliasFromTSConfig(): Promise<Record<string, string>> {
 }
 
 async function getJitiAliasFromDenoJSON(): Promise<Record<string, string>> {
-	if (!isDeno) {
-		return {}
-	}
+	// if (!isDeno) {
+	return {}
+	// }
 
-	return {
-		'@db/sqlite': 'jsr:@db/sqlite@^0.12.0',
-	}
+	// return {
+	// 	'@db/sqlite': 'jsr:@db/sqlite@^0.12.0',
+	// }
 }
 
 function removeWildcards(path: string): string {
