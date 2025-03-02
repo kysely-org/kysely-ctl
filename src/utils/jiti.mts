@@ -22,10 +22,7 @@ export async function getJiti(args: GetJitiArgs): Promise<Jiti> {
 async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 	return {
 		alias: args.experimentalResolveTSConfigPaths
-			? {
-					...(await getJitiAliasFromTSConfig()),
-					...
-				}
+			? await getJitiAlias()
 			: undefined,
 		debug: Boolean(args.debug),
 		fsCache: Boolean(args.filesystemCaching),
@@ -34,7 +31,10 @@ async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 }
 
 async function getJitiAlias(): Promise<Record<string, string>> {
-	const [jitiAliasFromTSConfig, jitiAliasFromDenoJSON] = Promise.all([getJitiAliasFromTSConfig(), getJitiAliasFromDenoJSON()])
+	const [jitiAliasFromTSConfig, jitiAliasFromDenoJSON] = Promise.all([
+		getJitiAliasFromTSConfig(),
+		getJitiAliasFromDenoJSON(),
+	])
 
 	return {
 		...jitiAliasFromDenoJSON,
@@ -79,7 +79,7 @@ async function getJitiAliasFromDenoJSON(): Promise<Record<string, string>> {
 	}
 
 	return {
-		'@db/sqlite': 'jsr:@db/sqlite@^0.12.0'
+		'@db/sqlite': 'jsr:@db/sqlite@^0.12.0',
 	}
 }
 
