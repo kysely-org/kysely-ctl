@@ -22,7 +22,7 @@ export async function getJiti(args: GetJitiArgs): Promise<Jiti> {
 async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 	return {
 		alias: args.experimentalResolveTSConfigPaths
-			? await getJitiAlias()
+			? { ...(await getJitiAlias()), '@db/sqlite': '@jsr/db__sqlite' }
 			: undefined,
 		debug: Boolean(args.debug),
 		fsCache: Boolean(args.filesystemCaching),
@@ -38,9 +38,7 @@ async function getJitiAlias(): Promise<Record<string, string>> {
 			{}) as CompilerOptions
 
 		if (!paths) {
-			return {
-				'@db/sqlite': '@jsr/db__sqlite',
-			}
+			return {}
 		}
 
 		const cwd = getCWD()
