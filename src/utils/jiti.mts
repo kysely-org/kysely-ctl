@@ -38,7 +38,9 @@ async function getJitiAlias(): Promise<Record<string, string>> {
 			{}) as CompilerOptions
 
 		if (!paths) {
-			return {}
+			return {
+				'@db/sqlite': '@jsr/db__sqlite',
+			}
 		}
 
 		const cwd = getCWD()
