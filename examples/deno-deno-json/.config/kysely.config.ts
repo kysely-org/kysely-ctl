@@ -1,5 +1,5 @@
-import { Database } from '@jsr/db__sqlite'
-import { DenoSqlite3Dialect } from '@jsr/soapbox__kysely-deno-sqlite'
+import { Database } from '@db/sqlite'
+import { DenoSqlite3Dialect } from '@soapbox/kysely-deno-sqlite'
 import { defineConfig } from 'kysely-ctl'
 
 export default defineConfig({
