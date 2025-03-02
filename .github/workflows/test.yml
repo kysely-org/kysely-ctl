@@ -171,7 +171,7 @@ jobs:
 
       - name: Install example dependencies
         if: matrix.config-flavor != 'no-config'
-        run: cd examples/deno-${{ matrix.config-flavor }} && deno install --node-modules-dir && deno cache .config/kysely.config.ts && cd ../.. && pnpx tsx ./scripts/localize-deno-dependency.mts
+        run: cd examples/deno-${{ matrix.config-flavor }} && deno install --node-modules-dir && cd ../.. && pnpx tsx ./scripts/localize-deno-dependency.mts
 
       - name: kysely -v
         working-directory: examples/deno-${{ matrix.config-flavor }}
