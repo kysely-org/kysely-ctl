@@ -4,7 +4,6 @@
     "npm:@jsr/db__sqlite@0.12": "0.12.0",
     "npm:@jsr/soapbox__kysely-deno-sqlite@^2.2.0": "2.2.0",
     "npm:kysely-ctl@0.12": "0.12.0_kysely@0.27.5",
-    "npm:kysely@~0.27.2": "0.27.5",
     "npm:kysely@~0.27.5": "0.27.5"
   },
   "npm": {
