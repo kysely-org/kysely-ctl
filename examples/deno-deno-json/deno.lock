@@ -1,89 +1,80 @@
 {
   "version": "4",
   "specifiers": {
-    "npm:kysely-ctl@~0.10.1": "0.10.1_kysely@0.27.5",
-    "npm:kysely-postgres-js@2": "2.0.0_kysely@0.27.5_postgres@3.4.5",
-    "npm:kysely@~0.27.5": "0.27.5",
-    "npm:postgres@^3.4.5": "3.4.5"
+    "npm:@jsr/db__sqlite@0.12": "0.12.0",
+    "npm:@jsr/soapbox__kysely-deno-sqlite@^2.2.0": "2.2.0",
+    "npm:kysely-ctl@0.12": "0.12.0_kysely@0.27.5",
+    "npm:kysely@~0.27.2": "0.27.5",
+    "npm:kysely@~0.27.5": "0.27.5"
   },
   "npm": {
-    "@esbuild/aix-ppc64@0.23.1": {
-      "integrity": "sha512-6VhYk1diRqrhBAqpJEdjASR/+WVRtfjpqKuNw11cLiaWpAT/Uu+nokB+UJnevzy/P9C/ty6AOe0dwueMrGh/iQ=="
+    "@jsr/db__sqlite@0.12.0": {
+      "integrity": "sha512-nTMYOzEl8oFhtPS90tAdMbpYTec7/brHtlVLt8afAsNLX+z1FkEIWljxqJS8UDzN23wCTsNXL96NArqBaJRy9A==",
+      "dependencies": [
+        "@jsr/denosaurs__plug",
+        "@jsr/std__path@0.217.0"
+      ]
     },
-    "@esbuild/android-arm64@0.23.1": {
-      "integrity": "sha512-xw50ipykXcLstLeWH7WRdQuysJqejuAGPd30vd1i5zSyKK3WE+ijzHmLKxdiCMtH1pHz78rOg0BKSYOSB/2Khw=="
+    "@jsr/denosaurs__plug@1.0.6": {
+      "integrity": "sha512-3sRBjWs6Str1+5w8Lj5t4dDNxUJB6RWJaxAf1e04CHwbbPBbyzrzKs2iammkGlEra8yL2RO70+c8x0/52as6XA==",
+      "dependencies": [
+        "@jsr/std__encoding",
+        "@jsr/std__fmt@0.221.0",
+        "@jsr/std__fs",
+        "@jsr/std__path@0.221.0"
+      ]
     },
-    "@esbuild/android-arm@0.23.1": {
-      "integrity": "sha512-uz6/tEy2IFm9RYOyvKl88zdzZfwEfKZmnX9Cj1BHjeSGNuGLuMD1kR8y5bteYmwqKm1tj8m4cb/aKEorr6fHWQ=="
+    "@jsr/soapbox__kysely-deno-sqlite@2.2.0": {
+      "integrity": "sha512-iubzZqRCjIsZZjLdSXDEZ3x5CjW9nKgf7avZs7qUZrhEDULZKltNKDaW+ZBATLJsiz4svwLq8qKiJ4naQ8GnAw==",
+      "dependencies": [
+        "kysely"
+      ]
     },
-    "@esbuild/android-x64@0.23.1": {
-      "integrity": "sha512-nlN9B69St9BwUoB+jkyU090bru8L0NA3yFvAd7k8dNsVH8bi9a8cUAUSEcEEgTp2z3dbEDGJGfP6VUnkQnlReg=="
+    "@jsr/std__assert@0.217.0": {
+      "integrity": "sha512-kCGfcXX8lMcZHWrCgFhbdpNloB50MkLwHdRZvZKjZK424F9g+M742jkTDLMOJmwkDoEqFKyNVrGhPtspS4+NvQ==",
+      "dependencies": [
+        "@jsr/std__fmt@0.217.0"
+      ]
     },
-    "@esbuild/darwin-arm64@0.23.1": {
-      "integrity": "sha512-YsS2e3Wtgnw7Wq53XXBLcV6JhRsEq8hkfg91ESVadIrzr9wO6jJDMZnCQbHm1Guc5t/CdDiFSSfWP58FNuvT3Q=="
+    "@jsr/std__assert@0.221.0": {
+      "integrity": "sha512-Y+nGzU7AiBuMGt9i7lwADiJ5ZpSwYr1f3ee3dnUIkUF9BuzX+sMJf6v2QGYDOOfo1EdNZCslQZlj3x62mwnw9w==",
+      "dependencies": [
+        "@jsr/std__fmt@0.221.0"
+      ]
     },
-    "@esbuild/darwin-x64@0.23.1": {
-      "integrity": "sha512-aClqdgTDVPSEGgoCS8QDG37Gu8yc9lTHNAQlsztQ6ENetKEO//b8y31MMu2ZaPbn4kVsIABzVLXYLhCGekGDqw=="
+    "@jsr/std__encoding@0.221.0": {
+      "integrity": "sha512-fWvwcY1zzMTPt97PVRwHaM5Vyh27NsAeX6yxy9YSLbXjDnW6zjMGmQC5qJqDAz7d8IWq/uUTPZ+A1kr1ps2eUA=="
     },
-    "@esbuild/freebsd-arm64@0.23.1": {
-      "integrity": "sha512-h1k6yS8/pN/NHlMl5+v4XPfikhJulk4G+tKGFIOwURBSFzE8bixw1ebjluLOjfwtLqY0kewfjLSrO6tN2MgIhA=="
+    "@jsr/std__fmt@0.217.0": {
+      "integrity": "sha512-AM33Cr/V3St3Cj5O4QQe4aMKGyzL9eYz+mOC58BmqxgeZwFbvSC06DzM2DS3ixcsAnwH2kYMXHpCBax0sT9q8Q=="
     },
-    "@esbuild/freebsd-x64@0.23.1": {
-      "integrity": "sha512-lK1eJeyk1ZX8UklqFd/3A60UuZ/6UVfGT2LuGo3Wp4/z7eRTRYY+0xOu2kpClP+vMTi9wKOfXi2vjUpO1Ro76g=="
+    "@jsr/std__fmt@0.221.0": {
+      "integrity": "sha512-PErSfwKu1c9yl0a4J1U3f6PR1eZFU451Meok3d4i6OnuM8YCwqndfK/KzdIr7eYykkvB2ln/6JnF/wV37zil4A=="
     },
-    "@esbuild/linux-arm64@0.23.1": {
-      "integrity": "sha512-/93bf2yxencYDnItMYV/v116zff6UyTjo4EtEQjUBeGiVpMmffDNUyD9UN2zV+V3LRV3/on4xdZ26NKzn6754g=="
+    "@jsr/std__fs@0.221.0": {
+      "integrity": "sha512-abz06JVR6M2YduJXDnsw3mHzUix85gpJquLbNUAjPe74XYH19BP85beNKH+xNQDYrRaQSN9zCIaQvg2Dmd+csQ==",
+      "dependencies": [
+        "@jsr/std__assert@0.221.0",
+        "@jsr/std__path@0.221.0"
+      ]
     },
-    "@esbuild/linux-arm@0.23.1": {
-      "integrity": "sha512-CXXkzgn+dXAPs3WBwE+Kvnrf4WECwBdfjfeYHpMeVxWE0EceB6vhWGShs6wi0IYEqMSIzdOF1XjQ/Mkm5d7ZdQ=="
+    "@jsr/std__path@0.217.0": {
+      "integrity": "sha512-KoqEpZX9CE8zyyr4+X6AROOGYv95AysnJni2E5g9pqG+IGUUuNjOC3yRTvHnsB5tJ6uQs6DwET5chIdUPcylIQ==",
+      "dependencies": [
+        "@jsr/std__assert@0.217.0"
+      ]
     },
-    "@esbuild/linux-ia32@0.23.1": {
-      "integrity": "sha512-VTN4EuOHwXEkXzX5nTvVY4s7E/Krz7COC8xkftbbKRYAl96vPiUssGkeMELQMOnLOJ8k3BY1+ZY52tttZnHcXQ=="
-    },
-    "@esbuild/linux-loong64@0.23.1": {
-      "integrity": "sha512-Vx09LzEoBa5zDnieH8LSMRToj7ir/Jeq0Gu6qJ/1GcBq9GkfoEAoXvLiW1U9J1qE/Y/Oyaq33w5p2ZWrNNHNEw=="
-    },
-    "@esbuild/linux-mips64el@0.23.1": {
-      "integrity": "sha512-nrFzzMQ7W4WRLNUOU5dlWAqa6yVeI0P78WKGUo7lg2HShq/yx+UYkeNSE0SSfSure0SqgnsxPvmAUu/vu0E+3Q=="
-    },
-    "@esbuild/linux-ppc64@0.23.1": {
-      "integrity": "sha512-dKN8fgVqd0vUIjxuJI6P/9SSSe/mB9rvA98CSH2sJnlZ/OCZWO1DJvxj8jvKTfYUdGfcq2dDxoKaC6bHuTlgcw=="
-    },
-    "@esbuild/linux-riscv64@0.23.1": {
-      "integrity": "sha512-5AV4Pzp80fhHL83JM6LoA6pTQVWgB1HovMBsLQ9OZWLDqVY8MVobBXNSmAJi//Csh6tcY7e7Lny2Hg1tElMjIA=="
-    },
-    "@esbuild/linux-s390x@0.23.1": {
-      "integrity": "sha512-9ygs73tuFCe6f6m/Tb+9LtYxWR4c9yg7zjt2cYkjDbDpV/xVn+68cQxMXCjUpYwEkze2RcU/rMnfIXNRFmSoDw=="
-    },
-    "@esbuild/linux-x64@0.23.1": {
-      "integrity": "sha512-EV6+ovTsEXCPAp58g2dD68LxoP/wK5pRvgy0J/HxPGB009omFPv3Yet0HiaqvrIrgPTBuC6wCH1LTOY91EO5hQ=="
-    },
-    "@esbuild/netbsd-x64@0.23.1": {
-      "integrity": "sha512-aevEkCNu7KlPRpYLjwmdcuNz6bDFiE7Z8XC4CPqExjTvrHugh28QzUXVOZtiYghciKUacNktqxdpymplil1beA=="
-    },
-    "@esbuild/openbsd-arm64@0.23.1": {
-      "integrity": "sha512-3x37szhLexNA4bXhLrCC/LImN/YtWis6WXr1VESlfVtVeoFJBRINPJ3f0a/6LV8zpikqoUg4hyXw0sFBt5Cr+Q=="
-    },
-    "@esbuild/openbsd-x64@0.23.1": {
-      "integrity": "sha512-aY2gMmKmPhxfU+0EdnN+XNtGbjfQgwZj43k8G3fyrDM/UdZww6xrWxmDkuz2eCZchqVeABjV5BpildOrUbBTqA=="
-    },
-    "@esbuild/sunos-x64@0.23.1": {
-      "integrity": "sha512-RBRT2gqEl0IKQABT4XTj78tpk9v7ehp+mazn2HbUeZl1YMdaGAQqhapjGTCe7uw7y0frDi4gS0uHzhvpFuI1sA=="
-    },
-    "@esbuild/win32-arm64@0.23.1": {
-      "integrity": "sha512-4O+gPR5rEBe2FpKOVyiJ7wNDPA8nGzDuJ6gN4okSA1gEOYZ67N8JPk58tkWtdtPeLz7lBnY6I5L3jdsr3S+A6A=="
-    },
-    "@esbuild/win32-ia32@0.23.1": {
-      "integrity": "sha512-BcaL0Vn6QwCwre3Y717nVHZbAa4UBEigzFm6VdsVdT/MbZ38xoj1X9HPkZhbmaBGUD1W8vxAfffbDe8bA6AKnQ=="
-    },
-    "@esbuild/win32-x64@0.23.1": {
-      "integrity": "sha512-BHpFFeslkWrXWyUPnbKm+xYYVYruCinGcftSBaa8zoF9hZO4BcSCFUvHVTtzpIY6YzUnYtuEhZ+C9iEXjxnasg=="
+    "@jsr/std__path@0.221.0": {
+      "integrity": "sha512-O8iaP3yhg7nBXkoFsJS8KtL3kLESehM04YbkHEmW3hT93f1citXvR1chYVr7tlSyAcQSzc9WVvcLlX/T19XNhA==",
+      "dependencies": [
+        "@jsr/std__assert@0.221.0"
+      ]
     },
     "acorn@8.14.0": {
       "integrity": "sha512-cl669nCJTZBsL97OF4kUQm5g5hC2uihk0NxY3WENAC0TYdILVkAyHymAntgxGkl7K+t0cXIrH5siy5S4XkFycA=="
     },
-    "c12@2.0.1": {
-      "integrity": "sha512-Z4JgsKXHG37C6PYUtIxCfLJZvo6FyhHJoClwwb9ftUkLpPSkuYqn6Tr+vnaN8hymm0kIbcg6Ey3kv/Q71k5w/A==",
+    "c12@2.0.4": {
+      "integrity": "sha512-3DbbhnFt0fKJHxU4tEUPmD1ahWE4PWPMomqfYsTJdrhpmEnRKJi3qSC4rO5U6E6zN1+pjBY7+z8fUmNRMaVKLw==",
       "dependencies": [
         "chokidar",
         "confbox",
@@ -93,7 +84,7 @@
         "jiti",
         "mlly",
         "ohash",
-        "pathe@1.1.2",
+        "pathe",
         "perfect-debounce",
         "pkg-types",
         "rc9"
@@ -129,86 +120,40 @@
     "dotenv@16.4.7": {
       "integrity": "sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ=="
     },
-    "esbuild@0.23.1": {
-      "integrity": "sha512-VVNz/9Sa0bs5SELtn3f7qhJCDPCF5oMEl5cO9/SSinpE9hbPVvxbd572HH5AKiP7WD8INO53GgfDDhRjkylHEg==",
-      "dependencies": [
-        "@esbuild/aix-ppc64",
-        "@esbuild/android-arm",
-        "@esbuild/android-arm64",
-        "@esbuild/android-x64",
-        "@esbuild/darwin-arm64",
-        "@esbuild/darwin-x64",
-        "@esbuild/freebsd-arm64",
-        "@esbuild/freebsd-x64",
-        "@esbuild/linux-arm",
-        "@esbuild/linux-arm64",
-        "@esbuild/linux-ia32",
-        "@esbuild/linux-loong64",
-        "@esbuild/linux-mips64el",
-        "@esbuild/linux-ppc64",
-        "@esbuild/linux-riscv64",
-        "@esbuild/linux-s390x",
-        "@esbuild/linux-x64",
-        "@esbuild/netbsd-x64",
-        "@esbuild/openbsd-arm64",
-        "@esbuild/openbsd-x64",
-        "@esbuild/sunos-x64",
-        "@esbuild/win32-arm64",
-        "@esbuild/win32-ia32",
-        "@esbuild/win32-x64"
-      ]
-    },
     "fs-minipass@2.1.0": {
       "integrity": "sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==",
       "dependencies": [
         "minipass@3.3.6"
       ]
     },
-    "fsevents@2.3.3": {
-      "integrity": "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw=="
-    },
-    "get-tsconfig@4.10.0": {
-      "integrity": "sha512-kGzZ3LWWQcGIAmg6iWvXn0ei6WDtV26wzHRMwDSzmAbcXrTEXxHy6IehI6/4eT6VRKyMP1eF1VqwrVUmE/LR7A==",
-      "dependencies": [
-        "resolve-pkg-maps"
-      ]
-    },
-    "giget@1.2.4": {
-      "integrity": "sha512-Wv+daGyispVoA31TrWAVR+aAdP7roubTPEM/8JzRnqXhLbdJH0T9eQyXVFF8fjk3WKTsctII6QcyxILYgNp2DA==",
+    "giget@1.2.5": {
+      "integrity": "sha512-r1ekGw/Bgpi3HLV3h1MRBIlSAdHoIMklpaQ3OQLFcRw9PwAj2rqigvIbg+dBUI51OxVI2jsEtDywDBjSiuf7Ug==",
       "dependencies": [
         "citty",
         "consola",
         "defu",
         "node-fetch-native",
-        "nypm@0.5.2",
-        "ohash",
-        "pathe@2.0.2",
+        "nypm",
+        "pathe",
         "tar"
       ]
     },
     "jiti@2.4.2": {
       "integrity": "sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A=="
     },
-    "kysely-ctl@0.10.1_kysely@0.27.5": {
-      "integrity": "sha512-tB2mGV/MbfaQC6Lo582Rs2OdtfX23ueWDscCSDT42Iy8pYHYbhMy9ncXU35ee8LQz4BO2apQihyY8rDProP+9w==",
+    "kysely-ctl@0.12.0_kysely@0.27.5": {
+      "integrity": "sha512-V9/TsM9OkJr4K/MlkJYaduhS0Ct2wEZ0eSpjIW6Oenz3TREqrDvONJygzPqJJthVfIyCp8WEtzaovREwa9k4ag==",
       "dependencies": [
         "c12",
         "citty",
         "consola",
+        "jiti",
         "kysely",
-        "nypm@0.4.1",
+        "nypm",
         "ofetch",
-        "pathe@1.1.2",
+        "pathe",
         "pkg-types",
-        "std-env",
-        "tsx"
-      ]
-    },
-    "kysely-postgres-js@2.0.0_kysely@0.27.5_postgres@3.4.5": {
-      "integrity": "sha512-R1tWx6/x3tSatWvsmbHJxpBZYhNNxcnMw52QzZaHKg7ZOWtHib4iZyEaw4gb2hNKVctWQ3jfMxZT/ZaEMK6kBQ==",
-      "dependencies": [
-        "kysely",
-        "postgres"
+        "std-env"
       ]
     },
     "kysely@0.27.5": {
@@ -237,7 +182,7 @@
       "integrity": "sha512-qmdSIPC4bDJXgZTCR7XosJiNKySV7O215tsPtDN9iEO/7q/76b/ijtgRu/+epFXSJhijtTCCGp3DWS549P3xKw==",
       "dependencies": [
         "acorn",
-        "pathe@2.0.2",
+        "pathe",
         "pkg-types",
         "ufo"
       ]
@@ -245,23 +190,12 @@
     "node-fetch-native@1.6.6": {
       "integrity": "sha512-8Mc2HhqPdlIfedsuZoc3yioPuzp6b+L5jRCRY1QzuWZh2EGJVQrGppC6V6cF0bLdbW0+O2YpqCA25aF/1lvipQ=="
     },
-    "nypm@0.4.1": {
-      "integrity": "sha512-1b9mihliBh8UCcKtcGRu//G50iHpjxIQVUqkdhPT/SDVE7KdJKoHXLS0heuYTQCx95dFqiyUbXZB9r8ikn+93g==",
+    "nypm@0.5.4": {
+      "integrity": "sha512-X0SNNrZiGU8/e/zAB7sCTtdxWTMSIO73q+xuKgglm2Yvzwlo8UoC5FNySQFCvl84uPaeADkqHUZUkWy4aH4xOA==",
       "dependencies": [
         "citty",
         "consola",
-        "pathe@1.1.2",
-        "pkg-types",
-        "tinyexec",
-        "ufo"
-      ]
-    },
-    "nypm@0.5.2": {
-      "integrity": "sha512-AHzvnyUJYSrrphPhRWWZNcoZfArGNp3Vrc4pm/ZurO74tYNTgAPrEyBQEKy+qioqmWlPXwvMZCG2wOaHlPG0Pw==",
-      "dependencies": [
-        "citty",
-        "consola",
-        "pathe@2.0.2",
+        "pathe",
         "pkg-types",
         "tinyexec",
         "ufo"
@@ -275,14 +209,11 @@
         "ufo"
       ]
     },
-    "ohash@1.1.4": {
-      "integrity": "sha512-FlDryZAahJmEF3VR3w1KogSEdWX3WhA5GPakFx4J81kEAiHyLMpdLLElS8n8dfNadMgAne/MywcvmogzscVt4g=="
+    "ohash@2.0.9": {
+      "integrity": "sha512-ljz2sybhXrRpBW9LleuJPP9uxbMKW8qxFz9lLOHW2QEel78rJ1sUgaX2cBNDt49w+JleNSkhYkVOCx6RgkKn0Q=="
     },
-    "pathe@1.1.2": {
-      "integrity": "sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ=="
-    },
-    "pathe@2.0.2": {
-      "integrity": "sha512-15Ztpk+nov8DR524R4BF7uEuzESgzUEAV4Ah7CUMNGXdE5ELuvxElxGXndBl32vMSsWa1jpNf22Z+Er3sKwq+w=="
+    "pathe@2.0.3": {
+      "integrity": "sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w=="
     },
     "perfect-debounce@1.0.0": {
       "integrity": "sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA=="
@@ -292,11 +223,8 @@
       "dependencies": [
         "confbox",
         "mlly",
-        "pathe@2.0.2"
+        "pathe"
       ]
-    },
-    "postgres@3.4.5": {
-      "integrity": "sha512-cDWgoah1Gez9rN3H4165peY9qfpEo+SA61oQv65O3cRUE1pOEoJWwddwcqKE8XZYjbblOJlYDlLV4h67HrEVDg=="
     },
     "rc9@2.1.2": {
       "integrity": "sha512-btXCnMmRIBINM2LDZoEmOogIZU7Qe7zn4BpomSKZ/ykbLObuBdvG+mFq11DL6fjH1DRwHhrlgtYWG96bJiC7Cg==",
@@ -305,11 +233,8 @@
         "destr"
       ]
     },
-    "readdirp@4.1.1": {
-      "integrity": "sha512-h80JrZu/MHUZCyHu5ciuoI0+WxsCxzxJTILn6Fs8rxSnFPh+UVHYfeIxK1nVGugMqkfC4vJcBOYbkfkwYK0+gw=="
-    },
-    "resolve-pkg-maps@1.0.0": {
-      "integrity": "sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw=="
+    "readdirp@4.1.2": {
+      "integrity": "sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg=="
     },
     "std-env@3.8.0": {
       "integrity": "sha512-Bc3YwwCB+OzldMxOXJIIvC6cPRWr/LxOp48CdQTOkPyk/t4JWWJbrilwBd7RJzKV8QW7tJkcgAmeuLLJugl5/w=="
@@ -328,14 +253,6 @@
     "tinyexec@0.3.2": {
       "integrity": "sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA=="
     },
-    "tsx@4.19.2": {
-      "integrity": "sha512-pOUl6Vo2LUq/bSa8S5q7b91cgNSjctn9ugq/+Mvow99qW6x/UZYwzxy/3NmqoT66eHYfCVvFvACC58UBPFf28g==",
-      "dependencies": [
-        "esbuild",
-        "fsevents",
-        "get-tsconfig"
-      ]
-    },
     "ufo@1.5.4": {
       "integrity": "sha512-UsUk3byDzKd04EyoZ7U4DOlxQaD14JUKQl6/P7wiX4FNvUfm3XL246n9W5AmqwW5RSFJ27NAuM0iLscAOYUiGQ=="
     },
@@ -345,10 +262,10 @@
   },
   "workspace": {
     "dependencies": [
-      "npm:kysely-ctl@~0.10.1",
-      "npm:kysely-postgres-js@2",
-      "npm:kysely@~0.27.5",
-      "npm:postgres@^3.4.5"
+      "npm:@jsr/db__sqlite@0.12",
+      "npm:@jsr/soapbox__kysely-deno-sqlite@^2.2.0",
+      "npm:kysely-ctl@0.12",
+      "npm:kysely@~0.27.5"
     ]
   }
 }

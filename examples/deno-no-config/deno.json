@@ -1,0 +1,5 @@
+{
+	"tasks": {
+		"kysely": "deno run -A ../../dist/bin.js"
+	}
+}

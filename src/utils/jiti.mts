@@ -1,5 +1,6 @@
 import type { Jiti, JitiOptions } from 'jiti'
 import { join } from 'pathe'
+import { runtime } from 'std-env'
 import type { CompilerOptions } from 'typescript'
 import { getCWD } from '../config/get-cwd.mjs'
 import { getTSConfig } from './tsconfig.mjs'
@@ -25,10 +26,11 @@ async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 			: undefined,
 		debug: Boolean(args.debug),
 		fsCache: Boolean(args.filesystemCaching),
+		tryNative: runtime !== 'node',
 	}
 }
 
-async function getJitiAlias(): Promise<Record<string, string> | undefined> {
+async function getJitiAlias(): Promise<Record<string, string>> {
 	try {
 		const tsconfig = await getTSConfig()
 
@@ -36,7 +38,7 @@ async function getJitiAlias(): Promise<Record<string, string> | undefined> {
 			{}) as CompilerOptions
 
 		if (!paths) {
-			return
+			return {}
 		}
 
 		const cwd = getCWD()
