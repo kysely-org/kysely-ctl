@@ -3,8 +3,8 @@
 		"kysely": "node_modules/kysely-ctl/dist/bin.js"
 	},
 	"imports": {
-		"@db/sqlite": "npm:@jsr/db__sqlite@^0.12.0",
-		"@soapbox/kysely-deno-sqlite": "npm:@jsr/soapbox__kysely-deno-sqlite@^2.2.0",
+		"@jsr/db__sqlite": "npm:@jsr/db__sqlite@^0.12.0",
+		"@jsr/soapbox__kysely-deno-sqlite": "npm:@jsr/soapbox__kysely-deno-sqlite@^2.2.0",
 		"kysely": "npm:kysely@^0.27.5",
 		"kysely-ctl": "npm:kysely-ctl@^0.12.0"
 	}

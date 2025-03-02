@@ -22,7 +22,7 @@ export async function getJiti(args: GetJitiArgs): Promise<Jiti> {
 async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 	return {
 		alias: args.experimentalResolveTSConfigPaths
-			? { ...(await getJitiAlias()), '@db/sqlite': '@jsr/db__sqlite' }
+			? await getJitiAlias()
 			: undefined,
 		debug: Boolean(args.debug),
 		fsCache: Boolean(args.filesystemCaching),
