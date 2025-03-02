@@ -1,6 +1,6 @@
 import type { Jiti, JitiOptions } from 'jiti'
 import { join } from 'pathe'
-import { runtime } from 'std-env'
+import { isDeno, runtime } from 'std-env'
 import type { CompilerOptions } from 'typescript'
 import { getCWD } from '../config/get-cwd.mjs'
 import { getTSConfig } from './tsconfig.mjs'
@@ -22,16 +22,27 @@ export async function getJiti(args: GetJitiArgs): Promise<Jiti> {
 async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 	return {
 		alias: args.experimentalResolveTSConfigPaths
-			? await getJitiAlias()
+			? {
+					...(await getJitiAliasFromTSConfig()),
+					...
+				}
 			: undefined,
 		debug: Boolean(args.debug),
 		fsCache: Boolean(args.filesystemCaching),
-		importMeta: import.meta,
 		tryNative: runtime !== 'node',
 	}
 }
 
-async function getJitiAlias(): Promise<Record<string, string> | undefined> {
+async function getJitiAlias(): Promise<Record<string, string>> {
+	const [jitiAliasFromTSConfig, jitiAliasFromDenoJSON] = Promise.all([getJitiAliasFromTSConfig(), getJitiAliasFromDenoJSON()])
+
+	return {
+		...jitiAliasFromDenoJSON,
+		...jitiAliasFromTSConfig,
+	}
+}
+
+async function getJitiAliasFromTSConfig(): Promise<Record<string, string>> {
 	try {
 		const tsconfig = await getTSConfig()
 
@@ -39,7 +50,7 @@ async function getJitiAlias(): Promise<Record<string, string> | undefined> {
 			{}) as CompilerOptions
 
 		if (!paths) {
-			return
+			return {}
 		}
 
 		const cwd = getCWD()
@@ -59,6 +70,16 @@ async function getJitiAlias(): Promise<Record<string, string> | undefined> {
 		return jitiAlias
 	} catch (error) {
 		return {}
+	}
+}
+
+async function getJitiAliasFromDenoJSON(): Promise<Record<string, string>> {
+	if (!isDeno) {
+		return {}
+	}
+
+	return {
+		'@db/sqlite': 'jsr:@db/sqlite@^0.12.0'
 	}
 }
 
