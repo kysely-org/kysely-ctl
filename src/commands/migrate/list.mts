@@ -7,6 +7,11 @@ import { createSubcommand } from '../../utils/create-subcommand.mjs'
 
 const args = {
 	...CommonArgs,
+	'fail-on-pending': {
+		type: 'boolean',
+		default: false,
+		required: false
+	}
 } satisfies ArgsDef
 
 const BaseListCommand = {
@@ -32,6 +37,12 @@ const BaseListCommand = {
 
 		for (const migration of migrations) {
 			consola.log(`[${migration.executedAt ? '`✓`' : ' '}] ${migration.name}`)
+		}
+
+		const hasPending = migrations.some(migration => migration.executedAt === undefined);
+
+		if (context.args['fail-on-pending'] && hasPending) {
+			throw new Error('Failed due to pending migrations.');
 		}
 	},
 } satisfies CommandDef<typeof args>
