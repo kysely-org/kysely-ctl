@@ -4,9 +4,15 @@ import { CommonArgs } from '../../arguments/common.mjs'
 import { getMigrations } from '../../kysely/get-migrations.mjs'
 import { usingMigrator } from '../../kysely/using-migrator.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
+import { exitWithError } from '../../utils/error.mjs'
 
 const args = {
 	...CommonArgs,
+	'fail-on-pending': {
+		type: 'boolean',
+		default: false,
+		required: false,
+	},
 } satisfies ArgsDef
 
 const BaseListCommand = {
@@ -32,6 +38,18 @@ const BaseListCommand = {
 
 		for (const migration of migrations) {
 			consola.log(`[${migration.executedAt ? '`✓`' : ' '}] ${migration.name}`)
+		}
+
+		if (!context.args['fail-on-pending']) {
+			return
+		}
+
+		const hasPending = migrations.some(
+			(migration) => migration.executedAt === undefined,
+		)
+
+		if (hasPending) {
+			exitWithError(new Error('Failed due to pending migrations.'))
 		}
 	},
 } satisfies CommandDef<typeof args>
