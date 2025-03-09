@@ -2,7 +2,7 @@ import { consola } from 'consola'
 import { colorize } from 'consola/utils'
 import type { MigrationResultSet, Migrator } from 'kysely'
 import { assertDefined } from '../utils/assert-defined.mjs'
-import { exitWithError, handleAggregateError } from '../utils/error.mjs'
+import { exitWithError } from '../utils/error.mjs'
 import { getMigrations } from './get-migrations.mjs'
 
 export async function processMigrationResultSet(
@@ -23,7 +23,6 @@ export async function processMigrationResultSet(
 			}`,
 		)
 
-		handleAggregateError(error)
 		exitWithError(error)
 	}
 

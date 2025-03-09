@@ -45,11 +45,11 @@ const BaseListCommand = {
 		}
 
 		const hasPending = migrations.some(
-			(migration) => migration.executedAt === undefined,
+			(migration) => migration.executedAt == null,
 		)
 
 		if (hasPending) {
-			exitWithError(new Error('Failed due to pending migrations.'))
+			exitWithError('Failed due to pending migrations.')
 		}
 	},
 } satisfies CommandDef<typeof args>

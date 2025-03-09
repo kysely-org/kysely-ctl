@@ -1,15 +1,16 @@
 import { consola } from 'consola'
 import { process } from 'std-env'
 
-export function handleAggregateError(error: unknown): void {
+export function exitWithError(error: unknown): never {
 	if (error instanceof AggregateError) {
 		for (const subError of error.errors) {
 			consola.error(subError)
 		}
+	} else {
+		consola.error(error)
 	}
-}
 
-export function exitWithError(error: unknown): never {
 	process.exit?.(1)
+
 	throw error
 }

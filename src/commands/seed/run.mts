@@ -4,7 +4,7 @@ import { colorize } from 'consola/utils'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { usingSeeder } from '../../seeds/using-seeder.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
-import { exitWithError, handleAggregateError } from '../../utils/error.mjs'
+import { exitWithError } from '../../utils/error.mjs'
 
 const args = {
 	...CommonArgs,
@@ -65,7 +65,6 @@ const BaseRunCommand = {
 		}
 
 		if (error) {
-			handleAggregateError(error)
 			exitWithError(error)
 		}
 	},
