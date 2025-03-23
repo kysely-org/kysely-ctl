@@ -6,7 +6,12 @@
 		"kysely-ctl": "link:../.."
 	},
 	"dependencies": {
-		"better-sqlite3": "^11.8.1",
-		"kysely": "^0.27.5"
+		"better-sqlite3": "^11.9.1",
+		"kysely": "^0.27.6"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"better-sqlite3"
+		]
 	}
 }
