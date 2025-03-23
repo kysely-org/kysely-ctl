@@ -4,6 +4,7 @@ import { BunSqliteDialect } from 'kysely-bun-sqlite'
 import { defineConfig } from 'kysely-ctl'
 
 if (Bun.env) {
+	// biome-ignore lint/suspicious/noConsole: console.log is fine here
 	console.log('Bun env is available')
 }
 

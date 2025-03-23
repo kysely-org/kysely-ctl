@@ -1,6 +1,7 @@
 import type { Kysely } from 'kysely'
 
 if (Bun.env) {
+	// biome-ignore lint/suspicious/noConsole: console.log is fine here
 	console.log('Bun env is available')
 }
 

@@ -3,6 +3,7 @@ import { DenoSqlite3Dialect } from '@jsr/soapbox__kysely-deno-sqlite'
 import { defineConfig } from 'kysely-ctl'
 
 if (Deno.env) {
+	// biome-ignore lint/suspicious/noConsole: console.log is fine here
 	console.log('Deno env is available')
 }
 

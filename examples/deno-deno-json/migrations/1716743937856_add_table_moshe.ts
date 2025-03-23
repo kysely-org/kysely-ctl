@@ -1,6 +1,7 @@
 import type { Kysely } from 'kysely'
 
 if (Deno.env) {
+	// biome-ignore lint/suspicious/noConsole: console.log is fine here
 	console.log('Deno env is available')
 }
 
