@@ -38,7 +38,7 @@
 		"test": "vitest"
 	},
 	"dependencies": {
-		"c12": "^2.0.1",
+		"c12": "^3.0.3",
 		"citty": "^0.1.6",
 		"consola": "^3.4.0",
 		"jiti": "^2.4.2",
