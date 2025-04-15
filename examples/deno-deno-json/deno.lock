@@ -4,9 +4,9 @@
     "npm:@jsr/db__sqlite@0.12": "0.12.0",
     "npm:@jsr/soapbox__kysely-deno-sqlite@^2.2.0": "2.2.0",
     "npm:kysely-ctl@~0.12.1": "0.12.1_kysely@0.27.5",
+    "npm:kysely@0.28": "0.28.0",
     "npm:kysely@~0.27.2": "0.27.5",
-    "npm:kysely@~0.27.5": "0.27.5",
-    "npm:kysely@~0.27.6": "0.27.6"
+    "npm:kysely@~0.27.5": "0.27.5"
   },
   "npm": {
     "@jsr/db__sqlite@0.12.0": {
@@ -160,8 +160,8 @@
     "kysely@0.27.5": {
       "integrity": "sha512-s7hZHcQeSNKpzCkHRm8yA+0JPLjncSWnjb+2TIElwS2JAqYr+Kv3Ess+9KFfJS0C1xcQ1i9NkNHpWwCYpHMWsA=="
     },
-    "kysely@0.27.6": {
-      "integrity": "sha512-FIyV/64EkKhJmjgC0g2hygpBv5RNWVPyNCqSAD7eTCv6eFWNIi4PN1UvdSJGicN/o35bnevgis4Y0UDC0qi8jQ=="
+    "kysely@0.28.0": {
+      "integrity": "sha512-hq8VcLy57Ww7oPTTVEOrT9ml+g8ehbbmEUkHmW4Xtubu+NHdKZi6SH6egmD4cjDhn3b/0s0h/6AjdPayOTJhNw=="
     },
     "minipass@3.3.6": {
       "integrity": "sha512-DxiNidxSEK+tHG6zOIklvNOwm3hvCrbUrdtzY74U6HKTJxvIDfOUL5W5P2Ghd3DTkhhKPYGqeNUIh5qcM4YBfw==",
@@ -269,7 +269,7 @@
       "npm:@jsr/db__sqlite@0.12",
       "npm:@jsr/soapbox__kysely-deno-sqlite@^2.2.0",
       "npm:kysely-ctl@~0.12.1",
-      "npm:kysely@~0.27.6"
+      "npm:kysely@0.28"
     ]
   }
 }
