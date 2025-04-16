@@ -4,7 +4,7 @@
     "": {
       "name": "bun-example",
       "dependencies": {
-        "kysely": "^0.27.6",
+        "kysely": "^0.28.0",
         "kysely-bun-sqlite": "^0.3.2",
       },
       "devDependencies": {
@@ -25,7 +25,7 @@
 
     "bun-types": ["bun-types@1.2.5", "", { "dependencies": { "@types/node": "*", "@types/ws": "~8.5.10" } }, "sha512-3oO6LVGGRRKI4kHINx5PIdIgnLRb7l/SprhzqXapmoYkFl5m4j6EvALvbDVuuBFaamB46Ap6HCUxIXNLCGy+tg=="],
 
-    "kysely": ["kysely@0.27.6", "", {}, "sha512-FIyV/64EkKhJmjgC0g2hygpBv5RNWVPyNCqSAD7eTCv6eFWNIi4PN1UvdSJGicN/o35bnevgis4Y0UDC0qi8jQ=="],
+    "kysely": ["kysely@0.28.0", "", {}, "sha512-hq8VcLy57Ww7oPTTVEOrT9ml+g8ehbbmEUkHmW4Xtubu+NHdKZi6SH6egmD4cjDhn3b/0s0h/6AjdPayOTJhNw=="],
 
     "kysely-bun-sqlite": ["kysely-bun-sqlite@0.3.2", "", { "dependencies": { "bun-types": "^1.0.25" }, "peerDependencies": { "kysely": "^0.27.2" } }, "sha512-YucMcOGGxNCmlAnkvNfTKZX6Bk1sYsuVVXlQN/5ZUgerlq/J9/EuR3aMOOZ25ASLM7oMglSxfeQxkiw0+hrEOQ=="],
 

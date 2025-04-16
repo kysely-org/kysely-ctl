@@ -49,7 +49,7 @@
 		"std-env": "^3.8.0"
 	},
 	"peerDependencies": {
-		"kysely": ">=0.18.1 <0.28.0",
+		"kysely": ">=0.18.1 <0.29.0",
 		"kysely-postgres-js": "^2"
 	},
 	"peerDependenciesMeta": {
@@ -65,7 +65,7 @@
 		"@types/better-sqlite3": "^7.6.12",
 		"@types/node": "^22.13.11",
 		"better-sqlite3": "^11.9.1",
-		"kysely": "^0.27.6",
+		"kysely": "^0.28.0",
 		"kysely-postgres-js": "^2.0.0",
 		"pkg-pr-new": "^0.0.41",
 		"postgres": "^3.4.5",
