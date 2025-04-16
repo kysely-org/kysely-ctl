@@ -1,5 +1,5 @@
-import { CompiledQuery, QueryResult } from './deps.ts'
-import {
+import type { CompiledQuery, QueryResult } from './deps.ts'
+import type {
 	PolySqlite,
 	PolySqliteDialectConfig,
 } from './poly-sqlite-dialect-config.ts'

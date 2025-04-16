@@ -5,7 +5,7 @@ export {
 	type Dialect,
 	type DialectAdapter,
 	type Driver,
-	Kysely,
+	type Kysely,
 	type QueryCompiler,
 	type QueryResult,
 	SqliteAdapter,
