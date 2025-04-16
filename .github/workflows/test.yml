@@ -92,6 +92,12 @@ jobs:
         working-directory: examples/node-${{ matrix.type }}
         run: pnpm kysely migrate:latest ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
+      - name: kysely sql <query> ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        working-directory: examples/node-${{ matrix.type }}
+        run: | 
+          pnpm kysely sql "insert into moshe (id, is_moshe) values (1, true)" ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+          pnpm kysely sql "select * from moshe" ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+
       - name: kysely migrate:rollback --all ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
         working-directory: examples/node-${{ matrix.type }}
         run: pnpm kysely migrate:rollback --all ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
