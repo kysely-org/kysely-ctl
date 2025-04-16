@@ -3,7 +3,7 @@ import {
 	type Dialect,
 	type DialectAdapter,
 	type Driver,
-	Kysely,
+	type Kysely,
 	type QueryCompiler,
 	SqliteAdapter,
 	SqliteIntrospector,
