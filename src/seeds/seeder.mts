@@ -52,8 +52,7 @@ export class Seeder {
 }
 
 export interface Seed {
-	// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
-	seed(db: Kysely<any>): Promise<void>
+	seed(db: Kysely<unknown>): Promise<void>
 }
 
 export interface SeedProvider {
@@ -61,8 +60,7 @@ export interface SeedProvider {
 }
 
 export interface SeederProps {
-	// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
-	db: Kysely<any>
+	db: Kysely<unknown>
 	provider: SeedProvider
 }
 
