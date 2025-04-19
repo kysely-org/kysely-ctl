@@ -1,5 +1,11 @@
 {
+	"deno.enablePaths": [
+		"./examples/deno-deno-json", 
+		"./examples/deno-no-config", 
+		"./examples/deno-package-json"
+	],
 	"editor.codeActionsOnSave": {
 		"source.organizeImports.biome": "explicit"
-	}
+	},
+	"typescript.tsserver.experimental.enableProjectDiagnostics": false
 }
