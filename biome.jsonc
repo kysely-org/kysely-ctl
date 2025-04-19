@@ -2,6 +2,7 @@
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"files": {
 		"ignore": [
+			".vscode",
 			"examples/**/migrations",
 			"examples/**/seeds",
 			"package.json",

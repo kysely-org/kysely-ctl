@@ -1,0 +1,16 @@
+{
+	"name": "@kysely-org/kysely-ctl",
+	"version": "0.12.2",
+	"license": "MIT",
+	"exports": "./src/index.mts",
+	"publish": {
+		"include": [
+			"LICENSE",
+			"package.json",
+			"README.md",
+			"src/**/*.mts",
+			"tsconfig.base.json",
+			"tsconfig.json"
+		]
+	}
+}

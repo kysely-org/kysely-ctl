@@ -1,6 +1,0 @@
-{
-	"name": "@kysely-org/kysely-ctl",
-	"version": "0.12.2",
-	"license": "MIT",
-	"exports": "./src/index.mts"
-}
