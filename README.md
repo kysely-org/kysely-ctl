@@ -58,7 +58,7 @@ folder. Run `kysely init` in your terminal to create one.
 import { defineConfig } from "kysely-ctl";
 
 export default defineConfig({
-  destroyOnExit, // optional. dictates whether the (resolved) `kysely` instance should be destroyed when a command is finished executing. applicable only when `kysely` or a `dialect` instances are passed. default is `true`.
+  destroyOnExit, // optional. dictates whether the (resolved) `kysely` instance should be destroyed when a command is finished executing. default is `true`.
   dialect, // a `Kysely` dialect instance OR the name of an underlying driver library (e.g. `'pg'`).
   dialectConfig, // optional. when `dialect` is the name of an underlying driver library, `dialectConfig` is the options passed to the Kysely dialect that matches that library.
   migrations: { // optional.

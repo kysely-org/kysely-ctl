@@ -46,7 +46,7 @@ export type KyselyDialectConfig<Dialect extends KyselyDialect> =
 export type KyselyCTLConfig<Dialect extends KyselyDialect = KyselyDialect> =
 	Dialect extends ResolvableKyselyDialect
 		? {
-				destroyOnExit?: never
+				destroyOnExit?: boolean
 				dialect: Dialect
 				dialectConfig: KyselyDialectConfig<Dialect>
 				kysely?: never

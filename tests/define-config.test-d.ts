@@ -441,15 +441,13 @@ describe('defineConfig', () => {
 			})
 		})
 
-		it('should type-error when also passing `destroyOnExit`', () => {
-			// @ts-expect-error
+		it('should not type-error when also passing `destroyOnExit`', () => {
 			defineConfig({
 				dialect: 'better-sqlite3',
 				dialectConfig,
 				destroyOnExit: true,
 			})
 
-			// @ts-expect-error
 			defineConfig({
 				dialect: 'better-sqlite3',
 				dialectConfig,
