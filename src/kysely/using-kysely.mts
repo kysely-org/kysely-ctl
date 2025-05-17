@@ -12,6 +12,8 @@ export async function usingKysely<T>(
 	try {
 		return await callback(kysely)
 	} finally {
-		await kysely.destroy()
+		if (config.destroyOnExit !== false || typeof config.dialect === 'string') {
+			await kysely.destroy()
+		}
 	}
 }

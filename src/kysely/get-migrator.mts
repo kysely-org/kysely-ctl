@@ -1,19 +1,18 @@
 import { Migrator } from 'kysely'
 import { join } from 'pathe'
+import type { SetRequired } from 'type-fest'
 import type { ResolvedKyselyCTLConfig } from '../config/kysely-ctl-config.mjs'
 import { TSFileMigrationProvider } from './ts-file-migration-provider.mjs'
 
-export function getMigrator(config: ResolvedKyselyCTLConfig): Migrator {
+export async function getMigrator(
+	config: SetRequired<ResolvedKyselyCTLConfig, 'kysely'>,
+): Promise<Migrator> {
 	const { args, kysely, migrations } = config
 	const { allowJS, migrationFolder, migrator, provider, ...migratorOptions } =
 		migrations
 
 	if (migrator) {
-		return migrator
-	}
-
-	if (!kysely) {
-		throw new Error('kysely instance is required to create a migrator')
+		return await migrator(kysely)
 	}
 
 	return new Migrator({
