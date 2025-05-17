@@ -10,7 +10,7 @@ export async function usingMigrator<T>(
 	const config = await getConfigOrFail(args)
 
 	return await usingKysely(config, async (kysely) => {
-		const migrator = getMigrator({ ...config, kysely })
+		const migrator = await getMigrator({ ...config, kysely })
 
 		return await callback(migrator)
 	})

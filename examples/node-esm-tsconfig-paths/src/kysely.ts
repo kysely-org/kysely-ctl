@@ -3,7 +3,8 @@ import { Kysely, SqliteDialect } from 'kysely'
 
 import { DB_PATH } from '@/config/db'
 
-export default new Kysely({
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export default new Kysely<any>({
 	dialect: new SqliteDialect({
 		database: database(DB_PATH),
 	}),

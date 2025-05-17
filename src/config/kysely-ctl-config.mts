@@ -45,71 +45,34 @@ export type KyselyDialectConfig<Dialect extends KyselyDialect> =
 
 export type KyselyCTLConfig<Dialect extends KyselyDialect = KyselyDialect> =
 	Dialect extends ResolvableKyselyDialect
-		?
-				| {
-						dialect: Dialect
-						dialectConfig: KyselyDialectConfig<Dialect>
-						migrations: MigratorfulMigrationsConfig
-						plugins?: KyselyPlugin[]
-						seeds?: SeederlessSeedsConfig
-				  }
-				| {
-						dialect: Dialect
-						dialectConfig: KyselyDialectConfig<Dialect>
-						migrations?: MigratorlessMigrationsConfig
-						plugins?: KyselyPlugin[]
-						seeds: SeederfulSeedsConfig
-				  }
-				| {
-						dialect: Dialect
-						dialectConfig: KyselyDialectConfig<Dialect>
-						migrations?: MigratorlessMigrationsConfig
-						plugins?: KyselyPlugin[]
-						seeds?: SeederlessSeedsConfig
-				  }
+		? {
+				destroyOnExit?: boolean
+				dialect: Dialect
+				dialectConfig: KyselyDialectConfig<Dialect>
+				kysely?: never
+				migrations?: MigratorlessMigrationsConfig | MigratorfulMigrationsConfig
+				plugins?: KyselyPlugin[]
+				seeds?: SeederlessSeedsConfig | SeederfulSeedsConfig
+			}
 		:
 				| {
+						destroyOnExit?: boolean
 						dialect: KyselyDialectInstance
-						migrations: MigratorfulMigrationsConfig
+						dialectConfig?: never
+						migrations?:
+							| MigratorlessMigrationsConfig
+							| MigratorfulMigrationsConfig
 						plugins?: KyselyPlugin[]
-						seeds?: SeederlessSeedsConfig
+						seeds?: SeederlessSeedsConfig | SeederfulSeedsConfig
 				  }
 				| {
-						dialect: KyselyDialectInstance
-						migrations?: MigratorlessMigrationsConfig
-						plugins?: KyselyPlugin[]
-						seeds: SeederfulSeedsConfig
-				  }
-				| {
-						dialect: KyselyDialectInstance
-						migrations?: MigratorlessMigrationsConfig
-						plugins?: KyselyPlugin[]
-						seeds?: SeederlessSeedsConfig
-				  }
-				| {
+						destroyOnExit?: boolean
 						// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 						kysely: Kysely<any>
-						migrations: MigratorfulMigrationsConfig
-						seeds?: SeederlessSeedsConfig
-				  }
-				| {
-						// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
-						kysely: Kysely<any>
-						migrations?: MigratorlessMigrationsConfig
-						seeds: SeederfulSeedsConfig
-				  }
-				| {
-						// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
-						kysely: Kysely<any>
-						migrations?: MigratorlessMigrationsConfig
-						seeds?: SeederlessSeedsConfig
-				  }
-				| {
-						dialect?: never
-						kysely?: never
-						migrations: MigratorfulMigrationsConfig
-						plugins?: never
-						seeds: SeederfulSeedsConfig
+						migrations?:
+							| MigratorlessMigrationsConfig
+							| MigratorfulMigrationsConfig
+						seeds?: SeederlessSeedsConfig | SeederfulSeedsConfig
 				  }
 
 type MigratorfulMigrationsConfig = Pick<
@@ -118,7 +81,8 @@ type MigratorfulMigrationsConfig = Pick<
 > & {
 	allowJS?: never
 	migrationFolder?: never
-	migrator: Migrator
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	migrator(this: void, db: Kysely<any>): Migrator | Promise<Migrator>
 	provider?: never
 }
 
@@ -141,7 +105,8 @@ type MigratorlessMigrationsConfig = MigrationsBaseConfig &
 type SeederfulSeedsConfig = Pick<SeedsBaseConfig, 'getSeedPrefix'> & {
 	allowJS?: never
 	provider?: never
-	seeder: Seeder
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	seeder(db: Kysely<any>): Seeder | Promise<Seeder>
 	seedFolder?: never
 }
 
@@ -168,6 +133,7 @@ export interface ResolvedKyselyCTLConfig {
 		'config'
 	>
 	cwd: string
+	destroyOnExit?: boolean
 	dialect?: KyselyDialect
 	// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 	dialectConfig?: KyselyDialectConfig<any>
@@ -176,14 +142,16 @@ export interface ResolvedKyselyCTLConfig {
 	migrations: SetRequired<MigrationsBaseConfig, 'getMigrationPrefix'> & {
 		allowJS: boolean
 		migrationFolder: string
-		migrator?: Migrator
+		// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
+		migrator?(db: Kysely<any>): Migrator | Promise<Migrator>
 		provider?: MigrationProvider
 	}
 	plugins?: KyselyPlugin[]
 	seeds: SetRequired<SeedsBaseConfig, 'getSeedPrefix'> & {
 		allowJS: boolean
 		provider?: SeedProvider
-		seeder?: Seeder
+		// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
+		seeder?(db: Kysely<any>): Seeder | Promise<Seeder>
 		seedFolder: string
 	}
 }

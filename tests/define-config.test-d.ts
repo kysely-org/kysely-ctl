@@ -31,15 +31,15 @@ describe('defineConfig', () => {
 	} = init()
 
 	describe('when passing migrator & seeder instances', () => {
-		it('should not type-error', () => {
+		it('should type-error when not passing dialect or Kysely instance', () => {
+			// @ts-expect-error
 			defineConfig({
 				migrations: { migrator },
 				seeds: { seeder },
 			})
 		})
 
-		it('should type-error when also passing a Kysely instance', () => {
-			// @ts-expect-error
+		it('should not type-error when also passing a Kysely instance', () => {
 			defineConfig({
 				kysely,
 				migrations: { migrator },
@@ -47,8 +47,7 @@ describe('defineConfig', () => {
 			})
 		})
 
-		it('should type-error when also passing a dialect instance', () => {
-			// @ts-expect-error
+		it('should not type-error when also passing a dialect instance', () => {
 			defineConfig({
 				dialect,
 				migrations: { migrator },
@@ -56,21 +55,11 @@ describe('defineConfig', () => {
 			})
 		})
 
-		it('should type-error when also passing a dialect name', () => {
-			// @ts-expect-error
+		it('should not type-error when also passing a dialect name', () => {
 			defineConfig({
 				dialect: 'better-sqlite3',
 				dialectConfig,
 				migrations: { migrator },
-				seeds: { seeder },
-			})
-		})
-
-		it('should type-error when also passing plugins', () => {
-			// @ts-expect-error
-			defineConfig({
-				migrations: { migrator },
-				plugins,
 				seeds: { seeder },
 			})
 		})
@@ -307,6 +296,18 @@ describe('defineConfig', () => {
 			})
 		})
 
+		it('should not type-error when also passing `destroyOnExit`', () => {
+			defineConfig({
+				destroyOnExit: true,
+				kysely,
+			})
+
+			defineConfig({
+				destroyOnExit: false,
+				kysely,
+			})
+		})
+
 		it('should type-error when also passing a dialect instance', () => {
 			defineConfig({
 				kysely,
@@ -339,8 +340,8 @@ describe('defineConfig', () => {
 			})
 
 			defineConfig({
-				plugins,
 				// @ts-expect-error
+				plugins,
 				kysely,
 			})
 		})
@@ -353,6 +354,18 @@ describe('defineConfig', () => {
 			})
 		})
 
+		it('should not type-error when also passing `destroyOnExit`', () => {
+			defineConfig({
+				destroyOnExit: true,
+				dialect,
+			})
+
+			defineConfig({
+				destroyOnExit: false,
+				dialect,
+			})
+		})
+
 		it('should type-error when also passing a dialect config', () => {
 			defineConfig({
 				dialect,
@@ -361,8 +374,8 @@ describe('defineConfig', () => {
 			})
 
 			defineConfig({
-				// @ts-expect-error
 				dialectConfig,
+				// @ts-expect-error
 				dialect,
 			})
 		})
@@ -399,8 +412,8 @@ describe('defineConfig', () => {
 			})
 
 			defineConfig({
-				// @ts-expect-error
 				dialectConfig,
+				// @ts-expect-error
 				dialect: 'pg',
 			})
 		})
@@ -425,6 +438,20 @@ describe('defineConfig', () => {
 				dialectConfig,
 				// @ts-expect-error
 				kysely,
+			})
+		})
+
+		it('should not type-error when also passing `destroyOnExit`', () => {
+			defineConfig({
+				dialect: 'better-sqlite3',
+				dialectConfig,
+				destroyOnExit: true,
+			})
+
+			defineConfig({
+				dialect: 'better-sqlite3',
+				dialectConfig,
+				destroyOnExit: false,
 			})
 		})
 	})
@@ -473,18 +500,22 @@ function init() {
 	const migrationProvider = new TSFileMigrationProvider({
 		migrationFolder: 'migrations',
 	})
-	const migrator = new Migrator({
-		db: kysely,
-		provider: migrationProvider,
-	})
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	const migrator = (db: Kysely<any>) =>
+		new Migrator({
+			db,
+			provider: migrationProvider,
+		})
 
 	const seedProvider = new FileSeedProvider({
 		seedFolder: 'seeds',
 	})
-	const seeder = new Seeder({
-		db: kysely,
-		provider: seedProvider,
-	})
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	const seeder = (db: Kysely<any>) =>
+		new Seeder({
+			db,
+			provider: seedProvider,
+		})
 
 	return {
 		dialect,
