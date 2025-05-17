@@ -142,7 +142,7 @@ export interface ResolvedKyselyCTLConfig {
 	migrations: SetRequired<MigrationsBaseConfig, 'getMigrationPrefix'> & {
 		allowJS: boolean
 		migrationFolder: string
-		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+		// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 		migrator?(db: Kysely<any>): Migrator | Promise<Migrator>
 		provider?: MigrationProvider
 	}
@@ -150,7 +150,7 @@ export interface ResolvedKyselyCTLConfig {
 	seeds: SetRequired<SeedsBaseConfig, 'getSeedPrefix'> & {
 		allowJS: boolean
 		provider?: SeedProvider
-		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+		// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 		seeder?(db: Kysely<any>): Seeder | Promise<Seeder>
 		seedFolder: string
 	}
