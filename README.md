@@ -163,6 +163,35 @@ kysely seed <command>
 > We also provide `kysely seed list`, which is not part of [Knex.js](https://knexjs.org) 
 CLI.
 
+#### SQL
+
+The `sql` module allows you to run SQL queries directly from the command line using the `kysely` instance.
+
+Single-query:
+
+```bash
+kysely sql "select 1"
+```
+
+or interactive mode:
+
+```bash
+kysely sql -f json
+
+✔ sqlite ❯
+select 1;
+{                                                                                     
+  "rows": [
+    {
+      "1": 1
+    }
+  ]
+}
+
+❯ sqlite ❯
+exit
+```
+
 #### Environment-specific configuration
 
 See [c12 docs](https://github.com/unjs/c12#environment-specific-configuration) and the following [example](https://github.com/kysely-org/kysely-ctl/blob/main/examples/node-esm-environments/.config/kysely.config.ts)
