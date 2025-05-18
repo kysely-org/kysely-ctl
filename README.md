@@ -163,6 +163,10 @@ kysely seed <command>
 > We also provide `kysely seed list`, which is not part of [Knex.js](https://knexjs.org) 
 CLI.
 
+#### Environment-specific configuration
+
+See [c12 docs](https://github.com/unjs/c12#environment-specific-configuration) and the following [example](https://github.com/kysely-org/kysely-ctl/blob/main/examples/node-esm-environments/.config/kysely.config.ts)
+
 ## Acknowledgements
 
 [acro5piano](https://github.com/acro5piano) who built [kysely-migration-cli](https://github.com/acro5piano/kysely-migration-cli) 

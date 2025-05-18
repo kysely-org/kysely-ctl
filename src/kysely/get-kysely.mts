@@ -1,6 +1,7 @@
 import { consola } from 'consola'
 import { Kysely } from 'kysely'
 import type { ResolvedKyselyCTLConfig } from '../config/kysely-ctl-config.mjs'
+import { hydrate } from '../utils/hydrate.mjs'
 import { getDialect } from './get-dialect.mjs'
 
 // biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
@@ -11,10 +12,13 @@ export async function getKysely<DB = any>(
 	const { kysely } = config
 
 	if (kysely) {
-		return kysely
+		return await hydrate(kysely, [])
 	}
 
-	const dialect = await getDialect(config)
+	const [dialect, plugins] = await Promise.all([
+		getDialect(config),
+		hydrate(config.plugins, []),
+	])
 
 	return new Kysely<DB>({
 		dialect,
@@ -29,6 +33,6 @@ export async function getKysely<DB = any>(
 					)
 				}
 			: [],
-		plugins: config.plugins,
+		plugins,
 	})
 }

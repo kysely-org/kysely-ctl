@@ -1,24 +1,25 @@
+import type { Kysely } from 'kysely'
 import { join } from 'pathe'
-import type { SetRequired } from 'type-fest'
 import type { ResolvedKyselyCTLConfig } from '../config/kysely-ctl-config.mjs'
+import { hydrate } from '../utils/hydrate.mjs'
 import { FileSeedProvider } from './file-seed-provider.mjs'
 import { Seeder } from './seeder.mjs'
 
 export async function getSeeder(
-	config: SetRequired<ResolvedKyselyCTLConfig, 'kysely'>,
+	// biome-ignore lint/suspicious/noExplicitAny: it's fine.
+	config: Omit<ResolvedKyselyCTLConfig, 'kysely'> & { kysely: Kysely<any> },
 ): Promise<Seeder> {
 	const { args, kysely, seeds } = config
-	const { allowJS, seedFolder, seeder, provider, ...seederOptions } = seeds
+	const { allowJS, seedFolder, seeder, ...seederOptions } = seeds
 
 	if (seeder) {
-		return await seeder(kysely)
+		return await hydrate(seeder, [kysely])
 	}
 
-	return new Seeder({
-		...seederOptions,
-		db: kysely,
-		provider:
-			provider ||
+	const provider = await hydrate(
+		seeds.provider,
+		[],
+		() =>
 			new FileSeedProvider({
 				allowJS,
 				debug: args.debug,
@@ -27,5 +28,7 @@ export async function getSeeder(
 					args['experimental-resolve-tsconfig-paths'],
 				seedFolder: join(config.cwd, seedFolder),
 			}),
-	})
+	)
+
+	return new Seeder({ ...seederOptions, db: kysely, provider })
 }

@@ -10,7 +10,7 @@ import {
 	PostgresQueryCompiler,
 	type SqliteDialectConfig,
 } from 'kysely'
-import { describe, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import {
 	FileSeedProvider,
 	Seeder,
@@ -45,11 +45,35 @@ describe('defineConfig', () => {
 				migrations: { migrator },
 				seeds: { seeder },
 			})
+
+			defineConfig({
+				kysely: () => kysely,
+				migrations: { migrator },
+				seeds: { seeder },
+			})
+
+			defineConfig({
+				kysely: async () => kysely,
+				migrations: { migrator },
+				seeds: { seeder },
+			})
 		})
 
 		it('should not type-error when also passing a dialect instance', () => {
 			defineConfig({
 				dialect,
+				migrations: { migrator },
+				seeds: { seeder },
+			})
+
+			defineConfig({
+				dialect: () => dialect,
+				migrations: { migrator },
+				seeds: { seeder },
+			})
+
+			defineConfig({
+				dialect: async () => dialect,
 				migrations: { migrator },
 				seeds: { seeder },
 			})
@@ -59,6 +83,20 @@ describe('defineConfig', () => {
 			defineConfig({
 				dialect: 'better-sqlite3',
 				dialectConfig,
+				migrations: { migrator },
+				seeds: { seeder },
+			})
+
+			defineConfig({
+				dialect: 'better-sqlite3',
+				dialectConfig: () => dialectConfig,
+				migrations: { migrator },
+				seeds: { seeder },
+			})
+
+			defineConfig({
+				dialect: 'better-sqlite3',
+				dialectConfig: async () => dialectConfig,
 				migrations: { migrator },
 				seeds: { seeder },
 			})
@@ -73,6 +111,18 @@ describe('defineConfig', () => {
 					migrations: { migrator },
 					seeds: { provider: seedProvider },
 				})
+
+				// @ts-expect-error
+				defineConfig({
+					migrations: { migrator },
+					seeds: { provider: () => seedProvider },
+				})
+
+				// @ts-expect-error
+				defineConfig({
+					migrations: { migrator },
+					seeds: { provider: async () => seedProvider },
+				})
 			})
 
 			it('should not type-error when also passing a kysely instance', () => {
@@ -80,6 +130,54 @@ describe('defineConfig', () => {
 					kysely,
 					migrations: { migrator },
 					seeds: { provider: seedProvider },
+				})
+
+				defineConfig({
+					kysely: () => kysely,
+					migrations: { migrator },
+					seeds: { provider: seedProvider },
+				})
+
+				defineConfig({
+					kysely: async () => kysely,
+					migrations: { migrator },
+					seeds: { provider: seedProvider },
+				})
+
+				defineConfig({
+					kysely,
+					migrations: { migrator },
+					seeds: { provider: () => seedProvider },
+				})
+
+				defineConfig({
+					kysely: () => kysely,
+					migrations: { migrator },
+					seeds: { provider: () => seedProvider },
+				})
+
+				defineConfig({
+					kysely: async () => kysely,
+					migrations: { migrator },
+					seeds: { provider: () => seedProvider },
+				})
+
+				defineConfig({
+					kysely,
+					migrations: { migrator },
+					seeds: { provider: async () => seedProvider },
+				})
+
+				defineConfig({
+					kysely: () => kysely,
+					migrations: { migrator },
+					seeds: { provider: async () => seedProvider },
+				})
+
+				defineConfig({
+					kysely: async () => kysely,
+					migrations: { migrator },
+					seeds: { provider: async () => seedProvider },
 				})
 			})
 
@@ -89,6 +187,54 @@ describe('defineConfig', () => {
 					migrations: { migrator },
 					seeds: { provider: seedProvider },
 				})
+
+				defineConfig({
+					dialect: () => dialect,
+					migrations: { migrator },
+					seeds: { provider: seedProvider },
+				})
+
+				defineConfig({
+					dialect: async () => dialect,
+					migrations: { migrator },
+					seeds: { provider: seedProvider },
+				})
+
+				defineConfig({
+					dialect,
+					migrations: { migrator },
+					seeds: { provider: () => seedProvider },
+				})
+
+				defineConfig({
+					dialect: () => dialect,
+					migrations: { migrator },
+					seeds: { provider: () => seedProvider },
+				})
+
+				defineConfig({
+					dialect: async () => dialect,
+					migrations: { migrator },
+					seeds: { provider: () => seedProvider },
+				})
+
+				defineConfig({
+					dialect,
+					migrations: { migrator },
+					seeds: { provider: async () => seedProvider },
+				})
+
+				defineConfig({
+					dialect: () => dialect,
+					migrations: { migrator },
+					seeds: { provider: async () => seedProvider },
+				})
+
+				defineConfig({
+					dialect: async () => dialect,
+					migrations: { migrator },
+					seeds: { provider: async () => seedProvider },
+				})
 			})
 
 			it('should not type-error when also passing a dialect name & config', () => {
@@ -97,6 +243,62 @@ describe('defineConfig', () => {
 					dialectConfig,
 					migrations: { migrator },
 					seeds: { provider: seedProvider },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: () => dialectConfig,
+					migrations: { migrator },
+					seeds: { provider: seedProvider },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: async () => dialectConfig,
+					migrations: { migrator },
+					seeds: { provider: seedProvider },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig,
+					migrations: { migrator },
+					seeds: { provider: () => seedProvider },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: () => dialectConfig,
+					migrations: { migrator },
+					seeds: { provider: () => seedProvider },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: async () => dialectConfig,
+					migrations: { migrator },
+					seeds: { provider: () => seedProvider },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig,
+					migrations: { migrator },
+					seeds: { provider: async () => seedProvider },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: () => dialectConfig,
+					migrations: { migrator },
+					seeds: { provider: async () => seedProvider },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: async () => dialectConfig,
+					migrations: { migrator },
+					seeds: { provider: async () => seedProvider },
 				})
 			})
 		})
@@ -116,11 +318,35 @@ describe('defineConfig', () => {
 					migrations: { migrator },
 					seeds: { seedFolder: 'seeds' },
 				})
+
+				defineConfig({
+					kysely: () => kysely,
+					migrations: { migrator },
+					seeds: { seedFolder: 'seeds' },
+				})
+
+				defineConfig({
+					kysely: async () => kysely,
+					migrations: { migrator },
+					seeds: { seedFolder: 'seeds' },
+				})
 			})
 
 			it('should not type-error when also passing a dialect instance', () => {
 				defineConfig({
 					dialect,
+					migrations: { migrator },
+					seeds: { seedFolder: 'seeds' },
+				})
+
+				defineConfig({
+					dialect: () => dialect,
+					migrations: { migrator },
+					seeds: { seedFolder: 'seeds' },
+				})
+
+				defineConfig({
+					dialect: async () => dialect,
 					migrations: { migrator },
 					seeds: { seedFolder: 'seeds' },
 				})
@@ -130,6 +356,20 @@ describe('defineConfig', () => {
 				defineConfig({
 					dialect: 'better-sqlite3',
 					dialectConfig,
+					migrations: { migrator },
+					seeds: { seedFolder: 'seeds' },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: () => dialectConfig,
+					migrations: { migrator },
+					seeds: { seedFolder: 'seeds' },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: async () => dialectConfig,
 					migrations: { migrator },
 					seeds: { seedFolder: 'seeds' },
 				})
@@ -152,6 +392,24 @@ describe('defineConfig', () => {
 					provider: migrationProvider,
 					// @ts-expect-error
 					migrator,
+				},
+			})
+
+			defineConfig({
+				dialect,
+				migrations: {
+					migrator,
+					// @ts-expect-error
+					provider: () => migrationProvider,
+				},
+			})
+
+			defineConfig({
+				dialect,
+				migrations: {
+					migrator,
+					// @ts-expect-error
+					provider: async () => migrationProvider,
 				},
 			})
 		})
@@ -185,12 +443,72 @@ describe('defineConfig', () => {
 					migrations: { provider: migrationProvider },
 					seeds: { seeder },
 				})
+
+				// @ts-expect-error
+				defineConfig({
+					migrations: { provider: () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				// @ts-expect-error
+				defineConfig({
+					migrations: { provider: async () => migrationProvider },
+					seeds: { seeder },
+				})
 			})
 
 			it('should not type-error when also passing a kysely instance', () => {
 				defineConfig({
 					kysely,
 					migrations: { provider: migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					kysely: () => kysely,
+					migrations: { provider: migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					kysely: async () => kysely,
+					migrations: { provider: migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					kysely,
+					migrations: { provider: () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					kysely: () => kysely,
+					migrations: { provider: () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					kysely: async () => kysely,
+					migrations: { provider: () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					kysely,
+					migrations: { provider: async () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					kysely: () => kysely,
+					migrations: { provider: async () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					kysely: async () => kysely,
+					migrations: { provider: async () => migrationProvider },
 					seeds: { seeder },
 				})
 			})
@@ -201,6 +519,54 @@ describe('defineConfig', () => {
 					migrations: { provider: migrationProvider },
 					seeds: { seeder },
 				})
+
+				defineConfig({
+					dialect: () => dialect,
+					migrations: { provider: migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: async () => dialect,
+					migrations: { provider: migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect,
+					migrations: { provider: () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: () => dialect,
+					migrations: { provider: () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: async () => dialect,
+					migrations: { provider: () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect,
+					migrations: { provider: async () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: () => dialect,
+					migrations: { provider: async () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: async () => dialect,
+					migrations: { provider: async () => migrationProvider },
+					seeds: { seeder },
+				})
 			})
 
 			it('should not type-error when also passing a dialect name & config', () => {
@@ -208,6 +574,62 @@ describe('defineConfig', () => {
 					dialect: 'better-sqlite3',
 					dialectConfig,
 					migrations: { provider: migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: () => dialectConfig,
+					migrations: { provider: migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: async () => dialectConfig,
+					migrations: { provider: migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig,
+					migrations: { provider: () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: () => dialectConfig,
+					migrations: { provider: () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: async () => dialectConfig,
+					migrations: { provider: () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig,
+					migrations: { provider: async () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: () => dialectConfig,
+					migrations: { provider: async () => migrationProvider },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: async () => dialectConfig,
+					migrations: { provider: async () => migrationProvider },
 					seeds: { seeder },
 				})
 			})
@@ -228,11 +650,35 @@ describe('defineConfig', () => {
 					migrations: { migrationFolder: 'migrations' },
 					seeds: { seeder },
 				})
+
+				defineConfig({
+					kysely: () => kysely,
+					migrations: { migrationFolder: 'migrations' },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					kysely: async () => kysely,
+					migrations: { migrationFolder: 'migrations' },
+					seeds: { seeder },
+				})
 			})
 
 			it('should not type-error when also passing a dialect instance', () => {
 				defineConfig({
 					dialect,
+					migrations: { migrationFolder: 'migrations' },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: () => dialect,
+					migrations: { migrationFolder: 'migrations' },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: async () => dialect,
 					migrations: { migrationFolder: 'migrations' },
 					seeds: { seeder },
 				})
@@ -242,6 +688,20 @@ describe('defineConfig', () => {
 				defineConfig({
 					dialect: 'better-sqlite3',
 					dialectConfig,
+					migrations: { migrationFolder: 'migrations' },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: () => dialectConfig,
+					migrations: { migrationFolder: 'migrations' },
+					seeds: { seeder },
+				})
+
+				defineConfig({
+					dialect: 'better-sqlite3',
+					dialectConfig: async () => dialectConfig,
 					migrations: { migrationFolder: 'migrations' },
 					seeds: { seeder },
 				})
@@ -266,6 +726,78 @@ describe('defineConfig', () => {
 					seeder,
 				},
 			})
+
+			defineConfig({
+				kysely,
+				seeds: {
+					provider: () => seedProvider,
+					// @ts-expect-error
+					seeder,
+				},
+			})
+
+			defineConfig({
+				kysely,
+				seeds: {
+					provider: async () => seedProvider,
+					// @ts-expect-error
+					seeder,
+				},
+			})
+
+			defineConfig({
+				kysely: () => kysely,
+				seeds: {
+					provider: seedProvider,
+					// @ts-expect-error
+					seeder,
+				},
+			})
+
+			defineConfig({
+				kysely: () => kysely,
+				seeds: {
+					provider: () => seedProvider,
+					// @ts-expect-error
+					seeder,
+				},
+			})
+
+			defineConfig({
+				kysely: () => kysely,
+				seeds: {
+					provider: async () => seedProvider,
+					// @ts-expect-error
+					seeder,
+				},
+			})
+
+			defineConfig({
+				kysely: async () => kysely,
+				seeds: {
+					provider: seedProvider,
+					// @ts-expect-error
+					seeder,
+				},
+			})
+
+			defineConfig({
+				kysely: async () => kysely,
+				seeds: {
+					provider: () => seedProvider,
+					// @ts-expect-error
+					seeder,
+				},
+			})
+
+			defineConfig({
+				kysely: async () => kysely,
+				seeds: {
+					provider: async () => seedProvider,
+					// @ts-expect-error
+					seeder,
+				},
+			})
 		})
 
 		it('should type-error when also passing seed folder', () => {
@@ -286,6 +818,24 @@ describe('defineConfig', () => {
 					seeder,
 				},
 			})
+
+			defineConfig({
+				kysely: () => kysely,
+				seeds: {
+					seeder,
+					// @ts-expect-error
+					seedFolder: 'seeds',
+				},
+			})
+
+			defineConfig({
+				kysely: async () => kysely,
+				seeds: {
+					seeder,
+					// @ts-expect-error
+					seedFolder: 'seeds',
+				},
+			})
 		})
 	})
 
@@ -293,6 +843,14 @@ describe('defineConfig', () => {
 		it('should not type-error', () => {
 			defineConfig({
 				kysely,
+			})
+
+			defineConfig({
+				kysely: () => kysely,
+			})
+
+			defineConfig({
+				kysely: async () => kysely,
 			})
 		})
 
@@ -306,6 +864,26 @@ describe('defineConfig', () => {
 				destroyOnExit: false,
 				kysely,
 			})
+
+			defineConfig({
+				destroyOnExit: true,
+				kysely: () => kysely,
+			})
+
+			defineConfig({
+				destroyOnExit: false,
+				kysely: () => kysely,
+			})
+
+			defineConfig({
+				destroyOnExit: true,
+				kysely: async () => kysely,
+			})
+
+			defineConfig({
+				destroyOnExit: false,
+				kysely: async () => kysely,
+			})
 		})
 
 		it('should type-error when also passing a dialect instance', () => {
@@ -313,6 +891,54 @@ describe('defineConfig', () => {
 				kysely,
 				// @ts-expect-error
 				dialect,
+			})
+
+			defineConfig({
+				kysely: () => kysely,
+				// @ts-expect-error
+				dialect,
+			})
+
+			defineConfig({
+				kysely: async () => kysely,
+				// @ts-expect-error
+				dialect,
+			})
+
+			defineConfig({
+				kysely,
+				// @ts-expect-error
+				dialect: () => dialect,
+			})
+
+			defineConfig({
+				kysely: () => kysely,
+				// @ts-expect-error
+				dialect: () => dialect,
+			})
+
+			defineConfig({
+				kysely: async () => kysely,
+				// @ts-expect-error
+				dialect: () => dialect,
+			})
+
+			defineConfig({
+				kysely,
+				// @ts-expect-error
+				dialect: async () => dialect,
+			})
+
+			defineConfig({
+				kysely: () => kysely,
+				// @ts-expect-error
+				dialect: async () => dialect,
+			})
+
+			defineConfig({
+				kysely: async () => kysely,
+				// @ts-expect-error
+				dialect: async () => dialect,
 			})
 		})
 
@@ -330,6 +956,62 @@ describe('defineConfig', () => {
 				dialectConfig,
 				dialect: 'better-sqlite3',
 			})
+
+			defineConfig({
+				kysely: () => kysely,
+				// @ts-expect-error
+				dialect: 'better-sqlite3',
+				dialectConfig,
+			})
+
+			defineConfig({
+				kysely: async () => kysely,
+				// @ts-expect-error
+				dialect: 'better-sqlite3',
+				dialectConfig,
+			})
+
+			defineConfig({
+				kysely,
+				// @ts-expect-error
+				dialect: 'better-sqlite3',
+				dialectConfig: () => dialectConfig,
+			})
+
+			defineConfig({
+				kysely: () => kysely,
+				// @ts-expect-error
+				dialect: 'better-sqlite3',
+				dialectConfig: () => dialectConfig,
+			})
+
+			defineConfig({
+				kysely: async () => kysely,
+				// @ts-expect-error
+				dialect: 'better-sqlite3',
+				dialectConfig: () => dialectConfig,
+			})
+
+			defineConfig({
+				kysely,
+				// @ts-expect-error
+				dialect: 'better-sqlite3',
+				dialectConfig: async () => dialectConfig,
+			})
+
+			defineConfig({
+				kysely: () => kysely,
+				// @ts-expect-error
+				dialect: 'better-sqlite3',
+				dialectConfig: async () => dialectConfig,
+			})
+
+			defineConfig({
+				kysely: async () => kysely,
+				// @ts-expect-error
+				dialect: 'better-sqlite3',
+				dialectConfig: async () => dialectConfig,
+			})
 		})
 
 		it('should type-error when also passing plugins', () => {
@@ -344,6 +1026,54 @@ describe('defineConfig', () => {
 				plugins,
 				kysely,
 			})
+
+			defineConfig({
+				kysely: () => kysely,
+				// @ts-expect-error
+				plugins,
+			})
+
+			defineConfig({
+				kysely: async () => kysely,
+				// @ts-expect-error
+				plugins,
+			})
+
+			defineConfig({
+				kysely,
+				// @ts-expect-error
+				plugins: () => plugins,
+			})
+
+			defineConfig({
+				kysely: () => kysely,
+				// @ts-expect-error
+				plugins: () => plugins,
+			})
+
+			defineConfig({
+				kysely: async () => kysely,
+				// @ts-expect-error
+				plugins: () => plugins,
+			})
+
+			defineConfig({
+				kysely,
+				// @ts-expect-error
+				plugins: async () => plugins,
+			})
+
+			defineConfig({
+				kysely: () => kysely,
+				// @ts-expect-error
+				plugins: async () => plugins,
+			})
+
+			defineConfig({
+				kysely: async () => kysely,
+				// @ts-expect-error
+				plugins: async () => plugins,
+			})
 		})
 	})
 
@@ -351,6 +1081,14 @@ describe('defineConfig', () => {
 		it('should not type-error', () => {
 			defineConfig({
 				dialect,
+			})
+
+			defineConfig({
+				dialect: () => dialect,
+			})
+
+			defineConfig({
+				dialect: async () => dialect,
 			})
 		})
 
@@ -363,6 +1101,26 @@ describe('defineConfig', () => {
 			defineConfig({
 				destroyOnExit: false,
 				dialect,
+			})
+
+			defineConfig({
+				destroyOnExit: true,
+				dialect: () => dialect,
+			})
+
+			defineConfig({
+				destroyOnExit: false,
+				dialect: () => dialect,
+			})
+
+			defineConfig({
+				destroyOnExit: true,
+				dialect: async () => dialect,
+			})
+
+			defineConfig({
+				destroyOnExit: false,
+				dialect: async () => dialect,
 			})
 		})
 
@@ -378,14 +1136,58 @@ describe('defineConfig', () => {
 				// @ts-expect-error
 				dialect,
 			})
-		})
 
-		it('should type-error when also passing a kysely instance', () => {
+			defineConfig({
+				dialect: () => dialect,
+				// @ts-expect-error
+				dialectConfig,
+			})
+
+			defineConfig({
+				dialect: async () => dialect,
+				// @ts-expect-error
+				dialectConfig,
+			})
+
 			defineConfig({
 				dialect,
 				// @ts-expect-error
-				kysely,
+				dialectConfig: () => dialectConfig,
 			})
+
+			defineConfig({
+				dialect: () => dialect,
+				// @ts-expect-error
+				dialectConfig: () => dialectConfig,
+			})
+
+			defineConfig({
+				dialect: async () => dialect,
+				// @ts-expect-error
+				dialectConfig: () => dialectConfig,
+			})
+
+			defineConfig({
+				dialect,
+				// @ts-expect-error
+				dialectConfig: async () => dialectConfig,
+			})
+
+			defineConfig({
+				dialect: () => dialect,
+				// @ts-expect-error
+				dialectConfig: async () => dialectConfig,
+			})
+
+			defineConfig({
+				dialect: async () => dialect,
+				// @ts-expect-error
+				dialectConfig: async () => dialectConfig,
+			})
+		})
+
+		it('should type-error when also passing a kysely instance', () => {
+			expect('already checked above').toBeTruthy()
 		})
 	})
 
@@ -394,6 +1196,16 @@ describe('defineConfig', () => {
 			defineConfig({
 				dialect: 'better-sqlite3',
 				dialectConfig,
+			})
+
+			defineConfig({
+				dialect: 'better-sqlite3',
+				dialectConfig: () => dialectConfig,
+			})
+
+			defineConfig({
+				dialect: 'better-sqlite3',
+				dialectConfig: async () => dialectConfig,
 			})
 		})
 
@@ -416,6 +1228,18 @@ describe('defineConfig', () => {
 				// @ts-expect-error
 				dialect: 'pg',
 			})
+
+			defineConfig({
+				dialect: 'pg',
+				// @ts-expect-error
+				dialectConfig: () => dialectConfig,
+			})
+
+			defineConfig({
+				dialect: 'pg',
+				// @ts-expect-error
+				dialectConfig: async () => dialectConfig,
+			})
 		})
 
 		it('should type-error when name is not expected literal', () => {
@@ -433,12 +1257,7 @@ describe('defineConfig', () => {
 		})
 
 		it('should type-error when also passing a kysely instance', () => {
-			defineConfig({
-				dialect: 'better-sqlite3',
-				dialectConfig,
-				// @ts-expect-error
-				kysely,
-			})
+			expect('already checked above').toBeTruthy()
 		})
 
 		it('should not type-error when also passing `destroyOnExit`', () => {
@@ -451,6 +1270,30 @@ describe('defineConfig', () => {
 			defineConfig({
 				dialect: 'better-sqlite3',
 				dialectConfig,
+				destroyOnExit: false,
+			})
+
+			defineConfig({
+				dialect: 'better-sqlite3',
+				dialectConfig: () => dialectConfig,
+				destroyOnExit: true,
+			})
+
+			defineConfig({
+				dialect: 'better-sqlite3',
+				dialectConfig: () => dialectConfig,
+				destroyOnExit: false,
+			})
+
+			defineConfig({
+				dialect: 'better-sqlite3',
+				dialectConfig: async () => dialectConfig,
+				destroyOnExit: true,
+			})
+
+			defineConfig({
+				dialect: 'better-sqlite3',
+				dialectConfig: async () => dialectConfig,
 				destroyOnExit: false,
 			})
 		})

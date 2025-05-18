@@ -1,4 +1,5 @@
 export * from './config/define-config.mjs'
+export * from './config/dummy-dialect-config.mjs'
 export type {
 	KyselyCoreDialect,
 	KyselyCTLConfig,
