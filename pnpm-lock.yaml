@@ -45,9 +45,9 @@ importers:
       '@biomejs/biome':
         specifier: 1.9.4
         version: 1.9.4
-      '@tsconfig/node22':
-        specifier: ^22.0.0
-        version: 22.0.0
+      '@tsconfig/node24':
+        specifier: ^24.0.0
+        version: 24.0.0
       '@types/better-sqlite3':
         specifier: ^7.6.13
         version: 7.6.13
@@ -796,8 +796,8 @@ packages:
     resolution: {integrity: sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==}
     engines: {node: '>=10'}
 
-  '@tsconfig/node22@22.0.0':
-    resolution: {integrity: sha512-twLQ77zevtxobBOD4ToAtVmuYrpeYUh3qh+TEp+08IWhpsrIflVHqQ1F1CiPxQGL7doCdBIOOCF+1Tm833faNg==}
+  '@tsconfig/node24@24.0.0':
+    resolution: {integrity: sha512-3/6Cr4dELEAucgPIr6ufY7yBYMi4ttZFOewABADNZ+bm4DUZl4dup2VBcBeP1ejj3QblrWVWux/1XcRv/ZVikA==}
 
   '@types/better-sqlite3@7.6.13':
     resolution: {integrity: sha512-NMv9ASNARoKksWtsq/SHakpYAYnhBrQgGD8zkLYk/jaK8jUGn08CfEdTRgYhMypUQAfzSP8W6gNLe0q19/t4VA==}
@@ -2381,7 +2381,7 @@ snapshots:
 
   '@sindresorhus/is@4.6.0': {}
 
-  '@tsconfig/node22@22.0.0': {}
+  '@tsconfig/node24@24.0.0': {}
 
   '@types/better-sqlite3@7.6.13':
     dependencies:
