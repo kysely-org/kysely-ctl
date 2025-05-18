@@ -1,0 +1,23 @@
+{
+	"name": "node-esm-environments",
+	"type": "module",
+	"scripts": {
+		"lib1:migrate:latest": "kysely migrate latest -e lib1",
+		"lib2:migrate:latest": "kysely migrate latest -e lib2",
+        "migrate:latest": "run-p -c -l \"*:migrate:latest --no-outdated-check\""
+	},
+	"devDependencies": {
+		"@types/better-sqlite3": "^7.6.12",
+		"kysely-ctl": "link:../..",
+		"npm-run-all": "^4.1.5"
+	},
+	"dependencies": {
+		"better-sqlite3": "^11.9.1",
+		"kysely": "^0.28.0"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"better-sqlite3"
+		]
+	}
+}
