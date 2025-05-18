@@ -65,7 +65,7 @@
 		"@types/better-sqlite3": "^7.6.12",
 		"@types/node": "^22.13.11",
 		"better-sqlite3": "^11.9.1",
-		"kysely": "^0.28.0",
+		"kysely": "^0.28.2",
 		"kysely-postgres-js": "^2.0.0",
 		"pkg-pr-new": "^0.0.50",
 		"postgres": "^3.4.5",

@@ -4,7 +4,7 @@
 	"scripts": {
 		"lib1:migrate:latest": "kysely migrate latest -e lib1",
 		"lib2:migrate:latest": "kysely migrate latest -e lib2",
-        "migrate:latest": "run-p -c -l \"*:migrate:latest --no-outdated-check\""
+		"migrate:latest": "run-p -c -l \"*:migrate:latest --no-outdated-check\""
 	},
 	"devDependencies": {
 		"@types/better-sqlite3": "^7.6.12",
@@ -13,7 +13,7 @@
 	},
 	"dependencies": {
 		"better-sqlite3": "^11.9.1",
-		"kysely": "^0.28.0"
+		"kysely": "^0.28.2"
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [

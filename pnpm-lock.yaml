@@ -58,11 +58,11 @@ importers:
         specifier: ^11.9.1
         version: 11.9.1
       kysely:
-        specifier: ^0.28.0
-        version: 0.28.0
+        specifier: ^0.28.2
+        version: 0.28.2
       kysely-postgres-js:
         specifier: ^2.0.0
-        version: 2.0.0(kysely@0.28.0)(postgres@3.4.5)
+        version: 2.0.0(kysely@0.28.2)(postgres@3.4.5)
       pkg-pr-new:
         specifier: ^0.0.50
         version: 0.0.50
@@ -1238,8 +1238,8 @@ packages:
       kysely: '>= 0.24.0 < 1'
       postgres: '>= 3.4.0 < 4'
 
-  kysely@0.28.0:
-    resolution: {integrity: sha512-hq8VcLy57Ww7oPTTVEOrT9ml+g8ehbbmEUkHmW4Xtubu+NHdKZi6SH6egmD4cjDhn3b/0s0h/6AjdPayOTJhNw==}
+  kysely@0.28.2:
+    resolution: {integrity: sha512-4YAVLoF0Sf0UTqlhgQMFU9iQECdah7n+13ANkiuVfRvlK+uI0Etbgd7bVP36dKlG+NXWbhGua8vnGt+sdhvT7A==}
     engines: {node: '>=18.0.0'}
 
   lilconfig@3.1.2:
@@ -2833,12 +2833,12 @@ snapshots:
       jsonparse: 1.3.1
       through2: 4.0.2
 
-  kysely-postgres-js@2.0.0(kysely@0.28.0)(postgres@3.4.5):
+  kysely-postgres-js@2.0.0(kysely@0.28.2)(postgres@3.4.5):
     dependencies:
-      kysely: 0.28.0
+      kysely: 0.28.2
       postgres: 3.4.5
 
-  kysely@0.28.0: {}
+  kysely@0.28.2: {}
 
   lilconfig@3.1.2: {}
 
