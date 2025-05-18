@@ -3,14 +3,14 @@
 	"module": "index.ts",
 	"type": "module",
 	"devDependencies": {
-		"@types/bun": "latest",
+		"@types/bun": "^1.2.13",
 		"kysely-ctl": "link:kysely-ctl"
 	},
 	"peerDependencies": {
-		"typescript": "^5.8.2"
+		"typescript": "^5.8.3"
 	},
 	"dependencies": {
 		"kysely": "^0.28.2",
-		"kysely-bun-sqlite": "^0.3.2"
+		"kysely-bun-sqlite": "^0.4.0"
 	}
 }
