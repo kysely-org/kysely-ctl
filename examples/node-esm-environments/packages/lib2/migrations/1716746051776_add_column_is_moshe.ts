@@ -1,7 +1,4 @@
-import { setTimeout } from 'node:timers/promises'
 import type { Kysely } from 'kysely'
-
-await setTimeout(0)
 
 export async function up(db: Kysely<any>): Promise<void> {
 	await db.schema.alterTable('moshe').addColumn('is_moshe', 'boolean').execute()
