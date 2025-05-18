@@ -15,8 +15,8 @@ importers:
         specifier: ^0.1.6
         version: 0.1.6
       consola:
-        specifier: ^3.4.0
-        version: 3.4.0
+        specifier: ^3.4.2
+        version: 3.4.2
       jiti:
         specifier: ^2.4.2
         version: 2.4.2
@@ -1005,8 +1005,8 @@ packages:
   confbox@0.1.8:
     resolution: {integrity: sha512-RMtmw0iFkeR4YV+fUOSucriAQNb9g8zFR52MWCtl+cCZOFRNL6zeB395vPzFhEjjn4fMxXudmELnl/KF/WrK6w==}
 
-  consola@3.4.0:
-    resolution: {integrity: sha512-EiPU8G6dQG0GFHNR8ljnZFki/8a+cQwEQ+7wpxdChl02Q8HXlwEZWD5lqAF8vC2sEC3Tehr8hy7vErz88LHyUA==}
+  consola@3.4.2:
+    resolution: {integrity: sha512-5IKcdX0nnYavi6G7TtOhwkYzyjfJlatbjMjuLSfE2kYT5pMDOilZ4OvMhi637CcDICTmz3wARPoyhqyX1Y+XvA==}
     engines: {node: ^14.18.0 || >=16.10.0}
 
   cross-spawn@7.0.3:
@@ -2565,7 +2565,7 @@ snapshots:
 
   citty@0.1.6:
     dependencies:
-      consola: 3.4.0
+      consola: 3.4.2
 
   cjs-module-lexer@1.4.1: {}
 
@@ -2604,7 +2604,7 @@ snapshots:
 
   confbox@0.1.8: {}
 
-  consola@3.4.0: {}
+  consola@3.4.2: {}
 
   cross-spawn@7.0.3:
     dependencies:
@@ -2804,7 +2804,7 @@ snapshots:
   giget@1.2.3:
     dependencies:
       citty: 0.1.6
-      consola: 3.4.0
+      consola: 3.4.2
       defu: 6.1.4
       node-fetch-native: 1.6.4
       nypm: 0.3.9
@@ -2977,7 +2977,7 @@ snapshots:
   nypm@0.3.9:
     dependencies:
       citty: 0.1.6
-      consola: 3.4.0
+      consola: 3.4.2
       execa: 8.0.1
       pathe: 1.1.2
       pkg-types: 1.3.1
@@ -2986,7 +2986,7 @@ snapshots:
   nypm@0.5.2:
     dependencies:
       citty: 0.1.6
-      consola: 3.4.0
+      consola: 3.4.2
       pathe: 2.0.2
       pkg-types: 1.3.1
       tinyexec: 0.3.2
@@ -3339,7 +3339,7 @@ snapshots:
       bundle-require: 5.1.0(esbuild@0.25.1)
       cac: 6.7.14
       chokidar: 4.0.3
-      consola: 3.4.0
+      consola: 3.4.2
       debug: 4.4.0
       esbuild: 0.25.1
       fix-dts-default-cjs-exports: 1.0.1

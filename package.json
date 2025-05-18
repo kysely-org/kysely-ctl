@@ -40,7 +40,7 @@
 	"dependencies": {
 		"c12": "^2.0.1",
 		"citty": "^0.1.6",
-		"consola": "^3.4.0",
+		"consola": "^3.4.2",
 		"jiti": "^2.4.2",
 		"nypm": "^0.5.2",
 		"ofetch": "^1.4.1",
