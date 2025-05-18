@@ -150,7 +150,7 @@ async function startInteractiveExecution(
 			do {
 				const moreQuery = await readline.question('')
 
-				query = `${query} ${moreQuery.trim()}`
+				query += ` ${moreQuery.trim()}`
 			} while (!query.endsWith(';'))
 
 			readline.close()
