@@ -160,6 +160,12 @@ export interface ResolvedKyselyCTLConfig {
 	}
 }
 
+export interface ResolvedKyselyCTLConfigWithKyselyInstance
+	extends Omit<ResolvedKyselyCTLConfig, 'kysely'> {
+	// biome-ignore lint/suspicious/noExplicitAny: it's fine.
+	kysely: Kysely<any>
+}
+
 export type MigrationsBaseConfig = Omit<MigratorProps, 'db' | 'provider'> & {
 	getMigrationPrefix?(): string | Promise<string>
 }
