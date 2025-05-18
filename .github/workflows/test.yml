@@ -18,10 +18,10 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Use Node.js 22
+      - name: Use Node.js LTS
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: lts/*
           cache: "pnpm"
 
       - name: Install dependencies
@@ -36,9 +36,9 @@ jobs:
   node:
     strategy:
       matrix:
-        node-version: [18, 20, 22, 23]
+        node-version: [20, 22, 24]
         os: [macos-latest, ubuntu-latest, windows-latest]
-        type: [cjs, esm, esm-tsconfig-paths, esm-top-level-await]
+        type: [cjs, esm, esm-tsconfig-paths, esm-top-level-await, esm-environments]
       fail-fast: false
 
     runs-on: ${{ matrix.os }}
@@ -69,6 +69,10 @@ jobs:
           
           if [[ ${{ matrix.os }} == 'windows-latest' ]]; then
             ADDITIONAL_FLAGS+=" --cwd=%cd%"
+          fi
+
+          if [[ ${{ matrix.type}} == 'esm-environments' ]]; then
+            ADDITIONAL_FLAGS+=" -e lib2"
           fi
 
           echo "ADDITIONAL_FLAGS=$ADDITIONAL_FLAGS" >> $GITHUB_OUTPUT
@@ -107,10 +111,10 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Use Node.js 22
+      - name: Use Node.js LTS
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: lts/*
           cache: "pnpm"
 
       - uses: oven-sh/setup-bun@v2
@@ -156,10 +160,10 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Use Node.js 22
+      - name: Use Node.js LTS
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: lts/*
           cache: "pnpm"
 
       - uses: denoland/setup-deno@v2
