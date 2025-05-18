@@ -1,29 +1,16 @@
-import { randomUUID } from 'node:crypto'
-import { CompiledQuery, type Kysely, type QueryResult } from 'kysely'
+import { CompiledQuery, type QueryResult } from 'kysely'
+import type { ResolvedKyselyCTLConfigWithKyselyInstance } from '../config/kysely-ctl-config.mjs'
 
-export async function executeQuery(
-	sql: string,
-	props: {
-		kysely: Kysely<unknown>
-		parameters?: unknown[]
-	},
-): Promise<QueryResult<unknown>> {
-	return await props.kysely.executeQuery(
-		CompiledQuery.raw(sql, props.parameters),
-	)
+export interface Query {
+	parameters?: unknown[]
+	sql: string
 }
 
-export function streamQuery(
-	sql: string,
-	props: {
-		chunkSize?: number
-		kysely: Kysely<unknown>
-		parameters?: unknown[]
-	},
-): AsyncIterableIterator<QueryResult<unknown>> {
-	return props.kysely
-		.getExecutor()
-		.stream(CompiledQuery.raw(sql, props.parameters), props.chunkSize || 100, {
-			queryId: randomUUID({ disableEntropyCache: true }),
-		})
+export async function executeQuery(
+	query: Query,
+	config: ResolvedKyselyCTLConfigWithKyselyInstance,
+): Promise<QueryResult<unknown>> {
+	return await config.kysely.executeQuery(
+		CompiledQuery.raw(query.sql, query.parameters),
+	)
 }

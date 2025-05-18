@@ -1,12 +1,11 @@
-import { type Kysely, Migrator } from 'kysely'
+import { Migrator } from 'kysely'
 import { join } from 'pathe'
-import type { ResolvedKyselyCTLConfig } from '../config/kysely-ctl-config.mjs'
+import type { ResolvedKyselyCTLConfigWithKyselyInstance } from '../config/kysely-ctl-config.mjs'
 import { hydrate } from '../utils/hydrate.mjs'
 import { TSFileMigrationProvider } from './ts-file-migration-provider.mjs'
 
 export async function getMigrator(
-	// biome-ignore lint/suspicious/noExplicitAny: it's fine.
-	config: Omit<ResolvedKyselyCTLConfig, 'kysely'> & { kysely: Kysely<any> },
+	config: ResolvedKyselyCTLConfigWithKyselyInstance,
 ): Promise<Migrator> {
 	const { args, kysely, migrations } = config
 	const { allowJS, migrationFolder, migrator, ...migratorOptions } = migrations

@@ -1,39 +1,31 @@
 import { createInterface } from 'node:readline/promises'
-import type { ArgsDef, CommandDef, SubCommandsDef } from 'citty'
+import type { ArgsDef, CommandDef, ParsedArgs, SubCommandsDef } from 'citty'
 import { consola } from 'consola'
 import { colorize } from 'consola/utils'
-import type { Kysely } from 'kysely'
 import { isCI, process } from 'std-env'
 import { CommonArgs } from '../arguments/common.mjs'
 import { getConfigOrFail } from '../config/get-config.mjs'
-import type { ResolvedKyselyCTLConfig } from '../config/kysely-ctl-config.mjs'
+import type { ResolvedKyselyCTLConfigWithKyselyInstance } from '../config/kysely-ctl-config.mjs'
 import { executeQuery } from '../kysely/execute-query.mjs'
 import { inferDialectName } from '../kysely/infer-dialect-name.mjs'
 import { usingKysely } from '../kysely/using-kysely.mjs'
 import { printCSV } from '../utils/print-csv.mjs'
-import { printTable } from '../utils/print-table.mjs'
 
 const args = {
 	...CommonArgs,
 	format: {
 		alias: 'f',
-		default: 'table',
+		default: 'csv',
 		description: 'The format to output the result in.',
 		required: false,
 		type: 'string',
-		valueHint: 'table | csv | json',
+		valueHint: 'csv | json',
 	},
 	query: {
 		description:
 			'The SQL query to execute. When not provided, and not in CI, will open an interactive SQL shell.',
 		required: isCI,
 		type: 'positional',
-	},
-	stream: {
-		alias: 's',
-		default: false,
-		description: 'Stream the result set.',
-		required: false,
 	},
 } satisfies ArgsDef
 
@@ -47,7 +39,7 @@ export const SqlCommand = {
 		subCommands: {},
 		async run(context) {
 			const { args } = context
-			const { format = 'table', query } = args
+			const { format, query } = args
 
 			consola.debug(context, [])
 
@@ -57,11 +49,13 @@ export const SqlCommand = {
 			const config = await getConfigOrFail(args)
 
 			await usingKysely(config, async (kysely) => {
+				const hydratedConfig = { ...config, kysely }
+
 				if (query) {
-					return await executeQueryAndPrint(query, { format, kysely })
+					return await executeQueryAndPrint(args, hydratedConfig)
 				}
 
-				await startInteractiveExecution(config, kysely, format)
+				await startInteractiveExecution(args, hydratedConfig)
 			})
 		},
 	} satisfies CommandDef<typeof args>,
@@ -78,7 +72,7 @@ function assertQuery(thing: unknown): asserts thing is string {
 	throw new Error('Query must be a non-empty string!')
 }
 
-const FORMATS = ['table', 'csv', 'json'] as const
+const FORMATS = ['csv', 'json'] as const
 type Format = (typeof FORMATS)[number]
 
 function assertFormat(thing: unknown): asserts thing is Format {
@@ -94,17 +88,12 @@ function assertFormat(thing: unknown): asserts thing is Format {
 }
 
 async function executeQueryAndPrint(
-	query: string,
-	props: {
-		format: Format
-		kysely: Kysely<unknown>
-	},
+	argz: ParsedArgs<typeof args>,
+	config: ResolvedKyselyCTLConfigWithKyselyInstance,
 ): Promise<void> {
-	const result = await executeQuery(query, { kysely: props.kysely })
+	const result = await executeQuery({ sql: argz.query }, config)
 
-	const { format } = props
-
-	if (format === 'json') {
+	if (argz.format === 'json') {
 		return consola.log(JSON.stringify(result, null, 2))
 	}
 
@@ -123,38 +112,35 @@ async function executeQueryAndPrint(
 			rowCount: rows.length,
 		}
 
-		if (format === 'csv') {
-			return printCSV([summary])
-		}
-
-		return printTable([summary])
+		return printCSV([summary])
 	}
 
-	if (format === 'csv') {
-		return printCSV(rows)
-	}
-
-	printTable(rows)
+	return printCSV(rows)
 }
 
 async function startInteractiveExecution(
-	config: ResolvedKyselyCTLConfig,
-	kysely: Kysely<unknown>,
-	format: Format,
+	argz: ParsedArgs<typeof args>,
+	config: ResolvedKyselyCTLConfigWithKyselyInstance,
 ): Promise<void> {
 	while (true) {
-		let query = await consola.prompt(getPrompt(config, kysely), {
+		let query = await consola.prompt(getPrompt(argz, config), {
 			cancel: 'null',
 			placeholder: 'select 1',
 			required: true,
 			type: 'text',
 		})
 
+		if (query == null) {
+			return
+		}
+
+		query = query.trim()
+
 		if (isSafeword(query)) {
 			return
 		}
 
-		if (query.endsWith('\\')) {
+		if (!query.endsWith(';')) {
 			const readline = createInterface({
 				// biome-ignore lint/style/noNonNullAssertion: yolo
 				input: process.stdin!,
@@ -164,14 +150,14 @@ async function startInteractiveExecution(
 			do {
 				const moreQuery = await readline.question('')
 
-				query = `${query.replace(/\\*$/, '')} ${moreQuery}`
-			} while (query.endsWith('\\'))
+				query = `${query} ${moreQuery.trim()}`
+			} while (!query.endsWith(';'))
 
 			readline.close()
 		}
 
 		try {
-			await executeQueryAndPrint(query, { format, kysely })
+			await executeQueryAndPrint({ ...argz, query }, config)
 		} catch (error) {
 			consola.error(error instanceof Error ? error.message : error)
 		}
@@ -182,16 +168,21 @@ const SAFEWORDS = ['exit', 'quit', 'bye', ':q'] as const
 type Safeword = (typeof SAFEWORDS)[number]
 
 function isSafeword(thing: unknown): thing is null | Safeword {
-	return typeof thing !== 'string' || SAFEWORDS.includes(thing as Safeword)
+	return SAFEWORDS.includes(thing as Safeword)
 }
 
 function getPrompt(
-	config: ResolvedKyselyCTLConfig,
-	kysely: Kysely<unknown>,
+	argz: ParsedArgs<typeof args>,
+	config: ResolvedKyselyCTLConfigWithKyselyInstance,
 ): string {
+	const { environment } = argz
 	const { dialect } = config
 
-	return `${
-		typeof dialect === 'string' ? dialect : inferDialectName(kysely)
-	} ${colorize('cyan', '❯')}`
+	return [
+		typeof dialect === 'string' ? dialect : inferDialectName(config.kysely),
+		environment ? colorize('gray', `(${environment})`) : null,
+		colorize('cyan', '❯'),
+	]
+		.filter(Boolean)
+		.join(' ')
 }
