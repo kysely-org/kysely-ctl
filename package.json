@@ -62,7 +62,7 @@
 		"@arktype/attest": "^0.46.0",
 		"@biomejs/biome": "1.9.4",
 		"@tsconfig/node22": "^22.0.0",
-		"@types/better-sqlite3": "^7.6.12",
+		"@types/better-sqlite3": "^7.6.13",
 		"@types/node": "^22.15.18",
 		"better-sqlite3": "^11.10.0",
 		"kysely": "^0.28.2",

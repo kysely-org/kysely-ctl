@@ -16,7 +16,7 @@ importers:
         version: 0.28.2
     devDependencies:
       '@types/better-sqlite3':
-        specifier: ^7.6.12
+        specifier: ^7.6.13
         version: 7.6.13
       kysely-ctl:
         specifier: link:../..

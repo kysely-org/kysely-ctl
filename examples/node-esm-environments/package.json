@@ -7,7 +7,7 @@
 		"migrate:latest": "run-p -c -l \"*:migrate:latest --no-outdated-check\""
 	},
 	"devDependencies": {
-		"@types/better-sqlite3": "^7.6.12",
+		"@types/better-sqlite3": "^7.6.13",
 		"kysely-ctl": "link:../..",
 		"npm-run-all": "^4.1.5"
 	},
