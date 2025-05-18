@@ -67,7 +67,7 @@
 		"better-sqlite3": "^11.9.1",
 		"kysely": "^0.28.0",
 		"kysely-postgres-js": "^2.0.0",
-		"pkg-pr-new": "^0.0.41",
+		"pkg-pr-new": "^0.0.50",
 		"postgres": "^3.4.5",
 		"tsup": "^8.4.0",
 		"type-fest": "^4.37.0",
