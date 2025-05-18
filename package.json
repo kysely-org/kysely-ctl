@@ -64,7 +64,7 @@
 		"@tsconfig/node22": "^22.0.0",
 		"@types/better-sqlite3": "^7.6.12",
 		"@types/node": "^22.15.18",
-		"better-sqlite3": "^11.9.1",
+		"better-sqlite3": "^11.10.0",
 		"kysely": "^0.28.2",
 		"kysely-postgres-js": "^2.0.0",
 		"pkg-pr-new": "^0.0.50",
