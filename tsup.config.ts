@@ -32,7 +32,7 @@ export default defineConfig({
 					// esm output imports node built-in modules without `node:` specifiers,
 					// which fails in Deno.
 					file.replace(
-						/"(fs|fs\/promises|path|url|child_process)"/g,
+						/"(fs|fs\/promises|path|url|child_process|readline\/promises)"/g,
 						'"node:$1"',
 					),
 				)

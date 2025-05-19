@@ -2,12 +2,12 @@
 	"name": "node-esm",
 	"type": "module",
 	"devDependencies": {
-		"@types/better-sqlite3": "^7.6.12",
+		"@types/better-sqlite3": "^7.6.13",
 		"kysely-ctl": "link:../.."
 	},
 	"dependencies": {
-		"better-sqlite3": "^11.9.1",
-		"kysely": "^0.28.0"
+		"better-sqlite3": "^11.10.0",
+		"kysely": "^0.28.2"
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [
