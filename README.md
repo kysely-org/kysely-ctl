@@ -1,12 +1,5 @@
 <div style="width: 100%;">
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 800 150" style="font-family: monospace;">
-  <rect style="fill: #000000;" x="0" y="0" width="800" height="150" />
-  <text x="400" y="90" font-size="42" font-weight="bold" style="fill: #ffffff;" text-anchor="middle">&gt; kysely</text>
-  <text x="500" y="90" font-size="42" font-weight="bold" style="fill: cyan;" text-anchor="middle" >
-    |
-    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
-  </text>
-</svg>
+  <img src="assets/banner.svg" alt="kysely in the terminal" width="100%" />
 </div>
 
 `kysely-ctl` is the official command-line tool for [Kysely](https://kysely.dev). 
