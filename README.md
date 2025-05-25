@@ -1,3 +1,7 @@
+<div style="width: 100%;">
+  <img src="assets/banner.svg" alt="kysely in the terminal" width="100%" />
+</div>
+
 `kysely-ctl` is the official command-line tool for [Kysely](https://kysely.dev). 
 We strive to make it [TypeScript](https://www.typescriptlang.org/)-first, cross-platform 
 ([macOS](https://www.apple.com/macos), [Linux](https://www.linux.org/), and [Windows](https://www.microsoft.com/en-us/windows)), 

@@ -22,7 +22,8 @@
 		}
 	},
 	"files": [
-		"dist"
+		"dist",
+		"assets"
 	],
 	"description": "Command-line tool for Kysely",
 	"author": "Igal Klebanov <igalklebanov@gmail.com> (https://github.com/igalklebanov)",
