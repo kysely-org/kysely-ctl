@@ -1,3 +1,25 @@
+<div style="width: 100%;">
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 800 150" style="font-family: monospace;">
+  <style>
+  .cursor { fill: cyan; }
+@media (prefers-color-scheme: dark) {
+  .bg { fill: #000000; }
+  .text { fill: #ffffff; }
+}
+@media (prefers-color-scheme: light) {
+  .bg { fill: #ffffff; }
+  .text { fill: #000000; }
+}
+</style>
+  <rect class="bg" x="0" y="0" width="800" height="150" />
+  <text x="400" y="90" font-size="42" font-weight="bold" class="text" text-anchor="middle">&gt; kysely</text>
+  <text x="500" y="90" font-size="42" font-weight="bold" class="cursor" text-anchor="middle" >
+    |
+    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+  </text>
+</svg>
+</div>
+
 `kysely-ctl` is the official command-line tool for [Kysely](https://kysely.dev). 
 We strive to make it [TypeScript](https://www.typescriptlang.org/)-first, cross-platform 
 ([macOS](https://www.apple.com/macos), [Linux](https://www.linux.org/), and [Windows](https://www.microsoft.com/en-us/windows)), 
