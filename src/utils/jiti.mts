@@ -27,6 +27,7 @@ async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 		debug: Boolean(args.debug),
 		fsCache: Boolean(args.filesystemCaching),
 		tryNative: runtime !== 'node',
+		jsx: true,
 	}
 }
 
