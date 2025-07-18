@@ -32,7 +32,7 @@
 	"scripts": {
 		"biome": "biome",
 		"build": "tsup",
-		"check:dts": "attw --pack .",
+		"check:exports": "attw --pack .",
 		"prepublishOnly": "biome check && pnpm build && pnpm check:dts",
 		"start": "pnpm build --watch",
 		"test": "vitest"
@@ -58,7 +58,7 @@
 		}
 	},
 	"devDependencies": {
-		"@arethetypeswrong/cli": "^0.18.1",
+		"@arethetypeswrong/cli": "^0.18.2",
 		"@arktype/attest": "^0.46.0",
 		"@biomejs/biome": "1.9.4",
 		"@tsconfig/node24": "^24.0.0",

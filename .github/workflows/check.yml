@@ -31,5 +31,5 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Attw
-        run: pnpm check:dts
+      - name: Exports
+        run: pnpm check:exports
