@@ -26,4 +26,4 @@ jobs:
         run: pnpm build
 
       - name: Release preview version
-        run: pnpm release:preview
+        run: pnpx pkg-pr-new publish --template './examples/node-esm'
