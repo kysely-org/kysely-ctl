@@ -38,7 +38,7 @@ jobs:
       matrix:
         node-version: [20, 22, 24]
         os: [macos-latest, ubuntu-latest, windows-latest]
-        type: [cjs, esm, esm-tsconfig-paths, esm-top-level-await, esm-environments]
+        type: [cjs, esm, esm-tsconfig-paths, esm-top-level-await, esm-environments, esm-jsx]
       fail-fast: false
 
     runs-on: ${{ matrix.os }}
