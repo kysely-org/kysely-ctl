@@ -5,13 +5,30 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: npm
+    directories: 
+      - /
+      - /examples/node-cjs
+      - /examples/node-esm
+      - /examples/node-esm-environments
+      - /examples/node-esm-jsx
+      - /examples/node-esm-top-level-await
+      - /examples/node-esm-tsconfig-paths
     schedule:
-      interval: "daily"
+      interval: daily
     reviewers:
-      - "igalklebanov"
-    groups:
-      typescript-eslint:
-        patterns:
-          - "@typescript-eslint*"
+      - igalklebanov
+
+  - package-ecosystem: bun
+    directory: /examples/bun
+    schedule:
+      interval: daily
+    reviewers:
+      - igalklebanov
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+    reviewers:
+      - igalklebanov
