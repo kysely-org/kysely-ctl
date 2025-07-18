@@ -13,7 +13,7 @@
 	},
 	"dependencies": {
 		"better-sqlite3": "^11.10.0",
-		"kysely": "^0.28.2"
+		"kysely": "^0.28.3"
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [

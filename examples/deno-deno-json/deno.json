@@ -5,7 +5,7 @@
 	"imports": {
 		"@jsr/db__sqlite": "npm:@jsr/db__sqlite@^0.12.0",
 		"@jsr/soapbox__kysely-deno-sqlite": "npm:@jsr/soapbox__kysely-deno-sqlite@^2.2.0",
-		"kysely": "npm:kysely@^0.28.2",
+		"kysely": "npm:kysely@^0.28.3",
 		"kysely-ctl": "npm:kysely-ctl@^0.12.2"
 	}
 }
