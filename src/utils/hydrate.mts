@@ -9,7 +9,7 @@ export async function hydrate<
 	factory: F,
 	parameters: P,
 	defaultValue?: () => F extends OrFactory<infer T> ? T : never,
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	// biome-ignore lint/suspicious/noExplicitAny: it's fine.
 ): Promise<Awaited<ReturnType<Extract<F, Factory<any>>>>> {
 	if (factory == null) {
 		return (defaultValue?.() ?? factory) as never

@@ -1,5 +1,5 @@
 import { type PackageJson, readPackageJSON } from 'pkg-types'
-import { type HasCWD, getCWD } from '../config/get-cwd.mjs'
+import { getCWD, type HasCWD } from '../config/get-cwd.mjs'
 
 export interface GetPackageJSONOptions {
 	id?: string
@@ -24,5 +24,5 @@ async function getPackageJSON(
 	const { id, startingFrom = __dirname } = options
 
 	return (PACKAGE_JSONS[`${String(id)}_${startingFrom}`] ||=
-		await readPackageJSON(id, { startingFrom }))
+		await readPackageJSON(id, { from: startingFrom }))
 }

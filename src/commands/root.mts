@@ -1,5 +1,5 @@
 import { type ArgsDef, type CommandDef, showUsage } from 'citty'
-import { LogLevels, consola } from 'consola'
+import { consola, LogLevels } from 'consola'
 import { CommonArgs } from '../arguments/common.mjs'
 import { getCWD } from '../config/get-cwd.mjs'
 import { isInSubcommand } from '../utils/is-in-subcommand.mjs'

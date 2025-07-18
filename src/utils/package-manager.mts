@@ -1,6 +1,6 @@
-import { type PackageManager, detectPackageManager } from 'nypm'
+import { detectPackageManager, type PackageManager } from 'nypm'
 import { isBun, isDeno } from 'std-env'
-import { type HasCWD, getCWD } from '../config/get-cwd.mjs'
+import { getCWD, type HasCWD } from '../config/get-cwd.mjs'
 
 export interface EnrichedPackageManager {
 	name: PackageManager['name'] | 'deno'

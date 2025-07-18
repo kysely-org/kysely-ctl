@@ -13,7 +13,7 @@ import type {
 } from 'kysely'
 import type { PostgresJSDialectConfig } from 'kysely-postgres-js'
 import type { SetRequired } from 'type-fest'
-import type { SeedProvider, Seeder, SeederProps } from '../seeds/seeder.mjs'
+import type { Seeder, SeederProps, SeedProvider } from '../seeds/seeder.mjs'
 import type { GetConfigArgs } from './get-config.mjs'
 
 export type KyselyDialect =

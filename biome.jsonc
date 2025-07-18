@@ -1,12 +1,15 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"files": {
-		"ignore": [
-			".vscode",
-			"examples/**/migrations",
-			"examples/**/seeds",
-			"package.json",
-			"tsconfig*.json"
+		"includes": [
+			"**",
+			"!**/.vscode",
+			"!**/examples/**/migrations",
+			"!**/examples/**/seeds",
+			"!**/package.json",
+			"!**/tsconfig*.json",
+			"!src/templates/**",
+			"!**/vendor/**"
 		]
 	},
 	"javascript": {
@@ -17,13 +20,12 @@
 	},
 	"linter": {
 		"rules": {
-			"nursery": {
-				"noCommonJs": "error",
-				"useDeprecatedReason": "error"
-			},
+			"nursery": {},
 			"style": {
 				"noNonNullAssertion": "warn",
-				"noParameterAssign": "warn"
+				"noParameterAssign": "warn",
+				"noCommonJs": "error",
+				"useDeprecatedReason": "error"
 			},
 			"suspicious": {
 				"noAssignInExpressions": "off",
@@ -34,6 +36,7 @@
 	},
 	"vcs": {
 		"clientKind": "git",
+		"defaultBranch": "main",
 		"enabled": true,
 		"useIgnoreFile": true
 	}

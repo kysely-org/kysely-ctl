@@ -12,10 +12,10 @@ import {
 } from 'kysely'
 import { describe, expect, it } from 'vitest'
 import {
+	defineConfig,
 	FileSeedProvider,
 	Seeder,
 	TSFileMigrationProvider,
-	defineConfig,
 } from '../dist/index.js'
 
 describe('defineConfig', () => {
@@ -1343,7 +1343,7 @@ function init() {
 	const migrationProvider = new TSFileMigrationProvider({
 		migrationFolder: 'migrations',
 	})
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	// biome-ignore lint/suspicious/noExplicitAny: it's fine.
 	const migrator = (db: Kysely<any>) =>
 		new Migrator({
 			db,
@@ -1353,7 +1353,7 @@ function init() {
 	const seedProvider = new FileSeedProvider({
 		seedFolder: 'seeds',
 	})
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	// biome-ignore lint/suspicious/noExplicitAny: it's fine.
 	const seeder = (db: Kysely<any>) =>
 		new Seeder({
 			db,

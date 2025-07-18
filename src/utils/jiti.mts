@@ -56,7 +56,7 @@ async function getJitiAlias(): Promise<Record<string, string>> {
 		}
 
 		return jitiAlias
-	} catch (error) {
+	} catch {
 		return {}
 	}
 }

@@ -4,7 +4,7 @@ import type { PackageJson } from 'pkg-types'
 import { isCI } from 'std-env'
 import type { HasCWD } from '../config/get-cwd.mjs'
 import { getPackageManager } from './package-manager.mjs'
-import { getCTLPackageJSON, getConsumerPackageJSON } from './pkg-json.mjs'
+import { getConsumerPackageJSON, getCTLPackageJSON } from './pkg-json.mjs'
 
 /**
  * Returns the version of the Kysely package.
@@ -16,7 +16,7 @@ export async function getKyselyInstalledVersion(
 		const pkgJSON = await getConsumerPackageJSON(args)
 
 		return getVersionFromPackageJSON('kysely', pkgJSON)
-	} catch (err) {
+	} catch {
 		return null
 	}
 }
@@ -29,7 +29,7 @@ export async function getCTLInstalledVersion(): Promise<string | null> {
 		const pkgJSON = await getCTLPackageJSON()
 
 		return getVersionFromPackageJSON('kysely-ctl', pkgJSON)
-	} catch (err) {
+	} catch {
 		return null
 	}
 }

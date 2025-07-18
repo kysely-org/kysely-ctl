@@ -1,5 +1,6 @@
 export * from './config/define-config.mjs'
 export * from './config/dummy-dialect-config.mjs'
+export { getKnexTimestampPrefix } from './config/get-file-prefix.mjs'
 export type {
 	KyselyCoreDialect,
 	KyselyCTLConfig,
@@ -13,4 +14,3 @@ export type {
 export * from './kysely/ts-file-migration-provider.mjs'
 export * from './seeds/file-seed-provider.mjs'
 export * from './seeds/seeder.mjs'
-export { getKnexTimestampPrefix } from './config/get-file-prefix.mjs'
