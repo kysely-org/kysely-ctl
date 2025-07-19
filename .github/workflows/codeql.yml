@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [javascript, typescript]
+        language: [typescript]
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
