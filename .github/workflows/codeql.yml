@@ -13,8 +13,6 @@ permissions:
 
 jobs:
   analyze:
-    name: Analyze
-
     runs-on: ubuntu-latest
 
     permissions:
