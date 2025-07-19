@@ -1,0 +1,15 @@
+# https://editorconfig.org
+root = true
+
+[*]
+# Biome uses tabs for indentation and spaces for alignment.
+# This configuration is the closest representation for most editors.
+indent_style = tab
+tab_width = 2
+
+# General settings that align with Biome's defaults
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 80
