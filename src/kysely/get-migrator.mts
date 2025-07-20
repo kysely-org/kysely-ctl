@@ -32,7 +32,7 @@ export async function getMigrator(
 		...migratorOptions,
 		db: kysely,
 		disableTransactions:
-			args['no-transaction'] ?? migratorOptions.disableTransactions,
+			args.transaction === false || migratorOptions.disableTransactions,
 		provider,
 	})
 }

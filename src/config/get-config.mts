@@ -14,7 +14,7 @@ export interface GetConfigArgs {
 	environment?: string
 	'experimental-resolve-tsconfig-paths'?: boolean
 	'filesystem-caching'?: boolean
-	'no-transaction'?: boolean
+	transaction?: false
 }
 
 export async function getConfig(
