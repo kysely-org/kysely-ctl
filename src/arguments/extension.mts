@@ -29,8 +29,7 @@ export function assertExtension(
 	config?: ResolvedKyselyCTLConfig,
 	context?: 'migrations' | 'seeds',
 ): asserts thing is Extension {
-	const allowJS =
-		!config || config[context as keyof ResolvedKyselyCTLConfig]?.allowJS
+	const allowJS = config?.[context || 'migrations'].allowJS ?? true
 
 	if (
 		!allowJS &&
