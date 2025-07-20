@@ -5,6 +5,7 @@ import { getCWD } from './get-cwd.mjs'
 import { getMillisPrefix } from './get-file-prefix.mjs'
 import type {
 	KyselyCTLConfig,
+	MigrationsBaseConfig,
 	ResolvedKyselyCTLConfig,
 } from './kysely-ctl-config.mjs'
 
@@ -14,7 +15,7 @@ export interface GetConfigArgs {
 	environment?: string
 	'experimental-resolve-tsconfig-paths'?: boolean
 	'filesystem-caching'?: boolean
-	transaction?: false
+	transaction?: boolean
 }
 
 export async function getConfig(
@@ -53,13 +54,17 @@ export async function getConfig(
 			allowJS: false,
 			getMigrationPrefix: getMillisPrefix,
 			migrationFolder: 'migrations',
-			...(config.migrations || {}),
+			...config.migrations,
+			disableTransactions:
+				args.transaction === false ||
+				(config.migrations as MigrationsBaseConfig | undefined)
+					?.disableTransactions,
 		},
 		seeds: {
 			allowJS: false,
 			getSeedPrefix: getMillisPrefix,
 			seedFolder: 'seeds',
-			...(config.seeds || {}),
+			...config.seeds,
 		},
 	}
 }

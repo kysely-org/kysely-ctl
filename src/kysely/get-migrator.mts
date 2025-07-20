@@ -28,11 +28,5 @@ export async function getMigrator(
 			}),
 	)
 
-	return new Migrator({
-		...migratorOptions,
-		db: kysely,
-		disableTransactions:
-			args.transaction === false || migratorOptions.disableTransactions,
-		provider,
-	})
+	return new Migrator({ ...migratorOptions, db: kysely, provider })
 }
