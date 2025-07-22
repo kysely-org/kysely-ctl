@@ -5,7 +5,7 @@ import { join } from 'pathe'
 import { CWDArg } from '../arguments/cwd.mjs'
 import { DebugArg } from '../arguments/debug.mjs'
 import { assertExtension, ExtensionArg } from '../arguments/extension.mjs'
-import { NoOutdatedCheckArg } from '../arguments/no-outdated-notice.mjs'
+import { NoOutdatedCheckArg } from '../arguments/no-outdated-check.mjs'
 import { configFileExists, getConfig } from '../config/get-config.mjs'
 import { getTemplateExtension } from '../utils/get-template-extension.mjs'
 
