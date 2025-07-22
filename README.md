@@ -2,6 +2,18 @@
   <img src="assets/banner.svg" alt="kysely in the terminal" width="100%" />
 </div>
 
+[![NPM Version](https://img.shields.io/npm/v/kysely-ctl?style=flat&label=latest)](https://github.com/kysely-org/kysely-ctl/releases/latest)
+[![Tests](https://github.com/kysely-org/kysely-ctl/actions/workflows/test.yml/badge.svg)](https://github.com/kysely-org/kysely-ctl)
+[![License](https://img.shields.io/github/license/kysely-org/kysely-ctl?style=flat)](https://github.com/kysely-org/kysely-ctl/blob/master/LICENSE)
+[![Issues](https://img.shields.io/github/issues-closed/kysely-org/kysely-ctl?logo=github)](https://github.com/kysely-org/kysely-ctl/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
+[![Pull Requests](https://img.shields.io/github/issues-pr-closed/kysely-org/kysely-ctl?label=PRs&logo=github&style=flat)](https://github.com/kysely-org/kysely-ctl/pulls?q=is%3Apr+is%3Aopen+sort%3Aupdated-desc)
+![GitHub contributors](https://img.shields.io/github/contributors/kysely-org/kysely-ctl)
+[![Downloads](https://img.shields.io/npm/dw/kysely-ctl?logo=npm)](https://www.npmjs.com/package/kysely-ctl)
+
+###### Join the discussion ⠀⠀⠀⠀⠀⠀⠀ 
+[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=flat&logo=discord&logoColor=white)](https://discord.gg/xyBJ3GwvAm)
+[![Bluesky](https://img.shields.io/badge/Bluesky-0285FF?style=flat&logo=Bluesky&logoColor=white)](https://bsky.app/profile/kysely.dev)
+
 `kysely-ctl` is the official command-line tool for [Kysely](https://kysely.dev). 
 We strive to make it [TypeScript](https://www.typescriptlang.org/)-first, cross-platform 
 ([macOS](https://www.apple.com/macos), [Linux](https://www.linux.org/), and [Windows](https://www.microsoft.com/en-us/windows)), 
