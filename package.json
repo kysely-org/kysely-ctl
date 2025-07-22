@@ -33,7 +33,7 @@
 		"biome": "biome",
 		"build": "tsup",
 		"check:exports": "attw --pack .",
-		"prepublishOnly": "biome check && pnpm build && pnpm check:dts",
+		"prepublishOnly": "biome check && pnpm build && pnpm check:exports",
 		"start": "pnpm build --watch",
 		"test": "vitest"
 	},
