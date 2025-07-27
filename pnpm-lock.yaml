@@ -18,8 +18,8 @@ importers:
         specifier: ^3.4.2
         version: 3.4.2
       jiti:
-        specifier: ^2.4.2
-        version: 2.4.2
+        specifier: ^2.5.1
+        version: 2.5.1
       nypm:
         specifier: ^0.6.0
         version: 0.6.0
@@ -68,7 +68,7 @@ importers:
         version: 3.4.7
       tsup:
         specifier: ^8.5.0
-        version: 8.5.0(jiti@2.4.2)(postcss@8.4.39)(tsx@4.19.2)(typescript@5.8.3)(yaml@2.4.5)
+        version: 8.5.0(jiti@2.5.1)(postcss@8.4.39)(tsx@4.19.2)(typescript@5.8.3)(yaml@2.4.5)
       type-fest:
         specifier: ^4.41.0
         version: 4.41.0
@@ -1116,8 +1116,8 @@ packages:
     resolution: {integrity: sha512-JVYhQnN59LVPFCEcVa2C3CrEKYacvjRfqIQl+h8oi91aLYQVWRYbxjPcv1bUiUy/kLmQaANrYfNMCO3kuEDHfw==}
     engines: {node: '>=14'}
 
-  jiti@2.4.2:
-    resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
+  jiti@2.5.1:
+    resolution: {integrity: sha512-twQoecYPiVA5K/h6SxtORw/Bs3ar+mLUtoPSc7iMXzQzK8d7eJ/R09wmTwAjiamETn1cXYPGfNnu7DMoHgu12w==}
     hasBin: true
 
   joycon@3.1.1:
@@ -2238,7 +2238,7 @@ snapshots:
       dotenv: 16.6.1
       exsolve: 1.0.7
       giget: 2.0.0
-      jiti: 2.4.2
+      jiti: 2.5.1
       ohash: 2.0.11
       pathe: 2.0.3
       perfect-debounce: 1.0.0
@@ -2528,7 +2528,7 @@ snapshots:
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
 
-  jiti@2.4.2: {}
+  jiti@2.5.1: {}
 
   joycon@3.1.1: {}
 
@@ -2696,11 +2696,11 @@ snapshots:
       exsolve: 1.0.7
       pathe: 2.0.3
 
-  postcss-load-config@6.0.1(jiti@2.4.2)(postcss@8.4.39)(tsx@4.19.2)(yaml@2.4.5):
+  postcss-load-config@6.0.1(jiti@2.5.1)(postcss@8.4.39)(tsx@4.19.2)(yaml@2.4.5):
     dependencies:
       lilconfig: 3.1.2
     optionalDependencies:
-      jiti: 2.4.2
+      jiti: 2.5.1
       postcss: 8.4.39
       tsx: 4.19.2
       yaml: 2.4.5
@@ -2935,7 +2935,7 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  tsup@8.5.0(jiti@2.4.2)(postcss@8.4.39)(tsx@4.19.2)(typescript@5.8.3)(yaml@2.4.5):
+  tsup@8.5.0(jiti@2.5.1)(postcss@8.4.39)(tsx@4.19.2)(typescript@5.8.3)(yaml@2.4.5):
     dependencies:
       bundle-require: 5.1.0(esbuild@0.25.1)
       cac: 6.7.14
@@ -2946,7 +2946,7 @@ snapshots:
       fix-dts-default-cjs-exports: 1.0.1
       joycon: 3.1.1
       picocolors: 1.1.1
-      postcss-load-config: 6.0.1(jiti@2.4.2)(postcss@8.4.39)(tsx@4.19.2)(yaml@2.4.5)
+      postcss-load-config: 6.0.1(jiti@2.5.1)(postcss@8.4.39)(tsx@4.19.2)(yaml@2.4.5)
       resolve-from: 5.0.0
       rollup: 4.36.0
       source-map: 0.8.0-beta.0
