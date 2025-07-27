@@ -10,6 +10,7 @@ import type {
 } from './kysely-ctl-config.mjs'
 
 export interface GetConfigArgs {
+	config?: string
 	cwd?: string
 	debug?: boolean
 	environment?: string
