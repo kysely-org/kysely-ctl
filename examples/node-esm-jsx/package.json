@@ -1,20 +1,15 @@
 {
-	"name": "node-esm",
+	"name": "node-esm-jsx",
 	"type": "module",
 	"devDependencies": {
-		"@types/better-sqlite3": "^7.6.13",
+		"@types/better-sqlite3": "7.6.13",
 		"@types/react": "^19.1.8",
 		"kysely-ctl": "link:../.."
 	},
 	"dependencies": {
-		"better-sqlite3": "^12.2.0",
-		"kysely": "^0.28.3",
+		"better-sqlite3": "12.2.0",
+		"kysely": "0.28.4",
 		"react": "^19.1.1",
 		"react-dom": "^19.1.0"
-	},
-	"pnpm": {
-		"onlyBuiltDependencies": [
-			"better-sqlite3"
-		]
 	}
 }

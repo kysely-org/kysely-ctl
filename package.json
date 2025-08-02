@@ -84,12 +84,5 @@
 		"seeding",
 		"codegen"
 	],
-	"packageManager": "pnpm@10.6.5+sha512.cdf928fca20832cd59ec53826492b7dc25dc524d4370b6b4adbf65803d32efaa6c1c88147c0ae4e8d579a6c9eec715757b50d4fa35eea179d868eada4ed043af",
-	"pnpm": {
-		"onlyBuiltDependencies": [
-			"@biomejs/biome",
-			"better-sqlite3",
-			"esbuild"
-		]
-	}
+	"packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748"
 }
