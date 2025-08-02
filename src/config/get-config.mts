@@ -66,7 +66,7 @@ export async function getConfig(
 			seedFolder: 'seeds',
 			...config.seeds,
 		},
-	}
+	} as never
 }
 
 export function configFileExists(config: ResolvedKyselyCTLConfig): boolean {

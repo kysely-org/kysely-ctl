@@ -887,57 +887,57 @@ describe('defineConfig', () => {
 		})
 
 		it('should type-error when also passing a dialect instance', () => {
+			// @ts-expect-error
 			defineConfig({
 				kysely,
-				// @ts-expect-error
 				dialect,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely: () => kysely,
-				// @ts-expect-error
 				dialect,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely: async () => kysely,
-				// @ts-expect-error
 				dialect,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely,
-				// @ts-expect-error
 				dialect: () => dialect,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely: () => kysely,
-				// @ts-expect-error
 				dialect: () => dialect,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely: async () => kysely,
-				// @ts-expect-error
 				dialect: () => dialect,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely,
-				// @ts-expect-error
 				dialect: async () => dialect,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely: () => kysely,
-				// @ts-expect-error
 				dialect: async () => dialect,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely: async () => kysely,
-				// @ts-expect-error
 				dialect: async () => dialect,
 			})
 		})
@@ -947,6 +947,7 @@ describe('defineConfig', () => {
 				kysely,
 				// @ts-expect-error
 				dialect: 'better-sqlite3',
+				// @ts-expect-error
 				dialectConfig,
 			})
 
@@ -954,20 +955,21 @@ describe('defineConfig', () => {
 				kysely,
 				// @ts-expect-error
 				dialectConfig,
+				// @ts-expect-error
 				dialect: 'better-sqlite3',
 			})
 
 			defineConfig({
 				kysely: () => kysely,
-				// @ts-expect-error
 				dialect: 'better-sqlite3',
+				// @ts-expect-error
 				dialectConfig,
 			})
 
 			defineConfig({
 				kysely: async () => kysely,
-				// @ts-expect-error
 				dialect: 'better-sqlite3',
+				// @ts-expect-error
 				dialectConfig,
 			})
 
@@ -975,20 +977,21 @@ describe('defineConfig', () => {
 				kysely,
 				// @ts-expect-error
 				dialect: 'better-sqlite3',
+				// @ts-expect-error
 				dialectConfig: () => dialectConfig,
 			})
 
 			defineConfig({
 				kysely: () => kysely,
-				// @ts-expect-error
 				dialect: 'better-sqlite3',
+				// @ts-expect-error
 				dialectConfig: () => dialectConfig,
 			})
 
 			defineConfig({
 				kysely: async () => kysely,
-				// @ts-expect-error
 				dialect: 'better-sqlite3',
+				// @ts-expect-error
 				dialectConfig: () => dialectConfig,
 			})
 
@@ -996,82 +999,83 @@ describe('defineConfig', () => {
 				kysely,
 				// @ts-expect-error
 				dialect: 'better-sqlite3',
+				// @ts-expect-error
 				dialectConfig: async () => dialectConfig,
 			})
 
 			defineConfig({
 				kysely: () => kysely,
-				// @ts-expect-error
 				dialect: 'better-sqlite3',
+				// @ts-expect-error
 				dialectConfig: async () => dialectConfig,
 			})
 
 			defineConfig({
 				kysely: async () => kysely,
-				// @ts-expect-error
 				dialect: 'better-sqlite3',
+				// @ts-expect-error
 				dialectConfig: async () => dialectConfig,
 			})
 		})
 
 		it('should type-error when also passing plugins', () => {
+			// @ts-expect-error
 			defineConfig({
 				kysely,
-				// @ts-expect-error
 				plugins,
 			})
 
+			// @ts-expect-error
 			defineConfig({
-				// @ts-expect-error
 				plugins,
 				kysely,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely: () => kysely,
-				// @ts-expect-error
 				plugins,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely: async () => kysely,
-				// @ts-expect-error
 				plugins,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely,
-				// @ts-expect-error
 				plugins: () => plugins,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely: () => kysely,
-				// @ts-expect-error
 				plugins: () => plugins,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely: async () => kysely,
-				// @ts-expect-error
 				plugins: () => plugins,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely,
-				// @ts-expect-error
 				plugins: async () => plugins,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely: () => kysely,
-				// @ts-expect-error
 				plugins: async () => plugins,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				kysely: async () => kysely,
-				// @ts-expect-error
 				plugins: async () => plugins,
 			})
 		})
@@ -1132,8 +1136,8 @@ describe('defineConfig', () => {
 			})
 
 			defineConfig({
-				dialectConfig,
 				// @ts-expect-error
+				dialectConfig,
 				dialect,
 			})
 
@@ -1223,9 +1227,9 @@ describe('defineConfig', () => {
 				dialectConfig,
 			})
 
+			// @ts-expect-error
 			defineConfig({
 				dialectConfig,
-				// @ts-expect-error
 				dialect: 'pg',
 			})
 

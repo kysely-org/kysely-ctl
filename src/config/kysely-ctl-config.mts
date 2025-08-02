@@ -16,9 +16,7 @@ import type { SetRequired } from 'type-fest'
 import type { Seeder, SeederProps, SeedProvider } from '../seeds/seeder.mjs'
 import type { GetConfigArgs } from './get-config.mjs'
 
-export type KyselyDialect =
-	| ResolvableKyselyDialect
-	| OrFactory<KyselyDialectInstance>
+export type KyselyDialect = ResolvableKyselyDialect | KyselyDialectInstance
 
 export type ResolvableKyselyDialect =
 	| KyselyCoreDialect
@@ -48,37 +46,32 @@ export type KyselyDialectConfig<Dialect extends KyselyDialect> =
 		? KyselyDialectConfigDictionary[Dialect]
 		: never
 
-export type KyselyCTLConfig<Dialect extends KyselyDialect = KyselyDialect> =
-	Dialect extends ResolvableKyselyDialect
-		? {
-				destroyOnExit?: boolean
-				dialect: Dialect
-				dialectConfig: OrFactory<KyselyDialectConfig<Dialect>>
-				kysely?: never
-				migrations?: MigratorlessMigrationsConfig | MigratorfulMigrationsConfig
-				plugins?: OrFactory<KyselyPlugin[]>
-				seeds?: SeederlessSeedsConfig | SeederfulSeedsConfig
-			}
-		:
-				| {
-						destroyOnExit?: boolean
-						dialect: OrFactory<KyselyDialectInstance>
-						dialectConfig?: never
-						migrations?:
-							| MigratorlessMigrationsConfig
-							| MigratorfulMigrationsConfig
-						plugins?: OrFactory<KyselyPlugin[]>
-						seeds?: SeederlessSeedsConfig | SeederfulSeedsConfig
-				  }
-				| {
-						destroyOnExit?: boolean
-						// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
-						kysely: OrFactory<Kysely<any>>
-						migrations?:
-							| MigratorlessMigrationsConfig
-							| MigratorfulMigrationsConfig
-						seeds?: SeederlessSeedsConfig | SeederfulSeedsConfig
-				  }
+export type KyselyCTLConfig<Dialect extends KyselyDialect = KyselyDialect> = {
+	destroyOnExit?: boolean
+	migrations?: MigratorlessMigrationsConfig | MigratorfulMigrationsConfig
+	seeds?: SeederlessSeedsConfig | SeederfulSeedsConfig
+} & (Dialect extends ResolvableKyselyDialect
+	? {
+			dialect: Dialect
+			dialectConfig: OrFactory<KyselyDialectConfig<Dialect>>
+			kysely?: never
+			plugins?: OrFactory<KyselyPlugin[]>
+		}
+	:
+			| {
+					dialect: OrFactory<Dialect>
+					// this kills dialect name autocompletion.
+					// dialectConfig?: never
+					kysely?: never
+					plugins?: OrFactory<KyselyPlugin[]>
+			  }
+			| {
+					dialect?: never
+					dialectConfig?: never
+					// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
+					kysely: OrFactory<Kysely<any>>
+					plugins?: never
+			  })
 
 type MigratorfulMigrationsConfig = Pick<
 	MigrationsBaseConfig,
