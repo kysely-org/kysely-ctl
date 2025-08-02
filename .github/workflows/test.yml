@@ -91,7 +91,7 @@ jobs:
           echo "ADDITIONAL_FLAGS=$ADDITIONAL_FLAGS" >> $GITHUB_OUTPUT
 
       - name: Install dependencies
-        run: pnpm i && pnpm build && cd examples/node-${{ matrix.type }} && pnpm i
+        run: pnpm i && pnpm build
 
       - name: kysely -v
         working-directory: examples/node-${{ matrix.type }}
