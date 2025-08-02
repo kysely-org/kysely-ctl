@@ -1,4 +1,5 @@
 import { consola } from 'consola'
+import type { PackageManagerName } from 'nypm'
 import { ofetch } from 'ofetch'
 import type { PackageJson } from 'pkg-types'
 import { isCI } from 'std-env'
@@ -115,24 +116,42 @@ export async function printUpgradeNotice(
 		return
 	}
 
-	const packageManager = await getPackageManager(args)
+	const { command, name: packageManagerName } = await getPackageManager(args)
 
-	const installCommand = {
-		[packageManager.name]: 'install',
-		bun: 'add',
-		pnpm: 'add',
-		yarn: 'add',
-	}[packageManager.name]
+	const installGloballyCommand = (
+		{
+			bun: (name) => `add -g ${name}@latest`,
+			deno: (name) => `install -g -f npm:${name}@latest`,
+			npm: (name) => `i -g ${name}@latest`,
+			pnpm: (name) => `add -g ${name}@latest`,
+			// doesn't support global installs in modern versions.
+			yarn: (name) => `add -D ${name}@latest`,
+		} satisfies Record<PackageManagerName, (name: string) => string>
+	)[packageManagerName]
+
+	const installLocallyCommand = (
+		{
+			bun: (name) => `add -D ${name}@latest`,
+			deno: (name) => `install -D npm:${name}@latest`,
+			npm: (name) => `i -D ${name}@latest`,
+			pnpm: (name) => `add -D ${name}@latest`,
+			yarn: (name) => `add -D ${name}@latest`,
+		} satisfies Record<PackageManagerName, (name: string) => string>
+	)[packageManagerName]
+
+	consola.log(__dirname)
 
 	consola.box(
 		notices
 			.map(
 				([prettyName, name, latestVersion]) =>
 					`A new version of ${prettyName} is available: v${latestVersion}\nRun \`${
-						packageManager.command
-					} ${installCommand} ${
-						packageManager.name === 'deno' ? 'npm:' : ''
-					}${name}@latest\` to upgrade.`,
+						command
+					} ${
+						name === 'kysely-ctl'
+							? installGloballyCommand(name)
+							: installLocallyCommand(name)
+					}\` to upgrade.`,
 			)
 			.join('\n\n'),
 	)

@@ -60,7 +60,7 @@ bun add -g kysely-ctl
 #### Deno
 
 ```bash
-deno install -g npm:kysely-ctl
+deno install -g -f npm:kysely-ctl@latest
 ```
 </details>
 
