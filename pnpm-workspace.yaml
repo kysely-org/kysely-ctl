@@ -1,0 +1,5 @@
+packages:
+- ./examples/node-*
+
+onlyBuiltDependencies:
+- better-sqlite3
