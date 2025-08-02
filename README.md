@@ -10,30 +10,67 @@
 ![GitHub contributors](https://img.shields.io/github/contributors/kysely-org/kysely-ctl)
 [![Downloads](https://img.shields.io/npm/dw/kysely-ctl?logo=npm)](https://www.npmjs.com/package/kysely-ctl)
 
-###### Join the discussion ⠀⠀⠀⠀⠀⠀⠀ 
+###### Join the discussion ⠀⠀⠀⠀⠀⠀⠀
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=flat&logo=discord&logoColor=white)](https://discord.gg/xyBJ3GwvAm)
 [![Bluesky](https://img.shields.io/badge/Bluesky-0285FF?style=flat&logo=Bluesky&logoColor=white)](https://bsky.app/profile/kysely.dev)
 
-`kysely-ctl` is the official command-line tool for [Kysely](https://kysely.dev). 
-We strive to make it [TypeScript](https://www.typescriptlang.org/)-first, cross-platform 
-([macOS](https://www.apple.com/macos), [Linux](https://www.linux.org/), and [Windows](https://www.microsoft.com/en-us/windows)), 
-cross-runtime ([Node.js](https://nodejs.org/), [Bun](https://bun.sh/), and [Deno](https://deno.com/)), 
-and cross-module system ([ESM](https://nodejs.org/api/esm.html#modules-ecmascript-modules) 
-and [CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules)) compatible. 
+`kysely-ctl` is the official command-line tool for [Kysely](https://kysely.dev).
+We strive to make it [TypeScript](https://www.typescriptlang.org/)-first, cross-platform
+([macOS](https://www.apple.com/macos), [Linux](https://www.linux.org/), and [Windows](https://www.microsoft.com/en-us/windows)),
+cross-runtime ([Node.js](https://nodejs.org/), [Bun](https://bun.sh/), and [Deno](https://deno.com/)),
+and cross-module system ([ESM](https://nodejs.org/api/esm.html#modules-ecmascript-modules)
+and [CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules)) compatible.
 We also aim to have feature parity with [Knex.js](https://knexjs.org)'s CLI.
 
 > [!NOTE]
-> This is a work in progress. Please report any issues you encounter or suggest 
-any ideas you have in the [issues](https://github.com/kysely-org/kysely-ctl/issues) 
+> This is a work in progress. Please report any issues you encounter or suggest
+any ideas you have in the [issues](https://github.com/kysely-org/kysely-ctl/issues)
 section or in [kysely's discord server](https://discord.gg/xyBJ3GwvAm).
 
 ## Install
 
 ### Prerequisites:
 
-`kysely-ctl` requires `kysely` >= 0.18.1 to be installed.
+`kysely-ctl` requires `kysely` >= 0.18.1 to be installed in your project/s.
 
-### Node.js:
+### System-wide installation:
+
+<details>
+<summary>When installed globally, <code>kysely-ctl</code> will be available as <code>kysely</code> in your terminal,
+anywhere.</summary>
+
+#### Node.js:
+
+```bash
+npm i -g kysely-ctl
+```
+
+or:
+
+```bash
+pnpm add -g kysely-ctl
+```
+
+#### Bun
+
+```bash
+bun add -g kysely-ctl
+```
+
+#### Deno
+
+```bash
+deno install -g npm:kysely-ctl
+```
+</details>
+
+### Project-scoped installation:
+
+<details>
+<summary>Alternatively, you can install <code>kysely-ctl</code> in your project as a dev dependency,
+which will make it available as <code>kysely</code> in your project's <code>package.json</code>:</summary>
+
+#### Node.js:
 
 ```bash
 npm i -D kysely-ctl
@@ -51,24 +88,26 @@ or:
 pnpm add -D kysely-ctl
 ```
 
-### Bun
+#### Bun
 
 ```bash
 bun add -D kysely-ctl
 ```
 
-### Deno
+#### Deno
 
 ```bash
 deno add -D npm:kysely-ctl
 ```
+</details>
 
 ## Use
 
 ### Configuration
 
-Currently, a `kysely.config.ts` file is required, in the project root OR `.config` 
-folder. Run `kysely init` in your terminal to create one.
+<details>
+<summary>Currently, a <code>kysely.config.ts</code> file is required, in the project root OR <code>.config</code>
+folder. Run <code>kysely init</code> in your terminal to create one.</summary>
 
 ```ts
 import { defineConfig } from "kysely-ctl";
@@ -95,7 +134,8 @@ export default defineConfig({
 });
 ```
 
-Alternatively, you can pass a `Kysely` instance, instead of `dialect`, `dialectConfig` & `plugins`:
+Alternatively, you can pass a `Kysely` instance, instead of `dialect`, `dialectConfig`
+& `plugins`:
 
 ```ts
 import { defineConfig } from "kysely-ctl";
@@ -125,14 +165,21 @@ export default defineConfig({
 });
 ```
 
+#### Environment-specific configuration
+
+See [c12 docs](https://github.com/unjs/c12#environment-specific-configuration) and the following [example](https://github.com/kysely-org/kysely-ctl/blob/main/examples/node-esm-environments/.config/kysely.config.ts)
+
+</details>
+
 ### Commands
 
 For more information run `kysely -h` in your terminal.
 
 #### Migrate
 
-The `migrate` module mirrors [Knex.js](https://knexjs.org) CLI's module of the 
-same name.
+<details>
+<summary>The <code>migrate</code> module mirrors <a href="https://knexjs.org">Knex.js</a> CLI's module of the
+same name.</summary>
 
 ```bash
 knex migrate:<command>
@@ -151,13 +198,16 @@ kysely migrate <command>
 ```
 
 > [!NOTE]
-> `rollback` without `--all` flag is not supported, as [Kysely](https://kysely.dev) 
+> `rollback` without `--all` flag is not supported, as [Kysely](https://kysely.dev)
 doesn't keep track of "migration batches".
+
+</details>
 
 #### Seed
 
-The `seed` module mirrors [Knex.js](https://knexjs.org) CLI's module of the same 
-name.
+<details>
+<summary>The <code>seed</code> module mirrors <a href="https://knexjs.org">Knex.js</a> CLI's module of the same
+name.</summary>
 
 ```bash
 knex seed:<command>
@@ -176,12 +226,15 @@ kysely seed <command>
 ```
 
 > [!NOTE]
-> We also provide `kysely seed list`, which is not part of [Knex.js](https://knexjs.org) 
+> We also provide `kysely seed list`, which is not part of [Knex.js](https://knexjs.org)
 CLI.
+
+</details>
 
 #### SQL
 
-The `sql` module allows you to run SQL queries directly from the command line using the `kysely` instance.
+<details>
+<summary>The <code>sql</code> module allows you to run SQL queries directly from the command line using the <code>kysely</code> instance.</summary>
 
 Single-query:
 
@@ -196,7 +249,7 @@ kysely sql -f json
 
 ✔ sqlite ❯
 select 1;
-{                                                                                     
+{
   "rows": [
     {
       "1": 1
@@ -208,13 +261,11 @@ select 1;
 exit
 ```
 
-#### Environment-specific configuration
-
-See [c12 docs](https://github.com/unjs/c12#environment-specific-configuration) and the following [example](https://github.com/kysely-org/kysely-ctl/blob/main/examples/node-esm-environments/.config/kysely.config.ts)
+</details>
 
 ## Acknowledgements
 
-[acro5piano](https://github.com/acro5piano) who built [kysely-migration-cli](https://github.com/acro5piano/kysely-migration-cli) 
+[acro5piano](https://github.com/acro5piano) who built [kysely-migration-cli](https://github.com/acro5piano/kysely-migration-cli)
 and inspired this project.
 
 [UnJS](https://unjs.io)'s amazing tools that help power this project.
