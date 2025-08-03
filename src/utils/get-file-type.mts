@@ -13,6 +13,10 @@ export function getFileType(path: string) {
 		extension = `${char}${extension}`
 	}
 
+	if (extension === 'sql') {
+		return 'SQL'
+	}
+
 	if (
 		extension.length < 2 ||
 		path.charAt(lastIndex - i) !== '.' ||
