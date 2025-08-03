@@ -7,6 +7,7 @@ import { importTSFile } from '../utils/import-ts-file.mjs'
 import { isObject } from '../utils/is-object.mjs'
 import type { GetJitiArgs } from '../utils/jiti.mjs'
 import { safeReaddir } from '../utils/safe-readdir.mjs'
+import { parseSQLMigration } from './parse-sql-migration.mjs'
 
 /**
  * An opinionated migration provider that reads migrations from TypeScript files.
@@ -28,25 +29,28 @@ export class TSFileMigrationProvider implements MigrationProvider {
 		for (const fileName of files) {
 			const fileType = getFileType(fileName)
 
-			const isTS = fileType === 'TS'
+			if (fileType === 'IRRELEVANT') {
+				consola.warn(`Ignoring \`${fileName}\`.`)
+				continue
+			}
 
-			if (!isTS) {
-				if (!this.#props.allowJS) {
-					consola.warn(`Ignoring \`${fileName}\` - not a TS file.`)
-					continue
-				}
+			if (fileType === 'JS' && !this.#props.allowJS) {
+				consola.warn(`Ignoring \`${fileName}\` - JS files are not allowed.`)
+				continue
+			}
 
-				if (fileType !== 'JS') {
-					consola.warn(`Ignoring \`${fileName}\` - not a TS/JS file.`)
-					continue
-				}
+			if (fileType === 'SQL' && !this.#props.allowSQL) {
+				consola.warn(`Ignoring \`${fileName}\` - SQL files are not allowed.`)
+				continue
 			}
 
 			const filePath = join(this.#props.migrationFolder, fileName)
 
-			const migrationModule = await (isTS
-				? importTSFile(filePath, this.#props)
-				: import(filePath))
+			const migrationModule = await {
+				JS: () => import(filePath),
+				SQL: () => parseSQLMigration(filePath),
+				TS: () => importTSFile(filePath, this.#props),
+			}[fileType]()
 
 			const migrationKey = filename(fileName)
 
@@ -78,5 +82,6 @@ function isMigration(thing: unknown): thing is Migration {
 
 export interface TSFileMigrationProviderProps extends GetJitiArgs {
 	allowJS?: boolean
+	allowSQL?: boolean
 	migrationFolder: string
 }

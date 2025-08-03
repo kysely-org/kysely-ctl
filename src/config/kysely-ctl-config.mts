@@ -78,6 +78,7 @@ type MigratorfulMigrationsConfig = Pick<
 	'getMigrationPrefix'
 > & {
 	allowJS?: never
+	allowSQL?: never
 	migrationFolder?: never
 	// biome-ignore lint/suspicious/noExplicitAny: it's fine.
 	migrator: Factory<Migrator, [db: Kysely<any>]>
@@ -88,12 +89,14 @@ type MigratorlessMigrationsConfig = MigrationsBaseConfig &
 	(
 		| {
 				allowJS?: boolean
+				allowSQL?: boolean
 				migrationFolder?: string
 				migrator?: never
 				provider?: never
 		  }
 		| {
 				allowJS?: never
+				allowSQL?: never
 				migrationFolder?: never
 				migrator?: never
 				provider: OrFactory<MigrationProvider>
@@ -102,6 +105,7 @@ type MigratorlessMigrationsConfig = MigrationsBaseConfig &
 
 type SeederfulSeedsConfig = Pick<SeedsBaseConfig, 'getSeedPrefix'> & {
 	allowJS?: never
+	allowSQL?: never
 	provider?: never
 	// biome-ignore lint/suspicious/noExplicitAny: it's fine.
 	seeder: Factory<Seeder, [db: Kysely<any>]>
@@ -112,12 +116,14 @@ type SeederlessSeedsConfig = SeedsBaseConfig &
 	(
 		| {
 				allowJS?: boolean
+				allowSQL?: boolean
 				provider?: never
 				seeder?: never
 				seedFolder?: string
 		  }
 		| {
 				allowJS?: never
+				allowSQL?: never
 				provider: OrFactory<SeedProvider>
 				seeder?: never
 				seedFolder?: never
@@ -138,6 +144,7 @@ export interface ResolvedKyselyCTLConfig {
 	kysely?: OrFactory<Kysely<any>>
 	migrations: SetRequired<MigrationsBaseConfig, 'getMigrationPrefix'> & {
 		allowJS: boolean
+		allowSQL: boolean
 		migrationFolder: string
 		// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 		migrator?: Factory<Migrator, [db: Kysely<any>]>
@@ -146,6 +153,7 @@ export interface ResolvedKyselyCTLConfig {
 	plugins?: OrFactory<KyselyPlugin[]>
 	seeds: SetRequired<SeedsBaseConfig, 'getSeedPrefix'> & {
 		allowJS: boolean
+		allowSQL: boolean
 		provider?: OrFactory<SeedProvider>
 		// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 		seeder?: Factory<Seeder, [db: Kysely<any>]>
