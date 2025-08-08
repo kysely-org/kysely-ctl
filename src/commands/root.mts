@@ -74,7 +74,11 @@ export const RootCommand = {
 			await showUsage(context.cmd)
 		}
 
-		await printUpgradeNotice(args)
+		try {
+			await printUpgradeNotice(args)
+		} catch (error) {
+			consola.debug('Failed to print upgrade notice:', error)
+		}
 
 		consola.debug(`finished running from "${__filename}"`)
 	},
