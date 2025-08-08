@@ -1,8 +1,8 @@
+import { consola } from 'consola'
 import type { Jiti, JitiOptions } from 'jiti'
-import { join } from 'pathe'
+import { resolve } from 'pathe'
 import { runtime } from 'std-env'
 import type { CompilerOptions } from 'typescript'
-import { getCWD } from '../config/get-cwd.mjs'
 import { getTSConfig } from './tsconfig.mjs'
 
 export interface GetJitiArgs {
@@ -14,6 +14,8 @@ export interface GetJitiArgs {
 export async function getJiti(args: GetJitiArgs): Promise<Jiti> {
 	const jitiOptions = await getJitiOptions(args)
 
+	consola.debug('jitiOptions', jitiOptions)
+
 	const { createJiti } = await import('jiti')
 
 	return createJiti(import.meta.url, jitiOptions)
@@ -22,7 +24,7 @@ export async function getJiti(args: GetJitiArgs): Promise<Jiti> {
 async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 	return {
 		alias: args.experimentalResolveTSConfigPaths
-			? await getJitiAlias()
+			? await getJitiAliasFromTSConfig()
 			: undefined,
 		debug: Boolean(args.debug),
 		fsCache: Boolean(args.filesystemCaching),
@@ -31,9 +33,11 @@ async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 	}
 }
 
-async function getJitiAlias(): Promise<Record<string, string>> {
+async function getJitiAliasFromTSConfig(): Promise<Record<string, string>> {
 	try {
-		const tsconfig = await getTSConfig()
+		const { filepath, tsconfig } = await getTSConfig()
+
+		consola.debug(filepath, tsconfig)
 
 		const { baseUrl, paths } = (tsconfig.compilerOptions ||
 			{}) as CompilerOptions
@@ -41,8 +45,6 @@ async function getJitiAlias(): Promise<Record<string, string>> {
 		if (!paths) {
 			return {}
 		}
-
-		const cwd = getCWD()
 
 		const jitiAlias: Record<string, string> = {}
 
@@ -52,7 +54,7 @@ async function getJitiAlias(): Promise<Record<string, string>> {
 			}
 
 			jitiAlias[removeWildcards(alias)] = removeWildcards(
-				join(cwd, baseUrl || '.', path),
+				resolve(filepath, baseUrl || '.', path),
 			)
 		}
 

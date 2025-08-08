@@ -1,10 +1,26 @@
-import { readTSConfig, type TSConfig } from 'pkg-types'
+import { join } from 'pathe'
+import type { TSConfig } from 'pkg-types'
+import {
+	parse,
+	TSConfckCache,
+	type TSConfckParseNativeResult,
+	type TSConfckParseResult,
+} from 'tsconfck'
 import { getCWD } from '../config/get-cwd.mjs'
 
-let tsconfig: TSConfig
+export interface TSConfigWithPath {
+	filepath: string
+	tsconfig: TSConfig
+}
 
-export async function getTSConfig(): Promise<TSConfig> {
-	return (tsconfig ||= await readTSConfig(undefined, {
-		from: getCWD(),
-	}))
+const cache = new TSConfckCache<
+	TSConfckParseResult | TSConfckParseNativeResult
+>()
+
+export async function getTSConfig(): Promise<TSConfigWithPath> {
+	const { tsconfig, tsconfigFile } = await parse(join(getCWD(), 'index.ts'), {
+		cache,
+	})
+
+	return { filepath: tsconfigFile, tsconfig }
 }
