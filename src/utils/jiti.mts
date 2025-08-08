@@ -7,7 +7,6 @@ import { getTSConfig } from './tsconfig.mjs'
 
 export interface GetJitiArgs {
 	debug?: boolean
-	experimentalResolveSvelteAliases?: boolean
 	experimentalResolveTSConfigPaths?: boolean
 	filesystemCaching?: boolean
 }
