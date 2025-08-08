@@ -1,3 +1,4 @@
+import consola from 'consola'
 import type { Jiti, JitiOptions } from 'jiti'
 import { join } from 'pathe'
 import { runtime } from 'std-env'
@@ -34,6 +35,8 @@ async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 async function getJitiAliasFromTSConfig(): Promise<Record<string, string>> {
 	try {
 		const { filepath, tsconfig } = await getTSConfig()
+
+		consola.debug(filepath, tsconfig)
 
 		const { baseUrl, paths } = (tsconfig.compilerOptions ||
 			{}) as CompilerOptions
