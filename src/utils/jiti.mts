@@ -2,8 +2,6 @@ import type { Jiti, JitiOptions } from 'jiti'
 import { join } from 'pathe'
 import { runtime } from 'std-env'
 import type { CompilerOptions } from 'typescript'
-import { getCWD } from '../config/get-cwd.mjs'
-import { getSvelteConfig } from './svelte-config.mjs'
 import { getTSConfig } from './tsconfig.mjs'
 
 export interface GetJitiArgs {
@@ -25,9 +23,7 @@ async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 	return {
 		alias: args.experimentalResolveTSConfigPaths
 			? await getJitiAliasFromTSConfig()
-			: args.experimentalResolveSvelteAliases
-				? await getJitiAliasFromSvelteConfig()
-				: undefined,
+			: undefined,
 		debug: Boolean(args.debug),
 		fsCache: Boolean(args.filesystemCaching),
 		jsx: true,
