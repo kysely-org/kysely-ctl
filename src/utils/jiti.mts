@@ -3,10 +3,12 @@ import { join } from 'pathe'
 import { runtime } from 'std-env'
 import type { CompilerOptions } from 'typescript'
 import { getCWD } from '../config/get-cwd.mjs'
+import { getSvelteConfig } from './svelte-config.mjs'
 import { getTSConfig } from './tsconfig.mjs'
 
 export interface GetJitiArgs {
 	debug?: boolean
+	experimentalResolveSvelteAliases?: boolean
 	experimentalResolveTSConfigPaths?: boolean
 	filesystemCaching?: boolean
 }
@@ -22,8 +24,10 @@ export async function getJiti(args: GetJitiArgs): Promise<Jiti> {
 async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 	return {
 		alias: args.experimentalResolveTSConfigPaths
-			? await getJitiAlias()
-			: undefined,
+			? await getJitiAliasFromTSConfig()
+			: args.experimentalResolveSvelteAliases
+				? await getJitiAliasFromSvelteConfig()
+				: undefined,
 		debug: Boolean(args.debug),
 		fsCache: Boolean(args.filesystemCaching),
 		jsx: true,
@@ -31,9 +35,9 @@ async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 	}
 }
 
-async function getJitiAlias(): Promise<Record<string, string>> {
+async function getJitiAliasFromTSConfig(): Promise<Record<string, string>> {
 	try {
-		const tsconfig = await getTSConfig()
+		const { filepath, tsconfig } = await getTSConfig()
 
 		const { baseUrl, paths } = (tsconfig.compilerOptions ||
 			{}) as CompilerOptions
@@ -41,8 +45,6 @@ async function getJitiAlias(): Promise<Record<string, string>> {
 		if (!paths) {
 			return {}
 		}
-
-		const cwd = getCWD()
 
 		const jitiAlias: Record<string, string> = {}
 
@@ -52,7 +54,7 @@ async function getJitiAlias(): Promise<Record<string, string>> {
 			}
 
 			jitiAlias[removeWildcards(alias)] = removeWildcards(
-				join(cwd, baseUrl || '.', path),
+				join(filepath, baseUrl || '.', path),
 			)
 		}
 
