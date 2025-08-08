@@ -14,6 +14,8 @@ export interface GetJitiArgs {
 export async function getJiti(args: GetJitiArgs): Promise<Jiti> {
 	const jitiOptions = await getJitiOptions(args)
 
+	consola.debug('jitiOptions', jitiOptions)
+
 	const { createJiti } = await import('jiti')
 
 	return createJiti(import.meta.url, jitiOptions)
