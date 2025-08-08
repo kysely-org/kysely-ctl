@@ -1,0 +1,18 @@
+{
+	"name": "node-esm-tsconfig-paths-inherited",
+	"type": "module",
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "^6.0.2",
+		"@sveltejs/kit": "^2.27.3",
+		"@sveltejs/vite-plugin-svelte": "^6.1.0",
+		"@types/better-sqlite3": "7.6.13",
+		"kysely-ctl": "link:../..",
+		"svelte": "^5.38.0",
+		"typescript": "^5.9.2",
+		"vite": "^7.1.1"
+	},
+	"dependencies": {
+		"better-sqlite3": "12.2.0",
+		"kysely": "0.28.4"
+	}
+}
