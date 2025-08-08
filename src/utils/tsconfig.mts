@@ -1,3 +1,4 @@
+import { join } from 'pathe'
 import type { TSConfig } from 'pkg-types'
 import {
 	parse,
@@ -17,7 +18,9 @@ const cache = new TSConfckCache<
 >()
 
 export async function getTSConfig(): Promise<TSConfigWithPath> {
-	const { tsconfig, tsconfigFile } = await parse(getCWD(), { cache })
+	const { tsconfig, tsconfigFile } = await parse(join(getCWD(), 'index.ts'), {
+		cache,
+	})
 
 	return { filepath: tsconfigFile, tsconfig }
 }
