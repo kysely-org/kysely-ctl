@@ -1,6 +1,6 @@
 import { consola } from 'consola'
 import type { Jiti, JitiOptions } from 'jiti'
-import { join } from 'pathe'
+import { resolve } from 'pathe'
 import { runtime } from 'std-env'
 import type { CompilerOptions } from 'typescript'
 import { getTSConfig } from './tsconfig.mjs'
@@ -52,7 +52,7 @@ async function getJitiAliasFromTSConfig(): Promise<Record<string, string>> {
 			}
 
 			jitiAlias[removeWildcards(alias)] = removeWildcards(
-				join(filepath, baseUrl || '.', path),
+				resolve(filepath, baseUrl || '.', path),
 			)
 		}
 
