@@ -35,4 +35,4 @@ jobs:
         run: npm i -g npm@latest && pnpm i
 
       - name: Publish
-        run: pnpm publish
+        run: pnpm publish --no-git-checks # the workflow runs in a detached head state, so git checks fail
