@@ -1,4 +1,4 @@
-import consola from 'consola'
+import { consola } from 'consola'
 import type { Jiti, JitiOptions } from 'jiti'
 import { join } from 'pathe'
 import { runtime } from 'std-env'
