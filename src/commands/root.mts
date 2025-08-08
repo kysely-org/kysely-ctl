@@ -59,7 +59,7 @@ export const RootCommand = {
 
 		consola.options.formatOptions.date = false
 
-		getCWD(args) // ensures the CWD is set
+		consola.debug('cwd', getCWD(args)) // ensures the CWD is set
 	},
 	async run(context) {
 		const { args } = context
