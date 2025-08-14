@@ -214,6 +214,22 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
 
+  examples/node-esm-tsconfig-paths-no-baseurl:
+    dependencies:
+      better-sqlite3:
+        specifier: 12.2.0
+        version: 12.2.0
+      kysely:
+        specifier: 0.28.4
+        version: 0.28.4
+    devDependencies:
+      '@types/better-sqlite3':
+        specifier: 7.6.13
+        version: 7.6.13
+      kysely-ctl:
+        specifier: link:../..
+        version: link:../..
+
 packages:
 
   '@andrewbranch/untar.js@1.0.3':
