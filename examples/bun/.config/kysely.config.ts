@@ -1,4 +1,4 @@
-// @ts-ignore no idea why it can't find the module despite @types/bun being installed
+// @ts-expect-error no idea why it can't find the module despite @types/bun being installed
 import { Database } from 'bun:sqlite'
 import { BunSqliteDialect } from 'kysely-bun-sqlite'
 import { defineConfig } from 'kysely-ctl'

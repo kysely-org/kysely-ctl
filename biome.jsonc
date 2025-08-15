@@ -4,12 +4,13 @@
 		"includes": [
 			"**",
 			"!**/.vscode",
+			"!**/examples/**/.svelte-kit",
 			"!**/examples/**/migrations",
 			"!**/examples/**/seeds",
 			"!**/package.json",
 			"!**/tsconfig*.json",
-			"!src/templates/**",
-			"!**/vendor/**"
+			"!src/templates",
+			"!**/vendor"
 		]
 	},
 	"javascript": {
