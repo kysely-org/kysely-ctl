@@ -7,7 +7,7 @@ settings:
 overrides:
   '@types/better-sqlite3': 7.6.13
   better-sqlite3: 12.2.0
-  kysely: 0.28.4
+  kysely: 0.28.5
 
 importers:
 
@@ -66,11 +66,11 @@ importers:
         specifier: 12.2.0
         version: 12.2.0
       kysely:
-        specifier: 0.28.4
-        version: 0.28.4
+        specifier: 0.28.5
+        version: 0.28.5
       kysely-postgres-js:
         specifier: ^2.0.0
-        version: 2.0.0(kysely@0.28.4)(postgres@3.4.7)
+        version: 2.0.0(kysely@0.28.5)(postgres@3.4.7)
       postgres:
         specifier: ^3.4.7
         version: 3.4.7
@@ -93,8 +93,8 @@ importers:
         specifier: 12.2.0
         version: 12.2.0
       kysely:
-        specifier: 0.28.4
-        version: 0.28.4
+        specifier: 0.28.5
+        version: 0.28.5
     devDependencies:
       '@types/better-sqlite3':
         specifier: 7.6.13
@@ -109,8 +109,8 @@ importers:
         specifier: 12.2.0
         version: 12.2.0
       kysely:
-        specifier: 0.28.4
-        version: 0.28.4
+        specifier: 0.28.5
+        version: 0.28.5
     devDependencies:
       '@types/better-sqlite3':
         specifier: 7.6.13
@@ -125,8 +125,8 @@ importers:
         specifier: 12.2.0
         version: 12.2.0
       kysely:
-        specifier: 0.28.4
-        version: 0.28.4
+        specifier: 0.28.5
+        version: 0.28.5
     devDependencies:
       '@types/better-sqlite3':
         specifier: 7.6.13
@@ -144,8 +144,8 @@ importers:
         specifier: 12.2.0
         version: 12.2.0
       kysely:
-        specifier: 0.28.4
-        version: 0.28.4
+        specifier: 0.28.5
+        version: 0.28.5
       react:
         specifier: ^19.1.1
         version: 19.1.1
@@ -157,8 +157,8 @@ importers:
         specifier: 7.6.13
         version: 7.6.13
       '@types/react':
-        specifier: ^19.1.8
-        version: 19.1.9
+        specifier: ^19.1.10
+        version: 19.1.10
       kysely-ctl:
         specifier: link:../..
         version: link:../..
@@ -169,8 +169,8 @@ importers:
         specifier: 12.2.0
         version: 12.2.0
       kysely:
-        specifier: 0.28.4
-        version: 0.28.4
+        specifier: 0.28.5
+        version: 0.28.5
     devDependencies:
       '@types/better-sqlite3':
         specifier: 7.6.13
@@ -185,8 +185,8 @@ importers:
         specifier: 12.2.0
         version: 12.2.0
       kysely:
-        specifier: 0.28.4
-        version: 0.28.4
+        specifier: 0.28.5
+        version: 0.28.5
     devDependencies:
       '@types/better-sqlite3':
         specifier: 7.6.13
@@ -201,8 +201,8 @@ importers:
         specifier: 12.2.0
         version: 12.2.0
       kysely:
-        specifier: 0.28.4
-        version: 0.28.4
+        specifier: 0.28.5
+        version: 0.28.5
     devDependencies:
       '@types/better-sqlite3':
         specifier: 7.6.13
@@ -220,8 +220,8 @@ importers:
         specifier: 12.2.0
         version: 12.2.0
       kysely:
-        specifier: 0.28.4
-        version: 0.28.4
+        specifier: 0.28.5
+        version: 0.28.5
     devDependencies:
       '@types/better-sqlite3':
         specifier: 7.6.13
@@ -1005,8 +1005,8 @@ packages:
   '@types/node@24.2.1':
     resolution: {integrity: sha512-DRh5K+ka5eJic8CjH7td8QpYEV6Zo10gfRkjHCO3weqZHWDtAaSTFtl4+VMqOJ4N5jcuhZ9/l+yy8rVgw7BQeQ==}
 
-  '@types/react@19.1.9':
-    resolution: {integrity: sha512-WmdoynAX8Stew/36uTSVMcLJJ1KRh6L3IZRx1PZ7qJtBqT3dYTgyDTx8H1qoRghErydW7xw9mSJ3wS//tCRpFA==}
+  '@types/react@19.1.10':
+    resolution: {integrity: sha512-EhBeSYX0Y6ye8pNebpKrwFJq7BoQ8J5SO6NlvNwwHjSj6adXJViPQrKlsyPw7hLBLvckEMO1yxeGdR82YBBlDg==}
 
   '@typescript/analyze-trace@0.10.1':
     resolution: {integrity: sha512-RnlSOPh14QbopGCApgkSx5UBgGda5MX1cHqp2fsqfiDyCwGL/m1jaeB9fzu7didVS81LQqGZZuxFBcg8YU8EVw==}
@@ -1682,11 +1682,11 @@ packages:
   kysely-postgres-js@2.0.0:
     resolution: {integrity: sha512-R1tWx6/x3tSatWvsmbHJxpBZYhNNxcnMw52QzZaHKg7ZOWtHib4iZyEaw4gb2hNKVctWQ3jfMxZT/ZaEMK6kBQ==}
     peerDependencies:
-      kysely: 0.28.4
+      kysely: 0.28.5
       postgres: '>= 3.4.0 < 4'
 
-  kysely@0.28.4:
-    resolution: {integrity: sha512-pfQj8/Bo3KSzC1HIZB5MeeYRWcDmx1ZZv8H25LsyeygqXE+gfsbUAgPT1GSYZFctB1cdOVlv+OifuCls2mQSnw==}
+  kysely@0.28.5:
+    resolution: {integrity: sha512-rlB0I/c6FBDWPcQoDtkxi9zIvpmnV5xoIalfCMSMCa7nuA6VGA3F54TW9mEgX4DVf10sXAWCF5fDbamI/5ZpKA==}
     engines: {node: '>=20.0.0'}
 
   lilconfig@3.1.2:
@@ -3034,7 +3034,7 @@ snapshots:
     dependencies:
       undici-types: 7.10.0
 
-  '@types/react@19.1.9':
+  '@types/react@19.1.10':
     dependencies:
       csstype: 3.1.3
 
@@ -3847,12 +3847,12 @@ snapshots:
       jsonparse: 1.3.1
       through2: 4.0.2
 
-  kysely-postgres-js@2.0.0(kysely@0.28.4)(postgres@3.4.7):
+  kysely-postgres-js@2.0.0(kysely@0.28.5)(postgres@3.4.7):
     dependencies:
-      kysely: 0.28.4
+      kysely: 0.28.5
       postgres: 3.4.7
 
-  kysely@0.28.4: {}
+  kysely@0.28.5: {}
 
   lilconfig@3.1.2: {}
 
