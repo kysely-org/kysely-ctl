@@ -20,11 +20,12 @@ const cache = new TSConfckCache<
 
 export async function getTSConfigs(): Promise<{
 	configs: TSConfigWithPath[]
-	merged: TSConfig
+	merged: TSConfig | undefined | null
 }> {
-	const { extended, tsconfig } = await parse(join(getCWD(), 'index.ts'), {
-		cache,
-	})
+	const { extended, tsconfig, tsconfigFile } = await parse(
+		join(getCWD(), 'index.ts'),
+		{ cache },
+	)
 
 	consola.debug('extended', JSON.stringify(extended, null, 2))
 	consola.debug('tsconfig', JSON.stringify(tsconfig, null, 2))
@@ -34,7 +35,7 @@ export async function getTSConfigs(): Promise<{
 			extended?.map((result) => ({
 				filepath: result.tsconfigFile,
 				tsconfig: result.tsconfig,
-			})) || [],
+			})) || (tsconfig ? [{ filepath: tsconfigFile, tsconfig }] : []),
 		merged: tsconfig,
 	}
 }
