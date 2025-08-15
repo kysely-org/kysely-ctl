@@ -7,6 +7,7 @@ import { DebugArg } from '../arguments/debug.mjs'
 import { assertExtension, ExtensionArg } from '../arguments/extension.mjs'
 import { NoOutdatedCheckArg } from '../arguments/no-outdated-check.mjs'
 import { configFileExists, getConfig } from '../config/get-config.mjs'
+import { getCWD } from '../config/get-cwd.mjs'
 import { getTemplateExtension } from '../utils/get-template-extension.mjs'
 
 const args = {
@@ -39,7 +40,7 @@ export const InitCommand = {
 
 			assertExtension(extension)
 
-			const configFolderPath = join(config.cwd, '.config')
+			const configFolderPath = join(getCWD(), '.config')
 
 			consola.debug('Config folder path:', configFolderPath)
 
