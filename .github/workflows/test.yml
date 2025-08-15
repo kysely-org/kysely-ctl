@@ -80,10 +80,6 @@ jobs:
             ADDITIONAL_FLAGS+=" --experimental-resolve-tsconfig-paths"
           fi
 
-          if [[ ${{ matrix.os }} == 'windows-latest' ]]; then
-            ADDITIONAL_FLAGS+=" --cwd=%cd%"
-          fi
-
           if [[ ${{ matrix.type}} == 'esm-environments' ]]; then
             ADDITIONAL_FLAGS+=" -e lib2"
           fi
@@ -118,6 +114,10 @@ jobs:
       - name: kysely migrate:rollback --all ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
         working-directory: examples/node-${{ matrix.type }}
         run: pnpm kysely migrate:rollback --all ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+
+      - name: kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }} (nearest config search)
+        working-directory: examples/node-${{ matrix.type }}/${{ startsWith(matrix.type, 'esm-environments') && 'packages' || 'migrations' }}
+        run: pnpm kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
   bun:
     runs-on: ubuntu-latest
@@ -168,6 +168,10 @@ jobs:
         working-directory: examples/bun
         run: bun --bun kysely migrate:rollback --all --debug
 
+      - name: kysely migrate:list (nearest config search)
+        working-directory: examples/bun/migrations
+        run: bun --bun kysely migrate:list --debug
+
   deno:
     strategy:
       matrix:
@@ -204,7 +208,8 @@ jobs:
 
       - name: Install example dependencies
         if: matrix.config-flavor != 'no-config'
-        run: cd examples/deno-${{ matrix.config-flavor }} && deno install --node-modules-dir && cd ../.. && pnpx tsx ./scripts/localize-deno-dependency.mts
+        working-directory: examples/deno-${{ matrix.config-flavor }}
+        run: deno install --node-modules-dir
 
       - name: kysely -v
         working-directory: examples/deno-${{ matrix.config-flavor }}
@@ -225,3 +230,7 @@ jobs:
       - name: kysely migrate:rollback --all
         working-directory: examples/deno-${{ matrix.config-flavor }}
         run: deno task kysely migrate:rollback --all --debug
+
+      - name: kysely migrate:list (nearest config search)
+        working-directory: examples/deno-${{ matrix.config-flavor }}/migrations
+        run: deno task kysely migrate:list --debug
