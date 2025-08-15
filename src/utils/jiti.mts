@@ -1,9 +1,9 @@
 import { consola } from 'consola'
 import type { Jiti, JitiOptions } from 'jiti'
-import { resolve } from 'pathe'
+import { dirname, resolve } from 'pathe'
 import { runtime } from 'std-env'
 import type { CompilerOptions } from 'typescript'
-import { getTSConfig } from './tsconfig.mjs'
+import { getTSConfigs, type TSConfigWithPath } from './tsconfig.mjs'
 
 export interface GetJitiArgs {
 	debug?: boolean
@@ -35,16 +35,24 @@ async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 
 async function getJitiAliasFromTSConfig(): Promise<Record<string, string>> {
 	try {
-		const { filepath, tsconfig } = await getTSConfig()
+		const { configs, merged } = await getTSConfigs()
 
-		consola.debug(filepath, tsconfig)
+		if (!configs.length) {
+			return {}
+		}
 
-		const { baseUrl, paths } = (tsconfig.compilerOptions ||
-			{}) as CompilerOptions
+		const { filepath, paths } = resolvePaths(configs) || {}
+
+		consola.debug('filepath', filepath)
+		consola.debug('paths', JSON.stringify(paths, null, 2))
 
 		if (!paths) {
 			return {}
 		}
+
+		const { baseUrl = '.' } = (merged.compilerOptions || {}) as CompilerOptions
+		// biome-ignore lint/style/noNonNullAssertion: paths != null => filepath != null
+		const dirpath = dirname(filepath!)
 
 		const jitiAlias: Record<string, string> = {}
 
@@ -54,7 +62,7 @@ async function getJitiAliasFromTSConfig(): Promise<Record<string, string>> {
 			}
 
 			jitiAlias[removeWildcards(alias)] = removeWildcards(
-				resolve(filepath, baseUrl || '.', path),
+				resolve(dirpath, baseUrl, path),
 			)
 		}
 
@@ -62,6 +70,25 @@ async function getJitiAliasFromTSConfig(): Promise<Record<string, string>> {
 	} catch {
 		return {}
 	}
+}
+
+function resolvePaths(results: TSConfigWithPath[]): {
+	filepath: string
+	paths: NonNullable<CompilerOptions['paths']>
+} | null {
+	for (const result of results) {
+		const { filepath, tsconfig } = result
+		const { paths } = (tsconfig.compilerOptions || {}) as CompilerOptions
+
+		if (paths) {
+			return {
+				filepath,
+				paths,
+			}
+		}
+	}
+
+	return null
 }
 
 function removeWildcards(path: string): string {
