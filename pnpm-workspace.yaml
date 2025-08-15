@@ -8,4 +8,4 @@ onlyBuiltDependencies:
 overrides:
   "@types/better-sqlite3": "7.6.13"
   better-sqlite3: "12.2.0"
-  kysely: "0.28.4"
+  kysely: "0.28.5"
