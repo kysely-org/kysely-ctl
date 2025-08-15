@@ -50,7 +50,7 @@ async function getJitiAliasFromTSConfig(): Promise<Record<string, string>> {
 			return {}
 		}
 
-		const { baseUrl = '.' } = (merged.compilerOptions || {}) as CompilerOptions
+		const { baseUrl = '.' } = (merged?.compilerOptions || {}) as CompilerOptions
 		// biome-ignore lint/style/noNonNullAssertion: paths != null => filepath != null
 		const dirpath = dirname(filepath!)
 
