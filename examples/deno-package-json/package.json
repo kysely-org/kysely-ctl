@@ -1,7 +1,8 @@
 {
 	"name": "deno-package-json",
 	"scripts": {
-		"kysely": "kysely"
+		"kysely": "kysely",
+		"prekysely": "pnpx tsx ../../scripts/localize-deno-dependency.mts"
 	},
 	"devDependencies": {
 		"kysely-ctl": "^0.12.2"

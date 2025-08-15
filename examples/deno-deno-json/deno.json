@@ -1,6 +1,7 @@
 {
 	"tasks": {
-		"kysely": "deno run -A ../../dist/bin.js"
+		"kysely": "deno run -A ../../dist/bin.js",
+		"prekysely": "pnpx tsx ../../scripts/localize-deno-dependency.mts"
 	},
 	"imports": {
 		"@jsr/db__sqlite": "npm:@jsr/db__sqlite@^0.12.0",

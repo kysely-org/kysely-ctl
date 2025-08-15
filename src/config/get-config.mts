@@ -1,5 +1,7 @@
 import { loadConfig } from 'c12'
 import { consola } from 'consola'
+import { dirname } from 'pathe'
+import { findNearestFile } from 'pkg-types'
 import { getJiti } from '../utils/jiti.mjs'
 import { getCWD } from './get-cwd.mjs'
 import { getMillisPrefix } from './get-file-prefix.mjs'
@@ -20,7 +22,7 @@ export interface GetConfigArgs {
 
 export async function getConfig(
 	args: GetConfigArgs,
-): Promise<ResolvedKyselyCTLConfig> {
+): Promise<ResolvedKyselyCTLConfig | null> {
 	const cwd = getCWD(args)
 
 	const jiti = await getJiti({
@@ -30,8 +32,14 @@ export async function getConfig(
 			args['experimental-resolve-tsconfig-paths'],
 	})
 
+	const configPath = await findNearestKyselyConfigPath()
+
+	if (!configPath) {
+		return null
+	}
+
 	const loadedConfig = await loadConfig<KyselyCTLConfig>({
-		cwd,
+		cwd: configPath,
 		dotenv: true,
 		envName: args.environment,
 		jiti,
@@ -41,7 +49,7 @@ export async function getConfig(
 		rcFile: false,
 	})
 
-	consola.debug(loadedConfig)
+	consola.debug('loadedConfig', loadedConfig)
 
 	const { config, ...configMetadata } = loadedConfig
 
@@ -69,20 +77,50 @@ export async function getConfig(
 	} as never
 }
 
-export function configFileExists(config: ResolvedKyselyCTLConfig): boolean {
-	const { configFile } = config.configMetadata
-
-	return configFile !== undefined && configFile !== 'kysely.config'
-}
-
 export async function getConfigOrFail(
 	args: GetConfigArgs,
 ): Promise<ResolvedKyselyCTLConfig> {
 	const config = await getConfig(args)
 
 	if (!configFileExists(config)) {
-		throw new Error('No config file found')
+		throw new Error(
+			'No config file found. Try creating one by running `kysely init`.',
+		)
 	}
 
 	return config
+}
+
+export function configFileExists(
+	config: ResolvedKyselyCTLConfig | null,
+): config is ResolvedKyselyCTLConfig {
+	if (!config) {
+		return false
+	}
+
+	const { configFile } = config.configMetadata
+
+	return configFile !== undefined && configFile !== 'kysely.config'
+}
+
+async function findNearestKyselyConfigPath(): Promise<string | null> {
+	try {
+		const kyselyConfigPath = await findNearestFile(
+			[
+				'.config/kysely.config.ts',
+				'kysely.config.ts',
+				'.config/kysely.config.mts',
+				'kysely.config.mts',
+				'.config/kysely.config.cts',
+				'kysely.config.cts',
+			],
+			{ startingFrom: getCWD() },
+		)
+
+		consola.debug('found kysely config file at', kyselyConfigPath)
+
+		return dirname(kyselyConfigPath)
+	} catch {
+		return null
+	}
 }
