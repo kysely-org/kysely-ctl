@@ -1,4 +1,4 @@
-import consola from 'consola'
+import { consola } from 'consola'
 import { join } from 'pathe'
 import type { TSConfig } from 'pkg-types'
 import {
