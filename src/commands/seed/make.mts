@@ -33,25 +33,21 @@ const BaseMakeCommand = {
 
 		assertExtension(extension, config, 'seeds')
 
-		const seedsFolderPath = join(config.cwd, config.seeds.seedFolder)
-
-		consola.debug('Seeds folder path:', seedsFolderPath)
+		const { getSeedPrefix, seedFolder } = config.seeds
 
 		const wasSeedsFolderCreated = Boolean(
-			await mkdir(seedsFolderPath, { recursive: true }),
+			await mkdir(seedFolder, { recursive: true }),
 		)
 
 		if (wasSeedsFolderCreated) {
 			consola.debug('Seeds folder created')
 		}
 
-		const filename = `${await config.seeds.getSeedPrefix()}${
-			args.seed_name
-		}.${extension}`
+		const filename = `${await getSeedPrefix()}${args.seed_name}.${extension}`
 
 		consola.debug('Filename:', filename)
 
-		const filePath = join(seedsFolderPath, filename)
+		const filePath = join(seedFolder, filename)
 
 		consola.debug('File path:', filePath)
 

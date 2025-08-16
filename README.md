@@ -119,7 +119,7 @@ export default defineConfig({
   migrations: { // optional.
     allowJS, // optional. controls whether `.js`, `.cjs` or `.mjs` migrations are allowed. default is `false`.
     getMigrationPrefix, // optional. a function that returns a migration prefix. affects `migrate make` command. default is `() => ${Date.now()}_`.
-    migrationFolder, // optional. name of migrations folder. default is `'migrations'`.
+    migrationFolder, // optional. path to where migration files are located. default is a folder named "migrations" next to the config file/folder.
     migrator, // optional. a `Kysely` migrator instance factory of shape `(db: Kysely<any>) => Migrator | Promise<Migrator>`. default is `Kysely`'s `Migrator`.
     provider, // optional. a `Kysely` migration provider instance. default is `kysely-ctl`'s `TSFileMigrationProvider`.
   },
@@ -129,7 +129,7 @@ export default defineConfig({
     getSeedPrefix, // optional. a function that returns a seed prefix. affects `seed make` command. default is `() => ${Date.now()}_`.
     provider, // optional. a seed provider instance. default is `kysely-ctl`'s `FileSeedProvider`.
     seeder, // optional. a seeder instance factory of shape `(db: Kysely<any>) => Seeder | Promise<Seeder>`. default is `kysely-ctl`'s `Seeder`.
-    seedFolder, // optional. name of seeds folder. default is `'seeds'`.
+    seedFolder, // optional. path to where seed files are located. default is a folder named "seeds" next to the config file/folder.
   }
 });
 ```

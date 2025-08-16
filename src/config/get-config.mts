@@ -1,6 +1,6 @@
 import { loadConfig } from 'c12'
 import { consola } from 'consola'
-import { dirname } from 'pathe'
+import { dirname, resolve } from 'pathe'
 import { findNearestFile } from 'pkg-types'
 import { getJiti } from '../utils/jiti.mjs'
 import { getCWD } from './get-cwd.mjs'
@@ -23,7 +23,11 @@ export interface GetConfigArgs {
 export async function getConfig(
 	args: GetConfigArgs,
 ): Promise<ResolvedKyselyCTLConfig | null> {
-	const cwd = getCWD(args)
+	const configPath = await findNearestKyselyConfigPath()
+
+	if (!configPath) {
+		return null
+	}
 
 	const jiti = await getJiti({
 		debug: args.debug,
@@ -31,12 +35,6 @@ export async function getConfig(
 		experimentalResolveTSConfigPaths:
 			args['experimental-resolve-tsconfig-paths'],
 	})
-
-	const configPath = await findNearestKyselyConfigPath()
-
-	if (!configPath) {
-		return null
-	}
 
 	const loadedConfig = await loadConfig<KyselyCTLConfig>({
 		cwd: configPath,
@@ -57,22 +55,30 @@ export async function getConfig(
 		...config,
 		args,
 		configMetadata,
-		cwd,
+		cwd: configPath,
 		migrations: {
 			allowJS: false,
 			getMigrationPrefix: getMillisPrefix,
-			migrationFolder: 'migrations',
 			...config.migrations,
 			disableTransactions:
 				args.transaction === false ||
 				(config.migrations as MigrationsBaseConfig | undefined)
 					?.disableTransactions,
+			migrationFolder: resolveCollectionFolderPath(
+				configPath,
+				config.migrations?.migrationFolder,
+				'migrations',
+			),
 		},
 		seeds: {
 			allowJS: false,
 			getSeedPrefix: getMillisPrefix,
-			seedFolder: 'seeds',
 			...config.seeds,
+			seedFolder: resolveCollectionFolderPath(
+				configPath,
+				config.seeds?.seedFolder,
+				'seeds',
+			),
 		},
 	} as never
 }
@@ -123,4 +129,14 @@ async function findNearestKyselyConfigPath(): Promise<string | null> {
 	} catch {
 		return null
 	}
+}
+
+function resolveCollectionFolderPath(
+	configPath: string,
+	configuredFolderPath: string | null | undefined,
+	defaultFolderName: string,
+): string {
+	const defaultRelativeFolderPath = `${configPath.endsWith('.config') ? '../' : './'}${defaultFolderName}`
+
+	return resolve(configPath, configuredFolderPath || defaultRelativeFolderPath)
 }
