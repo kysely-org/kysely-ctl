@@ -30,28 +30,23 @@ const BaseMakeCommand = {
 
 		assertExtension(extension, config, 'migrations')
 
-		const migrationsFolderPath = join(
-			config.cwd,
-			config.migrations.migrationFolder,
-		)
-
-		consola.debug('Migrations folder path:', migrationsFolderPath)
+		const { getMigrationPrefix, migrationFolder } = config.migrations
 
 		const wasMigrationsFolderCreated = Boolean(
-			await mkdir(migrationsFolderPath, { recursive: true }),
+			await mkdir(migrationFolder, { recursive: true }),
 		)
 
 		if (wasMigrationsFolderCreated) {
 			consola.debug('Migrations folder created')
 		}
 
-		const filename = `${await config.migrations.getMigrationPrefix()}${
+		const filename = `${await getMigrationPrefix()}${
 			args.migration_name
 		}.${extension}`
 
 		consola.debug('Filename:', filename)
 
-		const filePath = join(migrationsFolderPath, filename)
+		const filePath = join(migrationFolder, filename)
 
 		consola.debug('File path:', filePath)
 

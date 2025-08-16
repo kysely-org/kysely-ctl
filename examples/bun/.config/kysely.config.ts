@@ -1,5 +1,6 @@
 // @ts-expect-error no idea why it can't find the module despite @types/bun being installed
 import { Database } from 'bun:sqlite'
+import { resolve } from 'node:path'
 import { BunSqliteDialect } from 'kysely-bun-sqlite'
 import { defineConfig } from 'kysely-ctl'
 
@@ -10,6 +11,6 @@ if (Bun.env) {
 
 export default defineConfig({
 	dialect: new BunSqliteDialect({
-		database: new Database('./example.db'),
+		database: new Database(resolve(__dirname, '../example.db')),
 	}),
 })

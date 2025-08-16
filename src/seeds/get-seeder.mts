@@ -1,4 +1,3 @@
-import { join } from 'pathe'
 import type { ResolvedKyselyCTLConfigWithKyselyInstance } from '../config/kysely-ctl-config.mjs'
 import { hydrate } from '../utils/hydrate.mjs'
 import { FileSeedProvider } from './file-seed-provider.mjs'
@@ -24,7 +23,7 @@ export async function getSeeder(
 				filesystemCaching: args['filesystem-caching'],
 				experimentalResolveTSConfigPaths:
 					args['experimental-resolve-tsconfig-paths'],
-				seedFolder: join(config.cwd, seedFolder),
+				seedFolder,
 			}),
 	)
 

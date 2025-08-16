@@ -1,10 +1,14 @@
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import database from 'better-sqlite3'
 import { defineConfig } from 'kysely-ctl'
-import { DB_PATH } from '../src'
+import { DB_FILENAME } from '../src'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
 	dialect: 'better-sqlite3',
 	dialectConfig: {
-		database: database(DB_PATH),
+		database: database(resolve(__dirname, '..', DB_FILENAME)),
 	},
 })

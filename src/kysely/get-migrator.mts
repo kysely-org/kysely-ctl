@@ -1,5 +1,4 @@
 import { Migrator } from 'kysely'
-import { join } from 'pathe'
 import type { ResolvedKyselyCTLConfigWithKyselyInstance } from '../config/kysely-ctl-config.mjs'
 import { hydrate } from '../utils/hydrate.mjs'
 import { TSFileMigrationProvider } from './ts-file-migration-provider.mjs'
@@ -24,7 +23,7 @@ export async function getMigrator(
 				experimentalResolveTSConfigPaths:
 					args['experimental-resolve-tsconfig-paths'],
 				filesystemCaching: args['filesystem-caching'],
-				migrationFolder: join(config.cwd, migrationFolder),
+				migrationFolder,
 			}),
 	)
 
