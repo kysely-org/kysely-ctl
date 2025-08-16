@@ -29,6 +29,7 @@
 	"author": "Igal Klebanov <igalklebanov@gmail.com> (https://github.com/igalklebanov)",
 	"license": "MIT",
 	"repository": "git://github.com/kysely-org/kysely-ctl.git",
+	"homepage": "https://kysely.dev",
 	"scripts": {
 		"biome": "biome",
 		"build": "tsup",
