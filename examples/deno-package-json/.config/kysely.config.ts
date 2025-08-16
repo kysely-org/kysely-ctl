@@ -1,6 +1,6 @@
 import { Database } from '@jsr/db__sqlite'
 import { DenoSqlite3Dialect } from '@jsr/soapbox__kysely-deno-sqlite'
-import { dirname, fromFileUrl, resolve } from '@std/path'
+import { dirname, fromFileUrl, resolve } from '@jsr/std__path'
 import { defineConfig } from 'kysely-ctl'
 
 if (Deno.env) {
