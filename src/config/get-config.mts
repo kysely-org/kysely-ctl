@@ -1,6 +1,6 @@
 import { loadConfig } from 'c12'
 import { consola } from 'consola'
-import { dirname, resolve } from 'pathe'
+import { basename, dirname, resolve } from 'pathe'
 import { findNearestFile } from 'pkg-types'
 import { getJiti } from '../utils/jiti.mjs'
 import { getCWD } from './get-cwd.mjs'
@@ -136,7 +136,7 @@ function resolveCollectionFolderPath(
 	configuredFolderPath: string | null | undefined,
 	defaultFolderName: string,
 ): string {
-	const defaultRelativeFolderPath = `${configPath.endsWith('.config') ? '../' : './'}${defaultFolderName}`
+	const defaultRelativeFolderPath = `${basename(configPath) === '.config' ? '../' : './'}${defaultFolderName}`
 
 	return resolve(configPath, configuredFolderPath || defaultRelativeFolderPath)
 }
