@@ -4,13 +4,13 @@
 		"kysely": "kysely",
 		"prekysely": "pnpx tsx ../../scripts/localize-deno-dependency.mts"
 	},
-	"devDependencies": {
-		"kysely-ctl": "^0.12.2"
-	},
 	"dependencies": {
 		"@jsr/db__sqlite": "^0.12.0",
 		"@jsr/soapbox__kysely-deno-sqlite": "^2.2.0",
-		"@jsr/std__path": "*",
-		"kysely": "^0.28.3"
+		"@jsr/std__path": "^1.1.2",
+		"kysely": "^0.28.5"
+	},
+	"devDependencies": {
+		"kysely-ctl": "^0.15.3"
 	}
 }
