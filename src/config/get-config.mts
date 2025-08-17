@@ -2,6 +2,7 @@ import { loadConfig } from 'c12'
 import { consola } from 'consola'
 import { basename, dirname, resolve } from 'pathe'
 import { findNearestFile } from 'pkg-types'
+import { ALL_EXTENSIONS } from '../arguments/extension.mjs'
 import { getJiti } from '../utils/jiti.mjs'
 import { getCWD } from './get-cwd.mjs'
 import { getMillisPrefix } from './get-file-prefix.mjs'
@@ -12,7 +13,7 @@ import type {
 } from './kysely-ctl-config.mjs'
 
 export interface GetConfigArgs {
-	cwd?: string
+	config?: string
 	debug?: boolean
 	environment?: string
 	'experimental-resolve-tsconfig-paths'?: boolean
@@ -23,7 +24,11 @@ export interface GetConfigArgs {
 export async function getConfig(
 	args: GetConfigArgs,
 ): Promise<ResolvedKyselyCTLConfig | null> {
-	const configPath = await findNearestKyselyConfigPath()
+	const { config: configArg } = args
+
+	const configPath = configArg
+		? resolve(getCWD(), dirname(configArg))
+		: await findNearestKyselyConfigPath()
 
 	if (!configPath) {
 		return null
@@ -36,13 +41,16 @@ export async function getConfig(
 			args['experimental-resolve-tsconfig-paths'],
 	})
 
+	consola.debug('configPath', configPath)
+
 	const loadedConfig = await loadConfig<KyselyCTLConfig>({
+		configFile: configArg ? basename(configArg) : undefined,
 		cwd: configPath,
 		dotenv: true,
 		envName: args.environment,
 		jiti,
 		globalRc: false,
-		name: 'kysely',
+		name: configArg ? undefined : 'kysely',
 		packageJson: false,
 		rcFile: false,
 	})
@@ -112,14 +120,10 @@ export function configFileExists(
 async function findNearestKyselyConfigPath(): Promise<string | null> {
 	try {
 		const kyselyConfigPath = await findNearestFile(
-			[
-				'.config/kysely.config.ts',
-				'kysely.config.ts',
-				'.config/kysely.config.mts',
-				'kysely.config.mts',
-				'.config/kysely.config.cts',
-				'kysely.config.cts',
-			],
+			ALL_EXTENSIONS.flatMap((extension) => [
+				`.config/kysely.config.${extension}`,
+				`kysely.config.${extension}`,
+			]),
 			{ startingFrom: getCWD() },
 		)
 

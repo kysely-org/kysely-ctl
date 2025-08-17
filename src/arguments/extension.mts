@@ -3,7 +3,7 @@ import { defineArgs } from '../utils/define-args.mjs'
 
 const TS_EXTENSIONS = ['ts', 'mts', 'cts'] as const
 const JS_EXTENSIONS = ['js', 'mjs', 'cjs'] as const
-const ALL_EXTENSIONS = [...TS_EXTENSIONS, ...JS_EXTENSIONS] as const
+export const ALL_EXTENSIONS = [...TS_EXTENSIONS, ...JS_EXTENSIONS] as const
 
 export const ExtensionArg = defineArgs(
 	{
