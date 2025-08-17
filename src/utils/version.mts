@@ -131,11 +131,11 @@ export async function printUpgradeNotice(
 
 	const installLocallyCommand = (
 		{
-			bun: (name, dev) => `add ${dev ? '-D ' : ''}${name}@latest`,
-			deno: (name, dev) => `install ${dev ? '-D ' : ''}npm:${name}@latest`,
-			npm: (name, dev) => `i ${dev ? '-D ' : ''}${name}@latest`,
-			pnpm: (name, dev) => `add ${dev ? '-D ' : ''}${name}@latest`,
-			yarn: (name, dev) => `add ${dev ? '-D ' : ''}${name}@latest`,
+			bun: (name, dev?) => `add ${dev ? '-D ' : ''}${name}@latest`,
+			deno: (name, dev?) => `install ${dev ? '-D ' : ''}npm:${name}@latest`,
+			npm: (name, dev?) => `i ${dev ? '-D ' : ''}${name}@latest`,
+			pnpm: (name, dev?) => `add ${dev ? '-D ' : ''}${name}@latest`,
+			yarn: (name, dev?) => `add ${dev ? '-D ' : ''}${name}@latest`,
 		} satisfies Record<
 			PackageManagerName,
 			(name: string, dev?: boolean) => string
