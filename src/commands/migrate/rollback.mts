@@ -20,7 +20,6 @@ const args = defineArgs({
 
 const Command = defineCommand(args, {
 	meta: {
-		name: 'rollback',
 		description: 'Rollback all the completed migrations',
 	},
 	async run(context) {
