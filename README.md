@@ -134,8 +134,9 @@ export default defineConfig({
 });
 ```
 
-Alternatively, you can pass a `Kysely` instance, instead of `dialect`, `dialectConfig`
-& `plugins`:
+#### Reuse Kysely instance defined elsewhere
+
+You can pass a `Kysely` instance, instead of `dialect`, `dialectConfig` & `plugins`:
 
 ```ts
 import { defineConfig } from "kysely-ctl";
@@ -148,6 +149,8 @@ export default defineConfig({
   // ...
 });
 ```
+
+#### Custom migration/seed file prefixes
 
 To use Knex's timestamp prefixes:
 
@@ -165,9 +168,13 @@ export default defineConfig({
 });
 ```
 
+#### Extending configuration
+
+See [c12 docs](https://github.com/unjs/c12#extending-configuration) and the following [example](https://github.com/kysely-org/kysely-ctl/blob/main/examples/node-esm-multi-config/.config/kysely.test.config.ts).
+
 #### Environment-specific configuration
 
-See [c12 docs](https://github.com/unjs/c12#environment-specific-configuration) and the following [example](https://github.com/kysely-org/kysely-ctl/blob/main/examples/node-esm-environments/.config/kysely.config.ts)
+See [c12 docs](https://github.com/unjs/c12#environment-specific-configuration) and the following [example](https://github.com/kysely-org/kysely-ctl/blob/main/examples/node-esm-environments/.config/kysely.config.ts).
 
 </details>
 
