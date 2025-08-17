@@ -20,5 +20,25 @@ export function defineCommand<
 	Args extends StrictArgsDef,
 	const Command extends Omit<StrictCommandDef<Args>, 'args'> & { args?: never },
 >(args: Args, command: Command): Command & { args: Args } {
-	return { ...command, args }
+	return {
+		...command,
+		args,
+		subCommands: sortSubCommands(command.subCommands),
+	}
+}
+
+function sortSubCommands(
+	// biome-ignore lint/suspicious/noExplicitAny: it's fine
+	subCommands: StrictCommandDef<any>['subCommands'],
+	// biome-ignore lint/suspicious/noExplicitAny: it's fine
+): StrictCommandDef<any>['subCommands'] {
+	if (!subCommands) {
+		return
+	}
+
+	return Object.fromEntries(
+		Object.entries(subCommands).sort(([nameA], [nameB]) =>
+			nameA.localeCompare(nameB),
+		),
+	)
 }
