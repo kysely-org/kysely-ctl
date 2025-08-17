@@ -1,19 +1,24 @@
-import type { ArgsDef } from 'citty'
 import type { ResolvedKyselyCTLConfig } from '../config/kysely-ctl-config.mjs'
+import { defineArgs } from '../utils/define-args.mjs'
 
 const TS_EXTENSIONS = ['ts', 'mts', 'cts'] as const
 const JS_EXTENSIONS = ['js', 'mjs', 'cjs'] as const
 const ALL_EXTENSIONS = [...TS_EXTENSIONS, ...JS_EXTENSIONS] as const
 
-export const ExtensionArg = {
-	extension: {
-		alias: 'x',
-		default: 'ts',
-		description: 'The file extension to use.',
-		type: 'string',
-		valueHint: ALL_EXTENSIONS.map((extension) => `"${extension}"`).join(' | '),
+export const ExtensionArg = defineArgs(
+	{
+		extension: {
+			alias: 'x',
+			default: 'ts',
+			description: 'The file extension to use.',
+			type: 'string',
+			valueHint: ALL_EXTENSIONS.map((extension) => `"${extension}"`).join(
+				' | ',
+			),
+		},
 	},
-} satisfies ArgsDef
+	true,
+)
 
 export type Extension = (typeof ALL_EXTENSIONS)[number]
 

@@ -1,9 +1,12 @@
-import type { ArgsDef } from 'citty'
+import { defineArgs } from '../utils/define-args.mjs'
 
-export const DebugArg = {
-	debug: {
-		default: false,
-		description: 'Show debug information.',
-		type: 'boolean',
+export const DebugArg = defineArgs(
+	{
+		debug: {
+			default: false,
+			description: 'Show debug information.',
+			type: 'boolean',
+		},
 	},
-} satisfies ArgsDef
+	true,
+)

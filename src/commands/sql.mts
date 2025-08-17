@@ -1,5 +1,5 @@
 import { createInterface } from 'node:readline/promises'
-import type { ArgsDef, CommandDef, ParsedArgs, SubCommandsDef } from 'citty'
+import type { ParsedArgs } from 'citty'
 import { consola } from 'consola'
 import { colorize } from 'consola/utils'
 import { isCI, process } from 'std-env'
@@ -9,9 +9,12 @@ import type { ResolvedKyselyCTLConfigWithKyselyInstance } from '../config/kysely
 import { executeQuery } from '../kysely/execute-query.mjs'
 import { inferDialectName } from '../kysely/infer-dialect-name.mjs'
 import { usingKysely } from '../kysely/using-kysely.mjs'
+import { createSubcommand } from '../utils/create-subcommand.mjs'
+import { defineArgs } from '../utils/define-args.mjs'
+import { defineCommand } from '../utils/define-command.mjs'
 import { printCSV } from '../utils/print-csv.mjs'
 
-const args = {
+const args = defineArgs({
 	...CommonArgs,
 	format: {
 		alias: 'f',
@@ -27,39 +30,38 @@ const args = {
 		required: isCI,
 		type: 'positional',
 	},
-} satisfies ArgsDef
+})
 
-export const SqlCommand = {
-	sql: {
-		meta: {
-			name: 'sql',
-			description: 'Execute SQL queries',
-		},
-		args,
-		subCommands: {},
-		async run(context) {
-			const { args } = context
-			const { format, query } = args
+const Command = defineCommand(args, {
+	meta: {
+		name: 'sql',
+		description: 'Execute SQL queries',
+	},
+	subCommands: {},
+	async run(context) {
+		const { args } = context
+		const { format, query } = args
 
-			consola.debug(context, [])
+		consola.debug(context, [])
 
-			assertQuery(query)
-			assertFormat(format)
+		assertQuery(query)
+		assertFormat(format)
 
-			const config = await getConfigOrFail(args)
+		const config = await getConfigOrFail(args)
 
-			await usingKysely(config, async (kysely) => {
-				const hydratedConfig = { ...config, kysely }
+		await usingKysely(config, async (kysely) => {
+			const hydratedConfig = { ...config, kysely }
 
-				if (query) {
-					return await executeQueryAndPrint(args, hydratedConfig)
-				}
+			if (query) {
+				return await executeQueryAndPrint(args, hydratedConfig)
+			}
 
-				await startInteractiveExecution(args, hydratedConfig)
-			})
-		},
-	} satisfies CommandDef<typeof args>,
-} satisfies SubCommandsDef
+			await startInteractiveExecution(args, hydratedConfig)
+		})
+	},
+})
+
+export const SqlCommand = createSubcommand('sql', Command)
 
 function assertQuery(thing: unknown): asserts thing is string {
 	if (

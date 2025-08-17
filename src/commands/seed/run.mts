@@ -1,25 +1,24 @@
-import type { ArgsDef, CommandDef } from 'citty'
 import { consola } from 'consola'
 import { colorize } from 'consola/utils'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { usingSeeder } from '../../seeds/using-seeder.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
+import { defineArgs } from '../../utils/define-args.mjs'
+import { defineCommand } from '../../utils/define-command.mjs'
 import { exitWithError } from '../../utils/error.mjs'
 
-const args = {
+const args = defineArgs({
 	...CommonArgs,
 	specific: {
 		description: 'Run seed file/s with given name/s',
 		type: 'string',
 	},
-} satisfies ArgsDef
+})
 
-const BaseRunCommand = {
+const Command = defineCommand(args, {
 	meta: {
 		description: 'Run seed files',
-		name: 'run',
 	},
-	args,
 	async run(context) {
 		const { args } = context
 		const { specific } = args
@@ -68,7 +67,7 @@ const BaseRunCommand = {
 			exitWithError(error)
 		}
 	},
-} satisfies CommandDef<typeof args>
+})
 
-export const RunCommand = createSubcommand('run', BaseRunCommand)
-export const LegacyRunCommand = createSubcommand('seed:run', BaseRunCommand)
+export const RunCommand = createSubcommand('run', Command)
+export const LegacyRunCommand = createSubcommand('seed:run', Command)

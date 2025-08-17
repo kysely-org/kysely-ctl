@@ -1,4 +1,3 @@
-import type { ArgsDef, CommandDef } from 'citty'
 import { consola } from 'consola'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { MigrateArgs } from '../../arguments/migrate.mjs'
@@ -7,19 +6,19 @@ import { isWrongDirection } from '../../kysely/is-wrong-direction.mjs'
 import { processMigrationResultSet } from '../../kysely/process-migration-result-set.mjs'
 import { usingMigrator } from '../../kysely/using-migrator.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
+import { defineArgs } from '../../utils/define-args.mjs'
+import { defineCommand } from '../../utils/define-command.mjs'
 
-const args = {
+const args = defineArgs({
 	...CommonArgs,
 	...MigrateArgs,
 	...createMigrationNameArg(),
-} satisfies ArgsDef
+})
 
-const BaseDownCommand = {
+const Command = defineCommand(args, {
 	meta: {
-		name: 'down',
 		description: 'Undo the last/specified migration that was run',
 	},
-	args,
 	async run(context) {
 		const { args } = context
 		const { migration_name } = context.args
@@ -42,10 +41,7 @@ const BaseDownCommand = {
 			await processMigrationResultSet(resultSet, 'down', migrator)
 		})
 	},
-} satisfies CommandDef<typeof args>
+})
 
-export const DownCommand = createSubcommand('down', BaseDownCommand)
-export const LegacyDownCommand = createSubcommand(
-	'migrate:down',
-	BaseDownCommand,
-)
+export const DownCommand = createSubcommand('down', Command)
+export const LegacyDownCommand = createSubcommand('migrate:down', Command)

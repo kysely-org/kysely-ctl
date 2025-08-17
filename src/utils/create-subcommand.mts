@@ -1,17 +1,21 @@
-import type { CommandDef, SubCommandsDef } from 'citty'
+import type { SubCommandsDef } from 'citty'
+import type { StrictCommandDef } from './define-command.mjs'
 
 export function createSubcommand<
 	Name extends string,
-	Command extends { meta: CommandDef['meta'] },
->(name: Name, def: Command): { [K in Name]: Command } {
+	// biome-ignore lint/suspicious/noExplicitAny: it's fine.
+	const Command extends StrictCommandDef<any>,
+>(
+	name: Name,
+	def: Command,
+): {
+	readonly [K in Name]: Readonly<
+		Omit<Command, 'meta'> & {
+			meta: Omit<Command['meta'], 'name'> & { readonly name: Name }
+		}
+	>
+} {
 	return {
-		[name]: {
-			...def,
-			meta: {
-				...def.meta,
-				name,
-			},
-		},
-		// biome-ignore lint/suspicious/noExplicitAny: this is perfectly fine
-	} satisfies SubCommandsDef as any
+		[name]: { ...def, meta: { ...def.meta, name } },
+	} satisfies SubCommandsDef as never
 }

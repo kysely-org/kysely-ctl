@@ -1,26 +1,25 @@
-import type { ArgsDef, CommandDef } from 'citty'
 import { consola } from 'consola'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { getMigrations } from '../../kysely/get-migrations.mjs'
 import { usingMigrator } from '../../kysely/using-migrator.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
+import { defineArgs } from '../../utils/define-args.mjs'
+import { defineCommand } from '../../utils/define-command.mjs'
 import { exitWithError } from '../../utils/error.mjs'
 
-const args = {
+const args = defineArgs({
 	...CommonArgs,
 	'fail-on-pending': {
-		type: 'boolean',
 		default: false,
-		required: false,
+		description: 'Fail if there are pending migrations',
+		type: 'boolean',
 	},
-} satisfies ArgsDef
+})
 
-const BaseListCommand = {
+const Command = defineCommand(args, {
 	meta: {
-		name: 'list',
 		description: 'List both completed and pending migrations',
 	},
-	args,
 	async run(context) {
 		consola.debug(context, [])
 
@@ -52,10 +51,7 @@ const BaseListCommand = {
 			exitWithError('Failed due to pending migrations.')
 		}
 	},
-} satisfies CommandDef<typeof args>
+})
 
-export const ListCommand = createSubcommand('list', BaseListCommand)
-export const LegacyListCommand = createSubcommand(
-	'migrate:list',
-	BaseListCommand,
-)
+export const ListCommand = createSubcommand('list', Command)
+export const LegacyListCommand = createSubcommand('migrate:list', Command)
