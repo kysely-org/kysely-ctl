@@ -117,15 +117,16 @@ export function configFileExists(
 	return configFile !== undefined && configFile !== 'kysely.config'
 }
 
+const BASE_CONFIG_FILESNAMES = ALL_EXTENSIONS.flatMap((extension) => [
+	`.config/kysely.config.${extension}`,
+	`kysely.config.${extension}`,
+])
+
 async function findNearestKyselyConfigPath(): Promise<string | null> {
 	try {
-		const kyselyConfigPath = await findNearestFile(
-			ALL_EXTENSIONS.flatMap((extension) => [
-				`.config/kysely.config.${extension}`,
-				`kysely.config.${extension}`,
-			]),
-			{ startingFrom: getCWD() },
-		)
+		const kyselyConfigPath = await findNearestFile(BASE_CONFIG_FILESNAMES, {
+			startingFrom: getCWD(),
+		})
 
 		consola.debug('found kysely config file at', kyselyConfigPath)
 
