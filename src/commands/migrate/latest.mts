@@ -1,22 +1,18 @@
-import type { ArgsDef, CommandDef } from 'citty'
 import { consola } from 'consola'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { MigrateArgs } from '../../arguments/migrate.mjs'
 import { processMigrationResultSet } from '../../kysely/process-migration-result-set.mjs'
 import { usingMigrator } from '../../kysely/using-migrator.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
+import { defineArgs } from '../../utils/define-args.mjs'
+import { defineCommand } from '../../utils/define-command.mjs'
 
-const args = {
-	...CommonArgs,
-	...MigrateArgs,
-} satisfies ArgsDef
+const args = defineArgs({ ...CommonArgs, ...MigrateArgs })
 
-const BaseLatestCommand = {
+const Command = defineCommand(args, {
 	meta: {
-		name: 'latest',
 		description: 'Update the database schema to the latest version',
 	},
-	args,
 	async run(context) {
 		consola.debug(context, [])
 
@@ -28,10 +24,7 @@ const BaseLatestCommand = {
 			await processMigrationResultSet(resultSet, 'up', migrator)
 		})
 	},
-} satisfies CommandDef<typeof args>
+})
 
-export const LatestCommand = createSubcommand('latest', BaseLatestCommand)
-export const LegacyLatestCommand = createSubcommand(
-	'migrate:latest',
-	BaseLatestCommand,
-)
+export const LatestCommand = createSubcommand('latest', Command)
+export const LegacyLatestCommand = createSubcommand('migrate:latest', Command)

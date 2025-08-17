@@ -1,0 +1,12 @@
+{
+	"name": "node-esm-multi-config",
+	"type": "module",
+	"devDependencies": {
+		"@types/better-sqlite3": "7.6.13",
+		"kysely-ctl": "link:../.."
+	},
+	"dependencies": {
+		"better-sqlite3": "12.2.0",
+		"kysely": "0.28.4"
+	}
+}

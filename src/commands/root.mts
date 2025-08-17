@@ -1,7 +1,8 @@
-import { type ArgsDef, type CommandDef, showUsage } from 'citty'
+import { showUsage } from 'citty'
 import { consola, LogLevels } from 'consola'
-import { CommonArgs } from '../arguments/common.mjs'
 import { getCWD } from '../config/get-cwd.mjs'
+import { defineArgs } from '../utils/define-args.mjs'
+import { defineCommand } from '../utils/define-command.mjs'
 import { isInSubcommand } from '../utils/is-in-subcommand.mjs'
 import {
 	printInstalledVersions,
@@ -20,22 +21,26 @@ import { SeedCommand } from './seed/root.mjs'
 import { LegacyRunCommand } from './seed/run.mjs'
 import { SqlCommand } from './sql.mjs'
 
-const args = {
-	...CommonArgs,
+const args = defineArgs({
+	help: {
+		alias: 'h',
+		default: false,
+		description: 'Show help information',
+		type: 'boolean',
+	},
 	version: {
 		alias: 'v',
 		default: false,
 		description: 'Show version number',
 		type: 'boolean',
 	},
-} satisfies ArgsDef
+})
 
-export const RootCommand = {
+export const RootCommand = defineCommand(args, {
 	meta: {
 		name: 'kysely',
 		description: 'A command-line tool for Kysely',
 	},
-	args,
 	subCommands: {
 		...InitCommand,
 		...LegacyDownCommand,
@@ -59,7 +64,7 @@ export const RootCommand = {
 
 		consola.options.formatOptions.date = false
 
-		consola.debug('cwd', getCWD(args)) // ensures the CWD is set
+		consola.debug('cwd', getCWD(args as never)) // ensures the CWD is set
 	},
 	async run(context) {
 		const { args } = context
@@ -68,18 +73,18 @@ export const RootCommand = {
 			consola.debug(context, [])
 
 			if (args.version) {
-				return await printInstalledVersions(args)
+				return await printInstalledVersions(args as never)
 			}
 
 			await showUsage(context.cmd)
 		}
 
 		try {
-			await printUpgradeNotice(args)
+			await printUpgradeNotice(args as never)
 		} catch (error) {
 			consola.debug('Failed to print upgrade notice:', error)
 		}
 
 		consola.debug(`finished running from "${__filename}"`)
 	},
-} satisfies CommandDef<typeof args>
+})

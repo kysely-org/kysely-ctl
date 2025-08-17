@@ -1,5 +1,4 @@
 import { copyFile, mkdir } from 'node:fs/promises'
-import type { ArgsDef, CommandDef } from 'citty'
 import { consola } from 'consola'
 import { join } from 'pathe'
 import { CommonArgs } from '../../arguments/common.mjs'
@@ -7,19 +6,20 @@ import { assertExtension, ExtensionArg } from '../../arguments/extension.mjs'
 import { createMigrationNameArg } from '../../arguments/migration-name.mjs'
 import { getConfigOrFail } from '../../config/get-config.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
+import { defineArgs } from '../../utils/define-args.mjs'
+import { defineCommand } from '../../utils/define-command.mjs'
 import { getTemplateExtension } from '../../utils/get-template-extension.mjs'
 
-const args = {
+const args = defineArgs({
 	...CommonArgs,
 	...createMigrationNameArg(true),
 	...ExtensionArg,
-} satisfies ArgsDef
+})
 
-const BaseMakeCommand = {
+const Command = defineCommand(args, {
 	meta: {
 		description: 'Create a new migration file',
 	},
-	args,
 	async run(context) {
 		const { args } = context
 		const { extension } = args
@@ -63,10 +63,7 @@ const BaseMakeCommand = {
 
 		consola.success(`Created migration file at ${filePath}`)
 	},
-} satisfies CommandDef<typeof args>
+})
 
-export const MakeCommand = createSubcommand('make', BaseMakeCommand)
-export const LegacyMakeCommand = createSubcommand(
-	'migrate:make',
-	BaseMakeCommand,
-)
+export const MakeCommand = createSubcommand('make', Command)
+export const LegacyMakeCommand = createSubcommand('migrate:make', Command)

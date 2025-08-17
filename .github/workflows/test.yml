@@ -46,7 +46,7 @@ jobs:
       matrix:
         node-version: [20, 22, 24]
         os: [macos-latest, ubuntu-latest, windows-latest]
-        type: [cjs, esm, esm-tsconfig-paths, esm-tsconfig-paths-inherited, esm-tsconfig-paths-no-baseurl, esm-top-level-await, esm-environments, esm-jsx]
+        type: [cjs, esm, esm-multi-config, esm-tsconfig-paths, esm-tsconfig-paths-inherited, esm-tsconfig-paths-no-baseurl, esm-top-level-await, esm-environments, esm-jsx]
       fail-fast: false
 
     runs-on: ${{ matrix.os }}
@@ -75,6 +75,10 @@ jobs:
         shell: bash
         run: |
           ADDITIONAL_FLAGS="--debug"
+
+          if [[ ${{ matrix.type }} == 'esm-multi-config' ]]; then
+            ADDITIONAL_FLAGS+=" -c ./.config/kysely.test.config.ts"
+          fi
 
           if [[ ${{ matrix.type }} == 'esm-tsconfig-paths'* ]]; then
             ADDITIONAL_FLAGS+=" --experimental-resolve-tsconfig-paths"
@@ -116,6 +120,7 @@ jobs:
         run: pnpm kysely migrate:rollback --all ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
       - name: kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }} (nearest config search)
+        if: ${{ matrix.type != 'esm-multi-config' }}
         working-directory: examples/node-${{ matrix.type }}/${{ startsWith(matrix.type, 'esm-environments') && 'packages' || 'migrations' }}
         run: pnpm kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 

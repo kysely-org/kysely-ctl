@@ -1,4 +1,3 @@
-import type { ArgsDef, CommandDef } from 'citty'
 import { consola } from 'consola'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { MigrateArgs } from '../../arguments/migrate.mjs'
@@ -7,19 +6,19 @@ import { isWrongDirection } from '../../kysely/is-wrong-direction.mjs'
 import { processMigrationResultSet } from '../../kysely/process-migration-result-set.mjs'
 import { usingMigrator } from '../../kysely/using-migrator.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
+import { defineArgs } from '../../utils/define-args.mjs'
+import { defineCommand } from '../../utils/define-command.mjs'
 
-const args = {
+const args = defineArgs({
 	...CommonArgs,
 	...MigrateArgs,
 	...createMigrationNameArg(),
-} satisfies ArgsDef
+})
 
-const BaseUpCommand = {
+const Command = defineCommand(args, {
 	meta: {
-		name: 'up',
 		description: 'Run the next migration that has not yet been run',
 	},
-	args,
 	async run(context) {
 		const { args } = context
 		const { migration_name } = args
@@ -42,7 +41,7 @@ const BaseUpCommand = {
 			await processMigrationResultSet(resultSet, 'up', migrator)
 		})
 	},
-} satisfies CommandDef<typeof args>
+})
 
-export const UpCommand = createSubcommand('up', BaseUpCommand)
-export const LegacyUpCommand = createSubcommand('migrate:up', BaseUpCommand)
+export const UpCommand = createSubcommand('up', Command)
+export const LegacyUpCommand = createSubcommand('migrate:up', Command)

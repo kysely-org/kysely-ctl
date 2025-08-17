@@ -134,7 +134,7 @@ migrations
 seeds
 !src/seeds
 !examples/**/seeds
-examples/**/example.db
+examples/**/*.db
 
 tsconfig.vitest-temp.json
 .attest

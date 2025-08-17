@@ -163,6 +163,22 @@ importers:
         specifier: link:../..
         version: link:../..
 
+  examples/node-esm-multi-config:
+    dependencies:
+      better-sqlite3:
+        specifier: 12.2.0
+        version: 12.2.0
+      kysely:
+        specifier: 0.28.5
+        version: 0.28.5
+    devDependencies:
+      '@types/better-sqlite3':
+        specifier: 7.6.13
+        version: 7.6.13
+      kysely-ctl:
+        specifier: link:../..
+        version: link:../..
+
   examples/node-esm-top-level-await:
     dependencies:
       better-sqlite3:

@@ -1,10 +1,13 @@
-import type { ArgsDef } from 'citty'
+import { defineArgs } from '../utils/define-args.mjs'
 
 export const createMigrationNameArg = (required = false) =>
-	({
-		migration_name: {
-			description: 'Migration name to run/undo.',
-			required,
-			type: 'positional',
+	defineArgs(
+		{
+			migration_name: {
+				description: 'Migration name to run/undo.',
+				required,
+				type: 'positional',
+			},
 		},
-	}) satisfies ArgsDef
+		true,
+	)

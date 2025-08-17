@@ -1,37 +1,30 @@
-import type { ArgsDef, CommandDef, SubCommandsDef } from 'citty'
 import { consola } from 'consola'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { usingSeeder } from '../../seeds/using-seeder.mjs'
+import { createSubcommand } from '../../utils/create-subcommand.mjs'
+import { defineCommand } from '../../utils/define-command.mjs'
 
-const args = {
-	...CommonArgs,
-} satisfies ArgsDef
+const Command = defineCommand(CommonArgs, {
+	meta: {
+		description: 'List seeds',
+	},
+	async run(context) {
+		consola.debug(context, [])
 
-export const ListCommand = {
-	list: {
-		meta: {
-			name: 'list',
-			description: 'List seeds',
-		},
-		args,
-		async run(context) {
-			consola.debug(context, [])
+		const seeds = await usingSeeder(context.args, (seeder) => seeder.getSeeds())
 
-			const seeds = await usingSeeder(context.args, (seeder) =>
-				seeder.getSeeds(),
-			)
+		consola.debug(seeds)
 
-			consola.debug(seeds)
+		if (!seeds.length) {
+			return consola.info('No seeds found.')
+		}
 
-			if (!seeds.length) {
-				return consola.info('No seeds found.')
-			}
+		consola.info(`Found ${seeds.length} seed${seeds.length > 1 ? 's' : ''}:`)
 
-			consola.info(`Found ${seeds.length} seed${seeds.length > 1 ? 's' : ''}:`)
+		for (const seed of seeds) {
+			consola.log(seed.name)
+		}
+	},
+})
 
-			for (const seed of seeds) {
-				consola.log(seed.name)
-			}
-		},
-	} satisfies CommandDef<typeof args>,
-} satisfies SubCommandsDef
+export const ListCommand = createSubcommand('list', Command)
