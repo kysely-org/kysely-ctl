@@ -127,7 +127,7 @@ async function startInteractiveExecution(
 	while (true) {
 		let query = await consola.prompt(getPrompt(argz, config), {
 			cancel: 'null',
-			placeholder: 'select 1',
+			placeholder: 'select 1;',
 			required: true,
 			type: 'text',
 		})
