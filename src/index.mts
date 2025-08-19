@@ -1,3 +1,4 @@
+// biome-ignore lint/performance/noBarrelFile: it's fine, library entry point.
 export * from './config/define-config.mjs'
 export * from './config/dummy-dialect-config.mjs'
 export { getKnexTimestampPrefix } from './config/get-file-prefix.mjs'

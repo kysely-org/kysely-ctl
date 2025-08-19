@@ -55,10 +55,7 @@ function getVersionFromPackageJSON(
 		return pkgJSON.version || null
 	}
 
-	const rawVersion =
-		pkgJSON.dependencies?.[name] || pkgJSON.devDependencies?.[name]
-
-	return rawVersion?.replace(/^[\^~]?(.+)$/, '$1') || null
+	return pkgJSON.dependencies?.[name] || pkgJSON.devDependencies?.[name] || null
 }
 
 /**
@@ -238,6 +235,8 @@ async function getVersionFromCatalog(
 	return null
 }
 
+const CATALOG_REFERENCE_PREFIX_REGEX = /^catalog:/
+
 function extractVersionFromCatalogContainer(
 	container: CatalogContainer,
 	packageName: string,
@@ -247,7 +246,10 @@ function extractVersionFromCatalogContainer(
 		return container.catalog?.[packageName] || null
 	}
 
-	const catalogName = catalogReference.replace(/^catalog:/, '')
+	const catalogName = catalogReference.replace(
+		CATALOG_REFERENCE_PREFIX_REGEX,
+		'',
+	)
 
 	return container.catalogs?.[catalogName]?.[packageName] || null
 }

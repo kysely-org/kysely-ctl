@@ -22,6 +22,10 @@
 	"linter": {
 		"rules": {
 			"nursery": {},
+			"performance": {
+				"noBarrelFile": "error",
+				"useTopLevelRegex": "error"
+			},
 			"style": {
 				"noNonNullAssertion": "warn",
 				"noParameterAssign": "warn",
