@@ -111,7 +111,12 @@ export async function printUpgradeNotice(args: {
 		getCTLLatestVersion(),
 	])
 
-	const notices: [string, string, string | null, string][] = []
+	const notices: [
+		prettyName: string,
+		packageName: string,
+		installedVersion: string | null,
+		latestVersion: string,
+	][] = []
 
 	if (!kyselyInstalledVersion?.includes(kyselyLatestVersion)) {
 		notices.push([
