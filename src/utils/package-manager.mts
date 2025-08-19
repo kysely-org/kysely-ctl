@@ -1,6 +1,6 @@
 import { detectPackageManager, type PackageManager } from 'nypm'
 import { isBun, isDeno } from 'std-env'
-import { getCWD, type HasCWD } from '../config/get-cwd.mjs'
+import { getCWD } from '../config/get-cwd.mjs'
 
 export interface EnrichedPackageManager {
 	name: PackageManager['name'] | 'deno'
@@ -8,10 +8,8 @@ export interface EnrichedPackageManager {
 	inProject: boolean
 }
 
-export async function getPackageManager(
-	args?: HasCWD,
-): Promise<EnrichedPackageManager> {
-	const packageManager = await detectPackageManager(getCWD(args), {
+export async function getPackageManager(): Promise<EnrichedPackageManager> {
+	const packageManager = await detectPackageManager(getCWD(), {
 		ignoreArgv: true,
 		includeParentDirs: true,
 	})

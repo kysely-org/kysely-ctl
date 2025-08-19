@@ -1,22 +1,34 @@
+import { readFile } from 'node:fs/promises'
+import { parseYAML } from 'confbox'
 import { consola } from 'consola'
 import type { PackageManagerName } from 'nypm'
 import { ofetch } from 'ofetch'
-import type { PackageJson } from 'pkg-types'
-import { isCI } from 'std-env'
-import type { HasCWD } from '../config/get-cwd.mjs'
+import { join } from 'pathe'
+import { findWorkspaceDir, type PackageJson, readPackageJSON } from 'pkg-types'
+import { isBun, isCI, runtime } from 'std-env'
+import { getCWD } from '../config/get-cwd.mjs'
+import { isObject } from './is-object.mjs'
 import { getPackageManager } from './package-manager.mjs'
 import { getConsumerPackageJSON, getCTLPackageJSON } from './pkg-json.mjs'
 
 /**
  * Returns the version of the Kysely package.
  */
-export async function getKyselyInstalledVersion(
-	args: HasCWD,
-): Promise<string | null> {
+export async function getKyselyInstalledVersion(): Promise<string | null> {
 	try {
-		const pkgJSON = await getConsumerPackageJSON(args)
+		const pkgJSON = await getConsumerPackageJSON()
 
-		return getVersionFromPackageJSON('kysely', pkgJSON)
+		const version = getVersionFromPackageJSON('kysely', pkgJSON)
+
+		if (!version) {
+			return null
+		}
+
+		if (version.startsWith('catalog:')) {
+			return await getVersionFromCatalog('kysely', version)
+		}
+
+		return version
 	} catch {
 		return null
 	}
@@ -43,19 +55,16 @@ function getVersionFromPackageJSON(
 		return pkgJSON.version || null
 	}
 
-	const rawVersion =
-		pkgJSON.dependencies?.[name] || pkgJSON.devDependencies?.[name]
-
-	return rawVersion?.replace(/^[\^~]?(.+)$/, '$1') || null
+	return pkgJSON.dependencies?.[name] || pkgJSON.devDependencies?.[name] || null
 }
 
 /**
  * Prints the version of the CLI and the Kysely package.
  */
-export async function printInstalledVersions(args: HasCWD): Promise<void> {
+export async function printInstalledVersions(): Promise<void> {
 	const [cliVersion, kyselyVersion] = await Promise.all([
 		getCTLInstalledVersion(),
-		getKyselyInstalledVersion(args),
+		getKyselyInstalledVersion(),
 	])
 
 	consola.log(
@@ -64,11 +73,11 @@ export async function printInstalledVersions(args: HasCWD): Promise<void> {
 	consola.log(`kysely-ctl v${cliVersion}`)
 }
 
-export async function getKyselyLatestVersion(): Promise<string> {
+async function getKyselyLatestVersion(): Promise<string> {
 	return await getPackageLatestVersion('kysely')
 }
 
-export async function getCTLLatestVersion(): Promise<string> {
+async function getCTLLatestVersion(): Promise<string> {
 	return await getPackageLatestVersion('kysely-ctl')
 }
 
@@ -80,9 +89,9 @@ async function getPackageLatestVersion(packageName: string): Promise<string> {
 	return response['dist-tags'].latest
 }
 
-export async function printUpgradeNotice(
-	args: HasCWD & { 'outdated-check'?: boolean },
-): Promise<void> {
+export async function printUpgradeNotice(args: {
+	'outdated-check'?: boolean
+}): Promise<void> {
 	if (args['outdated-check'] === false || isCI) {
 		return
 	}
@@ -93,30 +102,42 @@ export async function printUpgradeNotice(
 		ctlInstalledVersion,
 		ctlLatestVersion,
 	] = await Promise.all([
-		getKyselyInstalledVersion(args),
+		getKyselyInstalledVersion(),
 		getKyselyLatestVersion(),
 		getCTLInstalledVersion(),
 		getCTLLatestVersion(),
 	])
 
-	const notices: [string, string, string][] = []
+	const notices: [
+		prettyName: string,
+		packageName: string,
+		installedVersion: string | null,
+		latestVersion: string,
+	][] = []
 
-	if (
-		kyselyInstalledVersion &&
-		kyselyInstalledVersion !== kyselyLatestVersion
-	) {
-		notices.push(['Kysely', 'kysely', kyselyLatestVersion])
+	if (!kyselyInstalledVersion?.includes(kyselyLatestVersion)) {
+		notices.push([
+			'Kysely',
+			'kysely',
+			kyselyInstalledVersion,
+			kyselyLatestVersion,
+		])
 	}
 
-	if (ctlInstalledVersion !== ctlLatestVersion) {
-		notices.push(['KyselyCTL', 'kysely-ctl', ctlLatestVersion])
+	if (!ctlInstalledVersion?.includes(ctlLatestVersion)) {
+		notices.push([
+			'KyselyCTL',
+			'kysely-ctl',
+			ctlInstalledVersion,
+			ctlLatestVersion,
+		])
 	}
 
 	if (!notices.length) {
 		return
 	}
 
-	const { command, name: packageManagerName } = await getPackageManager(args)
+	const { command, name: packageManagerName } = await getPackageManager()
 
 	const installGloballyCommand = (
 		{
@@ -145,8 +166,8 @@ export async function printUpgradeNotice(
 	consola.box(
 		notices
 			.map(
-				([prettyName, name, latestVersion]) =>
-					`A new version of ${prettyName} is available: v${latestVersion}\nRun \`${
+				([prettyName, name, installedVersion, latestVersion]) =>
+					`A new ${prettyName} version is available: ${installedVersion ? `v${installedVersion}` : '[not installed]'} -> v${latestVersion}\nRun \`${
 						command
 					} ${
 						name === 'kysely-ctl'
@@ -156,4 +177,79 @@ export async function printUpgradeNotice(
 			)
 			.join('\n\n'),
 	)
+}
+
+interface CatalogContainer {
+	catalog?: Record<string, string>
+	catalogs?: Record<string, Record<string, string>>
+}
+
+async function getVersionFromCatalog(
+	packageName: string,
+	catalogReference: string,
+): Promise<string | null> {
+	const workspaceDirPath = await findWorkspaceDir(getCWD())
+
+	consola.debug('workspaceDirPath', workspaceDirPath)
+
+	if (runtime === 'node') {
+		const rawWorkspaceFile = await readFile(
+			join(workspaceDirPath, 'pnpm-workspace.yaml'),
+			{ encoding: 'utf8' },
+		)
+
+		consola.debug('rawWorkspaceFile', rawWorkspaceFile)
+
+		const workspaceFile = parseYAML<CatalogContainer>(rawWorkspaceFile)
+
+		consola.debug('workspaceFile', workspaceFile)
+
+		return extractVersionFromCatalogContainer(
+			workspaceFile,
+			packageName,
+			catalogReference,
+		)
+	}
+
+	if (isBun) {
+		const rootPkgJSON = (await readPackageJSON(workspaceDirPath)) as Omit<
+			PackageJson,
+			'workspaces'
+		> & { workspaces?: string[] | CatalogContainer }
+
+		consola.debug('rootPkgJSON', rootPkgJSON)
+
+		const { workspaces } = rootPkgJSON
+
+		if (!isObject(workspaces)) {
+			return null
+		}
+
+		return extractVersionFromCatalogContainer(
+			workspaces,
+			packageName,
+			catalogReference,
+		)
+	}
+
+	return null
+}
+
+const CATALOG_REFERENCE_PREFIX_REGEX = /^catalog:/
+
+function extractVersionFromCatalogContainer(
+	container: CatalogContainer,
+	packageName: string,
+	catalogReference: string,
+): string | null {
+	if (catalogReference === 'catalog:') {
+		return container.catalog?.[packageName] || null
+	}
+
+	const catalogName = catalogReference.replace(
+		CATALOG_REFERENCE_PREFIX_REGEX,
+		'',
+	)
+
+	return container.catalogs?.[catalogName]?.[packageName] || null
 }
