@@ -1,5 +1,5 @@
 import { type PackageJson, readPackageJSON } from 'pkg-types'
-import { getCWD, type HasCWD } from '../config/get-cwd.mjs'
+import { getCWD } from '../config/get-cwd.mjs'
 
 export interface GetPackageJSONOptions {
 	id?: string
@@ -8,10 +8,8 @@ export interface GetPackageJSONOptions {
 
 const PACKAGE_JSONS: Record<string, PackageJson> = {}
 
-export async function getConsumerPackageJSON(
-	args?: HasCWD,
-): Promise<PackageJson> {
-	return await getPackageJSON({ startingFrom: getCWD(args) })
+export async function getConsumerPackageJSON(): Promise<PackageJson> {
+	return await getPackageJSON({ startingFrom: getCWD() })
 }
 
 export async function getCTLPackageJSON(): Promise<PackageJson> {

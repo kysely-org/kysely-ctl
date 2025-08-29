@@ -22,6 +22,14 @@
 	"linter": {
 		"rules": {
 			"nursery": {},
+			"performance": {
+				"noAccumulatingSpread": "error",
+				"noBarrelFile": "error",
+				"noDynamicNamespaceImportAccess": "error",
+				"noNamespaceImport": "error",
+				"noReExportAll": "error",
+				"useTopLevelRegex": "error"
+			},
 			"style": {
 				"noNonNullAssertion": "warn",
 				"noParameterAssign": "warn",
