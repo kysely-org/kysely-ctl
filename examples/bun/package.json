@@ -3,7 +3,7 @@
 	"module": "index.ts",
 	"type": "module",
 	"devDependencies": {
-		"@types/bun": "^1.2.20",
+		"@types/bun": "^1.2.21",
 		"kysely-ctl": "link:kysely-ctl"
 	},
 	"peerDependencies": {
