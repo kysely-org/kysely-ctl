@@ -91,7 +91,7 @@ function resolvePaths(results: TSConfigWithPath[]): {
 	return null
 }
 
-const WILDCARDS_REGEX = /(\*|\/\*\*?)+$/
+const WILDCARDS_REGEX = /(\/\*{1,2}|\*)+$/
 
 function removeWildcards(path: string): string {
 	return path.replace(WILDCARDS_REGEX, '')
