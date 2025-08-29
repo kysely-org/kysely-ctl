@@ -84,7 +84,7 @@ jobs:
             ADDITIONAL_FLAGS+=" --experimental-resolve-tsconfig-paths"
           fi
 
-          if [[ ${{ matrix.type}} == 'esm-environments' ]]; then
+          if [[ ${{ matrix.type }} == 'esm-environments' ]]; then
             ADDITIONAL_FLAGS+=" -e lib2"
           fi
 
