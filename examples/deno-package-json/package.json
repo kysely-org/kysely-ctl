@@ -11,6 +11,6 @@
 		"kysely": "^0.28.5"
 	},
 	"devDependencies": {
-		"kysely-ctl": "^0.15.3"
+		"kysely-ctl": "^0.17.0"
 	}
 }
