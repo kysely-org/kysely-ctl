@@ -62,7 +62,7 @@
 	},
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.18.2",
-		"@arktype/attest": "^0.46.0",
+		"@arktype/attest": "^0.47.0",
 		"@biomejs/biome": "2.2.2",
 		"@tsconfig/node24": "^24.0.1",
 		"@types/better-sqlite3": "^7.6.13",
