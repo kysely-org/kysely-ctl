@@ -21,6 +21,8 @@ export interface GetConfigArgs {
 	transaction?: boolean
 }
 
+const CAPTURE_DOT_CONFIG_FOLDER = /\/\.config$/
+
 export async function getConfig(
 	args: GetConfigArgs,
 ): Promise<ResolvedKyselyCTLConfig | null> {
@@ -47,7 +49,10 @@ export async function getConfig(
 		configFile: configArg ? basename(configArg) : undefined,
 		cwd: configPath,
 		dotenv: environment
-			? { cwd: configPath, fileName: ['.env', `.env.${environment}`] }
+			? {
+					cwd: configPath.replace(CAPTURE_DOT_CONFIG_FOLDER, ''),
+					fileName: ['.env', `.env.${environment}`],
+				}
 			: true,
 		envName: environment,
 		jiti,

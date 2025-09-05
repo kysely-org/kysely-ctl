@@ -1,3 +1,4 @@
+import { equal } from 'node:assert'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import database from 'better-sqlite3'
@@ -18,9 +19,13 @@ export default defineConfig({
 			},
 		},
 		lib2: {
-			dialectConfig: () => ({
-				database: database(resolve(__dirname, '../packages/lib2/example.db')),
-			}),
+			dialectConfig: () => {
+				equal(process.env.ENABLE_LOGS, '1') // verifies envar extension works.
+
+				return {
+					database: database(resolve(__dirname, '../packages/lib2/example.db')),
+				}
+			},
 			migrations: {
 				migrationFolder: '../packages/lib2/migrations',
 			},
