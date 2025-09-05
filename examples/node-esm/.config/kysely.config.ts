@@ -6,7 +6,7 @@ import { defineConfig } from 'kysely-ctl'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-equal(process.env.ENABLE_LOGS, '1') // verifies envar loading works.
+equal(process.env.ENABLE_LOGS, '1', 'envars not loaded as expected')
 
 export default defineConfig({
 	dialect: 'better-sqlite3',

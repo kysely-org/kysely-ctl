@@ -20,7 +20,7 @@ export default defineConfig({
 		},
 		lib2: {
 			dialectConfig: () => {
-				equal(process.env.ENABLE_LOGS, '1') // verifies envar extension works.
+				equal(process.env.ENABLE_LOGS, '1', 'envars not loaded as expected')
 
 				return {
 					database: database(resolve(__dirname, '../packages/lib2/example.db')),

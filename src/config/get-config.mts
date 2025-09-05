@@ -48,12 +48,10 @@ export async function getConfig(
 	const loadedConfig = await loadConfig<KyselyCTLConfig>({
 		configFile: configArg ? basename(configArg) : undefined,
 		cwd: configPath,
-		dotenv: environment
-			? {
-					cwd: configPath.replace(CAPTURE_DOT_CONFIG_FOLDER, ''),
-					fileName: ['.env', `.env.${environment}`],
-				}
-			: true,
+		dotenv: {
+			cwd: configPath.replace(CAPTURE_DOT_CONFIG_FOLDER, ''),
+			fileName: environment ? ['.env', `.env.${environment}`] : '.env',
+		},
 		envName: environment,
 		jiti,
 		globalRc: false,
