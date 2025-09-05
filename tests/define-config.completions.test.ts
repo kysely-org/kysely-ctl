@@ -1,9 +1,6 @@
 import { attest } from '@arktype/attest'
 import { describe, it } from 'vitest'
-import type {
-	DefineConfigInput,
-	ResolvableKyselyDialect,
-} from '../dist/index.js'
+import type { DefineConfigInput, ResolvableKyselyDialect } from '..'
 
 describe('defineConfig', () => {
 	it('should provide completions for dialect name', () => {
@@ -11,6 +8,7 @@ describe('defineConfig', () => {
 		attest(() => ({ dialect: '' }) as DefineConfigInput).completions({
 			'': [
 				'better-sqlite3',
+				'bun',
 				'mysql2',
 				'pg',
 				'postgres',

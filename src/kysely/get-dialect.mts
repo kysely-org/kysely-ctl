@@ -23,28 +23,30 @@ export async function getDialect(
 	const dialectConfig = await hydrate(config.dialectConfig, [])
 
 	if (dialect === 'pg') {
-		return new PostgresDialect(dialectConfig as never)
+		return new PostgresDialect(dialectConfig)
 	}
 
 	if (dialect === 'mysql2') {
-		return new MysqlDialect(dialectConfig as never)
+		return new MysqlDialect(dialectConfig)
 	}
 
 	if (dialect === 'tedious') {
 		// since it was introduced only in kysely v0.27.0
 		// and we want to support older versions too
-		return new (await import('kysely')).MssqlDialect(dialectConfig as never)
+		return new (await import('kysely')).MssqlDialect(dialectConfig)
 	}
 
 	if (dialect === 'better-sqlite3') {
-		return new SqliteDialect(dialectConfig as never)
+		return new SqliteDialect(dialectConfig)
 	}
 
-	if (dialect === 'postgres') {
+	if (dialect === 'postgres' || dialect === 'bun') {
 		return new (await import('kysely-postgres-js')).PostgresJSDialect(
-			dialectConfig as never,
+			dialectConfig,
 		)
 	}
+
+	dialect satisfies never
 
 	throw new Error(`Unknown dialect: ${dialect}`)
 }

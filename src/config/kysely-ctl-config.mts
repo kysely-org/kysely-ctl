@@ -24,7 +24,7 @@ export type ResolvableKyselyDialect =
 
 export type KyselyCoreDialect = 'pg' | 'mysql2' | 'tedious' | 'better-sqlite3'
 
-export type KyselyOrganizationDialect = 'postgres'
+export type KyselyOrganizationDialect = 'bun' | 'postgres'
 
 // biome-ignore lint/suspicious/noExplicitAny: it's fine.
 export type Factory<T, P extends any[] = []> = (...args: P) => T | Promise<T>
