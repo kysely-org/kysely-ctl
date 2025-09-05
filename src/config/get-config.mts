@@ -24,7 +24,7 @@ export interface GetConfigArgs {
 export async function getConfig(
 	args: GetConfigArgs,
 ): Promise<ResolvedKyselyCTLConfig | null> {
-	const { config: configArg } = args
+	const { config: configArg, environment } = args
 
 	const configPath = configArg
 		? resolve(getCWD(), dirname(configArg))
@@ -46,8 +46,10 @@ export async function getConfig(
 	const loadedConfig = await loadConfig<KyselyCTLConfig>({
 		configFile: configArg ? basename(configArg) : undefined,
 		cwd: configPath,
-		dotenv: true,
-		envName: args.environment,
+		dotenv: environment
+			? { cwd: configPath, fileName: ['.env', `.env.${environment}`] }
+			: true,
+		envName: environment,
 		jiti,
 		globalRc: false,
 		name: configArg ? undefined : 'kysely',
