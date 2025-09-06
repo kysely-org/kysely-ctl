@@ -7,6 +7,7 @@ describe('defineConfig', () => {
 		// @ts-expect-error
 		attest(() => ({ dialect: '' }) as DefineConfigInput).completions({
 			'': [
+				'@neondatabase/serverless',
 				'better-sqlite3',
 				'bun',
 				'mysql2',

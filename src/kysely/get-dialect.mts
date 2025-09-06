@@ -46,7 +46,11 @@ export async function getDialect(
 		)
 	}
 
+	if (dialect === '@neondatabase/serverless') {
+		return new (await import('kysely-neon')).NeonDialect(dialectConfig)
+	}
+
 	dialect satisfies never
 
-	throw new Error(`Unknown dialect: ${dialect}`)
+	throw new Error(`Unknown dialect: "${dialect}"`)
 }

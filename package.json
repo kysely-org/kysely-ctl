@@ -53,9 +53,13 @@
 	},
 	"peerDependencies": {
 		"kysely": ">=0.18.1 <0.29.0",
+		"kysely-neon": "^2",
 		"kysely-postgres-js": "^2 || ^3"
 	},
 	"peerDependenciesMeta": {
+		"kysely-neon": {
+			"optional": true
+		},
 		"kysely-postgres-js": {
 			"optional": true
 		}
@@ -69,6 +73,7 @@
 		"@types/node": "^24.3.0",
 		"better-sqlite3": "^12.2.0",
 		"kysely": "0.28.5",
+		"kysely-neon": "^2.0.1",
 		"kysely-postgres-js": "^3.0.0",
 		"postgres": "^3.4.7",
 		"tsup": "^8.5.0",

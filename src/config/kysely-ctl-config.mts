@@ -11,6 +11,7 @@ import type {
 	PostgresDialectConfig,
 	SqliteDialectConfig,
 } from 'kysely'
+import type { NeonDialectConfig } from 'kysely-neon'
 import type { PostgresJSDialectConfig } from 'kysely-postgres-js'
 import type { SetRequired } from 'type-fest'
 import type { Seeder, SeederProps, SeedProvider } from '../seeds/seeder.mjs'
@@ -24,7 +25,10 @@ export type ResolvableKyselyDialect =
 
 export type KyselyCoreDialect = 'pg' | 'mysql2' | 'tedious' | 'better-sqlite3'
 
-export type KyselyOrganizationDialect = 'bun' | 'postgres'
+export type KyselyOrganizationDialect =
+	| 'postgres'
+	| '@neondatabase/serverless'
+	| 'bun'
 
 // biome-ignore lint/suspicious/noExplicitAny: it's fine.
 export type Factory<T, P extends any[] = []> = (...args: P) => T | Promise<T>
@@ -32,9 +36,10 @@ export type Factory<T, P extends any[] = []> = (...args: P) => T | Promise<T>
 // biome-ignore lint/suspicious/noExplicitAny: it's fine.
 export type OrFactory<T, P extends any[] = []> = T | Factory<T, P>
 
-interface KyselyDialectConfigDictionary
-	extends Record<ResolvableKyselyDialect, unknown> {
+interface KyselyDialectConfigDictionary {
+	'@neondatabase/serverless': NeonDialectConfig
 	'better-sqlite3': SqliteDialectConfig
+	bun: PostgresJSDialectConfig
 	mysql2: MysqlDialectConfig
 	pg: PostgresDialectConfig
 	postgres: PostgresJSDialectConfig
