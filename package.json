@@ -54,13 +54,17 @@
 	"peerDependencies": {
 		"kysely": ">=0.18.1 <0.29.0",
 		"kysely-neon": "^2",
-		"kysely-postgres-js": "^2 || ^3"
+		"kysely-postgres-js": "^2 || ^3",
+		"kysely-prisma-postgres": "^0.1"
 	},
 	"peerDependenciesMeta": {
 		"kysely-neon": {
 			"optional": true
 		},
 		"kysely-postgres-js": {
+			"optional": true
+		},
+		"kysely-prisma-postgres": {
 			"optional": true
 		}
 	},
@@ -75,6 +79,7 @@
 		"kysely": "0.28.5",
 		"kysely-neon": "^2.0.1",
 		"kysely-postgres-js": "^3.0.0",
+		"kysely-prisma-postgres": "^0.1.0",
 		"postgres": "^3.4.7",
 		"tsup": "^8.5.0",
 		"type-fest": "^4.41.0",

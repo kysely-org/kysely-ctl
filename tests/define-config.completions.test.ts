@@ -8,6 +8,7 @@ describe('defineConfig', () => {
 		attest(() => ({ dialect: '' }) as DefineConfigInput).completions({
 			'': [
 				'@neondatabase/serverless',
+				'@prisma/ppg',
 				'better-sqlite3',
 				'bun',
 				'mysql2',

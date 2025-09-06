@@ -77,6 +77,9 @@ importers:
       kysely-postgres-js:
         specifier: ^3.0.0
         version: 3.0.0(kysely@0.28.5)(postgres@3.4.7)
+      kysely-prisma-postgres:
+        specifier: ^0.1.0
+        version: 0.1.0(@prisma/ppg@0.5.2)(kysely@0.28.5)
       postgres:
         specifier: ^3.4.7
         version: 3.4.7
@@ -810,6 +813,9 @@ packages:
     resolution: {integrity: sha512-6BMtNr7aQhyNcGzmumkL0tgr1YQGfm9d7ZdmRpWqWuqpc9vZBind4xMe5NMiRECOhjuSiWHfBWLBnXkpeE90bw==}
     peerDependencies:
       prettier: '*'
+
+  '@prisma/ppg@0.5.2':
+    resolution: {integrity: sha512-WT5Kxj1gRLjcrnhMJfdTMsxs8RBhOHm4ZooCuaK0qhKP1ta1ukV3Ab11jEOSI2XeMWCRN6fvwO8+wqWzGmTXuQ==}
 
   '@rollup/rollup-android-arm-eabi@4.36.0':
     resolution: {integrity: sha512-jgrXjjcEwN6XpZXL0HUeOVGfjXhPyxAbbhD0BlXUB+abTOpbPiN5Wb3kOT7yb+uEtATNYF5x5gIfwutmuBA26w==}
@@ -1727,6 +1733,13 @@ packages:
     peerDependenciesMeta:
       postgres:
         optional: true
+
+  kysely-prisma-postgres@0.1.0:
+    resolution: {integrity: sha512-ypStRfEU2NnW5vOc009RpYBAXXmNKP2no8DNmJuBmEzPsCw34CL+BBf8sdlTJyKQ/olb2Qve2uJyXT3fsvyG6Q==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@prisma/ppg': ^0.5
+      kysely: 0.28.5
 
   kysely@0.28.5:
     resolution: {integrity: sha512-rlB0I/c6FBDWPcQoDtkxi9zIvpmnV5xoIalfCMSMCa7nuA6VGA3F54TW9mEgX4DVf10sXAWCF5fDbamI/5ZpKA==}
@@ -2978,6 +2991,8 @@ snapshots:
       make-synchronized: 0.4.2
       prettier: 3.5.3
 
+  '@prisma/ppg@0.5.2': {}
+
   '@rollup/rollup-android-arm-eabi@4.36.0':
     optional: true
 
@@ -3950,6 +3965,11 @@ snapshots:
       kysely: 0.28.5
     optionalDependencies:
       postgres: 3.4.7
+
+  kysely-prisma-postgres@0.1.0(@prisma/ppg@0.5.2)(kysely@0.28.5):
+    dependencies:
+      '@prisma/ppg': 0.5.2
+      kysely: 0.28.5
 
   kysely@0.28.5: {}
 

@@ -13,6 +13,7 @@ import type {
 } from 'kysely'
 import type { NeonDialectConfig } from 'kysely-neon'
 import type { PostgresJSDialectConfig } from 'kysely-postgres-js'
+import type { PPGDialectConfig } from 'kysely-prisma-postgres'
 import type { SetRequired } from 'type-fest'
 import type { Seeder, SeederProps, SeedProvider } from '../seeds/seeder.mjs'
 import type { GetConfigArgs } from './get-config.mjs'
@@ -29,6 +30,7 @@ export type KyselyOrganizationDialect =
 	| 'postgres'
 	| '@neondatabase/serverless'
 	| 'bun'
+	| '@prisma/ppg'
 
 // biome-ignore lint/suspicious/noExplicitAny: it's fine.
 export type Factory<T, P extends any[] = []> = (...args: P) => T | Promise<T>
@@ -38,6 +40,7 @@ export type OrFactory<T, P extends any[] = []> = T | Factory<T, P>
 
 interface KyselyDialectConfigDictionary {
 	'@neondatabase/serverless': NeonDialectConfig
+	'@prisma/ppg': PPGDialectConfig
 	'better-sqlite3': SqliteDialectConfig
 	bun: PostgresJSDialectConfig
 	mysql2: MysqlDialectConfig
