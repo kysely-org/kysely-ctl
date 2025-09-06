@@ -22,11 +22,6 @@ and cross-module system ([ESM](https://nodejs.org/api/esm.html#modules-ecmascrip
 and [CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules)) compatible.
 We also aim to have feature parity with [Knex.js](https://knexjs.org)'s CLI.
 
-> [!NOTE]
-> This is a work in progress. Please report any issues you encounter or suggest
-any ideas you have in the [issues](https://github.com/kysely-org/kysely-ctl/issues)
-section or in [kysely's discord server](https://discord.gg/xyBJ3GwvAm).
-
 ## Install
 
 ### Prerequisites:
