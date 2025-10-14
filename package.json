@@ -82,7 +82,7 @@
 		"kysely-prisma-postgres": "^0.1.0",
 		"postgres": "^3.4.7",
 		"tsup": "^8.5.0",
-		"type-fest": "^4.41.0",
+		"type-fest": "^5.1.0",
 		"typescript": "^5.9.2",
 		"vitest": "^3.2.4"
 	},
