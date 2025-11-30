@@ -1,6 +1,6 @@
 import { cp, readdir, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
-import { defineConfig } from 'tsup'
+import { defineConfig } from 'tsdown'
 
 export default defineConfig({
 	clean: true,
