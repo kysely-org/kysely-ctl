@@ -4,10 +4,20 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@types/better-sqlite3': 7.6.13
-  better-sqlite3: 12.5.0
-  kysely: 0.28.8
+catalogs:
+  default:
+    '@types/better-sqlite3':
+      specifier: 7.6.13
+      version: 7.6.13
+    better-sqlite3:
+      specifier: 12.5.0
+      version: 12.5.0
+    kysely:
+      specifier: 0.28.8
+      version: 0.28.8
+    typescript:
+      specifier: 5.9.3
+      version: 5.9.3
 
 importers:
 
@@ -60,16 +70,16 @@ importers:
         specifier: ^24.0.3
         version: 24.0.3
       '@types/better-sqlite3':
-        specifier: 7.6.13
+        specifier: 'catalog:'
         version: 7.6.13
       '@types/node':
         specifier: ^24.10.1
         version: 24.10.1
       better-sqlite3:
-        specifier: 12.5.0
+        specifier: 'catalog:'
         version: 12.5.0
       kysely:
-        specifier: 0.28.8
+        specifier: 'catalog:'
         version: 0.28.8
       kysely-neon:
         specifier: ^2.0.2
@@ -90,7 +100,7 @@ importers:
         specifier: ^5.2.0
         version: 5.2.0
       typescript:
-        specifier: ^5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vitest:
         specifier: ^4.0.14
@@ -99,14 +109,14 @@ importers:
   examples/node-cjs:
     dependencies:
       better-sqlite3:
-        specifier: 12.5.0
+        specifier: 'catalog:'
         version: 12.5.0
       kysely:
-        specifier: 0.28.8
+        specifier: 'catalog:'
         version: 0.28.8
     devDependencies:
       '@types/better-sqlite3':
-        specifier: 7.6.13
+        specifier: 'catalog:'
         version: 7.6.13
       kysely-ctl:
         specifier: link:../..
@@ -115,14 +125,14 @@ importers:
   examples/node-esm:
     dependencies:
       better-sqlite3:
-        specifier: 12.5.0
+        specifier: 'catalog:'
         version: 12.5.0
       kysely:
-        specifier: 0.28.8
+        specifier: 'catalog:'
         version: 0.28.8
     devDependencies:
       '@types/better-sqlite3':
-        specifier: 7.6.13
+        specifier: 'catalog:'
         version: 7.6.13
       kysely-ctl:
         specifier: link:../..
@@ -131,14 +141,14 @@ importers:
   examples/node-esm-environments:
     dependencies:
       better-sqlite3:
-        specifier: 12.5.0
+        specifier: 'catalog:'
         version: 12.5.0
       kysely:
-        specifier: 0.28.8
+        specifier: 'catalog:'
         version: 0.28.8
     devDependencies:
       '@types/better-sqlite3':
-        specifier: 7.6.13
+        specifier: 'catalog:'
         version: 7.6.13
       kysely-ctl:
         specifier: link:../..
@@ -150,24 +160,24 @@ importers:
   examples/node-esm-jsx:
     dependencies:
       better-sqlite3:
-        specifier: 12.5.0
+        specifier: 'catalog:'
         version: 12.5.0
       kysely:
-        specifier: 0.28.8
+        specifier: 'catalog:'
         version: 0.28.8
       react:
-        specifier: ^19.1.1
-        version: 19.1.1
+        specifier: ^19.2.0
+        version: 19.2.0
       react-dom:
-        specifier: ^19.1.0
-        version: 19.1.1(react@19.1.1)
+        specifier: ^19.2.0
+        version: 19.2.0(react@19.2.0)
     devDependencies:
       '@types/better-sqlite3':
-        specifier: 7.6.13
+        specifier: 'catalog:'
         version: 7.6.13
       '@types/react':
-        specifier: ^19.1.12
-        version: 19.1.12
+        specifier: ^19.2.7
+        version: 19.2.7
       kysely-ctl:
         specifier: link:../..
         version: link:../..
@@ -175,14 +185,14 @@ importers:
   examples/node-esm-multi-config:
     dependencies:
       better-sqlite3:
-        specifier: 12.5.0
+        specifier: 'catalog:'
         version: 12.5.0
       kysely:
-        specifier: 0.28.8
+        specifier: 'catalog:'
         version: 0.28.8
     devDependencies:
       '@types/better-sqlite3':
-        specifier: 7.6.13
+        specifier: 'catalog:'
         version: 7.6.13
       kysely-ctl:
         specifier: link:../..
@@ -191,14 +201,14 @@ importers:
   examples/node-esm-top-level-await:
     dependencies:
       better-sqlite3:
-        specifier: 12.5.0
+        specifier: 'catalog:'
         version: 12.5.0
       kysely:
-        specifier: 0.28.8
+        specifier: 'catalog:'
         version: 0.28.8
     devDependencies:
       '@types/better-sqlite3':
-        specifier: 7.6.13
+        specifier: 'catalog:'
         version: 7.6.13
       kysely-ctl:
         specifier: link:../..
@@ -207,14 +217,14 @@ importers:
   examples/node-esm-tsconfig-paths:
     dependencies:
       better-sqlite3:
-        specifier: 12.5.0
+        specifier: 'catalog:'
         version: 12.5.0
       kysely:
-        specifier: 0.28.8
+        specifier: 'catalog:'
         version: 0.28.8
     devDependencies:
       '@types/better-sqlite3':
-        specifier: 7.6.13
+        specifier: 'catalog:'
         version: 7.6.13
       kysely-ctl:
         specifier: link:../..
@@ -223,33 +233,33 @@ importers:
   examples/node-esm-tsconfig-paths-inherited:
     dependencies:
       better-sqlite3:
-        specifier: 12.5.0
+        specifier: 'catalog:'
         version: 12.5.0
       kysely:
-        specifier: 0.28.8
+        specifier: 'catalog:'
         version: 0.28.8
     devDependencies:
       '@types/better-sqlite3':
-        specifier: 7.6.13
+        specifier: 'catalog:'
         version: 7.6.13
       kysely-ctl:
         specifier: link:../..
         version: link:../..
       typescript:
-        specifier: ^5.9.2
-        version: 5.9.2
+        specifier: 'catalog:'
+        version: 5.9.3
 
   examples/node-esm-tsconfig-paths-no-baseurl:
     dependencies:
       better-sqlite3:
-        specifier: 12.5.0
+        specifier: 'catalog:'
         version: 12.5.0
       kysely:
-        specifier: 0.28.8
+        specifier: 'catalog:'
         version: 0.28.8
     devDependencies:
       '@types/better-sqlite3':
-        specifier: 7.6.13
+        specifier: 'catalog:'
         version: 7.6.13
       kysely-ctl:
         specifier: link:../..
@@ -948,8 +958,8 @@ packages:
   '@types/pg@8.15.5':
     resolution: {integrity: sha512-LF7lF6zWEKxuT3/OR8wAZGzkg4ENGXFNyiV/JeOt9z5B+0ZVwbql9McqX5c/WStFq1GaGso7H1AzP/qSzmlCKQ==}
 
-  '@types/react@19.1.12':
-    resolution: {integrity: sha512-cMoR+FoAf/Jyq6+Df2/Z41jISvGZZ2eTlnsaJRptmZ76Caldwy1odD4xTr/gNV9VLj0AWgg/nmkevIyUfIIq5w==}
+  '@types/react@19.2.7':
+    resolution: {integrity: sha512-MWtvHrGZLFttgeEj28VXHxpmwYbor/ATPYbBfSFZEIRK0ecCFLl2Qo55z52Hss+UV9CRN7trSeq1zbgx7YDWWg==}
 
   '@typescript/analyze-trace@0.10.1':
     resolution: {integrity: sha512-RnlSOPh14QbopGCApgkSx5UBgGda5MX1cHqp2fsqfiDyCwGL/m1jaeB9fzu7didVS81LQqGZZuxFBcg8YU8EVw==}
@@ -1171,8 +1181,8 @@ packages:
     resolution: {integrity: sha512-VqCUuhcd1iB+dsv8gxPttb5iZh/D0iubSP21g36KXdEuf6I5JiioesUVjpCdHV9MZRUfVFlvwtIUyPfxo5trtw==}
     engines: {node: '>=4.8'}
 
-  csstype@3.1.3:
-    resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
+  csstype@3.2.3:
+    resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
 
   data-view-buffer@1.0.2:
     resolution: {integrity: sha512-EmKO5V3OLXh1rtK2wgXRansaK1/mtVdTUEiEI0W8RkvgT05kfxaH29PliLnpLP73yYO6142Q72QNa8Wx/A5CqQ==}
@@ -1582,13 +1592,13 @@ packages:
     engines: {node: '>=20'}
     peerDependencies:
       '@neondatabase/serverless': ^1
-      kysely: 0.28.8
+      kysely: ^0.28
 
   kysely-postgres-js@3.0.0:
     resolution: {integrity: sha512-o2t/xNSYJQDW6rVGGFPXKmZ0BEz2dGn66c2B+cO/k9ZNcU2qPWPycQPQ+B+P2MBXbKYq0xV9BZmFIvkUrmFWAQ==}
     engines: {bun: '>=1.2', node: '>=20'}
     peerDependencies:
-      kysely: 0.28.8
+      kysely: '>= 0.24.0 < 1'
       postgres: ^3.4.0
     peerDependenciesMeta:
       postgres:
@@ -1599,7 +1609,7 @@ packages:
     engines: {node: '>=20'}
     peerDependencies:
       '@prisma/ppg': ^0.5
-      kysely: 0.28.8
+      kysely: ^0.28
 
   kysely@0.28.8:
     resolution: {integrity: sha512-QUOgl5ZrS9IRuhq5FvOKFSsD/3+IA6MLE81/bOOTRA/YQpKDza2sFdN5g6JCB9BOpqMJDGefLCQ9F12hRS13TA==}
@@ -1839,13 +1849,13 @@ packages:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
     hasBin: true
 
-  react-dom@19.1.1:
-    resolution: {integrity: sha512-Dlq/5LAZgF0Gaz6yiqZCf6VCcZs1ghAJyrsu84Q/GT0gV+mCxbfmKNoGRKBYMJ8IEdGPqu49YWXD02GCknEDkw==}
+  react-dom@19.2.0:
+    resolution: {integrity: sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==}
     peerDependencies:
-      react: ^19.1.1
+      react: ^19.2.0
 
-  react@19.1.1:
-    resolution: {integrity: sha512-w8nqGImo45dmMIfljjMwOGtbmC/mk4CMYhWIicdSflH91J9TyCyczcPFXJzrZ/ZXcgGRFeP6BU0BEJTw6tZdfQ==}
+  react@19.2.0:
+    resolution: {integrity: sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ==}
     engines: {node: '>=0.10.0'}
 
   read-pkg@3.0.0:
@@ -1928,8 +1938,8 @@ packages:
     resolution: {integrity: sha512-x/+Cz4YrimQxQccJf5mKEbIa1NzeCRNI5Ecl/ekmlYaampdNLPalVyIcCZNNH3MvmqBugV5TMYZXv0ljslUlaw==}
     engines: {node: '>= 0.4'}
 
-  scheduler@0.26.0:
-    resolution: {integrity: sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==}
+  scheduler@0.27.0:
+    resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
 
   semver@5.7.2:
     resolution: {integrity: sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==}
@@ -2196,11 +2206,6 @@ packages:
 
   typescript@5.6.1-rc:
     resolution: {integrity: sha512-E3b2+1zEFu84jB0YQi9BORDjz9+jGbwwy1Zi3G0LUNw7a7cePUrHMRNy8aPh53nXpkFGVHSxIZo5vKTfYaFiBQ==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
-  typescript@5.9.2:
-    resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -2838,9 +2843,9 @@ snapshots:
       pg-protocol: 1.10.3
       pg-types: 2.2.0
 
-  '@types/react@19.1.12':
+  '@types/react@19.2.7':
     dependencies:
-      csstype: 3.1.3
+      csstype: 3.2.3
 
   '@typescript/analyze-trace@0.10.1':
     dependencies:
@@ -3102,7 +3107,7 @@ snapshots:
       shebang-command: 1.2.0
       which: 1.3.1
 
-  csstype@3.1.3: {}
+  csstype@3.2.3: {}
 
   data-view-buffer@1.0.2:
     dependencies:
@@ -3650,7 +3655,7 @@ snapshots:
 
   node-abi@3.65.0:
     dependencies:
-      semver: 7.6.2
+      semver: 7.7.3
 
   node-emoji@2.1.3:
     dependencies:
@@ -3834,12 +3839,12 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  react-dom@19.1.1(react@19.1.1):
+  react-dom@19.2.0(react@19.2.0):
     dependencies:
-      react: 19.1.1
-      scheduler: 0.26.0
+      react: 19.2.0
+      scheduler: 0.27.0
 
-  react@19.1.1: {}
+  react@19.2.0: {}
 
   read-pkg@3.0.0:
     dependencies:
@@ -3971,7 +3976,7 @@ snapshots:
       es-errors: 1.3.0
       is-regex: 1.2.1
 
-  scheduler@0.26.0: {}
+  scheduler@0.27.0: {}
 
   semver@5.7.2: {}
 
@@ -4275,8 +4280,6 @@ snapshots:
       reflect.getprototypeof: 1.0.10
 
   typescript@5.6.1-rc: {}
-
-  typescript@5.9.2: {}
 
   typescript@5.9.3: {}
 

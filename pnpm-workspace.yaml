@@ -1,17 +1,18 @@
 packages:
 - ./examples/node-*
 
+catalog:
+  '@types/better-sqlite3': 7.6.13
+  better-sqlite3: 12.5.0
+  kysely: 0.28.8
+  typescript: 5.9.3
+
 minimumReleaseAge: 1440 # install package versions that are at least 1 day old (in minutes).
 
 # `postinstall` allow list
 onlyBuiltDependencies:
 - better-sqlite3@12.5.0
 - esbuild@0.23.1 || 0.25.1 # vitest@4.0.14
-
-overrides:
-  "@types/better-sqlite3": 7.6.13
-  better-sqlite3: 12.5.0
-  kysely: 0.28.8
 
 trustPolicy: no-downgrade # fail if there's a regression in attestation of packages.
 

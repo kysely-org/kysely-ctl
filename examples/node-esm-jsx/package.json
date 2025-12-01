@@ -2,14 +2,14 @@
 	"name": "node-esm-jsx",
 	"type": "module",
 	"devDependencies": {
-		"@types/better-sqlite3": "7.6.13",
-		"@types/react": "^19.1.12",
+		"@types/better-sqlite3": "catalog:",
+		"@types/react": "^19.2.7",
 		"kysely-ctl": "link:../.."
 	},
 	"dependencies": {
-		"better-sqlite3": "12.2.0",
-		"kysely": "0.28.4",
-		"react": "^19.1.1",
-		"react-dom": "^19.1.0"
+		"better-sqlite3": "catalog:",
+		"kysely": "catalog:",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0"
 	}
 }
