@@ -1,6 +1,9 @@
 import { cp, readdir, readFile, writeFile } from 'node:fs/promises'
-import { join } from 'node:path'
-import { defineConfig } from 'tsup'
+import { fileURLToPath } from 'node:url'
+import { dirname, join } from 'pathe'
+import { defineConfig } from 'tsdown'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
 	clean: true,
