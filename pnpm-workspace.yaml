@@ -6,7 +6,7 @@ minimumReleaseAge: 1440 # install package versions that are at least 1 day old (
 # `postinstall` allow list
 onlyBuiltDependencies:
 - better-sqlite3@12.5.0
-- esbuild@0.21.5 || 0.23.1 || 0.25.1
+- esbuild@0.23.1 || 0.25.1 # vitest@4.0.14
 
 overrides:
   "@types/better-sqlite3": 7.6.13
