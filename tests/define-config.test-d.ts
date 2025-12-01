@@ -16,7 +16,7 @@ import {
 	FileSeedProvider,
 	Seeder,
 	TSFileMigrationProvider,
-} from '../dist/index.js'
+} from '../dist/index.mjs'
 
 describe('defineConfig', () => {
 	const {
