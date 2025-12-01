@@ -1,5 +1,5 @@
 {
 	"tasks": {
-		"kysely": "deno run -A --node-modules-dir ../../dist/bin.js"
+		"kysely": "deno run -A --node-modules-dir ../../dist/bin.mjs"
 	}
 }

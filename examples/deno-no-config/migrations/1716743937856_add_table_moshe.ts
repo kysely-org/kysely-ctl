@@ -1,4 +1,4 @@
-import type { Kysely } from 'npm:kysely@^0.28.5'
+import type { Kysely } from 'npm:kysely@^0.28.8'
 
 if (Deno.env) {
 	// biome-ignore lint/suspicious/noConsole: console.log is fine here

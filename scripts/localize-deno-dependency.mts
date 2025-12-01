@@ -17,7 +17,7 @@ async function main() {
 
 			await Promise.all([
 				copyFile(
-					join(distPath, 'bin.js'),
+					join(distPath, 'bin.mjs'),
 					join(exampleNodeModulesPath, '.bin/kysely'),
 				),
 				cp(distPath, resolve(exampleNodeModulesPath, 'kysely-ctl/dist'), {
