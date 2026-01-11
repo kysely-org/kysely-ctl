@@ -34,12 +34,12 @@ export function defineCommand<
 			...command.meta,
 		},
 		run: async (context) => {
-			if (mergedContext) {
-				context = mergedContext
-			}
-
 			if (isInSubcommand(context)) {
 				return
+			}
+
+			if (mergedContext) {
+				context = mergedContext
 			}
 
 			consola.debug('context', context)
