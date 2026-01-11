@@ -34,15 +34,17 @@ export function defineCommand<
 			...command.meta,
 		},
 		run: async (context) => {
+			if (mergedContext) {
+				context = mergedContext
+			}
+
 			if (isInSubcommand(context)) {
 				return
 			}
 
 			consola.debug('context', context)
-			consola.debug('mergedContext', mergedContext)
 
-			// biome-ignore lint/style/noNonNullAssertion: it's fine.
-			const { args } = mergedContext!
+			const { args } = context
 
 			if (args.version) {
 				return await printInstalledVersions()
