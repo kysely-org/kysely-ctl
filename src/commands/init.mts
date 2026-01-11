@@ -11,13 +11,16 @@ import { defineCommand } from '../utils/define-command.mjs'
 import { getTemplateExtension } from '../utils/get-template-extension.mjs'
 
 const {
-	'experimental-resolve-tsconfig-paths': _jiti0,
-	'no-filesystem-caching': _jiti1,
-	...CommonArgsWithoutJiti
+	// TODO: consider supporting passing a config path to init command that controls the filepath to be created.
+	config: _omitted0,
+	environment: _omitted1,
+	'experimental-resolve-tsconfig-paths': _omitted2,
+	'no-filesystem-caching': _omitted3,
+	...CommonArgsForInit
 } = CommonArgs
 
 const args = defineArgs({
-	...CommonArgsWithoutJiti,
+	...CommonArgsForInit,
 	...ExtensionArg,
 })
 
