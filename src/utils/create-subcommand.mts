@@ -1,10 +1,9 @@
-import type { SubCommandsDef } from 'citty'
-import type { StrictCommandDef } from './define-command.mjs'
+import type { CommandDef, SubCommandsDef } from 'citty'
 
 export function createSubcommand<
 	Name extends string,
-	// biome-ignore lint/suspicious/noExplicitAny: it's fine.
-	const Command extends StrictCommandDef<any>,
+	// biome-ignore lint/suspicious/noExplicitAny: it's fune.
+	const Command extends CommandDef<any>,
 >(
 	name: Name,
 	def: Command,

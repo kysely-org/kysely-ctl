@@ -91,8 +91,9 @@ async function getPackageLatestVersion(packageName: string): Promise<string> {
 
 export async function printUpgradeNotice(args: {
 	'outdated-check'?: boolean
+	version?: boolean
 }): Promise<void> {
-	if (args['outdated-check'] === false || isCI) {
+	if (args.version || args['outdated-check'] === false || isCI) {
 		return
 	}
 

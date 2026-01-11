@@ -1,9 +1,7 @@
-import { showUsage } from 'citty'
-import { consola } from 'consola'
+import type { CommandDef } from 'citty'
+import { CommonArgs } from '../../arguments/common.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
-import type { StrictCommandDef } from '../../utils/define-command.mjs'
-import { isInSubcommand } from '../../utils/is-in-subcommand.mjs'
-import { RootCommand } from '../root.mjs'
+import { defineCommand } from '../../utils/define-command.mjs'
 import { DownCommand } from './down.mjs'
 import { LatestCommand } from './latest.mjs'
 import { ListCommand } from './list.mjs'
@@ -18,20 +16,10 @@ const subCommands = {
 	...MakeCommand,
 	...RollbackCommand,
 	...UpCommand,
-	// biome-ignore lint/suspicious/noExplicitAny: it's fine
-} satisfies StrictCommandDef<any>['subCommands']
+} satisfies CommandDef['subCommands']
 
-export const MigrateCommand = createSubcommand('migrate', {
-	args: {},
-	meta: {
-		description: `\`${Object.keys(subCommands).sort().join('|')}\``,
-	},
-	async run(context) {
-		if (!isInSubcommand(context)) {
-			consola.debug(context, [])
-
-			await showUsage(context.cmd, RootCommand)
-		}
-	},
+const Command = defineCommand(CommonArgs, {
 	subCommands,
 })
+
+export const MigrateCommand = createSubcommand('migrate', Command)

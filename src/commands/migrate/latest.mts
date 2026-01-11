@@ -14,8 +14,6 @@ const Command = defineCommand(args, {
 		description: 'Update the database schema to the latest version',
 	},
 	async run(context) {
-		consola.debug(context, [])
-
 		await usingMigrator(context.args, async (migrator) => {
 			consola.start('Starting migration to latest')
 

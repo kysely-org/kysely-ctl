@@ -1,10 +1,8 @@
 import { copyFile, mkdir } from 'node:fs/promises'
 import { consola } from 'consola'
 import { join } from 'pathe'
-import { CWDArg } from '../arguments/cwd.mjs'
-import { DebugArg } from '../arguments/debug.mjs'
+import { CommonArgs } from '../arguments/common.mjs'
 import { assertExtension, ExtensionArg } from '../arguments/extension.mjs'
-import { NoOutdatedCheckArg } from '../arguments/no-outdated-check.mjs'
 import { configFileExists, getConfig } from '../config/get-config.mjs'
 import { getCWD } from '../config/get-cwd.mjs'
 import { createSubcommand } from '../utils/create-subcommand.mjs'
@@ -12,11 +10,18 @@ import { defineArgs } from '../utils/define-args.mjs'
 import { defineCommand } from '../utils/define-command.mjs'
 import { getTemplateExtension } from '../utils/get-template-extension.mjs'
 
+const {
+	// TODO: consider supporting passing a config path to init command that controls the filepath to be created.
+	config: _omitted0,
+	environment: _omitted1,
+	'experimental-resolve-tsconfig-paths': _omitted2,
+	'no-filesystem-caching': _omitted3,
+	...CommonArgsForInit
+} = CommonArgs
+
 const args = defineArgs({
-	...CWDArg,
-	...DebugArg,
+	...CommonArgsForInit,
 	...ExtensionArg,
-	...NoOutdatedCheckArg,
 })
 
 const Command = defineCommand(args, {
@@ -26,8 +31,6 @@ const Command = defineCommand(args, {
 	async run(context) {
 		const { args } = context
 		const { extension } = args
-
-		consola.debug(context, [])
 
 		const config = await getConfig(args)
 
