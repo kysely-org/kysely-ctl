@@ -77,7 +77,7 @@ jobs:
           ADDITIONAL_FLAGS="--debug"
 
           if [[ ${{ matrix.type }} == 'esm-multi-config' ]]; then
-            ADDITIONAL_FLAGS+=" -c ./.config/kysely.test.config.ts"
+            ADDITIONAL_FLAGS+=" --config=./.config/kysely.test.config.ts"
           fi
 
           if [[ ${{ matrix.type }} == 'esm-tsconfig-paths'* ]]; then
@@ -85,7 +85,7 @@ jobs:
           fi
 
           if [[ ${{ matrix.type }} == 'esm-environments' ]]; then
-            ADDITIONAL_FLAGS+=" -e lib2"
+            ADDITIONAL_FLAGS+=" --environment=lib2"
           fi
 
           echo "ADDITIONAL_FLAGS=$ADDITIONAL_FLAGS" >> $GITHUB_OUTPUT
