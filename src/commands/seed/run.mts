@@ -23,8 +23,6 @@ const Command = defineCommand(args, {
 		const { args } = context
 		const { specific } = args
 
-		consola.debug(context, [])
-
 		consola.start('Starting seed run')
 
 		const resultSet = await usingSeeder(args, (seeder) => seeder.run(specific))

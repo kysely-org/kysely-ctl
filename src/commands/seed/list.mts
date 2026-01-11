@@ -9,8 +9,6 @@ const Command = defineCommand(CommonArgs, {
 		description: 'List seeds',
 	},
 	async run(context) {
-		consola.debug(context, [])
-
 		const seeds = await usingSeeder(context.args, (seeder) => seeder.getSeeds())
 
 		consola.debug(seeds)

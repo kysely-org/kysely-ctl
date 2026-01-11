@@ -24,8 +24,6 @@ const Command = defineCommand(args, {
 		const { args } = context
 		const { extension } = args
 
-		consola.debug(context, [])
-
 		const config = await getConfigOrFail(args)
 
 		assertExtension(extension, config, 'migrations')

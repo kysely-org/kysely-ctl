@@ -23,8 +23,6 @@ const Command = defineCommand(args, {
 		const { args } = context
 		const { migration_name } = context.args
 
-		consola.debug(context, [])
-
 		await usingMigrator(args, async (migrator) => {
 			if (await isWrongDirection(migration_name, 'down', migrator)) {
 				return consola.info(

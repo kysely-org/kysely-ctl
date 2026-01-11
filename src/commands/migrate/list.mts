@@ -21,8 +21,6 @@ const Command = defineCommand(args, {
 		description: 'List both completed and pending migrations',
 	},
 	async run(context) {
-		consola.debug(context, [])
-
 		const migrations = await usingMigrator(context.args, getMigrations)
 
 		consola.debug(migrations)

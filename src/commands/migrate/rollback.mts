@@ -23,8 +23,6 @@ const Command = defineCommand(args, {
 		description: 'Rollback all the completed migrations',
 	},
 	async run(context) {
-		consola.debug(context, [])
-
 		await usingMigrator(context.args, async (migrator) => {
 			consola.start('Starting migration rollback')
 

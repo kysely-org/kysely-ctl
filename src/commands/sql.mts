@@ -37,12 +37,9 @@ const Command = defineCommand(args, {
 		name: 'sql',
 		description: 'Execute SQL queries',
 	},
-	subCommands: {},
 	async run(context) {
 		const { args } = context
 		const { format, query } = args
-
-		consola.debug(context, [])
 
 		assertQuery(query)
 		assertFormat(format)
