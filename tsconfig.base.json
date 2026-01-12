@@ -6,9 +6,10 @@
 		"moduleResolution": "bundler",
 
 		// custom
-		"allowJs": true,
+		"declaration": true,
 		"resolveJsonModule": true,
 		"moduleDetection": "force",
+		"isolatedDeclarations": true,
 		"isolatedModules": true,
 		"verbatimModuleSyntax": true,
 		"noUncheckedIndexedAccess": true,

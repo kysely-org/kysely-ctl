@@ -1,46 +1,30 @@
-import { cp, readdir, readFile, writeFile } from 'node:fs/promises'
+import { cp } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'pathe'
 import { defineConfig } from 'tsdown'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
+const DIST_PATH = join(__dirname, 'dist')
+
 export default defineConfig({
+	attw: {
+		enabled: true,
+		level: 'error',
+		profile: 'esm-only',
+	},
 	clean: true,
 	dts: true,
 	entry: ['./src/index.mts', './src/bin.mts'],
-	format: ['cjs', 'esm'],
-	async onSuccess() {
-		const distPath = join(__dirname, 'dist')
-
-		// `publicDir` is not working on re-builds in `watch` mode.
-		await cp(join(__dirname, 'src/templates'), join(distPath, 'templates'), {
+	exports: {
+		enabled: 'local-only',
+		exclude: ['bin'],
+	},
+	format: ['esm'],
+	onSuccess: async function copyTemplatesToDist(): Promise<void> {
+		await cp(join(__dirname, 'src/templates'), join(DIST_PATH, 'templates'), {
 			recursive: true,
 		})
-
-		const distFolder = await readdir(distPath, { withFileTypes: true })
-
-		for (const dirent of distFolder) {
-			const { name } = dirent
-
-			const filePath = join(distPath, name)
-
-			if (dirent.isFile() && name.endsWith('.js')) {
-				const file = await readFile(filePath, {
-					encoding: 'utf-8',
-				})
-
-				await writeFile(
-					filePath,
-					// esm output imports node built-in modules without `node:` specifiers,
-					// which fails in Deno.
-					file.replace(
-						/"(fs|fs\/promises|path|url|child_process|readline\/promises)"/g,
-						'"node:$1"',
-					),
-				)
-			}
-		}
 	},
 	shims: true,
 })
