@@ -27,4 +27,5 @@ export default defineConfig({
 		})
 	},
 	shims: true,
+	tsconfig: './tsconfig.prod.json',
 })

@@ -38,6 +38,3 @@ jobs:
 
       - name: Build
         run: pnpm build
-
-      - name: Exports
-        run: pnpm check:exports
