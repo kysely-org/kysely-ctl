@@ -1,6 +1,10 @@
 packages:
 - ./examples/node-*
 
+allowBuilds:
+  better-sqlite3@12.6.0: true
+  esbuild@0.23.1 || 0.25.1: true # vitest@4.0.14
+
 blockExoticSubdeps: true
 
 catalog:
@@ -11,14 +15,7 @@ catalog:
 
 minimumReleaseAge: 1440 # install package versions that are at least 1 day old (in minutes).
 
-# `postinstall` allow list
-onlyBuiltDependencies:
-- better-sqlite3@12.5.0
-- esbuild@0.23.1 || 0.25.1 # vitest@4.0.14
-
 trustPolicy: no-downgrade # fail if there's a regression in attestation of packages.
 
 trustPolicyExclude:
-  - chokidar@4.0.3 # c12@3.3.2 - https://socket.dev/npm/package/chokidar/overview/4.0.3
-  - semver@5.7.2 # npm-run-all@4.1.5 - https://socket.dev/npm/package/semver/overview/5.7.2
   - undici-types@6.21.0 # @neondatabase/serverless@1.0.1 - https://socket.dev/npm/package/undici-types/overview/6.21.0
