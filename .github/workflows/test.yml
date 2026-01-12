@@ -180,7 +180,7 @@ jobs:
   deno:
     strategy:
       matrix:
-        config-flavor: [deno-json, package-json, no-config]
+        config-flavor: [deno-json, package-json]
       fail-fast: false
 
     runs-on: ubuntu-latest
@@ -212,7 +212,6 @@ jobs:
         run: pnpm i && pnpm build
 
       - name: Install example dependencies
-        if: matrix.config-flavor != 'no-config'
         working-directory: examples/deno-${{ matrix.config-flavor }}
         run: deno install --node-modules-dir
 
