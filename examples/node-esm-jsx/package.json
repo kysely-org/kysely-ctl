@@ -3,13 +3,13 @@
 	"type": "module",
 	"devDependencies": {
 		"@types/better-sqlite3": "catalog:",
-		"@types/react": "^19.2.7",
+		"@types/react": "^19.2.8",
 		"kysely-ctl": "link:../.."
 	},
 	"dependencies": {
 		"better-sqlite3": "catalog:",
 		"kysely": "catalog:",
-		"react": "^19.2.0",
-		"react-dom": "^19.2.0"
+		"react": "^19.2.3",
+		"react-dom": "^19.2.3"
 	}
 }

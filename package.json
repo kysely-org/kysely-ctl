@@ -27,7 +27,7 @@
 		"test": "vitest"
 	},
 	"dependencies": {
-		"c12": "^3.3.2",
+		"c12": "^3.3.3",
 		"citty": "^0.1.6",
 		"confbox": "^0.2.2",
 		"consola": "^3.4.2",
@@ -58,21 +58,21 @@
 	},
 	"devDependencies": {
 		"@arethetypeswrong/core": "^0.18.2",
-		"@arktype/attest": "^0.55.0",
-		"@biomejs/biome": "2.3.8",
+		"@arktype/attest": "^0.56.0",
+		"@biomejs/biome": "2.3.11",
 		"@tsconfig/node24": "^24.0.3",
 		"@types/better-sqlite3": "^7.6.13",
 		"@types/node": "^24.10.1",
-		"better-sqlite3": "^12.5.0",
-		"kysely": "^0.28.8",
+		"better-sqlite3": "catalog:",
+		"kysely": "catalog:",
 		"kysely-neon": "^2.0.2",
 		"kysely-postgres-js": "^3.0.0",
 		"kysely-prisma-postgres": "^0.1.0",
-		"postgres": "^3.4.7",
+		"postgres": "^3.4.8",
 		"tsdown": "^0.19.0",
-		"type-fest": "^5.2.0",
+		"type-fest": "^5.3.1",
 		"typescript": "^5.9.3",
-		"vitest": "^4.0.14"
+		"vitest": "^4.0.16"
 	},
 	"engines": {
 		"node": ">=20"
@@ -85,5 +85,5 @@
 		"seeding",
 		"codegen"
 	],
-	"packageManager": "pnpm@10.24.0+sha512.01ff8ae71b4419903b65c60fb2dc9d34cf8bb6e06d03bde112ef38f7a34d6904c424ba66bea5cdcf12890230bf39f9580473140ed9c946fef328b6e5238a345a"
+	"packageManager": "pnpm@10.28.0+sha512.05df71d1421f21399e053fde567cea34d446fa02c76571441bfc1c7956e98e363088982d940465fd34480d4d90a0668bc12362f8aa88000a64e83d0b0e47be48"
 }

@@ -1,10 +1,12 @@
 packages:
 - ./examples/node-*
 
+blockExoticSubdeps: true
+
 catalog:
   '@types/better-sqlite3': 7.6.13
-  better-sqlite3: 12.5.0
-  kysely: 0.28.8
+  better-sqlite3: 12.6.0
+  kysely: 0.28.9
   typescript: 5.9.3
 
 minimumReleaseAge: 1440 # install package versions that are at least 1 day old (in minutes).
