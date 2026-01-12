@@ -7,8 +7,8 @@
 	"dependencies": {
 		"@jsr/db__sqlite": "^0.12.0",
 		"@jsr/soapbox__kysely-deno-sqlite": "^2.2.0",
-		"@jsr/std__path": "^1.1.2",
-		"kysely": "^0.28.8"
+		"@jsr/std__path": "^1.1.4",
+		"kysely": "^0.28.9"
 	},
 	"devDependencies": {
 		"kysely-ctl": "^0.19.0"
