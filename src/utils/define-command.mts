@@ -38,13 +38,11 @@ export function defineCommand<
 				return
 			}
 
-			if (mergedContext) {
-				context = mergedContext
-			}
+			const ctx = mergedContext || context
 
-			consola.debug('context', context)
+			consola.debug('context', ctx)
 
-			const { args } = context
+			const { args } = ctx
 
 			if (args.version) {
 				return await printInstalledVersions()
@@ -54,7 +52,7 @@ export function defineCommand<
 				return await showUsage(definedCommand, parentCommand)
 			}
 
-			return await command.run(context)
+			return await command.run(ctx)
 		},
 		setup: (context) => {
 			parentCommand = lastSetupCommand

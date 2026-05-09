@@ -2,7 +2,7 @@ packages:
   - ./examples/node-*
 
 allowBuilds:
-  better-sqlite3@12.6.0: true
+  better-sqlite3@12.9.0: true
   esbuild@0.23.1 || 0.25.1: true # vitest@4.0.14
 
 blockExoticSubdeps: true
