@@ -55,14 +55,14 @@ importers:
         version: 3.10.0
       tsconfck:
         specifier: ^3.1.6
-        version: 3.1.6(typescript@5.9.3)
+        version: 3.1.6(typescript@6.0.3)
     devDependencies:
       '@arethetypeswrong/core':
         specifier: 0.18.2
         version: 0.18.2
       '@arktype/attest':
         specifier: 0.56.0
-        version: 0.56.0(typescript@5.9.3)
+        version: 0.56.0(typescript@6.0.3)
       '@biomejs/biome':
         specifier: 2.3.11
         version: 2.3.11
@@ -98,13 +98,13 @@ importers:
         version: 0.3.20
       tsdown:
         specifier: 0.22.0
-        version: 0.22.0(@arethetypeswrong/core@0.18.2)(publint@0.3.20)(tsx@4.19.2)(typescript@5.9.3)(unrun@0.2.24(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0))
+        version: 0.22.0(@arethetypeswrong/core@0.18.2)(publint@0.3.20)(tsx@4.19.2)(typescript@6.0.3)(unrun@0.2.24(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0))
       type-fest:
         specifier: 5.3.1
         version: 5.3.1
       typescript:
-        specifier: 5.9.3
-        version: 5.9.3
+        specifier: 'catalog:'
+        version: 6.0.3
       vitest:
         specifier: 4.0.16
         version: 4.0.16(@types/node@24.10.1)(jiti@2.6.1)(tsx@4.19.2)(yaml@2.4.5)
@@ -2258,11 +2258,6 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typescript@5.9.3:
-    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
   typescript@6.0.3:
     resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
     engines: {node: '>=14.17'}
@@ -2458,16 +2453,16 @@ snapshots:
 
   '@ark/util@0.56.0': {}
 
-  '@arktype/attest@0.56.0(typescript@5.9.3)':
+  '@arktype/attest@0.56.0(typescript@6.0.3)':
     dependencies:
       '@ark/fs': 0.56.0
       '@ark/util': 0.56.0
       '@prettier/sync': 0.6.1(prettier@3.6.2)
       '@typescript/analyze-trace': 0.10.1
-      '@typescript/vfs': 1.6.1(typescript@5.9.3)
+      '@typescript/vfs': 1.6.1(typescript@6.0.3)
       arktype: 2.1.28
       prettier: 3.6.2
-      typescript: 5.9.3
+      typescript: 6.0.3
     transitivePeerDependencies:
       - supports-color
 
@@ -2951,10 +2946,10 @@ snapshots:
       treeify: 1.1.0
       yargs: 16.2.0
 
-  '@typescript/vfs@1.6.1(typescript@5.9.3)':
+  '@typescript/vfs@1.6.1(typescript@6.0.3)':
     dependencies:
       debug: 4.4.1
-      typescript: 5.9.3
+      typescript: 6.0.3
     transitivePeerDependencies:
       - supports-color
 
@@ -3929,7 +3924,7 @@ snapshots:
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
-  rolldown-plugin-dts@0.25.0(rolldown@1.0.0)(typescript@5.9.3):
+  rolldown-plugin-dts@0.25.0(rolldown@1.0.0)(typescript@6.0.3):
     dependencies:
       '@babel/generator': 8.0.0-rc.4
       '@babel/helper-validator-identifier': 8.0.0-rc.4
@@ -3941,7 +3936,7 @@ snapshots:
       obug: 2.1.1
       rolldown: 1.0.0
     optionalDependencies:
-      typescript: 5.9.3
+      typescript: 6.0.3
     transitivePeerDependencies:
       - oxc-resolver
 
@@ -4239,11 +4234,11 @@ snapshots:
 
   treeify@1.1.0: {}
 
-  tsconfck@3.1.6(typescript@5.9.3):
+  tsconfck@3.1.6(typescript@6.0.3):
     optionalDependencies:
-      typescript: 5.9.3
+      typescript: 6.0.3
 
-  tsdown@0.22.0(@arethetypeswrong/core@0.18.2)(publint@0.3.20)(tsx@4.19.2)(typescript@5.9.3)(unrun@0.2.24(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)):
+  tsdown@0.22.0(@arethetypeswrong/core@0.18.2)(publint@0.3.20)(tsx@4.19.2)(typescript@6.0.3)(unrun@0.2.24(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)):
     dependencies:
       ansis: 4.2.0
       cac: 7.0.0
@@ -4254,7 +4249,7 @@ snapshots:
       obug: 2.1.1
       picomatch: 4.0.4
       rolldown: 1.0.0
-      rolldown-plugin-dts: 0.25.0(rolldown@1.0.0)(typescript@5.9.3)
+      rolldown-plugin-dts: 0.25.0(rolldown@1.0.0)(typescript@6.0.3)
       semver: 7.7.4
       tinyexec: 1.1.2
       tinyglobby: 0.2.16
@@ -4264,7 +4259,7 @@ snapshots:
       '@arethetypeswrong/core': 0.18.2
       publint: 0.3.20
       tsx: 4.19.2
-      typescript: 5.9.3
+      typescript: 6.0.3
       unrun: 0.2.24(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)
     transitivePeerDependencies:
       - '@ts-macro/tsc'
@@ -4325,8 +4320,6 @@ snapshots:
       reflect.getprototypeof: 1.0.10
 
   typescript@5.6.1-rc: {}
-
-  typescript@5.9.3: {}
 
   typescript@6.0.3: {}
 
