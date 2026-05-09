@@ -1,4 +1,4 @@
-export function getFileType(path: string) {
+export function getFileType(path: string): 'TS' | 'JS' | 'IRRELEVANT' {
 	let extension = ''
 	const lastIndex = path.length - 1
 	let i = 0

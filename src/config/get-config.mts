@@ -16,7 +16,6 @@ export interface GetConfigArgs {
 	config?: string
 	debug?: boolean
 	environment?: string
-	'experimental-resolve-tsconfig-paths'?: boolean
 	'filesystem-caching'?: boolean
 	transaction?: boolean
 }
@@ -39,8 +38,6 @@ export async function getConfig(
 	const jiti = await getJiti({
 		debug: args.debug,
 		filesystemCaching: args['filesystem-caching'],
-		experimentalResolveTSConfigPaths:
-			args['experimental-resolve-tsconfig-paths'],
 	})
 
 	consola.debug('configPath', configPath)

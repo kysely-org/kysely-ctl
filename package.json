@@ -39,8 +39,7 @@
 		"ofetch": "^1.5.1",
 		"pathe": "^2.0.3",
 		"pkg-types": "^2.3.0",
-		"std-env": "^4.1.0",
-		"tsconfck": "^3.1.6"
+		"std-env": "^4.1.0"
 	},
 	"peerDependencies": {
 		"kysely": ">=0.18.1 <0.30.0",

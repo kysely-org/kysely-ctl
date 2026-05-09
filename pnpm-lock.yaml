@@ -6,9 +6,6 @@ settings:
 
 catalogs:
   default:
-    '@types/better-sqlite3':
-      specifier: 7.6.13
-      version: 7.6.13
     better-sqlite3:
       specifier: 12.6.0
       version: 12.6.0
@@ -53,9 +50,6 @@ importers:
       std-env:
         specifier: ^4.1.0
         version: 4.1.0
-      tsconfck:
-        specifier: ^3.1.6
-        version: 3.1.6(typescript@6.0.3)
     devDependencies:
       '@arethetypeswrong/core':
         specifier: 0.18.2
@@ -2181,16 +2175,6 @@ packages:
     resolution: {integrity: sha512-1m4RA7xVAJrSGrrXGs0L3YTwyvBs2S8PbRHaLZAkFw7JR8oIFwYtysxlBZhYIa7xSyiYJKZ3iGrrk55cGA3i9A==}
     engines: {node: '>=0.6'}
 
-  tsconfck@3.1.6:
-    resolution: {integrity: sha512-ks6Vjr/jEw0P1gmOVwutM3B7fWxoWBL2KRDb1JfqGVawBmO5UsvmWOQFGHBPl5yxYz4eERr19E6L7NMv+Fej4w==}
-    engines: {node: ^18 || >=20}
-    hasBin: true
-    peerDependencies:
-      typescript: ^5.0.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   tsdown@0.22.0:
     resolution: {integrity: sha512-FgW0hHb27nGQA/+F3d5+U9wKXkfilk9DVkc5+7x/ZqF03g+Hoz/eeApT32jqxATt9eRoR+1jxk7MUMON+O4CXw==}
     engines: {node: ^22.18.0 || >=24.0.0}
@@ -4247,10 +4231,6 @@ snapshots:
   tree-kill@1.2.2: {}
 
   treeify@1.1.0: {}
-
-  tsconfck@3.1.6(typescript@6.0.3):
-    optionalDependencies:
-      typescript: 6.0.3
 
   tsdown@0.22.0(@arethetypeswrong/core@0.18.2)(publint@0.3.20)(tsx@4.19.2)(typescript@6.0.3)(unrun@0.2.24(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)):
     dependencies:
