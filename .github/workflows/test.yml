@@ -92,10 +92,6 @@ jobs:
             ADDITIONAL_FLAGS+=" --config=./.config/kysely.test.config.ts"
           fi
 
-          if [[ ${{ matrix.type }} == 'esm-tsconfig-paths'* ]]; then
-            ADDITIONAL_FLAGS+=" --experimental-resolve-tsconfig-paths"
-          fi
-
           if [[ ${{ matrix.type }} == 'esm-environments' ]]; then
             ADDITIONAL_FLAGS+=" --environment=lib2"
           fi

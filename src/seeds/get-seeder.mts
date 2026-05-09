@@ -21,8 +21,6 @@ export async function getSeeder(
 				allowJS,
 				debug: args.debug,
 				filesystemCaching: args['filesystem-caching'],
-				experimentalResolveTSConfigPaths:
-					args['experimental-resolve-tsconfig-paths'],
 				seedFolder,
 			}),
 	)

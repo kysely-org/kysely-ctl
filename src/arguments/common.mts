@@ -31,6 +31,7 @@ export const CommonArgs = defineArgs({
 	},
 	...JitiArgs,
 	'no-outdated-check': {
+		default: false,
 		description:
 			'Will not check for latest kysely/kysely-ctl versions and notice newer versions exist.',
 		type: 'boolean',

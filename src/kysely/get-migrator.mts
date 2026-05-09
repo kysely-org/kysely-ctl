@@ -20,8 +20,6 @@ export async function getMigrator(
 			new TSFileMigrationProvider({
 				allowJS,
 				debug: args.debug,
-				experimentalResolveTSConfigPaths:
-					args['experimental-resolve-tsconfig-paths'],
 				filesystemCaching: args['filesystem-caching'],
 				migrationFolder,
 			}),

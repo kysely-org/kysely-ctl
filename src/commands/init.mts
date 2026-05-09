@@ -14,7 +14,6 @@ const {
 	// TODO: consider supporting passing a config path to init command that controls the filepath to be created.
 	config: _omitted0,
 	environment: _omitted1,
-	'experimental-resolve-tsconfig-paths': _omitted2,
 	'no-filesystem-caching': _omitted3,
 	...CommonArgsForInit
 } = CommonArgs

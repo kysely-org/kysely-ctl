@@ -1,4 +1,3 @@
-import { cp } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'pathe'
 import { defineConfig } from 'tsdown'
@@ -14,17 +13,22 @@ export default defineConfig({
 		profile: 'esm-only',
 	},
 	clean: true,
+	copy: {
+		from: ['./src/templates'],
+		to: DIST_PATH,
+	},
 	dts: true,
 	entry: ['./src/index.mts', './src/bin.mts'],
 	exports: {
+		bin: {
+			kysely: './src/bin.mts',
+		},
 		enabled: 'local-only',
 		exclude: ['bin'],
 	},
 	format: ['esm'],
-	onSuccess: async function copyTemplatesToDist(): Promise<void> {
-		await cp(join(__dirname, 'src/templates'), join(DIST_PATH, 'templates'), {
-			recursive: true,
-		})
+	publint: {
+		enabled: true,
 	},
 	shims: true,
 	tsconfig: './tsconfig.prod.json',
