@@ -17,7 +17,10 @@
 	"description": "Command-line tool for Kysely",
 	"author": "Igal Klebanov <igalklebanov@gmail.com> (https://github.com/igalklebanov)",
 	"license": "MIT",
-	"repository": "git://github.com/kysely-org/kysely-ctl.git",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kysely-org/kysely-ctl.git"
+	},
 	"homepage": "https://kysely.dev",
 	"scripts": {
 		"biome": "biome",
@@ -57,22 +60,23 @@
 		}
 	},
 	"devDependencies": {
-		"@arethetypeswrong/core": "^0.18.2",
-		"@arktype/attest": "^0.56.0",
+		"@arethetypeswrong/core": "0.18.2",
+		"@arktype/attest": "0.56.0",
 		"@biomejs/biome": "2.3.11",
-		"@tsconfig/node24": "^24.0.3",
-		"@types/better-sqlite3": "^7.6.13",
-		"@types/node": "^24.10.1",
+		"@tsconfig/node24": "24.0.3",
+		"@types/better-sqlite3": "7.6.13",
+		"@types/node": "24.10.1",
 		"better-sqlite3": "catalog:",
 		"kysely": "catalog:",
-		"kysely-neon": "^2.0.2",
-		"kysely-postgres-js": "^3.0.0",
-		"kysely-prisma-postgres": "^0.1.0",
-		"postgres": "^3.4.8",
-		"tsdown": "^0.19.0",
-		"type-fest": "^5.3.1",
-		"typescript": "^5.9.3",
-		"vitest": "^4.0.16"
+		"kysely-neon": "2.0.2",
+		"kysely-postgres-js": "3.0.0",
+		"kysely-prisma-postgres": "0.1.0",
+		"postgres": "3.4.8",
+		"publint": "0.3.20",
+		"tsdown": "0.22.0",
+		"type-fest": "5.3.1",
+		"typescript": "5.9.3",
+		"vitest": "4.0.16"
 	},
 	"engines": {
 		"node": ">=22"
@@ -85,5 +89,8 @@
 		"seeding",
 		"codegen"
 	],
-	"packageManager": "pnpm@10.28.0+sha512.05df71d1421f21399e053fde567cea34d446fa02c76571441bfc1c7956e98e363088982d940465fd34480d4d90a0668bc12362f8aa88000a64e83d0b0e47be48"
+	"packageManager": "pnpm@10.28.0+sha512.05df71d1421f21399e053fde567cea34d446fa02c76571441bfc1c7956e98e363088982d940465fd34480d4d90a0668bc12362f8aa88000a64e83d0b0e47be48",
+	"inlinedDependencies": {
+		"type-fest": "5.3.1"
+	}
 }
