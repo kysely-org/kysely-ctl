@@ -4,12 +4,12 @@ import {
 	type Dialect,
 	DummyDriver,
 	Kysely,
-	Migrator,
 	PostgresAdapter,
 	PostgresIntrospector,
 	PostgresQueryCompiler,
 	type SqliteDialectConfig,
 } from 'kysely'
+import { Migrator } from 'kysely/migration'
 import { describe, expect, it } from 'vitest'
 import {
 	defineConfig,

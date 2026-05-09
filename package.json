@@ -40,7 +40,7 @@
 		"tsconfck": "^3.1.6"
 	},
 	"peerDependencies": {
-		"kysely": ">=0.18.1 <0.29.0",
+		"kysely": ">=0.18.1 <0.30.0",
 		"kysely-neon": "^2",
 		"kysely-postgres-js": "^2 || ^3",
 		"kysely-prisma-postgres": "^0.1"
@@ -75,7 +75,7 @@
 		"vitest": "^4.0.16"
 	},
 	"engines": {
-		"node": ">=20"
+		"node": ">=22"
 	},
 	"keywords": [
 		"cli",

@@ -44,9 +44,21 @@ jobs:
   node:
     strategy:
       matrix:
-        node-version: [20, 22, 24]
+        node-version: [22, 24, 25]
         os: [macos-latest, ubuntu-latest, windows-latest]
-        type: [cjs, esm, esm-multi-config, esm-tsconfig-paths, esm-tsconfig-paths-inherited, esm-tsconfig-paths-no-baseurl, esm-top-level-await, esm-environments, esm-jsx]
+        type:
+          [
+            cjs,
+            esm,
+            esm-multi-config,
+            esm-tsconfig-paths,
+            esm-tsconfig-paths-inherited,
+            esm-tsconfig-paths-no-baseurl,
+            esm-top-level-await,
+            esm-environments,
+            esm-jsx,
+            esm-kysely@0.28.17,
+          ]
       fail-fast: false
 
     runs-on: ${{ matrix.os }}

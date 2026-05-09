@@ -1,0 +1,12 @@
+{
+	"name": "node-esm-kysely-0.28.17",
+	"type": "module",
+	"devDependencies": {
+		"@types/better-sqlite3": "catalog:",
+		"kysely-ctl": "link:../.."
+	},
+	"dependencies": {
+		"better-sqlite3": "catalog:",
+		"kysely": "0.28.17"
+	}
+}

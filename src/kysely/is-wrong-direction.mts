@@ -1,4 +1,4 @@
-import type { Migrator } from 'kysely'
+import type { Migrator } from 'kysely/migration'
 
 // FIXME: we should introduce a way to ensure direction in `migratorTo` @ Kysely core.
 export async function isWrongDirection(
