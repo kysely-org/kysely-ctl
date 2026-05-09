@@ -3,6 +3,7 @@ import type { Jiti, JitiOptions } from 'jiti'
 import { dirname, resolve } from 'pathe'
 import { runtime } from 'std-env'
 import type { CompilerOptions } from 'typescript'
+import { getCWD } from '../config/get-cwd.mjs'
 import { getTSConfigs, type TSConfigWithPath } from './tsconfig.mjs'
 
 export interface GetJitiArgs {
@@ -23,13 +24,14 @@ export async function getJiti(args: GetJitiArgs): Promise<Jiti> {
 
 async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {
 	return {
-		alias: args.experimentalResolveTSConfigPaths
-			? await getJitiAliasFromTSConfig()
-			: undefined,
+		// alias: args.experimentalResolveTSConfigPaths
+		// 	? await getJitiAliasFromTSConfig()
+		// 	: undefined,
 		debug: Boolean(args.debug),
 		fsCache: Boolean(args.filesystemCaching),
 		jsx: true,
 		tryNative: runtime !== 'node',
+		tsconfigPaths: getCWD(),
 	}
 }
 
@@ -40,6 +42,8 @@ async function getJitiAliasFromTSConfig(): Promise<Record<string, string>> {
 		if (!configs.length) {
 			return {}
 		}
+
+		configs[0]?.filepath
 
 		const { filepath, paths } = resolvePaths(configs) || {}
 
