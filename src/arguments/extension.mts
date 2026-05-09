@@ -11,10 +11,8 @@ export const ExtensionArg = defineArgs(
 			alias: 'x',
 			default: 'ts',
 			description: 'The file extension to use.',
-			type: 'string',
-			valueHint: ALL_EXTENSIONS.map((extension) => `"${extension}"`).join(
-				' | ',
-			),
+			options: [...ALL_EXTENSIONS],
+			type: 'enum',
 		},
 	},
 	true,
@@ -44,14 +42,6 @@ export function assertExtension(
 			`Invalid file extension "${thing}"! Expected ${TS_EXTENSIONS.map(
 				(extension) => `"${extension}"`,
 			).join(' | ')}. To use JS extensions, set "${context}.allowJS" to true.`,
-		)
-	}
-
-	const extensions = allowJS ? ALL_EXTENSIONS : TS_EXTENSIONS
-
-	if (!extensions.includes(thing as (typeof TS_EXTENSIONS)[number])) {
-		throw new Error(
-			`Invalid file extension "${thing}"! Expected ${ExtensionArg.extension.valueHint}`,
 		)
 	}
 }

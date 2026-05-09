@@ -20,9 +20,9 @@ const args = defineArgs({
 		alias: 'f',
 		default: 'csv',
 		description: 'The format to output the result in.',
+		options: ['csv', 'json'],
 		required: false,
-		type: 'string',
-		valueHint: 'csv | json',
+		type: 'enum',
 	},
 	query: {
 		description:
@@ -39,17 +39,15 @@ const Command = defineCommand(args, {
 	},
 	async run(context) {
 		const { args } = context
-		const { format, query } = args
 
-		assertQuery(query)
-		assertFormat(format)
+		assertQuery(args)
 
 		const config = await getConfigOrFail(args)
 
 		await usingKysely(config, async (kysely) => {
 			const hydratedConfig = { ...config, kysely }
 
-			if (query) {
+			if (args.query) {
 				return await executeQueryAndPrint(args, hydratedConfig)
 			}
 
@@ -60,10 +58,14 @@ const Command = defineCommand(args, {
 
 export const SqlCommand = createSubcommand('sql', Command)
 
-function assertQuery(thing: unknown): asserts thing is string {
+function assertQuery(
+	thing: ParsedArgs<typeof args>,
+): asserts thing is ParsedArgs<typeof args> & { query: string } {
+	const { query } = thing
+
 	if (
-		(!isCI && typeof thing !== 'string') ||
-		(typeof thing === 'string' && thing.length > 0)
+		(!isCI && typeof query !== 'string') ||
+		(typeof query === 'string' && query.length > 0)
 	) {
 		return
 	}
@@ -71,23 +73,8 @@ function assertQuery(thing: unknown): asserts thing is string {
 	throw new Error('Query must be a non-empty string!')
 }
 
-const FORMATS = ['csv', 'json'] as const
-type Format = (typeof FORMATS)[number]
-
-function assertFormat(thing: unknown): asserts thing is Format {
-	if (thing == null || FORMATS.includes(thing as Format)) {
-		return
-	}
-
-	throw new Error(
-		`Invalid format "${thing}"! Expected ${FORMATS.map(
-			(format) => `"${format}"`,
-		).join(' | ')}`,
-	)
-}
-
 async function executeQueryAndPrint(
-	argz: ParsedArgs<typeof args>,
+	argz: ParsedArgs<typeof args> & { readonly query: string },
 	config: ResolvedKyselyCTLConfigWithKyselyInstance,
 ): Promise<void> {
 	const result = await executeQuery({ sql: argz.query }, config)
@@ -156,7 +143,7 @@ async function startInteractiveExecution(
 		}
 
 		try {
-			await executeQueryAndPrint({ ...argz, query }, config)
+			await executeQueryAndPrint({ ...argz, query } as never, config)
 		} catch (error) {
 			consola.error(error instanceof Error ? error.message : error)
 		}
