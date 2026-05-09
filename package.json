@@ -38,7 +38,7 @@
 		"nypm": "^0.6.6",
 		"ofetch": "^1.5.1",
 		"pathe": "^2.0.3",
-		"pkg-types": "^2.3.0",
+		"pkg-types": "^2.3.1",
 		"std-env": "^4.1.0"
 	},
 	"peerDependencies": {
@@ -62,7 +62,7 @@
 		"@arethetypeswrong/core": "0.18.2",
 		"@arktype/attest": "0.56.0",
 		"@biomejs/biome": "2.4.14",
-		"@tsconfig/node24": "24.0.3",
+		"@tsconfig/node24": "24.0.4",
 		"@types/better-sqlite3": "7.6.13",
 		"@types/node": "25.6.2",
 		"better-sqlite3": "catalog:",
@@ -70,7 +70,7 @@
 		"kysely-neon": "2.0.2",
 		"kysely-postgres-js": "3.0.0",
 		"kysely-prisma-postgres": "0.1.0",
-		"postgres": "3.4.8",
+		"postgres": "3.4.9",
 		"publint": "0.3.20",
 		"tsdown": "0.22.0",
 		"type-fest": "5.6.0",
