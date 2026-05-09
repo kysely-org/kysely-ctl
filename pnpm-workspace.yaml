@@ -1,5 +1,5 @@
 packages:
-- ./examples/node-*
+  - ./examples/node-*
 
 allowBuilds:
   better-sqlite3@12.6.0: true
@@ -8,12 +8,15 @@ allowBuilds:
 blockExoticSubdeps: true
 
 catalog:
-  '@types/better-sqlite3': 7.6.13
+  "@types/better-sqlite3": 7.6.13
   better-sqlite3: 12.6.0
-  kysely: 0.28.9
+  kysely: 0.29.0
   typescript: 5.9.3
 
 minimumReleaseAge: 1440 # install package versions that are at least 1 day old (in minutes).
+
+minimumReleaseAgeExclude:
+  - kysely@0.29.0
 
 trustPolicy: no-downgrade # fail if there's a regression in attestation of packages.
 

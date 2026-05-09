@@ -1,5 +1,5 @@
 import { consola } from 'consola'
-import type { Migration, MigrationProvider } from 'kysely'
+import type { Migration, MigrationProvider } from 'kysely/migration'
 import { join } from 'pathe'
 import { filename } from 'pathe/utils'
 import { getFileType } from '../utils/get-file-type.mjs'

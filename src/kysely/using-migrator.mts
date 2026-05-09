@@ -1,4 +1,4 @@
-import type { Migrator } from 'kysely'
+import type { Migrator } from 'kysely/migration'
 import { type GetConfigArgs, getConfigOrFail } from '../config/get-config.mjs'
 import { getMigrator } from './get-migrator.mjs'
 import { usingKysely } from './using-kysely.mjs'

@@ -3,14 +3,16 @@ import type {
 	Kysely,
 	Dialect as KyselyDialectInstance,
 	KyselyPlugin,
-	MigrationProvider,
-	Migrator,
-	MigratorProps,
 	MssqlDialectConfig,
 	MysqlDialectConfig,
 	PostgresDialectConfig,
 	SqliteDialectConfig,
 } from 'kysely'
+import type {
+	MigrationProvider,
+	Migrator,
+	MigratorProps,
+} from 'kysely/migration'
 import type { NeonDialectConfig } from 'kysely-neon'
 import type { PostgresJSDialectConfig } from 'kysely-postgres-js'
 import type { PPGDialectConfig } from 'kysely-prisma-postgres'

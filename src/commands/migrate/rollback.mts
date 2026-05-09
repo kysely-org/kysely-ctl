@@ -1,5 +1,4 @@
 import { consola } from 'consola'
-import { NO_MIGRATIONS } from 'kysely'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { MigrateArgs } from '../../arguments/migrate.mjs'
 import { processMigrationResultSet } from '../../kysely/process-migration-result-set.mjs'
@@ -25,6 +24,10 @@ const Command = defineCommand(args, {
 	async run(context) {
 		await usingMigrator(context.args, async (migrator) => {
 			consola.start('Starting migration rollback')
+
+			const { NO_MIGRATIONS } = await import('kysely/migration').catch(
+				() => import('kysely') as never as typeof import('kysely/migration'),
+			)
 
 			const resultSet = await migrator.migrateTo(NO_MIGRATIONS)
 

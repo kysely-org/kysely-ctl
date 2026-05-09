@@ -1,6 +1,6 @@
 import { consola } from 'consola'
 import { colorize } from 'consola/utils'
-import type { MigrationResultSet, Migrator } from 'kysely'
+import type { MigrationResultSet, Migrator } from 'kysely/migration'
 import { assertDefined } from '../utils/assert-defined.mjs'
 import { exitWithError } from '../utils/error.mjs'
 import { getMigrations } from './get-migrations.mjs'

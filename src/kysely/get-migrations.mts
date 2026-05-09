@@ -1,4 +1,4 @@
-import type { MigrationInfo, Migrator } from 'kysely'
+import type { MigrationInfo, Migrator } from 'kysely/migration'
 
 let migrations: readonly MigrationInfo[]
 
