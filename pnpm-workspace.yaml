@@ -9,7 +9,7 @@ blockExoticSubdeps: true
 
 catalog:
   "@types/better-sqlite3": 7.6.13
-  better-sqlite3: 12.6.0
+  better-sqlite3: 12.9.0
   kysely: 0.29.0
   typescript: 6.0.3
 
