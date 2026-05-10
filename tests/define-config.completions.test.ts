@@ -13,6 +13,7 @@ describe('defineConfig', () => {
 				'bun',
 				'mysql2',
 				'pg',
+				'pglite',
 				'postgres',
 				'tedious',
 			] satisfies ResolvableKyselyDialect[],
