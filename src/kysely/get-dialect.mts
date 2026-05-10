@@ -3,6 +3,7 @@ import {
 	type MssqlDialectConfig,
 	MysqlDialect,
 	type MysqlDialectConfig,
+	type PGliteDialectConfig,
 	PostgresDialect,
 	type PostgresDialectConfig,
 	SqliteDialect,
@@ -47,6 +48,14 @@ export async function getDialect(
 
 	if (dialect === 'better-sqlite3') {
 		return new SqliteDialect(dialectConfig as SqliteDialectConfig)
+	}
+
+	if (dialect === 'pglite') {
+		// since it was introduced only in kysely v0.29.0
+		// and we want to support older versions too
+		return new (await import('kysely')).PGliteDialect(
+			dialectConfig as PGliteDialectConfig,
+		)
 	}
 
 	if (dialect === 'postgres' || dialect === 'bun') {

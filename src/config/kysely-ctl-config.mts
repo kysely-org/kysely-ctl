@@ -5,6 +5,7 @@ import type {
 	KyselyPlugin,
 	MssqlDialectConfig,
 	MysqlDialectConfig,
+	PGliteDialectConfig,
 	PostgresDialectConfig,
 	SqliteDialectConfig,
 } from 'kysely'
@@ -26,7 +27,12 @@ export type ResolvableKyselyDialect =
 	| KyselyCoreDialect
 	| KyselyOrganizationDialect
 
-export type KyselyCoreDialect = 'pg' | 'mysql2' | 'tedious' | 'better-sqlite3'
+export type KyselyCoreDialect =
+	| 'pg'
+	| 'mysql2'
+	| 'tedious'
+	| 'better-sqlite3'
+	| 'pglite'
 
 export type KyselyOrganizationDialect =
 	| 'postgres'
@@ -47,6 +53,7 @@ interface KyselyDialectConfigDictionary {
 	bun: PostgresJSDialectConfig
 	mysql2: MysqlDialectConfig
 	pg: PostgresDialectConfig
+	pglite: PGliteDialectConfig
 	postgres: PostgresJSDialectConfig
 	tedious: MssqlDialectConfig
 }
