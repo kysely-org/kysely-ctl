@@ -96,6 +96,7 @@ type MigratorfulMigrationsConfig = Pick<
 > & {
 	allowJS?: never
 	migrationFolder?: never
+	allowUnorderedMigrations?: never
 	// biome-ignore lint/suspicious/noExplicitAny: it's fine.
 	migrator: Factory<Migrator, [db: Kysely<any>]>
 	provider?: never
@@ -106,12 +107,14 @@ type MigratorlessMigrationsConfig = MigrationsBaseConfig &
 		| {
 				allowJS?: boolean
 				migrationFolder?: string
+				allowUnorderedMigrations?: boolean
 				migrator?: never
 				provider?: never
 		  }
 		| {
 				allowJS?: never
 				migrationFolder?: never
+				allowUnorderedMigrations?: never
 				migrator?: never
 				provider: OrFactory<MigrationProvider>
 		  }
@@ -156,6 +159,7 @@ export interface ResolvedKyselyCTLConfig {
 	migrations: SetRequired<MigrationsBaseConfig, 'getMigrationPrefix'> & {
 		allowJS: boolean
 		migrationFolder: string
+		allowUnorderedMigrations: boolean
 		// biome-ignore lint/suspicious/noExplicitAny: `any` is required here, for now.
 		migrator?: Factory<Migrator, [db: Kysely<any>]>
 		provider?: OrFactory<MigrationProvider>

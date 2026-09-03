@@ -115,6 +115,7 @@ export default defineConfig({
     allowJS, // optional. controls whether `.js`, `.cjs` or `.mjs` migrations are allowed. default is `false`.
     getMigrationPrefix, // optional. a function that returns a migration prefix. affects `migrate make` command. default is `() => ${Date.now()}_`.
     migrationFolder, // optional. path to where migration files are located. default is a folder named "migrations" next to the config file/folder.
+    allowUnorderedMigrations, // optional. boolean option to allow migrations to be applied out of sequence.
     migrator, // optional. a `Kysely` migrator instance factory of shape `(db: Kysely<any>) => Migrator | Promise<Migrator>`. default is `Kysely`'s `Migrator`.
     provider, // optional. a `Kysely` migration provider instance. default is `kysely-ctl`'s `TSFileMigrationProvider`.
   },
