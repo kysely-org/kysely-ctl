@@ -24,6 +24,7 @@ export default defineConfig({
 	},
 	//   migrations: {
 	//     migrationFolder: "migrations",
+	//     allowUnorderedMigrations: false,
 	//   },
 	//   plugins: [],
 	//   seeds: {

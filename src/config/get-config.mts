@@ -69,6 +69,7 @@ export async function getConfig(
 		migrations: {
 			allowJS: false,
 			getMigrationPrefix: getMillisPrefix,
+			allowUnorderedMigrations: false,
 			...config.migrations,
 			disableTransactions:
 				args.transaction === false ||
