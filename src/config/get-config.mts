@@ -2,6 +2,7 @@ import { loadConfig } from 'c12'
 import { consola } from 'consola'
 import { basename, dirname, resolve } from 'pathe'
 import { findNearestFile } from 'pkg-types'
+import { process } from 'std-env'
 import { ALL_EXTENSIONS } from '../arguments/extension.mjs'
 import { getJiti } from '../utils/jiti.mjs'
 import { getCWD } from './get-cwd.mjs'
@@ -25,7 +26,8 @@ const CAPTURE_DOT_CONFIG_FOLDER = /\/\.config$/
 export async function getConfig(
 	args: GetConfigArgs,
 ): Promise<ResolvedKyselyCTLConfig | null> {
-	const { config: configArg, environment } = args
+	const { environment } = args
+	const configArg = args.config || process.env?.KYSELY_CTL_CONFIG_PATH
 
 	const configPath = configArg
 		? resolve(getCWD(), dirname(configArg))
