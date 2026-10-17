@@ -163,6 +163,25 @@ export default defineConfig({
 });
 ```
 
+#### Custom config file location
+
+By default, `kysely-ctl` looks for `kysely.config.*` by walking up from the current working directory.
+To use a config file elsewhere (e.g. a compiled `dist/kysely.config.js`), either pass the `--config` (`-c`) flag:
+
+```bash
+kysely migrate:latest --config dist/kysely.config.js
+```
+
+or set the `KYSELY_CTL_CONFIG_PATH` environment variable:
+
+```bash
+KYSELY_CTL_CONFIG_PATH=dist/kysely.config.js kysely migrate:latest
+```
+
+The `--config` flag takes precedence over `KYSELY_CTL_CONFIG_PATH`, which takes precedence over automatic discovery.
+An empty `KYSELY_CTL_CONFIG_PATH` is ignored. In both cases, relative paths (e.g. `migrationFolder`) are resolved
+from the config file's directory.
+
 #### Extending configuration
 
 See [c12 docs](https://github.com/unjs/c12#extending-configuration) and the following [example](https://github.com/kysely-org/kysely-ctl/blob/main/examples/node-esm-multi-config/.config/kysely.test.config.ts).
