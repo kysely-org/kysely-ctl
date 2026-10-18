@@ -1,3 +1,4 @@
+import { pathToFileURL } from 'node:url'
 import { consola } from 'consola'
 import type { Migration, MigrationProvider } from 'kysely/migration'
 import { join } from 'pathe'
@@ -46,7 +47,7 @@ export class TSFileMigrationProvider implements MigrationProvider {
 
 			const migrationModule = await (isTS
 				? importTSFile(filePath, this.#props)
-				: import(filePath))
+				: import(pathToFileURL(filePath).href))
 
 			const migrationKey = filename(fileName)
 
