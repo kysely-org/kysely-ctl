@@ -11,6 +11,7 @@ updates:
     directories:
       - /
       - /examples/node-cjs
+      - /examples/node-cjs-compiled
       - /examples/node-esm
       - /examples/node-esm-environments
       - /examples/node-esm-jsx
