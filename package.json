@@ -30,21 +30,21 @@
 		"test": "vitest"
 	},
 	"dependencies": {
-		"c12": "^3.3.3",
+		"c12": "^3.3.4",
 		"citty": "^0.2.2",
-		"confbox": "^0.2.4",
+		"confbox": "^0.3.1",
 		"consola": "^3.4.2",
 		"jiti": "^2.7.0",
-		"nypm": "^0.6.6",
+		"nypm": "^0.6.10",
 		"ofetch": "^1.5.1",
 		"pathe": "^2.0.3",
-		"pkg-types": "^2.3.1",
-		"std-env": "^4.1.0"
+		"pkg-types": "^2.3.3",
+		"std-env": "^4.3.0"
 	},
 	"peerDependencies": {
 		"kysely": ">=0.18.1 <0.30.0",
-		"kysely-neon": "^2",
-		"kysely-postgres-js": "^2 || ^3",
+		"kysely-neon": "^2 || ^3",
+		"kysely-postgres-js": "^2 || ^3 || ^4 || ^5",
 		"kysely-prisma-postgres": "^0.1"
 	},
 	"peerDependenciesMeta": {
@@ -59,23 +59,23 @@
 		}
 	},
 	"devDependencies": {
-		"@arethetypeswrong/core": "0.18.2",
-		"@arktype/attest": "0.56.0",
-		"@biomejs/biome": "2.4.14",
-		"@tsconfig/node24": "24.0.4",
+		"@arethetypeswrong/core": "0.18.5",
+		"@arktype/attest": "0.57.0",
+		"@biomejs/biome": "2.5.15",
+		"@tsconfig/node24": "24.0.5",
 		"@types/better-sqlite3": "catalog:",
-		"@types/node": "25.6.2",
+		"@types/node": "26.6.5",
 		"better-sqlite3": "catalog:",
 		"kysely": "catalog:",
-		"kysely-neon": "2.0.2",
-		"kysely-postgres-js": "3.0.0",
+		"kysely-neon": "3.0.0",
+		"kysely-postgres-js": "5.0.1",
 		"kysely-prisma-postgres": "0.1.0",
 		"postgres": "3.4.9",
-		"publint": "0.3.20",
-		"tsdown": "0.22.0",
-		"type-fest": "5.6.0",
+		"publint": "0.3.25",
+		"tsdown": "0.23.1",
+		"type-fest": "5.10.0",
 		"typescript": "catalog:",
-		"vitest": "4.1.5"
+		"vitest": "5.0.5"
 	},
 	"engines": {
 		"node": ">=22"
@@ -90,6 +90,6 @@
 	],
 	"packageManager": "pnpm@11.28.4+sha512.f905a61563f89b49a292634d3d87d024cfdea9dccf5c66b2ccc261675fa7b2774320a959db472e6caa7f9ff7314709cd50d06c8fd64addb60647377a78d250ff",
 	"inlinedDependencies": {
-		"type-fest": "5.6.0"
+		"type-fest": "5.10.0"
 	}
 }

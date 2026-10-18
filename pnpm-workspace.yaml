@@ -2,24 +2,19 @@ packages:
   - ./examples/node-*
 
 allowBuilds:
-  better-sqlite3@12.11.1: true
-  esbuild@0.23.1 || 0.25.1: true # vitest@4.0.14
+  better-sqlite3@13.0.3: true
 
 blockExoticSubdeps: true
 
 catalog:
   "@types/better-sqlite3": 9.6.0
-  better-sqlite3: 12.11.1
-  kysely: 0.29.0
-  typescript: 6.0.3
+  better-sqlite3: 13.0.3
+  kysely: 0.29.7
+  typescript: 7.0.2
 
 minimumReleaseAge: 1440 # install package versions that are at least 1 day old (in minutes).
-
-minimumReleaseAgeExclude:
-  - kysely@0.29.0
 
 trustPolicy: no-downgrade # fail if there's a regression in attestation of packages.
 
 trustPolicyExclude:
   - semver@5.7.2 # npm-run-all@4.1.5 (examples/node-esm-environments) - https://socket.dev/npm/package/semver/overview/5.7.2
-  - undici-types@6.21.0 # @neondatabase/serverless@1.0.1 - https://socket.dev/npm/package/undici-types/overview/6.21.0
