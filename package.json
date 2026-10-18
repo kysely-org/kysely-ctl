@@ -42,7 +42,7 @@
 		"std-env": "^4.1.0"
 	},
 	"peerDependencies": {
-		"kysely": ">=0.18.1 <0.30.0",
+		"kysely": ">=0.18.1 <0.31.0",
 		"kysely-neon": "^2",
 		"kysely-postgres-js": "^2 || ^3",
 		"kysely-prisma-postgres": "^0.1"

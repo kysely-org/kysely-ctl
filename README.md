@@ -129,6 +129,8 @@ export default defineConfig({
 });
 ```
 
+When supplying a custom migration provider or migrator, `migrate make` uses the provider's `migrationFolder` getter and fails if it is missing or does not return a string. Custom migrators require a Kysely version with the `Migrator.provider` getter. Relative provider paths are resolved from the current working directory.
+
 #### Reuse Kysely instance defined elsewhere
 
 You can pass a `Kysely` instance, instead of `dialect`, `dialectConfig` & `plugins`:
