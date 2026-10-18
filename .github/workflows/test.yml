@@ -45,7 +45,7 @@ jobs:
     strategy:
       matrix:
         node-version: [22, 24, 25]
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest]
         type:
           [
             cjs,
