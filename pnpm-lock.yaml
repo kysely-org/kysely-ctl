@@ -131,15 +131,9 @@ importers:
         specifier: 'catalog:'
         version: 0.29.0
     devDependencies:
-      '@types/better-sqlite3':
-        specifier: 'catalog:'
-        version: 7.6.13
       kysely-ctl:
         specifier: link:../..
         version: link:../..
-      typescript:
-        specifier: 'catalog:'
-        version: 6.0.3
 
   examples/node-esm:
     dependencies:

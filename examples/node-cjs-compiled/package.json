@@ -1,13 +1,8 @@
 {
 	"name": "node-cjs-compiled",
 	"type": "commonjs",
-	"scripts": {
-		"build": "tsc"
-	},
 	"devDependencies": {
-		"@types/better-sqlite3": "catalog:",
-		"kysely-ctl": "link:../..",
-		"typescript": "catalog:"
+		"kysely-ctl": "link:../.."
 	},
 	"dependencies": {
 		"better-sqlite3": "catalog:",

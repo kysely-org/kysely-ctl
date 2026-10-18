@@ -98,18 +98,13 @@ jobs:
           fi
 
           if [[ ${{ matrix.type }} == 'cjs-compiled' ]]; then
-            ADDITIONAL_FLAGS+=" --config=./dist/.config/kysely.config.js"
+            ADDITIONAL_FLAGS+=" --config=./dist/kysely.config.js"
           fi
 
           echo "ADDITIONAL_FLAGS=$ADDITIONAL_FLAGS" >> $GITHUB_OUTPUT
 
       - name: Install dependencies
         run: pnpm i && pnpm build && cd examples/node-${{ matrix.type }} && pnpm i
-
-      - name: Build example
-        if: ${{ matrix.type == 'cjs-compiled' }}
-        working-directory: examples/node-${{ matrix.type }}
-        run: pnpm build
 
       - name: kysely -v
         working-directory: examples/node-${{ matrix.type }}
