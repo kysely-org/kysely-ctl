@@ -94,11 +94,12 @@ type MigratorfulMigrationsConfig = Pick<
 	MigrationsBaseConfig,
 	'getMigrationPrefix'
 > & {
+	[K in keyof MigratorProps]?: never
+} & {
 	allowJS?: never
 	migrationFolder?: never
 	// biome-ignore lint/suspicious/noExplicitAny: it's fine.
 	migrator: Factory<Migrator, [db: Kysely<any>]>
-	provider?: never
 }
 
 type MigratorlessMigrationsConfig = MigrationsBaseConfig &

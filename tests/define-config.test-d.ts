@@ -103,7 +103,103 @@ describe('defineConfig', () => {
 		})
 	})
 
+	it('should allow migrator options without a custom migrator', () => {
+		defineConfig({
+			kysely,
+			migrations: {
+				allowUnorderedMigrations: true,
+				disableTransactions: true,
+				migrationLockTableName: 'tenant_migration_lock',
+				migrationTableName: 'tenant_migration',
+				migrationTableSchema: 'tenant1',
+				nameComparator: (name0, name1) => name0.localeCompare(name1),
+			},
+		})
+	})
+
 	describe('when passing a migrator instance', () => {
+		it('should allow a custom migration prefix', () => {
+			defineConfig({
+				kysely,
+				migrations: {
+					migrator,
+					getMigrationPrefix: () => 'custom_',
+				},
+			})
+		})
+
+		it('should type-error when passing migrator options through a variable', () => {
+			const migrations = {
+				migrator,
+				migrationTableSchema: 'tenant1',
+			}
+
+			defineConfig({
+				kysely,
+				// @ts-expect-error
+				migrations,
+			})
+		})
+
+		it('should type-error when spreading migrator options', () => {
+			defineConfig({
+				kysely,
+				// @ts-expect-error
+				migrations: { migrator, ...{ db: kysely } },
+			})
+
+			defineConfig({
+				kysely,
+				// @ts-expect-error
+				migrations: { migrator, ...{ provider: migrationProvider } },
+			})
+
+			defineConfig({
+				kysely,
+				// @ts-expect-error
+				migrations: { migrator, ...{ allowUnorderedMigrations: true } },
+			})
+
+			defineConfig({
+				kysely,
+				// @ts-expect-error
+				migrations: { migrator, ...{ disableTransactions: true } },
+			})
+
+			defineConfig({
+				kysely,
+				migrations: {
+					// @ts-expect-error
+					migrator,
+					...{ migrationLockTableName: 'tenant_migration_lock' },
+				},
+			})
+
+			defineConfig({
+				kysely,
+				// @ts-expect-error
+				migrations: { migrator, ...{ migrationTableName: 'tenant_migration' } },
+			})
+
+			defineConfig({
+				kysely,
+				// @ts-expect-error
+				migrations: { migrator, ...{ migrationTableSchema: 'tenant1' } },
+			})
+
+			defineConfig({
+				kysely,
+				migrations: {
+					// @ts-expect-error
+					migrator,
+					...{
+						nameComparator: (name0: string, name1: string) =>
+							name0.localeCompare(name1),
+					},
+				},
+			})
+		})
+
 		describe('when passing a seed provider', () => {
 			it('should type-error when not passing kysely/dialect instance or related', () => {
 				// @ts-expect-error
