@@ -20,6 +20,14 @@ export class TSFileMigrationProvider implements MigrationProvider {
 		this.#props = props
 	}
 
+	/**
+	 * Returns the {@link TSFileMigrationProviderProps.migrationFolder | migration folder}
+	 * passed to the constructor.
+	 */
+	get migrationFolder(): string {
+		return this.#props.migrationFolder
+	}
+
 	async getMigrations(): Promise<Record<string, Migration>> {
 		const files = await safeReaddir(this.#props.migrationFolder)
 

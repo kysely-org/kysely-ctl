@@ -10,7 +10,7 @@ blockExoticSubdeps: true
 catalog:
   "@types/better-sqlite3": 7.6.13
   better-sqlite3: 12.9.0
-  kysely: 0.29.0
+  kysely: https://pkg.pr.new/kysely@2144
   typescript: 6.0.3
 
 minimumReleaseAge: 1440 # install package versions that are at least 1 day old (in minutes).

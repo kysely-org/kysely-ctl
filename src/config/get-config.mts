@@ -3,6 +3,10 @@ import { consola } from 'consola'
 import { basename, dirname, resolve } from 'pathe'
 import { findNearestFile } from 'pkg-types'
 import { ALL_EXTENSIONS } from '../arguments/extension.mjs'
+import { getKysely } from '../kysely/get-kysely.mjs'
+import { getMigrator } from '../kysely/get-migrator.mjs'
+import { TSFileMigrationProvider } from '../kysely/ts-file-migration-provider.mjs'
+import { hydrate } from '../utils/hydrate.mjs'
 import { getJiti } from '../utils/jiti.mjs'
 import { getCWD } from './get-cwd.mjs'
 import { getMillisPrefix } from './get-file-prefix.mjs'
@@ -61,7 +65,7 @@ export async function getConfig(
 
 	const { config, ...configMetadata } = loadedConfig
 
-	return {
+	const resolvedConfig: ResolvedKyselyCTLConfig = {
 		...config,
 		args,
 		configMetadata,
@@ -91,6 +95,35 @@ export async function getConfig(
 			),
 		},
 	} as never
+
+	const { migrator, provider } = resolvedConfig.migrations
+
+	if (migrator || provider) {
+		const { FileMigrationProvider } = await import('kysely/migration')
+		let resolvedProvider = await hydrate(provider, [])
+
+		if (migrator) {
+			const kysely = await getKysely(resolvedConfig)
+			const resolvedMigrator = await getMigrator({ ...resolvedConfig, kysely })
+
+			resolvedConfig.kysely = kysely
+			resolvedConfig.migrations.migrator = () => resolvedMigrator
+			resolvedProvider = resolvedMigrator.provider
+		} else {
+			resolvedConfig.migrations.provider = resolvedProvider
+		}
+
+		if (
+			resolvedProvider instanceof FileMigrationProvider ||
+			resolvedProvider instanceof TSFileMigrationProvider
+		) {
+			resolvedConfig.migrations.migrationFolder = resolve(
+				resolvedProvider.migrationFolder,
+			)
+		}
+	}
+
+	return resolvedConfig
 }
 
 export async function getConfigOrFail(

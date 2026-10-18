@@ -13,8 +13,8 @@ catalogs:
       specifier: 12.9.0
       version: 12.9.0
     kysely:
-      specifier: 0.29.0
-      version: 0.29.0
+      specifier: https://pkg.pr.new/kysely@2144
+      version: 0.30.0-beta.2
     typescript:
       specifier: 6.0.3
       version: 6.0.3
@@ -77,16 +77,16 @@ importers:
         version: 12.9.0
       kysely:
         specifier: 'catalog:'
-        version: 0.29.0
+        version: https://pkg.pr.new/kysely@2144
       kysely-neon:
         specifier: 2.0.2
-        version: 2.0.2(@neondatabase/serverless@1.0.1)(kysely@0.29.0)
+        version: 2.0.2(@neondatabase/serverless@1.0.1)(kysely@https://pkg.pr.new/kysely@2144)
       kysely-postgres-js:
         specifier: 3.0.0
-        version: 3.0.0(kysely@0.29.0)(postgres@3.4.9)
+        version: 3.0.0(kysely@https://pkg.pr.new/kysely@2144)(postgres@3.4.9)
       kysely-prisma-postgres:
         specifier: 0.1.0
-        version: 0.1.0(@prisma/ppg@0.5.2)(kysely@0.29.0)
+        version: 0.1.0(@prisma/ppg@0.5.2)(kysely@https://pkg.pr.new/kysely@2144)
       postgres:
         specifier: 3.4.9
         version: 3.4.9
@@ -113,7 +113,7 @@ importers:
         version: 12.9.0
       kysely:
         specifier: 'catalog:'
-        version: 0.29.0
+        version: https://pkg.pr.new/kysely@2144
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
@@ -129,7 +129,7 @@ importers:
         version: 12.9.0
       kysely:
         specifier: 'catalog:'
-        version: 0.29.0
+        version: https://pkg.pr.new/kysely@2144
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
@@ -145,7 +145,7 @@ importers:
         version: 12.9.0
       kysely:
         specifier: 'catalog:'
-        version: 0.29.0
+        version: https://pkg.pr.new/kysely@2144
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
@@ -164,7 +164,7 @@ importers:
         version: 12.9.0
       kysely:
         specifier: 'catalog:'
-        version: 0.29.0
+        version: https://pkg.pr.new/kysely@2144
       react:
         specifier: ^19.2.3
         version: 19.2.3
@@ -205,7 +205,7 @@ importers:
         version: 12.9.0
       kysely:
         specifier: 'catalog:'
-        version: 0.29.0
+        version: https://pkg.pr.new/kysely@2144
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
@@ -221,7 +221,7 @@ importers:
         version: 12.9.0
       kysely:
         specifier: 'catalog:'
-        version: 0.29.0
+        version: https://pkg.pr.new/kysely@2144
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
@@ -237,7 +237,7 @@ importers:
         version: 12.9.0
       kysely:
         specifier: 'catalog:'
-        version: 0.29.0
+        version: https://pkg.pr.new/kysely@2144
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
@@ -253,7 +253,7 @@ importers:
         version: 12.9.0
       kysely:
         specifier: 'catalog:'
-        version: 0.29.0
+        version: https://pkg.pr.new/kysely@2144
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
@@ -272,7 +272,7 @@ importers:
         version: 12.9.0
       kysely:
         specifier: 'catalog:'
-        version: 0.29.0
+        version: https://pkg.pr.new/kysely@2144
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
@@ -1657,6 +1657,7 @@ packages:
 
   kysely-neon@2.0.2:
     resolution: {integrity: sha512-LY7tm9wZKsc8ilFe4Yc5Nf/z3R58wFkxbt8xq6f7U27+5VzZr9vy/S8bVPG8RT3yd+0qhQBDRkCl8gJdRuXWzw==}
+    version: 2.0.2
     engines: {node: '>=20'}
     peerDependencies:
       '@neondatabase/serverless': ^1
@@ -1664,6 +1665,7 @@ packages:
 
   kysely-postgres-js@3.0.0:
     resolution: {integrity: sha512-o2t/xNSYJQDW6rVGGFPXKmZ0BEz2dGn66c2B+cO/k9ZNcU2qPWPycQPQ+B+P2MBXbKYq0xV9BZmFIvkUrmFWAQ==}
+    version: 3.0.0
     engines: {bun: '>=1.2', node: '>=20'}
     peerDependencies:
       kysely: '>= 0.24.0 < 1'
@@ -1674,6 +1676,7 @@ packages:
 
   kysely-prisma-postgres@0.1.0:
     resolution: {integrity: sha512-ypStRfEU2NnW5vOc009RpYBAXXmNKP2no8DNmJuBmEzPsCw34CL+BBf8sdlTJyKQ/olb2Qve2uJyXT3fsvyG6Q==}
+    version: 0.1.0
     engines: {node: '>=20'}
     peerDependencies:
       '@prisma/ppg': ^0.5
@@ -1683,8 +1686,9 @@ packages:
     resolution: {integrity: sha512-nbD8lB9EB3wNdMhOCdx5Li8DxnLbvKByylRLcJ1h+4SkrowVeECAyZlyiKMThF7xFdRz0jSQ2MoJr+wXux2y0Q==}
     engines: {node: '>=20.0.0'}
 
-  kysely@0.29.0:
-    resolution: {integrity: sha512-LrQfPUeTW7MXbMvT62moEMnpMTuj9TO3lqjCeLKjM975PJ4Alrl/43f2tlDX7xOsNptKgH4LSNGwIbXwEkLg4g==}
+  kysely@https://pkg.pr.new/kysely@2144:
+    resolution: {integrity: sha512-k2LcWOfm0ZmFjM0lo+6teD1Gv2/4GQJ5r90kkz9gDEVCh4NQo2N5FXZw4Q5X5BgQOLz9BUxEaZL4NnwrW0VoeQ==, tarball: https://pkg.pr.new/kysely@2144}
+    version: 0.30.0-beta.2
     engines: {node: '>=22.0.0'}
 
   load-json-file@4.0.0:
@@ -3630,25 +3634,25 @@ snapshots:
       jsonparse: 1.3.1
       through2: 4.0.2
 
-  kysely-neon@2.0.2(@neondatabase/serverless@1.0.1)(kysely@0.29.0):
+  kysely-neon@2.0.2(@neondatabase/serverless@1.0.1)(kysely@https://pkg.pr.new/kysely@2144):
     dependencies:
       '@neondatabase/serverless': 1.0.1
-      kysely: 0.29.0
+      kysely: https://pkg.pr.new/kysely@2144
 
-  kysely-postgres-js@3.0.0(kysely@0.29.0)(postgres@3.4.9):
+  kysely-postgres-js@3.0.0(kysely@https://pkg.pr.new/kysely@2144)(postgres@3.4.9):
     dependencies:
-      kysely: 0.29.0
+      kysely: https://pkg.pr.new/kysely@2144
     optionalDependencies:
       postgres: 3.4.9
 
-  kysely-prisma-postgres@0.1.0(@prisma/ppg@0.5.2)(kysely@0.29.0):
+  kysely-prisma-postgres@0.1.0(@prisma/ppg@0.5.2)(kysely@https://pkg.pr.new/kysely@2144):
     dependencies:
       '@prisma/ppg': 0.5.2
-      kysely: 0.29.0
+      kysely: https://pkg.pr.new/kysely@2144
 
   kysely@0.28.17: {}
 
-  kysely@0.29.0: {}
+  kysely@https://pkg.pr.new/kysely@2144: {}
 
   load-json-file@4.0.0:
     dependencies:
