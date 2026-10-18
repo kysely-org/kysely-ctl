@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  cancel-in-progress: ${{ github.ref_name != 'main' }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+
 jobs:
   npm:
     concurrency:
@@ -61,6 +65,8 @@ jobs:
           egress-policy: audit
 
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
 
       - name: Install pnpm
         uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
@@ -81,6 +87,13 @@ jobs:
         run: pnpm test
 
   node:
+    defaults:
+      run:
+        shell: bash
+
+    env:
+      EXAMPLE_TYPE: ${{ matrix.type }}
+
     strategy:
       matrix:
         node-version: [22, 24, 26]
@@ -112,6 +125,8 @@ jobs:
           egress-policy: audit
 
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
 
       - name: Install pnpm
         uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
@@ -128,22 +143,23 @@ jobs:
         run: |
           ADDITIONAL_FLAGS="--debug"
 
-          if [[ ${{ matrix.type }} == 'esm-multi-config' ]]; then
+          if [[ "$EXAMPLE_TYPE" == 'esm-multi-config' ]]; then
             ADDITIONAL_FLAGS+=" --config=./.config/kysely.test.config.ts"
           fi
 
-          if [[ ${{ matrix.type }} == 'esm-environments' ]]; then
+          if [[ "$EXAMPLE_TYPE" == 'esm-environments' ]]; then
             ADDITIONAL_FLAGS+=" --environment=lib2"
           fi
 
-          if [[ ${{ matrix.type }} == 'cjs-compiled' ]]; then
+          if [[ "$EXAMPLE_TYPE" == 'cjs-compiled' ]]; then
             ADDITIONAL_FLAGS+=" --config=./dist/kysely.config.js"
           fi
 
-          echo "ADDITIONAL_FLAGS=$ADDITIONAL_FLAGS" >> $GITHUB_OUTPUT
+          echo "ADDITIONAL_FLAGS=$ADDITIONAL_FLAGS" >> "$GITHUB_OUTPUT"
+          echo "ADDITIONAL_FLAGS=$ADDITIONAL_FLAGS" >> "$GITHUB_ENV"
 
       - name: Install dependencies
-        run: pnpm i && pnpm build && cd examples/node-${{ matrix.type }} && pnpm i
+        run: pnpm i && pnpm build && cd "examples/node-$EXAMPLE_TYPE" && pnpm i
 
       - name: kysely -v
         working-directory: examples/node-${{ matrix.type }}
@@ -151,30 +167,41 @@ jobs:
 
       - name: kysely migrate:make <migration-name> ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:make moshe ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        run: |
+          read -r -a flags <<< "$ADDITIONAL_FLAGS"
+          pnpm kysely migrate:make moshe "${flags[@]}"
 
       - name: kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        run: |
+          read -r -a flags <<< "$ADDITIONAL_FLAGS"
+          pnpm kysely migrate:list "${flags[@]}"
 
       - name: kysely migrate:latest ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:latest ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        run: |
+          read -r -a flags <<< "$ADDITIONAL_FLAGS"
+          pnpm kysely migrate:latest "${flags[@]}"
 
       - name: kysely sql <query> ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
         working-directory: examples/node-${{ matrix.type }}
         run: |
-          pnpm kysely sql "insert into moshe (id, is_moshe) values (1, true)" ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
-          pnpm kysely ${{ steps.flags.outputs.ADDITIONAL_FLAGS }} sql "select * from moshe"
+          read -r -a flags <<< "$ADDITIONAL_FLAGS"
+          pnpm kysely sql "insert into moshe (id, is_moshe) values (1, true)" "${flags[@]}"
+          pnpm kysely "${flags[@]}" sql "select * from moshe"
 
       - name: kysely migrate:rollback --all ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
         working-directory: examples/node-${{ matrix.type }}
-        run: pnpm kysely migrate:rollback --all ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        run: |
+          read -r -a flags <<< "$ADDITIONAL_FLAGS"
+          pnpm kysely migrate:rollback --all "${flags[@]}"
 
       - name: kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }} (nearest config search)
         if: ${{ matrix.type != 'esm-multi-config' && matrix.type != 'cjs-compiled' }}
         working-directory: examples/node-${{ matrix.type }}/${{ startsWith(matrix.type, 'esm-environments') && 'packages' || 'migrations' }}
-        run: pnpm kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        run: |
+          read -r -a flags <<< "$ADDITIONAL_FLAGS"
+          pnpm kysely migrate:list "${flags[@]}"
 
   bun:
     runs-on: ubuntu-latest
@@ -188,6 +215,8 @@ jobs:
           egress-policy: audit
 
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
 
       - name: Install pnpm
         uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
@@ -246,6 +275,8 @@ jobs:
           egress-policy: audit
 
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
 
       - name: Install pnpm
         uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
