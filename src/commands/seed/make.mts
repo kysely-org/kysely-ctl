@@ -29,38 +29,46 @@ const Command = defineCommand(args, {
 
 		const config = await getConfigOrFail(args)
 
-		assertExtension(extension, config, 'seeds')
+		try {
+			assertExtension(extension, config, 'seeds')
 
-		const { getSeedPrefix, seedFolder } = config.seeds
+			const { getSeedPrefix, seedFolder } = config.seeds
 
-		const wasSeedsFolderCreated = Boolean(
-			await mkdir(seedFolder, { recursive: true }),
-		)
+			const wasSeedsFolderCreated = Boolean(
+				await mkdir(seedFolder, { recursive: true }),
+			)
 
-		if (wasSeedsFolderCreated) {
-			consola.debug('Seeds folder created')
+			if (wasSeedsFolderCreated) {
+				consola.debug('Seeds folder created')
+			}
+
+			const filename = `${await getSeedPrefix()}${args.seed_name}.${extension}`
+
+			consola.debug('Filename:', filename)
+
+			const filePath = join(seedFolder, filename)
+
+			consola.debug('File path:', filePath)
+
+			const templateExtension = await getTemplateExtension(extension)
+
+			const templatePath = join(
+				__dirname,
+				`templates/seed-template.${templateExtension}`,
+			)
+
+			consola.debug('Template path:', templatePath)
+
+			await copyFile(templatePath, filePath)
+
+			consola.success(`Created seed file at ${filePath}`)
+		} finally {
+			const { destroyOnExit, kysely } = config
+
+			if (destroyOnExit !== false && kysely && typeof kysely !== 'function') {
+				await kysely.destroy()
+			}
 		}
-
-		const filename = `${await getSeedPrefix()}${args.seed_name}.${extension}`
-
-		consola.debug('Filename:', filename)
-
-		const filePath = join(seedFolder, filename)
-
-		consola.debug('File path:', filePath)
-
-		const templateExtension = await getTemplateExtension(extension)
-
-		const templatePath = join(
-			__dirname,
-			`templates/seed-template.${templateExtension}`,
-		)
-
-		consola.debug('Template path:', templatePath)
-
-		await copyFile(templatePath, filePath)
-
-		consola.success(`Created seed file at ${filePath}`)
 	},
 })
 
