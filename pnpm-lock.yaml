@@ -122,6 +122,19 @@ importers:
         specifier: link:../..
         version: link:../..
 
+  examples/node-cjs-compiled:
+    dependencies:
+      better-sqlite3:
+        specifier: 'catalog:'
+        version: 12.9.0
+      kysely:
+        specifier: 'catalog:'
+        version: 0.29.0
+    devDependencies:
+      kysely-ctl:
+        specifier: link:../..
+        version: link:../..
+
   examples/node-esm:
     dependencies:
       better-sqlite3:

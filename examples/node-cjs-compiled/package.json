@@ -1,0 +1,11 @@
+{
+	"name": "node-cjs-compiled",
+	"type": "commonjs",
+	"devDependencies": {
+		"kysely-ctl": "link:../.."
+	},
+	"dependencies": {
+		"better-sqlite3": "catalog:",
+		"kysely": "catalog:"
+	}
+}

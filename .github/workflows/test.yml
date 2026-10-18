@@ -49,6 +49,7 @@ jobs:
         type:
           [
             cjs,
+            cjs-compiled,
             esm,
             esm-multi-config,
             esm-tsconfig-paths,
@@ -96,6 +97,10 @@ jobs:
             ADDITIONAL_FLAGS+=" --environment=lib2"
           fi
 
+          if [[ ${{ matrix.type }} == 'cjs-compiled' ]]; then
+            ADDITIONAL_FLAGS+=" --config=./dist/kysely.config.js"
+          fi
+
           echo "ADDITIONAL_FLAGS=$ADDITIONAL_FLAGS" >> $GITHUB_OUTPUT
 
       - name: Install dependencies
@@ -128,7 +133,7 @@ jobs:
         run: pnpm kysely migrate:rollback --all ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
       - name: kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }} (nearest config search)
-        if: ${{ matrix.type != 'esm-multi-config' }}
+        if: ${{ matrix.type != 'esm-multi-config' && matrix.type != 'cjs-compiled' }}
         working-directory: examples/node-${{ matrix.type }}/${{ startsWith(matrix.type, 'esm-environments') && 'packages' || 'migrations' }}
         run: pnpm kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 

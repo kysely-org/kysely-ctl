@@ -5,6 +5,7 @@
 			"**",
 			"!**/.vscode",
 			"!**/examples/**/.svelte-kit",
+			"!**/examples/**/dist",
 			"!**/examples/**/migrations",
 			"!**/examples/**/seeds",
 			"!**/package.json",
