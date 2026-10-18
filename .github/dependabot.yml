@@ -10,12 +10,7 @@ updates:
       default-days: 1
     directories:
       - /
-      - /examples/node-cjs
-      - /examples/node-esm
-      - /examples/node-esm-environments
-      - /examples/node-esm-jsx
-      - /examples/node-esm-top-level-await
-      - /examples/node-esm-tsconfig-paths
+      - /examples/node-*
     rebase-strategy: disabled
     schedule:
       interval: daily
