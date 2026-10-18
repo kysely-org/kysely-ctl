@@ -10,6 +10,6 @@
 		"better-sqlite3": "catalog:",
 		"kysely": "catalog:",
 		"react": "^19.2.3",
-		"react-dom": "^19.2.3"
+		"react-dom": "^19.3.1"
 	}
 }
