@@ -460,7 +460,15 @@ describe('defineConfig', () => {
 			it('should not type-error when also passing a kysely instance', () => {
 				defineConfig({
 					kysely,
-					migrations: { provider: migrationProvider },
+					migrations: {
+						allowUnorderedMigrations: true,
+						disableTransactions: true,
+						migrationLockTableName: 'custom_migration_lock',
+						migrationTableName: 'custom_migration',
+						migrationTableSchema: 'custom_schema',
+						nameComparator: (name0, name1) => name0.localeCompare(name1),
+						provider: migrationProvider,
+					},
 					seeds: { seeder },
 				})
 
@@ -647,7 +655,15 @@ describe('defineConfig', () => {
 			it('should not type-error when also passing a kysely instance', () => {
 				defineConfig({
 					kysely,
-					migrations: { migrationFolder: 'migrations' },
+					migrations: {
+						allowUnorderedMigrations: true,
+						disableTransactions: true,
+						migrationFolder: 'migrations',
+						migrationLockTableName: 'custom_migration_lock',
+						migrationTableName: 'custom_migration',
+						migrationTableSchema: 'custom_schema',
+						nameComparator: (name0, name1) => name0.localeCompare(name1),
+					},
 					seeds: { seeder },
 				})
 
