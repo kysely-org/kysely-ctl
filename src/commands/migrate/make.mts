@@ -1,14 +1,18 @@
 import { copyFile, mkdir } from 'node:fs/promises'
 import { consola } from 'consola'
-import { join } from 'pathe'
+import { join, resolve } from 'pathe'
 import { CommonArgs } from '../../arguments/common.mjs'
 import { assertExtension, ExtensionArg } from '../../arguments/extension.mjs'
 import { createMigrationNameArg } from '../../arguments/migration-name.mjs'
 import { getConfigOrFail } from '../../config/get-config.mjs'
+import { getMigrator } from '../../kysely/get-migrator.mjs'
+import { TSFileMigrationProvider } from '../../kysely/ts-file-migration-provider.mjs'
+import { usingKysely } from '../../kysely/using-kysely.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineArgs } from '../../utils/define-args.mjs'
 import { defineCommand } from '../../utils/define-command.mjs'
 import { getTemplateExtension } from '../../utils/get-template-extension.mjs'
+import { hydrate } from '../../utils/hydrate.mjs'
 
 const args = defineArgs({
 	...CommonArgs,
@@ -28,7 +32,24 @@ const Command = defineCommand(args, {
 
 		assertExtension(extension, config, 'migrations')
 
-		const { getMigrationPrefix, migrationFolder } = config.migrations
+		const { getMigrationPrefix, migrator, provider } = config.migrations
+		let { migrationFolder } = config.migrations
+
+		if (migrator || provider) {
+			const resolvedProvider = migrator
+				? await usingKysely(config, async (kysely) => {
+						return (await getMigrator({ ...config, kysely })).provider
+					})
+				: await hydrate(provider, [])
+			const { FileMigrationProvider } = await import('kysely/migration')
+
+			if (
+				resolvedProvider instanceof FileMigrationProvider ||
+				resolvedProvider instanceof TSFileMigrationProvider
+			) {
+				migrationFolder = resolve(resolvedProvider.migrationFolder)
+			}
+		}
 
 		const wasMigrationsFolderCreated = Boolean(
 			await mkdir(migrationFolder, { recursive: true }),
