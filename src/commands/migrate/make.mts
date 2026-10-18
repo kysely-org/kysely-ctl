@@ -26,40 +26,48 @@ const Command = defineCommand(args, {
 
 		const config = await getConfigOrFail(args)
 
-		assertExtension(extension, config, 'migrations')
+		try {
+			assertExtension(extension, config, 'migrations')
 
-		const { getMigrationPrefix, migrationFolder } = config.migrations
+			const { getMigrationPrefix, migrationFolder } = config.migrations
 
-		const wasMigrationsFolderCreated = Boolean(
-			await mkdir(migrationFolder, { recursive: true }),
-		)
+			const wasMigrationsFolderCreated = Boolean(
+				await mkdir(migrationFolder, { recursive: true }),
+			)
 
-		if (wasMigrationsFolderCreated) {
-			consola.debug('Migrations folder created')
+			if (wasMigrationsFolderCreated) {
+				consola.debug('Migrations folder created')
+			}
+
+			const filename = `${await getMigrationPrefix()}${
+				args.migration_name
+			}.${extension}`
+
+			consola.debug('Filename:', filename)
+
+			const filePath = join(migrationFolder, filename)
+
+			consola.debug('File path:', filePath)
+
+			const templateExtension = await getTemplateExtension(extension)
+
+			const templatePath = join(
+				__dirname,
+				`templates/migration-template.${templateExtension}`,
+			)
+
+			consola.debug('Template path:', templatePath)
+
+			await copyFile(templatePath, filePath)
+
+			consola.success(`Created migration file at ${filePath}`)
+		} finally {
+			const { destroyOnExit, kysely } = config
+
+			if (destroyOnExit !== false && kysely && typeof kysely !== 'function') {
+				await kysely.destroy()
+			}
 		}
-
-		const filename = `${await getMigrationPrefix()}${
-			args.migration_name
-		}.${extension}`
-
-		consola.debug('Filename:', filename)
-
-		const filePath = join(migrationFolder, filename)
-
-		consola.debug('File path:', filePath)
-
-		const templateExtension = await getTemplateExtension(extension)
-
-		const templatePath = join(
-			__dirname,
-			`templates/migration-template.${templateExtension}`,
-		)
-
-		consola.debug('Template path:', templatePath)
-
-		await copyFile(templatePath, filePath)
-
-		consola.success(`Created migration file at ${filePath}`)
 	},
 })
 
