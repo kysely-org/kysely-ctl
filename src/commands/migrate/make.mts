@@ -6,7 +6,6 @@ import { assertExtension, ExtensionArg } from '../../arguments/extension.mjs'
 import { createMigrationNameArg } from '../../arguments/migration-name.mjs'
 import { getConfigOrFail } from '../../config/get-config.mjs'
 import { getMigrator } from '../../kysely/get-migrator.mjs'
-import { TSFileMigrationProvider } from '../../kysely/ts-file-migration-provider.mjs'
 import { usingKysely } from '../../kysely/using-kysely.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineArgs } from '../../utils/define-args.mjs'
@@ -41,11 +40,10 @@ const Command = defineCommand(args, {
 						return (await getMigrator({ ...config, kysely })).provider
 					})
 				: await hydrate(provider, [])
-			const { FileMigrationProvider } = await import('kysely/migration')
-
 			if (
-				resolvedProvider instanceof FileMigrationProvider ||
-				resolvedProvider instanceof TSFileMigrationProvider
+				resolvedProvider &&
+				'migrationFolder' in resolvedProvider &&
+				typeof resolvedProvider.migrationFolder === 'string'
 			) {
 				migrationFolder = resolve(resolvedProvider.migrationFolder)
 			}

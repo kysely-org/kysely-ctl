@@ -129,7 +129,7 @@ export default defineConfig({
 });
 ```
 
-When supplying a custom migration provider or migrator, `migrate make` infers the migration folder from its `FileMigrationProvider` or `TSFileMigrationProvider`. Custom migrators require a Kysely version with the `Migrator.provider` getter. Relative provider paths are resolved from the current working directory.
+When supplying a custom migration provider or migrator, `migrate make` uses the provider's `migrationFolder` getter when available. Custom migrators require a Kysely version with the `Migrator.provider` getter. Relative provider paths are resolved from the current working directory.
 
 #### Reuse Kysely instance defined elsewhere
 

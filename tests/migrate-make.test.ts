@@ -35,6 +35,7 @@ describe.each([
 	it.each([
 		'file',
 		'ts',
+		'custom',
 	] as const)('uses the %s provider folder for both aliases', async (kind) => {
 		const fixture = await createFixture(mode, kind)
 
@@ -80,7 +81,7 @@ it('does not resolve migration providers when making a seed', async () => {
 
 async function createFixture(
 	mode: 'provider' | 'factory' | 'migrator' | 'default' | 'unused',
-	kind: 'file' | 'ts' = 'file',
+	kind: 'file' | 'ts' | 'custom' = 'file',
 ) {
 	const cwd = await mkdtemp(join(tmpdir(), 'kysely-ctl-migrate-make-'))
 	directories.push(cwd)
@@ -88,10 +89,12 @@ async function createFixture(
 	await mkdir(join(cwd, '.config'))
 	const config = join(cwd, '.config/kysely.config.mts')
 	const log = join(cwd, 'calls.log')
-	const provider =
-		kind === 'file'
-			? "new FileMigrationProvider({ fs, path, migrationFolder: path.resolve('custom/migrations') })"
-			: "new TSFileMigrationProvider({ migrationFolder: path.resolve('custom/migrations') })"
+	const provider = {
+		file: "new FileMigrationProvider({ fs, path, migrationFolder: path.resolve('custom/migrations') })",
+		ts: "new TSFileMigrationProvider({ migrationFolder: path.resolve('custom/migrations') })",
+		custom:
+			"new (class { get migrationFolder() { return 'custom/migrations' } async getMigrations() { return {} } })()",
+	}[kind]
 	const option = {
 		provider: 'provider: createProvider()',
 		factory: 'provider: async () => createProvider()',
