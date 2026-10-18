@@ -7,8 +7,8 @@ settings:
 catalogs:
   default:
     '@types/better-sqlite3':
-      specifier: 7.6.13
-      version: 7.6.13
+      specifier: 9.6.0
+      version: 9.6.0
     better-sqlite3:
       specifier: 12.11.1
       version: 12.11.1
@@ -67,8 +67,8 @@ importers:
         specifier: 24.0.4
         version: 24.0.4
       '@types/better-sqlite3':
-        specifier: 7.6.13
-        version: 7.6.13
+        specifier: 9.6.0
+        version: 9.6.0
       '@types/node':
         specifier: 25.6.2
         version: 25.6.2
@@ -117,7 +117,7 @@ importers:
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
-        version: 7.6.13
+        version: 9.6.0
       kysely-ctl:
         specifier: link:../..
         version: link:../..
@@ -146,7 +146,7 @@ importers:
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
-        version: 7.6.13
+        version: 9.6.0
       kysely-ctl:
         specifier: link:../..
         version: link:../..
@@ -162,7 +162,7 @@ importers:
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
-        version: 7.6.13
+        version: 9.6.0
       kysely-ctl:
         specifier: link:../..
         version: link:../..
@@ -187,7 +187,7 @@ importers:
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
-        version: 7.6.13
+        version: 9.6.0
       '@types/react':
         specifier: ^19.2.8
         version: 19.2.8
@@ -206,7 +206,7 @@ importers:
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
-        version: 7.6.13
+        version: 9.6.0
       kysely-ctl:
         specifier: link:../..
         version: link:../..
@@ -222,7 +222,7 @@ importers:
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
-        version: 7.6.13
+        version: 9.6.0
       kysely-ctl:
         specifier: link:../..
         version: link:../..
@@ -238,7 +238,7 @@ importers:
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
-        version: 7.6.13
+        version: 9.6.0
       kysely-ctl:
         specifier: link:../..
         version: link:../..
@@ -254,7 +254,7 @@ importers:
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
-        version: 7.6.13
+        version: 9.6.0
       kysely-ctl:
         specifier: link:../..
         version: link:../..
@@ -270,7 +270,7 @@ importers:
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
-        version: 7.6.13
+        version: 9.6.0
       kysely-ctl:
         specifier: link:../..
         version: link:../..
@@ -289,7 +289,7 @@ importers:
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
-        version: 7.6.13
+        version: 9.6.0
       kysely-ctl:
         specifier: link:../..
         version: link:../..
@@ -1051,8 +1051,8 @@ packages:
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
 
-  '@types/better-sqlite3@7.6.13':
-    resolution: {integrity: sha512-NMv9ASNARoKksWtsq/SHakpYAYnhBrQgGD8zkLYk/jaK8jUGn08CfEdTRgYhMypUQAfzSP8W6gNLe0q19/t4VA==}
+  '@types/better-sqlite3@9.6.0':
+    resolution: {integrity: sha512-ZEEwBSgMu7GYJOynoagg5X9JbxfL6dTJDsgViJIqh67jV44kyOr9RXfmFjLK5rzC4MWssP06t9hu/JwGDnUbCg==}
 
   '@types/chai@5.2.2':
     resolution: {integrity: sha512-8kB30R7Hwqf40JPiKhVzodJs2Qc1ZJ5zuT3uzw5Hq/dhNCl3G3l83jfpdI1e20BP348+fV7VIL/+FxaXkqBmWg==}
@@ -2906,7 +2906,7 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@types/better-sqlite3@7.6.13':
+  '@types/better-sqlite3@9.6.0':
     dependencies:
       '@types/node': 25.6.2
 
