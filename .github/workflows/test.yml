@@ -175,7 +175,8 @@ jobs:
       - name: kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }} (nearest config search)
         if: ${{ matrix.type != 'esm-multi-config' && matrix.type != 'cjs-compiled' }}
         working-directory: examples/node-${{ matrix.type }}/${{ startsWith(matrix.type, 'esm-environments') && 'packages' || 'migrations' }}
-        run: pnpm kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        # Keep the nested working directory while bypassing pnpm's binary lookup.
+        run: node ../node_modules/kysely-ctl/dist/bin.mjs migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
   bun:
     runs-on: ubuntu-latest
