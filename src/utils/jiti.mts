@@ -15,7 +15,16 @@ export async function getJiti(args: GetJitiArgs): Promise<Jiti> {
 
 	const { createJiti } = await import('jiti')
 
-	return createJiti(import.meta.url, jitiOptions)
+	const jiti = createJiti(import.meta.url, jitiOptions)
+	const importModule = jiti.import
+
+	// Unwrap the extra default export from compiled CommonJS modules (unjs/jiti#468).
+	jiti.import = async <T,>(...args: Parameters<typeof importModule>) => {
+		const module = await importModule<T & { default?: T }>(...args)
+		return args[1]?.default ? (module?.default ?? module) : module
+	}
+
+	return jiti
 }
 
 async function getJitiOptions(args: GetJitiArgs): Promise<JitiOptions> {

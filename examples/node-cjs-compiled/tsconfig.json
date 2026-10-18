@@ -1,0 +1,12 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
+		"noEmit": false,
+		"outDir": "./dist",
+		"rootDir": ".",
+		"verbatimModuleSyntax": false
+	},
+	"include": [".config/**/*", "migrations"]
+}

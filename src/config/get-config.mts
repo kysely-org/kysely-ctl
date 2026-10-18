@@ -40,14 +40,6 @@ export async function getConfig(
 		filesystemCaching: args['filesystem-caching'],
 	})
 
-	const importModule = jiti.import
-
-	// Unwrap compiled CommonJS default exports before c12 applies $env and extends.
-	jiti.import = async <T,>(...args: Parameters<typeof importModule>) => {
-		const module = await importModule<T & { default?: T }>(...args)
-		return args[1]?.default ? (module?.default ?? module) : module
-	}
-
 	consola.debug('configPath', configPath)
 
 	const loadedConfig = await loadConfig<KyselyCTLConfig>({
