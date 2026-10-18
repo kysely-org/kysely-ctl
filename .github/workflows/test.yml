@@ -143,7 +143,8 @@ jobs:
           echo "ADDITIONAL_FLAGS=$ADDITIONAL_FLAGS" >> $GITHUB_OUTPUT
 
       - name: Install dependencies
-        run: pnpm i && pnpm build && cd examples/node-${{ matrix.type }} && pnpm i
+        # Relink the CLI binary created by the build, even when dependencies haven't changed.
+        run: pnpm i && pnpm build && cd examples/node-${{ matrix.type }} && pnpm i --config.optimistic-repeat-install=false
 
       - name: kysely -v
         working-directory: examples/node-${{ matrix.type }}
