@@ -113,9 +113,9 @@ export default defineConfig({
   dialectConfig, // optional. when `dialect` is the name of an underlying driver library, `dialectConfig` is the options passed to the Kysely dialect that matches that library.
   migrations: { // optional.
     allowJS, // optional. controls whether `.js`, `.cjs` or `.mjs` migrations are allowed. default is `false`.
+    allowUnorderedMigrations, // optional. boolean option to allow migrations to be applied out of sequence.
     getMigrationPrefix, // optional. a function that returns a migration prefix. affects `migrate make` command. default is `() => ${Date.now()}_`.
     migrationFolder, // optional. path to where migration files are located. default is a folder named "migrations" next to the config file/folder.
-    allowUnorderedMigrations, // optional. boolean option to allow migrations to be applied out of sequence.
     migrator, // optional. a `Kysely` migrator instance factory of shape `(db: Kysely<any>) => Migrator | Promise<Migrator>`. default is `Kysely`'s `Migrator`.
     provider, // optional. a `Kysely` migration provider instance. default is `kysely-ctl`'s `TSFileMigrationProvider`.
   },
