@@ -1,0 +1,37 @@
+name: secure
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: ['**']
+
+permissions: {}
+
+jobs:
+  zizmor:
+    concurrency:
+      cancel-in-progress: ${{ github.ref_name != 'main' }}
+      group: ${{ github.workflow }}-zizmor-${{ github.event.pull_request.number || github.sha }}
+
+    name: zizmor github actions scan
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      - name: run zizmor
+        uses: zizmorcore/zizmor-action@85b2b9fb8e3325e7a23d7d0a9d7ba5ae0f999e3e # v0.7.1
+        with:
+          advanced-security: false
+          annotations: true
+          persona: pedantic

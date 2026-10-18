@@ -1,0 +1,8 @@
+# See https://docs.zizmor.sh/configuration/
+rules:
+  dependabot-cooldown:
+    config:
+      days: 1
+  use-trusted-publishing:
+    ignore:
+      - preview.yml # pkg-pr-new publishes previews outside the npm registry.
