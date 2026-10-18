@@ -40,13 +40,18 @@ const Command = defineCommand(args, {
 						return (await getMigrator({ ...config, kysely })).provider
 					})
 				: await hydrate(provider, [])
+
 			if (
-				resolvedProvider &&
-				'migrationFolder' in resolvedProvider &&
-				typeof resolvedProvider.migrationFolder === 'string'
+				!resolvedProvider ||
+				!('migrationFolder' in resolvedProvider) ||
+				typeof resolvedProvider.migrationFolder !== 'string'
 			) {
-				migrationFolder = resolve(resolvedProvider.migrationFolder)
+				throw new Error(
+					'Cannot create a migration: the configured provider must expose a string migrationFolder getter.',
+				)
 			}
+
+			migrationFolder = resolve(resolvedProvider.migrationFolder)
 		}
 
 		const wasMigrationsFolderCreated = Boolean(

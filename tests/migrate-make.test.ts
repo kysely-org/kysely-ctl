@@ -57,6 +57,35 @@ describe.each([
 			mode === 'migrator' ? 2 : 0,
 		)
 	})
+
+	it.each([
+		'missing',
+		'invalid',
+	] as const)('fails for a %s migrationFolder getter', async (kind) => {
+		const fixture = await createFixture(mode, kind)
+
+		for (const args of [
+			['migrate', 'make', 'first'],
+			['migrate:make', 'second'],
+		]) {
+			await expect(run(fixture, args)).rejects.toMatchObject({
+				code: 1,
+				stderr: expect.stringContaining(
+					'Cannot create a migration: the configured provider must expose a string migrationFolder getter.',
+				),
+			})
+		}
+
+		await expect(readdir(join(fixture.cwd, 'migrations'))).rejects.toThrow()
+		await expect(
+			readdir(join(fixture.cwd, 'custom/migrations')),
+		).rejects.toThrow()
+
+		const calls = (await readFile(fixture.log, 'utf8')).trim().split('\n')
+		expect(calls.filter((call) => call === 'destroy')).toHaveLength(
+			mode === 'migrator' ? 2 : 0,
+		)
+	})
 })
 
 it('creates a default migration without resolving the database', async () => {
@@ -81,7 +110,7 @@ it('does not resolve migration providers when making a seed', async () => {
 
 async function createFixture(
 	mode: 'provider' | 'factory' | 'migrator' | 'default' | 'unused',
-	kind: 'file' | 'ts' | 'custom' = 'file',
+	kind: 'file' | 'ts' | 'custom' | 'missing' | 'invalid' = 'file',
 ) {
 	const cwd = await mkdtemp(join(tmpdir(), 'kysely-ctl-migrate-make-'))
 	directories.push(cwd)
@@ -94,6 +123,9 @@ async function createFixture(
 		ts: "new TSFileMigrationProvider({ migrationFolder: path.resolve('custom/migrations') })",
 		custom:
 			"new (class { get migrationFolder() { return 'custom/migrations' } async getMigrations() { return {} } })()",
+		missing: '({ getMigrations: async () => ({}) })',
+		invalid:
+			'({ get migrationFolder() { return 42 }, getMigrations: async () => ({}) })',
 	}[kind]
 	const option = {
 		provider: 'provider: createProvider()',
