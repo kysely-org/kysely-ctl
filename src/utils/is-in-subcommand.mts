@@ -7,15 +7,15 @@ export function isInSubcommand<A extends ArgsDef>(
 	context: CommandContext<A>,
 ): boolean {
 	const {
+		args,
 		cmd: { subCommands },
-		rawArgs,
 	} = context
 
 	if (!subCommands) {
 		return false
 	}
 
-	const potentialSubCommand = rawArgs.find((arg) => !arg.startsWith('-'))
+	const potentialSubCommand = args._[0]
 
 	return potentialSubCommand !== undefined && potentialSubCommand in subCommands
 }
