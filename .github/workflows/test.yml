@@ -143,8 +143,7 @@ jobs:
           echo "ADDITIONAL_FLAGS=$ADDITIONAL_FLAGS" >> $GITHUB_OUTPUT
 
       - name: Install dependencies
-        # Relink the CLI binary created by the build, even when dependencies haven't changed.
-        run: pnpm i && pnpm build && cd examples/node-${{ matrix.type }} && pnpm i --config.optimistic-repeat-install=false
+        run: pnpm i && pnpm build && cd examples/node-${{ matrix.type }} && pnpm i
 
       - name: kysely -v
         working-directory: examples/node-${{ matrix.type }}
@@ -175,8 +174,7 @@ jobs:
       - name: kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }} (nearest config search)
         if: ${{ matrix.type != 'esm-multi-config' && matrix.type != 'cjs-compiled' }}
         working-directory: examples/node-${{ matrix.type }}/${{ startsWith(matrix.type, 'esm-environments') && 'packages' || 'migrations' }}
-        # Keep the nested working directory while bypassing pnpm's binary lookup.
-        run: node ../node_modules/kysely-ctl/dist/bin.mjs migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
+        run: pnpm kysely migrate:list ${{ steps.flags.outputs.ADDITIONAL_FLAGS }}
 
   bun:
     runs-on: ubuntu-latest
