@@ -6,13 +6,20 @@ on:
     tags:
       - 'v*'
 
-permissions:
-  contents: read
-  id-token: write  # Required for OIDC
+permissions: {}
 
 jobs:
   npm:
+    concurrency:
+      cancel-in-progress: false
+      group: ${{ github.workflow }}-npm
+
     environment: release
+    if: github.repository == 'kysely-org/kysely-ctl'
+    name: stage for npm
+    permissions:
+      contents: read
+      id-token: write # Required for OIDC
     runs-on: ubuntu-latest
 
     steps:
@@ -22,18 +29,56 @@ jobs:
           egress-policy: audit
 
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          fetch-depth: 0 # Need full history to check branch ancestry
+          persist-credentials: false
+
+      - name: Verify tag format and branch
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          if [[ ! "$REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Error: tag does not follow semver!"
+            exit 1
+          fi
+
+          TAG_COMMIT=$(git rev-list -n 1 "$REF_NAME")
+          if ! git merge-base --is-ancestor "$TAG_COMMIT" origin/main; then
+            echo "Error: tag is not based on main branch"
+            exit 1
+          fi
+
+          echo "TAG=$REF_NAME" >> "$GITHUB_ENV"
 
       - name: Install pnpm
         uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
+        with:
+          cache: false # cache can be poisoned by malicious actors.
 
       - name: Use Node.js
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: lts/*
-          cache: "pnpm"
+          package-manager-cache: false # cache can be poisoned by malicious actors.
+          registry-url: https://registry.npmjs.org/
+
+      - name: Verify package version
+        run: |
+          VERSION="${TAG#v}"
+          PACKAGE_VERSION=$(node -p "JSON.parse(require('node:fs').readFileSync('./package.json', 'utf8')).version")
+
+          if [[ ! "$PACKAGE_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Error: package.json version does not follow semver!"
+            exit 1
+          fi
+
+          if [[ "$VERSION" != "$PACKAGE_VERSION" ]]; then
+            echo "Error: tag and package.json version don't match!"
+            exit 1
+          fi
 
       - name: Install dependencies
-        run: npm i -g npm@latest && pnpm i
+        run: pnpm i --frozen-lockfile --prefer-offline
 
-      - name: Publish
-        run: pnpm publish --no-git-checks # the workflow runs in a detached head state, so git checks fail
+      - name: Stage release
+        run: pnpm stage publish --no-git-checks --tag latest # the workflow runs in a detached head state, so git checks fail
