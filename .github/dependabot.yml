@@ -6,7 +6,9 @@
 version: 2
 updates:
   - package-ecosystem: npm
-    directories: 
+    cooldown:
+      default-days: 1
+    directories:
       - /
       - /examples/node-cjs
       - /examples/node-esm
@@ -14,20 +16,31 @@ updates:
       - /examples/node-esm-jsx
       - /examples/node-esm-top-level-await
       - /examples/node-esm-tsconfig-paths
+    rebase-strategy: disabled
     schedule:
       interval: daily
     reviewers:
       - igalklebanov
 
   - package-ecosystem: bun
+    cooldown:
+      default-days: 1
     directory: /examples/bun
+    rebase-strategy: disabled
     schedule:
       interval: daily
     reviewers:
       - igalklebanov
 
   - package-ecosystem: github-actions
+    cooldown:
+      default-days: 1
     directory: /
+    groups:
+      codeql-action:
+        patterns:
+          - github/codeql-action*
+    rebase-strategy: disabled
     schedule:
       interval: daily
     reviewers:
