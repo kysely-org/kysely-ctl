@@ -18,13 +18,14 @@ describe('getFileType', () => {
 		expect(result).toEqual('JS')
 	})
 
-	it.each(
-		ALL_EXTENSIONS,
-	)('should return "IRRELEVANT" for name.d.%s file', (extension) => {
-		const result = getFileType(`file.d.${extension}`)
+	it.each(ALL_EXTENSIONS)(
+		'should return "IRRELEVANT" for name.d.%s file',
+		(extension) => {
+			const result = getFileType(`file.d.${extension}`)
 
-		expect(result).toEqual('IRRELEVANT')
-	})
+			expect(result).toEqual('IRRELEVANT')
+		},
+	)
 
 	it.each(TS_EXTENSIONS)('should return "TS" for d.%s file', (extension) => {
 		const result = getFileType(`d.${extension}`)
@@ -50,11 +51,12 @@ describe('getFileType', () => {
 		expect(result).toEqual('IRRELEVANT')
 	})
 
-	it.each(
-		ALL_EXTENSIONS,
-	)('should return "IRRELEVANT" for file with unrecognized .e%s extension', (extension) => {
-		const result = getFileType(`file.e${extension}`)
+	it.each(ALL_EXTENSIONS)(
+		'should return "IRRELEVANT" for file with unrecognized .e%s extension',
+		(extension) => {
+			const result = getFileType(`file.e${extension}`)
 
-		expect(result).toEqual('IRRELEVANT')
-	})
+			expect(result).toEqual('IRRELEVANT')
+		},
+	)
 })
