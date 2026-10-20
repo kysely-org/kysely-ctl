@@ -359,8 +359,8 @@ importers:
         specifier: 'catalog:'
         version: 13.0.3
       kysely:
-        specifier: 0.28.17
-        version: 0.28.17
+        specifier: 0.28.18
+        version: 0.28.18
     devDependencies:
       '@types/better-sqlite3':
         specifier: 'catalog:'
@@ -1413,8 +1413,8 @@ packages:
       '@prisma/ppg': ^0.5
       kysely: ^0.28
 
-  kysely@0.28.17:
-    resolution: {integrity: sha512-nbD8lB9EB3wNdMhOCdx5Li8DxnLbvKByylRLcJ1h+4SkrowVeECAyZlyiKMThF7xFdRz0jSQ2MoJr+wXux2y0Q==}
+  kysely@0.28.18:
+    resolution: {integrity: sha512-lf6nEHwPlaWbUDw5rycPSkEVGVC7sF7hzY7kH0OryleqK8Ym0zZ+RjI8o+RpHHlxpbKVC1d+UoQSW8GFxGQf4Q==}
     engines: {node: '>=20.0.0'}
 
   kysely@0.29.7:
@@ -2979,7 +2979,7 @@ snapshots:
       '@prisma/ppg': 0.5.2
       kysely: 0.29.7
 
-  kysely@0.28.17: {}
+  kysely@0.28.18: {}
 
   kysely@0.29.7: {}
 
