@@ -7,6 +7,6 @@
 	},
 	"dependencies": {
 		"better-sqlite3": "catalog:",
-		"kysely": "0.28.17"
+		"kysely": "0.28.18"
 	}
 }
