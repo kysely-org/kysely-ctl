@@ -201,7 +201,7 @@ importers:
         version: 2.7.0
       nypm:
         specifier: ^0.6.10
-        version: 0.6.10
+        version: 0.6.11
       ofetch:
         specifier: ^1.5.1
         version: 1.5.1
@@ -1553,8 +1553,8 @@ packages:
     engines: {node: '>= 4'}
     hasBin: true
 
-  nypm@0.6.10:
-    resolution: {integrity: sha512-W72Hrj1petq+b3Hk2aAC+9zswetlIFTnDW4s5djseZh2nYqBbyQLOtj472HwcbcWykPBUW1WpWpjOd4nK6gMRw==}
+  nypm@0.6.11:
+    resolution: {integrity: sha512-wrVBTLWDu7nTUKGWplQebWOXWnhaIwyKQhBxobH/CGxJHoVw27r9vG5ba7kdZnxG+f4rC6dZd6m2oHmpkOcO7g==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -3103,7 +3103,7 @@ snapshots:
       shell-quote: 1.12.0
       string.prototype.padend: 3.1.6
 
-  nypm@0.6.10:
+  nypm@0.6.11:
     dependencies:
       citty: 0.2.2
       pathe: 2.0.3
