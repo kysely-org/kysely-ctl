@@ -1,3 +1,4 @@
+import process from 'node:process'
 import {
 	type CommandContext,
 	type CommandDef,
@@ -6,6 +7,7 @@ import {
 } from 'citty'
 import { consola } from 'consola'
 import type { StrictArgsDef } from './define-args.mjs'
+import { hydrate } from './hydrate.mjs'
 import { isInSubcommand } from './is-in-subcommand.mjs'
 import { printInstalledVersions } from './version.mjs'
 
@@ -49,14 +51,19 @@ export function defineCommand<
 			}
 
 			if (!command.run) {
-				return await showUsage(definedCommand, parentCommand)
+				return await showUsage(context.cmd, parentCommand)
 			}
 
 			return await command.run(ctx)
 		},
-		setup: (context) => {
+		setup: async (context) => {
+			if (context.args.help) {
+				await showHelp(context.cmd, context.args._)
+				process.exit(0)
+			}
+
 			parentCommand = lastSetupCommand
-			lastSetupCommand = definedCommand
+			lastSetupCommand = context.cmd
 
 			mergedContext = mergeContexts(context, mergedContext)
 
@@ -66,6 +73,24 @@ export function defineCommand<
 	}
 
 	return definedCommand
+}
+
+async function showHelp(command: CommandDef, names: string[]): Promise<void> {
+	let current = command
+	let parent: CommandDef | undefined
+
+	for (const name of names) {
+		const subCommands = await hydrate(current.subCommands, [])
+		const subCommand = await hydrate(subCommands?.[name], [])
+		if (!subCommand) {
+			break
+		}
+
+		parent = current
+		current = subCommand
+	}
+
+	await showUsage(current, parent)
 }
 
 function sortSubCommands(
