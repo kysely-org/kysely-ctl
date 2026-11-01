@@ -18,7 +18,7 @@ export async function fetchJSON<T>(url: string): Promise<T> {
 		}
 
 		// Consume the body before retrying, and let body-read errors propagate.
-		const data = JSON.parse(await response.text())
+		const data = await response.json()
 
 		if (!response.ok) {
 			if (attempt === 0 && RETRY_STATUS_CODES.has(response.status)) {
