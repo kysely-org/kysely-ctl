@@ -2,7 +2,6 @@ import { isObject } from './is-object.mjs'
 
 const RETRY_STATUS_CODES = new Set([408, 409, 425, 429, 500, 502, 503, 504])
 
-/** Fetch JSON with a single GET retry. */
 export async function fetchJSON<T>(url: string): Promise<T> {
 	for (let attempt = 0; ; ++attempt) {
 		let response: Response
@@ -17,7 +16,6 @@ export async function fetchJSON<T>(url: string): Promise<T> {
 			throw cause
 		}
 
-		// Consume the body before retrying, and let body-read errors propagate.
 		const data = await response.json()
 
 		if (!response.ok) {
