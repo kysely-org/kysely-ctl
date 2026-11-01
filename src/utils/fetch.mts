@@ -1,5 +1,3 @@
-import { isObject } from './is-object.mjs'
-
 const RETRY_STATUS_CODES = new Set([408, 409, 425, 429, 500, 502, 503, 504])
 
 export async function fetchJSON<T>(url: string): Promise<T> {
@@ -9,7 +7,7 @@ export async function fetchJSON<T>(url: string): Promise<T> {
 		try {
 			response = await fetch(url)
 		} catch (cause) {
-			if (attempt === 0 && !(isObject(cause) && cause.name === 'AbortError')) {
+			if (attempt === 0) {
 				continue
 			}
 
