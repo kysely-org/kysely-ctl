@@ -201,7 +201,7 @@ importers:
         version: 2.7.0
       nypm:
         specifier: ^0.6.10
-        version: 0.6.10
+        version: 0.6.12
       pathe:
         specifier: ^2.0.3
         version: 2.0.3
@@ -1547,8 +1547,8 @@ packages:
     engines: {node: '>= 4'}
     hasBin: true
 
-  nypm@0.6.10:
-    resolution: {integrity: sha512-W72Hrj1petq+b3Hk2aAC+9zswetlIFTnDW4s5djseZh2nYqBbyQLOtj472HwcbcWykPBUW1WpWpjOd4nK6gMRw==}
+  nypm@0.6.12:
+    resolution: {integrity: sha512-4AhWntz+ds/P5kz1rN25yGegTPYsO5ffOy+8S0TeuXKZrgjlmgcEBLA1xubzcP/dWX4zYfNybv4TQERlL9Z0LQ==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -3089,7 +3089,7 @@ snapshots:
       shell-quote: 1.12.0
       string.prototype.padend: 3.1.6
 
-  nypm@0.6.10:
+  nypm@0.6.12:
     dependencies:
       citty: 0.2.2
       pathe: 2.0.3
