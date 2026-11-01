@@ -1,4 +1,4 @@
-import type { Kysely } from 'kysely'
+import type { Kysely } from '@jsr/kysely__kysely'
 
 if (Deno.env) {
 	// biome-ignore lint/suspicious/noConsole: console.log is fine here

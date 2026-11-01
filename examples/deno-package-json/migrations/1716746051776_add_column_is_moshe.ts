@@ -1,4 +1,4 @@
-import type { Kysely } from 'kysely'
+import type { Kysely } from '@jsr/kysely__kysely'
 
 export async function up(db: Kysely<any>): Promise<void> {
 	await db.schema.alterTable('moshe').addColumn('is_moshe', 'boolean').execute()
