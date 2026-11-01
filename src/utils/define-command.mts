@@ -28,15 +28,7 @@ export function defineCommand<
 
 	const definedCommand: CommandDef<Args> = {
 		...command,
-		args: () =>
-			mergedContext?.args.help
-				? (Object.fromEntries(
-						Object.entries(argDefs).map(([name, arg]) => [
-							name,
-							{ ...arg, required: false },
-						]),
-					) as Args)
-				: argDefs,
+		args: argDefs,
 		meta: {
 			description: subCommandUnion ? `\`${subCommandUnion}\`` : undefined,
 			...command.meta,
@@ -57,7 +49,7 @@ export function defineCommand<
 			}
 
 			if (args.help || !command.run) {
-				return await showUsage({ ...context.cmd, args: argDefs }, parentCommand)
+				return await showUsage(context.cmd, parentCommand)
 			}
 
 			return await command.run(ctx)
