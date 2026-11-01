@@ -250,7 +250,7 @@ Single-query:
 kysely sql "select 1"
 ```
 
-or interactive mode:
+or interactive mode (requires terminal input and output, outside CI and AI agents):
 
 ```bash
 kysely sql -f json

@@ -2,7 +2,7 @@ import { createInterface } from 'node:readline/promises'
 import type { ParsedArgs } from 'citty'
 import { consola } from 'consola'
 import { colorize } from 'consola/utils'
-import { isCI, process } from 'std-env'
+import { hasTTY, isAgent, isCI, process } from 'std-env'
 import { CommonArgs } from '../arguments/common.mjs'
 import { getConfigOrFail } from '../config/get-config.mjs'
 import type { ResolvedKyselyCTLConfigWithKyselyInstance } from '../config/kysely-ctl-config.mjs'
@@ -13,6 +13,8 @@ import { createSubcommand } from '../utils/create-subcommand.mjs'
 import { defineArgs } from '../utils/define-args.mjs'
 import { defineCommand } from '../utils/define-command.mjs'
 import { printCSV } from '../utils/print-csv.mjs'
+
+const isInteractive = !isCI && !isAgent && hasTTY && !!process.stdin?.isTTY
 
 const args = defineArgs({
 	...CommonArgs,
@@ -26,8 +28,8 @@ const args = defineArgs({
 	},
 	query: {
 		description:
-			'The SQL query to execute. When not provided, and not in CI, will open an interactive SQL shell.',
-		required: isCI,
+			'The SQL query to execute. When not provided, opens an interactive SQL shell in a terminal outside CI and AI agents.',
+		required: !isInteractive,
 		type: 'positional',
 	},
 })
@@ -64,7 +66,7 @@ function assertQuery(
 	const { query } = thing
 
 	if (
-		(!isCI && typeof query !== 'string') ||
+		(isInteractive && typeof query !== 'string') ||
 		(typeof query === 'string' && query.length > 0)
 	) {
 		return
