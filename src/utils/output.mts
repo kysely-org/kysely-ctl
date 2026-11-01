@@ -31,14 +31,10 @@ export async function runWithOutput(
 		return
 	}
 
-	let result: unknown
-
 	try {
-		result = await callback()
+		printJSON(await callback())
 	} catch (error) {
 		process.exitCode = 1
-		result = { status: 'error', error: serializeError(error) }
+		printJSON({ status: 'error', error: serializeError(error) })
 	}
-
-	printJSON(result)
 }
