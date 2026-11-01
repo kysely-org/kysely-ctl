@@ -146,7 +146,7 @@ export async function printUpgradeNotice(args: {
 		return
 	}
 
-	const { name: packageManagerName } = await getPackageManager()
+	const packageManagerName = await getPackageManager()
 
 	const installGloballyCommand = (
 		{
