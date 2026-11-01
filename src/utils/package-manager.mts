@@ -1,24 +1,17 @@
+import type { Agent } from 'package-manager-detector'
 import { detect } from 'package-manager-detector/detect'
 import { isBun, isDeno } from 'std-env'
 import { getCWD } from '../config/get-cwd.mjs'
 
-const PACKAGE_MANAGERS = ['npm', 'yarn', 'pnpm', 'bun', 'deno'] as const
-
-export type PackageManagerName = (typeof PACKAGE_MANAGERS)[number]
-
-export async function getPackageManager(): Promise<PackageManagerName> {
+export async function getPackageManager(): Promise<Agent> {
 	const packageManager = await detect({
 		cwd: getCWD(),
 		strategies: ['packageManager-field', 'devEngines-field', 'lockfile'],
 	})
 
-	const detectedName = PACKAGE_MANAGERS.find(
-		(name) => name === packageManager?.name,
-	)
-
-	if (!detectedName) {
+	if (!packageManager) {
 		return isDeno ? 'deno' : isBun ? 'bun' : 'npm'
 	}
 
-	return detectedName
+	return packageManager.agent
 }
