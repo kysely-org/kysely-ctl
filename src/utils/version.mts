@@ -4,7 +4,7 @@ import { consola } from 'consola'
 import { resolveCommand } from 'package-manager-detector/commands'
 import { join } from 'pathe'
 import { findWorkspaceDir, type PackageJson, readPackageJSON } from 'pkg-types'
-import { isBun, isCI, runtime } from 'std-env'
+import { isAgent, isBun, isCI, runtime } from 'std-env'
 import { getCWD } from '../config/get-cwd.mjs'
 import { isObject } from './is-object.mjs'
 import { getPackageManager } from './package-manager.mjs'
@@ -99,7 +99,7 @@ export async function printUpgradeNotice(args: {
 	'outdated-check'?: boolean
 	version?: boolean
 }): Promise<void> {
-	if (args.version || args['outdated-check'] === false || isCI) {
+	if (args.version || args['outdated-check'] === false || isCI || isAgent) {
 		return
 	}
 
