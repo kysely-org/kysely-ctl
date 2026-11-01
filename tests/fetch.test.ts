@@ -56,28 +56,21 @@ describe('fetchJSON', () => {
 		async (status) => {
 			const mock = mockFetch().mockResolvedValue(Response.json({}, { status }))
 
-			await expect(fetchJSON(URL)).rejects.toMatchObject({ status })
+			await expect(fetchJSON(URL)).rejects.toThrow(
+				`Failed to fetch ${URL}: ${status}`,
+			)
 			expect(mock).toHaveBeenCalledTimes(1)
 		},
 	)
 
-	it('preserves HTTP error diagnostics after exhausting the retry', async () => {
-		const data = { error: 'unavailable' }
+	it('throws for HTTP errors after exhausting the retry', async () => {
 		const mock = mockFetch().mockImplementation(async () =>
-			Response.json(data, { status: 503, statusText: 'Service Unavailable' }),
+			Response.json({}, { status: 503, statusText: 'Service Unavailable' }),
 		)
 
-		await expect(fetchJSON(URL)).rejects.toMatchObject({
-			name: 'FetchError',
-			message: `[GET] "${URL}": 503 Service Unavailable`,
-			request: URL,
-			response: expect.any(Response),
-			data,
-			status: 503,
-			statusCode: 503,
-			statusText: 'Service Unavailable',
-			statusMessage: 'Service Unavailable',
-		})
+		await expect(fetchJSON(URL)).rejects.toThrow(
+			`Failed to fetch ${URL}: 503 Service Unavailable`,
+		)
 		expect(mock).toHaveBeenCalledTimes(2)
 	})
 
@@ -90,15 +83,11 @@ describe('fetchJSON', () => {
 		expect(mock).toHaveBeenCalledTimes(2)
 	})
 
-	it('preserves the final network error as the cause', async () => {
+	it('propagates the final network error', async () => {
 		const cause = new TypeError('fetch failed')
 		const mock = mockFetch().mockRejectedValue(cause)
 
-		await expect(fetchJSON(URL)).rejects.toMatchObject({
-			name: 'FetchError',
-			message: `[GET] "${URL}": <no response> fetch failed`,
-			cause,
-		})
+		await expect(fetchJSON(URL)).rejects.toBe(cause)
 		expect(mock).toHaveBeenCalledTimes(2)
 	})
 
@@ -106,7 +95,7 @@ describe('fetchJSON', () => {
 		const cause = new DOMException('aborted', 'AbortError')
 		const mock = mockFetch().mockRejectedValue(cause)
 
-		await expect(fetchJSON(URL)).rejects.toMatchObject({ cause })
+		await expect(fetchJSON(URL)).rejects.toBe(cause)
 		expect(mock).toHaveBeenCalledTimes(1)
 	})
 
