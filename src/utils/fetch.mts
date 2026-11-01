@@ -1,17 +1,9 @@
-import { destr } from 'destr'
 import { isObject } from './is-object.mjs'
 
 const RETRY_STATUS_CODES = new Set([408, 409, 425, 429, 500, 502, 503, 504])
-const JSON_CONTENT_TYPE = /^application\/(?:[\w!#$%&*.^`~-]*\+)?json$/i
-const TEXT_CONTENT_TYPES = new Set([
-	'image/svg',
-	'application/xml',
-	'application/xhtml',
-	'application/html',
-])
 
-/** Fetch a URL with the response parsing and single GET retry used by ofetch. */
-export async function fetchData<T>(url: string): Promise<T> {
+/** Fetch JSON with a single GET retry. */
+export async function fetchJSON<T>(url: string): Promise<T> {
 	for (let attempt = 0; ; ++attempt) {
 		let response: Response
 
@@ -26,7 +18,7 @@ export async function fetchData<T>(url: string): Promise<T> {
 		}
 
 		// Consume the body before retrying, and let body-read errors propagate.
-		const data = await getResponseData(response)
+		const data = JSON.parse(await response.text())
 		Object.assign(response, { _data: data })
 
 		if (response.status >= 400 && response.status < 600) {
@@ -39,28 +31,6 @@ export async function fetchData<T>(url: string): Promise<T> {
 
 		return data as T
 	}
-}
-
-async function getResponseData(response: Response): Promise<unknown> {
-	if (!response.body) {
-		return undefined
-	}
-
-	const contentType = response.headers.get('content-type')?.split(';')[0] || ''
-
-	if (!contentType || JSON_CONTENT_TYPE.test(contentType)) {
-		return destr(await response.text())
-	}
-
-	if (contentType === 'text/event-stream') {
-		return response.body
-	}
-
-	if (contentType.startsWith('text/') || TEXT_CONTENT_TYPES.has(contentType)) {
-		return await response.text()
-	}
-
-	return await response.blob()
 }
 
 function createFetchError(
