@@ -6,11 +6,11 @@
 	},
 	"dependencies": {
 		"@jsr/db__sqlite": "0.12.0",
+		"@jsr/kysely__kysely": "0.29.7",
 		"@jsr/soapbox__kysely-deno-sqlite": "2.2.0",
-		"@jsr/std__path": "1.1.4",
-		"kysely": "0.28.17"
+		"@jsr/std__path": "1.1.4"
 	},
 	"devDependencies": {
-		"kysely-ctl": "0.20.0"
+		"kysely-ctl": "0.22.0"
 	}
 }
