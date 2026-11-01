@@ -23,6 +23,12 @@ export const CommonArgs = defineArgs({
 		type: 'string',
 		valueHint: 'production | development | test | ...',
 	},
+	help: {
+		alias: 'h',
+		default: false,
+		description: 'Show help information',
+		type: 'boolean',
+	},
 	...JitiArgs,
 	'no-outdated-check': {
 		default: false,
