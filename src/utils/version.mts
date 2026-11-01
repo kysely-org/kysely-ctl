@@ -144,25 +144,25 @@ export async function printUpgradeNotice(args: {
 		return
 	}
 
-	const packageManager = await getPackageManager()
+	const { name: packageManagerName, agent } = await getPackageManager()
 
 	consola.box(
 		notices
 			.map(([prettyName, name, installedVersion, latestVersion]) => {
 				const message = `A new ${prettyName} version is available: ${installedVersion ? `v${installedVersion}` : '[not installed]'} -> v${latestVersion}`
-				const packageName = `${packageManager === 'deno' ? 'npm:' : ''}${name}@latest`
+				const packageName = `${packageManagerName === 'deno' ? 'npm:' : ''}${name}@latest`
 				const args = [packageName]
 
-				if (packageManager === 'deno' && name === 'kysely-ctl') {
+				if (packageManagerName === 'deno' && name === 'kysely-ctl') {
 					args.unshift('--force')
 				}
 
 				const command =
 					resolveCommand(
-						packageManager,
+						agent,
 						name === 'kysely-ctl' ? 'global' : 'add',
 						args,
-					) || resolveCommand(packageManager, 'add', args)
+					) || resolveCommand(agent, 'add', args)
 
 				if (!command) {
 					return message
