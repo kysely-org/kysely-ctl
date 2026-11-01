@@ -2,7 +2,6 @@ import { consola } from 'consola'
 import { colorize } from 'consola/utils'
 import { process } from 'std-env'
 import { CommonArgs } from '../../arguments/common.mjs'
-import { OutputArgs } from '../../arguments/output.mjs'
 import { usingSeeder } from '../../seeds/using-seeder.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineArgs } from '../../utils/define-args.mjs'
@@ -12,7 +11,6 @@ import { runWithOutput, serializeError } from '../../utils/output.mjs'
 
 const args = defineArgs({
 	...CommonArgs,
-	...OutputArgs,
 	specific: {
 		description: 'Run seed file/s with given name/s',
 		type: 'string',

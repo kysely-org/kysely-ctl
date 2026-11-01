@@ -241,11 +241,13 @@ CLI.
 
 #### JSON output
 
-`init`, migration `list`, `latest`, `up`, `down` and `rollback` commands, and seed
-`list` and `run` commands accept `--json`. The legacy colon commands support it too.
+`init`, all migration commands and all seed commands accept `--json`. The legacy
+colon commands support it too.
 
 ```bash
 kysely init --json
+kysely migrate make create_users --json
+kysely seed make users --json
 kysely migrate latest --json
 kysely migrate list --json --fail-on-pending
 kysely seed run --json
@@ -262,11 +264,14 @@ kysely seed run --json
 
 JSON results go to stdout; CLI diagnostics and console logs go to stderr, and
 upgrade checks are skipped. Direct stream writes from your config, migrations
-and seeds should use stderr to keep stdout parseable. SQL retains its existing
-`--format json` option.
+and seeds should use stderr to keep stdout parseable. SQL also accepts `--json`
+as shorthand for `--format json`. `--json` takes precedence when both are supplied.
 
 `init` returns `status: "success"` and the created config's absolute `path`, or
 `status: "skipped"` and the existing config's path.
+
+`migrate make` and `seed make` return `status: "success"` and the created file's
+absolute `path` after any database cleanup completes.
 
 Run results use `status: "success"`, `"error"` or `"skipped"`, with a `migrations`
 or `seeds` array. Each entry has a `name` and a `status` of `"success"`, `"error"`

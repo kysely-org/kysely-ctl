@@ -3,7 +3,6 @@ import { consola } from 'consola'
 import { join } from 'pathe'
 import { CommonArgs } from '../arguments/common.mjs'
 import { assertExtension, ExtensionArg } from '../arguments/extension.mjs'
-import { OutputArgs } from '../arguments/output.mjs'
 import { configFileExists, getConfig } from '../config/get-config.mjs'
 import { getCWD } from '../config/get-cwd.mjs'
 import { createSubcommand } from '../utils/create-subcommand.mjs'
@@ -23,7 +22,6 @@ const {
 const args = defineArgs({
 	...CommonArgsForInit,
 	...ExtensionArg,
-	...OutputArgs,
 })
 
 const Command = defineCommand(args, {

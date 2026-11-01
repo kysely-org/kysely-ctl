@@ -30,6 +30,11 @@ export const CommonArgs = defineArgs({
 		type: 'boolean',
 	},
 	...JitiArgs,
+	json: {
+		default: false,
+		description: 'Output the result as JSON.',
+		type: 'boolean',
+	},
 	'no-outdated-check': {
 		default: false,
 		description:

@@ -82,7 +82,7 @@ async function executeQueryAndPrint(
 ): Promise<void> {
 	const result = await executeQuery({ sql: argz.query }, config)
 
-	if (argz.format === 'json') {
+	if (argz.json || argz.format === 'json') {
 		return printJSON(result)
 	}
 

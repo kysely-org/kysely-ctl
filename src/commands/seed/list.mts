@@ -1,13 +1,11 @@
 import { consola } from 'consola'
 import { CommonArgs } from '../../arguments/common.mjs'
-import { OutputArgs } from '../../arguments/output.mjs'
 import { usingSeeder } from '../../seeds/using-seeder.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
-import { defineArgs } from '../../utils/define-args.mjs'
 import { defineCommand } from '../../utils/define-command.mjs'
 import { runWithOutput } from '../../utils/output.mjs'
 
-const Command = defineCommand(defineArgs({ ...CommonArgs, ...OutputArgs }), {
+const Command = defineCommand(CommonArgs, {
 	meta: {
 		description: 'List seeds',
 	},

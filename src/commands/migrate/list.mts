@@ -1,7 +1,6 @@
 import { consola } from 'consola'
 import { process } from 'std-env'
 import { CommonArgs } from '../../arguments/common.mjs'
-import { OutputArgs } from '../../arguments/output.mjs'
 import { getMigrations } from '../../kysely/get-migrations.mjs'
 import { usingMigrator } from '../../kysely/using-migrator.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
@@ -12,7 +11,6 @@ import { runWithOutput, serializeError } from '../../utils/output.mjs'
 
 const args = defineArgs({
 	...CommonArgs,
-	...OutputArgs,
 	'fail-on-pending': {
 		default: false,
 		description: 'Fail if there are pending migrations',
