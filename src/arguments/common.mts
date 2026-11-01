@@ -1,3 +1,4 @@
+import { isAgent } from 'std-env'
 import { defineArgs } from '../utils/define-args.mjs'
 import { JitiArgs } from './jiti.mjs'
 
@@ -31,7 +32,7 @@ export const CommonArgs = defineArgs({
 	},
 	...JitiArgs,
 	json: {
-		default: false,
+		default: isAgent,
 		description: 'Output the result as JSON.',
 		type: 'boolean',
 	},

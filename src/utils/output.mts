@@ -1,16 +1,18 @@
 import { parseArgs } from 'citty'
-import { process } from 'std-env'
+import { isAgent, process } from 'std-env'
 
 export function isJSONOutput(rawArgs: string[]): boolean {
 	const args = parseArgs(rawArgs, {
-		json: { type: 'boolean' },
+		json: { type: 'boolean', default: isAgent },
 		format: { alias: 'f', type: 'string' },
 	})
 	return args.json === true || args.format === 'json'
 }
 
 export function printJSON(value: unknown): void {
-	process.stdout?.write(`${JSON.stringify(value, null, 2)}\n`)
+	process.stdout?.write(
+		`${JSON.stringify(value, (_key, item) => (typeof item === 'bigint' ? item.toString() : item), 2)}\n`,
+	)
 }
 
 export function serializeError(error: unknown): {

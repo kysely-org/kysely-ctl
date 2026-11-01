@@ -242,7 +242,8 @@ CLI.
 #### JSON output
 
 `init`, all migration commands and all seed commands accept `--json`. The legacy
-colon commands support it too.
+colon commands support it too. JSON is the default in detected AI coding agents;
+use `--no-json` to request text output.
 
 ```bash
 kysely init --json
@@ -266,6 +267,7 @@ JSON results go to stdout; CLI diagnostics and console logs go to stderr, and
 upgrade checks are skipped. Direct stream writes from your config, migrations
 and seeds should use stderr to keep stdout parseable. SQL also accepts `--json`
 as shorthand for `--format json`. `--json` takes precedence when both are supplied.
+SQL bigint values, including affected-row counts, are serialized as decimal strings.
 
 `init` returns `status: "success"` and the created config's absolute `path`, or
 `status: "skipped"` and the existing config's path.
