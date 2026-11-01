@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import { parseYAML } from 'confbox'
 import { consola } from 'consola'
-import type { PackageManagerName } from 'nypm'
+import { resolveCommand } from 'package-manager-detector/commands'
 import { join } from 'pathe'
 import { findWorkspaceDir, type PackageJson, readPackageJSON } from 'pkg-types'
 import { isBun, isCI, runtime } from 'std-env'
@@ -144,44 +144,32 @@ export async function printUpgradeNotice(args: {
 		return
 	}
 
-	const { command, name: packageManagerName } = await getPackageManager()
-
-	const installGloballyCommand = (
-		{
-			bun: (name) => `add -g ${name}@latest`,
-			deno: (name) => `install -g -f npm:${name}@latest`,
-			npm: (name) => `i -g ${name}@latest`,
-			pnpm: (name) => `add -g ${name}@latest`,
-			// doesn't support global installs in modern versions.
-			yarn: (name) => `add -D ${name}@latest`,
-		} satisfies Record<PackageManagerName, (name: string) => string>
-	)[packageManagerName]
-
-	const installLocallyCommand = (
-		{
-			bun: (name, dev?) => `add ${dev ? '-D ' : ''}${name}@latest`,
-			deno: (name, dev?) => `install ${dev ? '-D ' : ''}npm:${name}@latest`,
-			npm: (name, dev?) => `i ${dev ? '-D ' : ''}${name}@latest`,
-			pnpm: (name, dev?) => `add ${dev ? '-D ' : ''}${name}@latest`,
-			yarn: (name, dev?) => `add ${dev ? '-D ' : ''}${name}@latest`,
-		} satisfies Record<
-			PackageManagerName,
-			(name: string, dev?: boolean) => string
-		>
-	)[packageManagerName]
+	const { name: packageManagerName, agent } = await getPackageManager()
 
 	consola.box(
 		notices
-			.map(
-				([prettyName, name, installedVersion, latestVersion]) =>
-					`A new ${prettyName} version is available: ${installedVersion ? `v${installedVersion}` : '[not installed]'} -> v${latestVersion}\nRun \`${
-						command
-					} ${
-						name === 'kysely-ctl'
-							? installGloballyCommand(name)
-							: installLocallyCommand(name)
-					}\` to upgrade.`,
-			)
+			.map(([prettyName, name, installedVersion, latestVersion]) => {
+				const message = `A new ${prettyName} version is available: ${installedVersion ? `v${installedVersion}` : '[not installed]'} -> v${latestVersion}`
+				const packageName = `${packageManagerName === 'deno' ? 'npm:' : ''}${name}@latest`
+				const args = [packageName]
+
+				if (packageManagerName === 'deno' && name === 'kysely-ctl') {
+					args.unshift('--force')
+				}
+
+				const command =
+					resolveCommand(
+						agent,
+						name === 'kysely-ctl' ? 'global' : 'add',
+						args,
+					) || resolveCommand(agent, 'add', args)
+
+				if (!command) {
+					return message
+				}
+
+				return `${message}\nRun \`${[command.command, ...command.args].join(' ')}\` to upgrade.`
+			})
 			.join('\n\n'),
 	)
 }
