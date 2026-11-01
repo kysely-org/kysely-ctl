@@ -57,17 +57,14 @@ export function defineCommand<
 			}
 
 			if (args.help || !command.run) {
-				return await showUsage(
-					{ ...definedCommand, args: argDefs },
-					parentCommand,
-				)
+				return await showUsage({ ...context.cmd, args: argDefs }, parentCommand)
 			}
 
 			return await command.run(ctx)
 		},
 		setup: (context) => {
 			parentCommand = lastSetupCommand
-			lastSetupCommand = definedCommand
+			lastSetupCommand = context.cmd
 
 			mergedContext = mergeContexts(context, mergedContext)
 
