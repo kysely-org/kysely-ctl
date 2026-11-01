@@ -1,5 +1,5 @@
 {
-	"name": "kysely-ctl-agent-smoke",
+	"name": "kysely-ctl-opencode",
 	"private": true,
 	"devDependencies": {
 		"opencode-ai": "1.19.5"
