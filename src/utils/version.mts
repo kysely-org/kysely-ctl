@@ -2,11 +2,11 @@ import { readFile } from 'node:fs/promises'
 import { parseYAML } from 'confbox'
 import { consola } from 'consola'
 import type { PackageManagerName } from 'nypm'
-import { ofetch } from 'ofetch'
 import { join } from 'pathe'
 import { findWorkspaceDir, type PackageJson, readPackageJSON } from 'pkg-types'
 import { isBun, isCI, runtime } from 'std-env'
 import { getCWD } from '../config/get-cwd.mjs'
+import { fetchData } from './fetch.mjs'
 import { isObject } from './is-object.mjs'
 import { getPackageManager } from './package-manager.mjs'
 import { getConsumerPackageJSON, getCTLPackageJSON } from './pkg-json.mjs'
@@ -82,7 +82,7 @@ async function getCTLLatestVersion(): Promise<string> {
 }
 
 async function getPackageLatestVersion(packageName: string): Promise<string> {
-	const response = await ofetch<{ 'dist-tags': { latest: string } }>(
+	const response = await fetchData<{ 'dist-tags': { latest: string } }>(
 		`https://registry.npmjs.org/${packageName}`,
 	)
 
