@@ -1,14 +1,18 @@
 import { consola } from 'consola'
+import { process } from 'std-env'
 import { CommonArgs } from '../../arguments/common.mjs'
+import { OutputArgs } from '../../arguments/output.mjs'
 import { getMigrations } from '../../kysely/get-migrations.mjs'
 import { usingMigrator } from '../../kysely/using-migrator.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineArgs } from '../../utils/define-args.mjs'
 import { defineCommand } from '../../utils/define-command.mjs'
 import { exitWithError } from '../../utils/error.mjs'
+import { runWithOutput, serializeError } from '../../utils/output.mjs'
 
 const args = defineArgs({
 	...CommonArgs,
+	...OutputArgs,
 	'fail-on-pending': {
 		default: false,
 		description: 'Fail if there are pending migrations',
@@ -21,33 +25,56 @@ const Command = defineCommand(args, {
 		description: 'List both completed and pending migrations',
 	},
 	async run(context) {
-		const migrations = await usingMigrator(context.args, getMigrations)
+		await runWithOutput(context.args, async () => {
+			const migrations = await usingMigrator(context.args, getMigrations)
 
-		consola.debug(migrations)
+			consola.debug(migrations)
 
-		if (!migrations.length) {
-			return consola.info('No migrations found.')
-		}
+			if (context.args.json) {
+				const failed =
+					context.args['fail-on-pending'] &&
+					migrations.some((migration) => migration.executedAt == null)
+				if (failed) {
+					process.exitCode = 1
+				}
 
-		consola.info(
-			`Found ${migrations.length} migration${migrations.length > 1 ? 's' : ''}:`,
-		)
+				return {
+					status: failed ? 'error' : 'success',
+					migrations: migrations.map((migration) => ({
+						name: migration.name,
+						executedAt: migration.executedAt?.toISOString() ?? null,
+						status: migration.executedAt ? 'executed' : 'pending',
+					})),
+					...(failed
+						? { error: serializeError('Failed due to pending migrations.') }
+						: {}),
+				}
+			}
 
-		for (const migration of migrations) {
-			consola.log(`[${migration.executedAt ? '`✓`' : ' '}] ${migration.name}`)
-		}
+			if (!migrations.length) {
+				return consola.info('No migrations found.')
+			}
 
-		if (!context.args['fail-on-pending']) {
-			return
-		}
+			consola.info(
+				`Found ${migrations.length} migration${migrations.length > 1 ? 's' : ''}:`,
+			)
 
-		const hasPending = migrations.some(
-			(migration) => migration.executedAt == null,
-		)
+			for (const migration of migrations) {
+				consola.log(`[${migration.executedAt ? '`✓`' : ' '}] ${migration.name}`)
+			}
 
-		if (hasPending) {
-			exitWithError('Failed due to pending migrations.')
-		}
+			if (!context.args['fail-on-pending']) {
+				return
+			}
+
+			const hasPending = migrations.some(
+				(migration) => migration.executedAt == null,
+			)
+
+			if (hasPending) {
+				exitWithError('Failed due to pending migrations.')
+			}
+		})
 	},
 })
 

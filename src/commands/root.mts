@@ -1,8 +1,9 @@
 import { consola, createConsola, LogLevels } from 'consola'
-import { isAgent } from 'std-env'
+import { isAgent, process } from 'std-env'
 import { CommonArgs } from '../arguments/common.mjs'
 import { getCWD } from '../config/get-cwd.mjs'
 import { defineCommand } from '../utils/define-command.mjs'
+import { isJSONOutput } from '../utils/output.mjs'
 import { printUpgradeNotice } from '../utils/version.mjs'
 import { InitCommand } from './init.mjs'
 import { LegacyDownCommand } from './migrate/down.mjs'
@@ -43,6 +44,11 @@ export const RootCommand = defineCommand(CommonArgs, {
 			consola.setReporters(createConsola({ fancy: false }).options.reporters)
 		}
 
+		if (isJSONOutput(context.rawArgs)) {
+			consola.options.stdout = process.stderr
+			consola.wrapConsole()
+		}
+
 		if (args.debug) {
 			consola.level = LogLevels.debug
 		}
@@ -52,6 +58,10 @@ export const RootCommand = defineCommand(CommonArgs, {
 		consola.debug('cwd', getCWD(args as never)) // ensures the CWD is set
 	},
 	async cleanup(context) {
+		if (isJSONOutput(context.rawArgs)) {
+			return
+		}
+
 		try {
 			await printUpgradeNotice(context.args as never)
 		} catch (error) {

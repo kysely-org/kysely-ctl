@@ -12,6 +12,7 @@ import { usingKysely } from '../kysely/using-kysely.mjs'
 import { createSubcommand } from '../utils/create-subcommand.mjs'
 import { defineArgs } from '../utils/define-args.mjs'
 import { defineCommand } from '../utils/define-command.mjs'
+import { printJSON } from '../utils/output.mjs'
 import { printCSV } from '../utils/print-csv.mjs'
 
 const isInteractive = !isCI && !isAgent && hasTTY && !!process.stdin?.isTTY
@@ -82,7 +83,7 @@ async function executeQueryAndPrint(
 	const result = await executeQuery({ sql: argz.query }, config)
 
 	if (argz.format === 'json') {
-		return consola.log(JSON.stringify(result, null, 2))
+		return printJSON(result)
 	}
 
 	const { insertId, numAffectedRows, numChangedRows, rows } = result

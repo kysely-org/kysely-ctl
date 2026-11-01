@@ -6,6 +6,7 @@ import { usingMigrator } from '../../kysely/using-migrator.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineArgs } from '../../utils/define-args.mjs'
 import { defineCommand } from '../../utils/define-command.mjs'
+import { runWithOutput } from '../../utils/output.mjs'
 
 const args = defineArgs({ ...CommonArgs, ...MigrateArgs })
 
@@ -14,13 +15,20 @@ const Command = defineCommand(args, {
 		description: 'Update the database schema to the latest version',
 	},
 	async run(context) {
-		await usingMigrator(context.args, async (migrator) => {
-			consola.start('Starting migration to latest')
+		await runWithOutput(context.args, () =>
+			usingMigrator(context.args, async (migrator) => {
+				consola.start('Starting migration to latest')
 
-			const resultSet = await migrator.migrateToLatest()
+				const resultSet = await migrator.migrateToLatest()
 
-			await processMigrationResultSet(resultSet, 'up', migrator)
-		})
+				return await processMigrationResultSet(
+					resultSet,
+					'up',
+					migrator,
+					context.args.json,
+				)
+			}),
+		)
 	},
 })
 
