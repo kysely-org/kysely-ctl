@@ -2,7 +2,6 @@ import { readFile } from 'node:fs/promises'
 import { parseYAML } from 'confbox'
 import { consola } from 'consola'
 import type { PackageManagerName } from 'nypm'
-import { ofetch } from 'ofetch'
 import { join } from 'pathe'
 import { findWorkspaceDir, type PackageJson, readPackageJSON } from 'pkg-types'
 import { isBun, isCI, runtime } from 'std-env'
@@ -82,11 +81,18 @@ async function getCTLLatestVersion(): Promise<string> {
 }
 
 async function getPackageLatestVersion(packageName: string): Promise<string> {
-	const response = await ofetch<{ 'dist-tags': { latest: string } }>(
-		`https://registry.npmjs.org/${packageName}`,
-	)
+	const url = `https://registry.npmjs.org/${packageName}`
+	const response = await fetch(url)
 
-	return response['dist-tags'].latest
+	if (!response.ok) {
+		throw new Error(
+			`Failed to fetch ${url}: ${response.status} ${response.statusText}`,
+		)
+	}
+
+	const data = (await response.json()) as { 'dist-tags': { latest: string } }
+
+	return data['dist-tags'].latest
 }
 
 export async function printUpgradeNotice(args: {
