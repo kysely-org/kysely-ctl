@@ -146,7 +146,7 @@ export async function printUpgradeNotice(args: {
 		return
 	}
 
-	const { command, name: packageManagerName } = await getPackageManager()
+	const packageManagerName = await getPackageManager()
 
 	const installGloballyCommand = (
 		{
@@ -177,7 +177,7 @@ export async function printUpgradeNotice(args: {
 			.map(
 				([prettyName, name, installedVersion, latestVersion]) =>
 					`A new ${prettyName} version is available: ${installedVersion ? `v${installedVersion}` : '[not installed]'} -> v${latestVersion}\nRun \`${
-						command
+						packageManagerName
 					} ${
 						name === 'kysely-ctl'
 							? installGloballyCommand(name)
