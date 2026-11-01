@@ -50,7 +50,7 @@ export function defineCommand<
 				return await printInstalledVersions()
 			}
 
-			if (args.help || !command.run) {
+			if (!command.run) {
 				return await showUsage(context.cmd, parentCommand)
 			}
 
