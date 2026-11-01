@@ -28,7 +28,15 @@ export function defineCommand<
 
 	const definedCommand: CommandDef<Args> = {
 		...command,
-		args: argDefs,
+		args: () =>
+			mergedContext?.args.help
+				? (Object.fromEntries(
+						Object.entries(argDefs).map(([name, arg]) => [
+							name,
+							{ ...arg, required: false },
+						]),
+					) as Args)
+				: argDefs,
 		meta: {
 			description: subCommandUnion ? `\`${subCommandUnion}\`` : undefined,
 			...command.meta,
@@ -48,8 +56,11 @@ export function defineCommand<
 				return await printInstalledVersions()
 			}
 
-			if (!command.run) {
-				return await showUsage(definedCommand, parentCommand)
+			if (args.help || !command.run) {
+				return await showUsage(
+					{ ...definedCommand, args: argDefs },
+					parentCommand,
+				)
 			}
 
 			return await command.run(ctx)
@@ -60,7 +71,18 @@ export function defineCommand<
 
 			mergedContext = mergeContexts(context, mergedContext)
 
+			if (mergedContext.args.help) {
+				return
+			}
+
 			return command.setup?.(mergedContext)
+		},
+		cleanup: (context) => {
+			if (mergedContext?.args.help) {
+				return
+			}
+
+			return command.cleanup?.(context)
 		},
 		subCommands,
 	}
