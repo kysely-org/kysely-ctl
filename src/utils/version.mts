@@ -6,7 +6,6 @@ import { join } from 'pathe'
 import { findWorkspaceDir, type PackageJson, readPackageJSON } from 'pkg-types'
 import { isBun, isCI, runtime } from 'std-env'
 import { getCWD } from '../config/get-cwd.mjs'
-import { fetchJSON } from './fetch.mjs'
 import { isObject } from './is-object.mjs'
 import { getPackageManager } from './package-manager.mjs'
 import { getConsumerPackageJSON, getCTLPackageJSON } from './pkg-json.mjs'
@@ -82,11 +81,18 @@ async function getCTLLatestVersion(): Promise<string> {
 }
 
 async function getPackageLatestVersion(packageName: string): Promise<string> {
-	const response = await fetchJSON<{ 'dist-tags': { latest: string } }>(
-		`https://registry.npmjs.org/${packageName}`,
-	)
+	const url = `https://registry.npmjs.org/${packageName}`
+	const response = await fetch(url)
 
-	return response['dist-tags'].latest
+	if (!response.ok) {
+		throw new Error(
+			`Failed to fetch ${url}: ${response.status} ${response.statusText}`,
+		)
+	}
+
+	const data = (await response.json()) as { 'dist-tags': { latest: string } }
+
+	return data['dist-tags'].latest
 }
 
 export async function printUpgradeNotice(args: {
