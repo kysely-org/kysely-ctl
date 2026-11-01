@@ -1,4 +1,5 @@
-import { consola, LogLevels } from 'consola'
+import { consola, createConsola, LogLevels } from 'consola'
+import { isAgent } from 'std-env'
 import { CommonArgs } from '../arguments/common.mjs'
 import { getCWD } from '../config/get-cwd.mjs'
 import { defineCommand } from '../utils/define-command.mjs'
@@ -37,6 +38,10 @@ export const RootCommand = defineCommand(CommonArgs, {
 	},
 	setup(context) {
 		const { args } = context
+
+		if (isAgent) {
+			consola.setReporters(createConsola({ fancy: false }).options.reporters)
+		}
 
 		if (args.debug) {
 			consola.level = LogLevels.debug
