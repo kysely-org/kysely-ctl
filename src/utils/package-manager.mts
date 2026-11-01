@@ -11,6 +11,7 @@ export async function getPackageManager(): Promise<PackageManagerName> {
 		cwd: getCWD(),
 		strategies: ['packageManager-field', 'devEngines-field', 'lockfile'],
 	})
+
 	const detectedName = PACKAGE_MANAGERS.find(
 		(name) => name === packageManager?.name,
 	)
