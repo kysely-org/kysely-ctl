@@ -15,9 +15,9 @@ export async function getPackageManager(): Promise<PackageManagerName> {
 		(name) => name === packageManager?.name,
 	)
 
-	if (detectedName) {
-		return detectedName
+	if (!detectedName) {
+		return isDeno ? 'deno' : isBun ? 'bun' : 'npm'
 	}
 
-	return isDeno ? 'deno' : isBun ? 'bun' : 'npm'
+	return detectedName
 }
