@@ -6,7 +6,12 @@ const PACKAGE_MANAGERS = ['npm', 'yarn', 'pnpm', 'bun', 'deno'] as const
 
 export type PackageManagerName = (typeof PACKAGE_MANAGERS)[number]
 
-export async function getPackageManager(): Promise<PackageManagerName> {
+export interface EnrichedPackageManager {
+	name: PackageManagerName
+	inProject: boolean
+}
+
+export async function getPackageManager(): Promise<EnrichedPackageManager> {
 	const packageManager = await detect({
 		cwd: getCWD(),
 		strategies: ['packageManager-field', 'devEngines-field', 'lockfile'],
@@ -16,8 +21,8 @@ export async function getPackageManager(): Promise<PackageManagerName> {
 	)
 
 	if (!detectedName) {
-		return isDeno ? 'deno' : isBun ? 'bun' : 'npm'
+		return { name: isDeno ? 'deno' : isBun ? 'bun' : 'npm', inProject: false }
 	}
 
-	return detectedName
+	return { name: detectedName, inProject: true }
 }
