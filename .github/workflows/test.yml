@@ -62,10 +62,12 @@ jobs:
         run: pnpm i --frozen-lockfile && pnpm build
 
       - name: Install OpenCode
-        run: npm install --global opencode-ai@1.19.5
+        run: pnpm --dir scripts/agent-smoke install --frozen-lockfile
 
       - name: Run CLI flow with a free coding agent
         id: agent
+        env:
+          OPENCODE_EXECUTABLE: ${{ github.workspace }}/scripts/agent-smoke/node_modules/.bin/opencode
         run: node scripts/agent-smoke.mjs
 
       - name: Upload agent trace
