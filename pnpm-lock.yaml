@@ -199,9 +199,9 @@ importers:
       jiti:
         specifier: ^2.7.0
         version: 2.7.0
-      nypm:
-        specifier: ^0.6.10
-        version: 0.6.12
+      package-manager-detector:
+        specifier: ^1.9.0
+        version: 1.9.0
       pathe:
         specifier: ^2.0.3
         version: 2.0.3
@@ -1545,11 +1545,6 @@ packages:
   npm-run-all@4.1.5:
     resolution: {integrity: sha512-Oo82gJDAVcaMdi3nuoKFavkIHBRVqQ1qvMb+9LHk/cF4P6B2m8aP04hGf7oL6wZ9BuGwX1onlLhpuoofSyoQDQ==}
     engines: {node: '>= 4'}
-    hasBin: true
-
-  nypm@0.6.12:
-    resolution: {integrity: sha512-4AhWntz+ds/P5kz1rN25yGegTPYsO5ffOy+8S0TeuXKZrgjlmgcEBLA1xubzcP/dWX4zYfNybv4TQERlL9Z0LQ==}
-    engines: {node: '>=18'}
     hasBin: true
 
   object-inspect@1.13.4:
@@ -3088,12 +3083,6 @@ snapshots:
       read-pkg: 3.0.0
       shell-quote: 1.12.0
       string.prototype.padend: 3.1.6
-
-  nypm@0.6.12:
-    dependencies:
-      citty: 0.2.2
-      pathe: 2.0.3
-      tinyexec: 1.3.1
 
   object-inspect@1.13.4: {}
 

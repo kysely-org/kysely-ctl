@@ -35,7 +35,7 @@
 		"confbox": "^0.3.1",
 		"consola": "^3.4.2",
 		"jiti": "^2.7.0",
-		"nypm": "^0.6.10",
+		"package-manager-detector": "^1.9.0",
 		"pathe": "^2.0.3",
 		"pkg-types": "^2.3.3",
 		"std-env": "^4.3.0"

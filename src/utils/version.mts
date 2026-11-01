@@ -1,13 +1,15 @@
 import { readFile } from 'node:fs/promises'
 import { parseYAML } from 'confbox'
 import { consola } from 'consola'
-import type { PackageManagerName } from 'nypm'
 import { join } from 'pathe'
 import { findWorkspaceDir, type PackageJson, readPackageJSON } from 'pkg-types'
 import { isBun, isCI, runtime } from 'std-env'
 import { getCWD } from '../config/get-cwd.mjs'
 import { isObject } from './is-object.mjs'
-import { getPackageManager } from './package-manager.mjs'
+import {
+	getPackageManager,
+	type PackageManagerName,
+} from './package-manager.mjs'
 import { getConsumerPackageJSON, getCTLPackageJSON } from './pkg-json.mjs'
 
 /**

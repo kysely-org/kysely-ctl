@@ -1,21 +1,28 @@
-import { detectPackageManager, type PackageManager } from 'nypm'
+import { detect } from 'package-manager-detector/detect'
 import { isBun, isDeno } from 'std-env'
 import { getCWD } from '../config/get-cwd.mjs'
 
+const PACKAGE_MANAGERS = ['npm', 'yarn', 'pnpm', 'bun', 'deno'] as const
+
+export type PackageManagerName = (typeof PACKAGE_MANAGERS)[number]
+
 export interface EnrichedPackageManager {
-	name: PackageManager['name'] | 'deno'
-	command: PackageManager['command'] | 'deno'
+	name: PackageManagerName
+	command: PackageManagerName
 	inProject: boolean
 }
 
 export async function getPackageManager(): Promise<EnrichedPackageManager> {
-	const packageManager = await detectPackageManager(getCWD(), {
-		ignoreArgv: true,
-		includeParentDirs: true,
+	const packageManager = await detect({
+		cwd: getCWD(),
+		strategies: ['packageManager-field', 'devEngines-field', 'lockfile'],
 	})
+	const detectedName = PACKAGE_MANAGERS.find(
+		(name) => name === packageManager?.name,
+	)
 
-	if (packageManager) {
-		return { ...packageManager, inProject: true }
+	if (detectedName) {
+		return { name: detectedName, command: detectedName, inProject: true }
 	}
 
 	const name = isDeno ? 'deno' : isBun ? 'bun' : 'npm'
