@@ -8,7 +8,7 @@ import { usingMigrator } from '../../kysely/using-migrator.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineArgs } from '../../utils/define-args.mjs'
 import { defineCommand } from '../../utils/define-command.mjs'
-import { runWithOutput } from '../../utils/json.mjs'
+import { printJSON } from '../../utils/json.mjs'
 
 const args = defineArgs({
 	...CommonArgs,
@@ -24,32 +24,34 @@ const Command = defineCommand(args, {
 		const { args } = context
 		const { migration_name } = args
 
-		await runWithOutput(args, () =>
-			usingMigrator(args, async (migrator) => {
-				if (await isWrongDirection(migration_name, 'down', migrator)) {
-					if (args.json) {
-						return { status: 'skipped', migrations: [] }
-					}
-
-					return consola.info(
-						`Migration skipped: "${migration_name}" has not been run yet`,
-					)
+		const result = await usingMigrator(args, async (migrator) => {
+			if (await isWrongDirection(migration_name, 'down', migrator)) {
+				if (args.json) {
+					return { status: 'skipped', migrations: [] }
 				}
 
-				consola.start('Starting migration down')
-
-				const resultSet = migration_name
-					? await migrator.migrateTo(migration_name)
-					: await migrator.migrateDown()
-
-				return await processMigrationResultSet(
-					resultSet,
-					'down',
-					migrator,
-					args.json,
+				return consola.info(
+					`Migration skipped: "${migration_name}" has not been run yet`,
 				)
-			}),
-		)
+			}
+
+			consola.start('Starting migration down')
+
+			const resultSet = migration_name
+				? await migrator.migrateTo(migration_name)
+				: await migrator.migrateDown()
+
+			return await processMigrationResultSet(
+				resultSet,
+				'down',
+				migrator,
+				args.json,
+			)
+		})
+
+		if (args.json) {
+			printJSON(result)
+		}
 	},
 })
 

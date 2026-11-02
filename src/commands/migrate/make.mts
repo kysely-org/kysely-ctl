@@ -1,4 +1,5 @@
 import { copyFile, mkdir } from 'node:fs/promises'
+import type { ParsedArgs } from 'citty'
 import { consola } from 'consola'
 import { join } from 'pathe'
 import { CommonArgs } from '../../arguments/common.mjs'
@@ -9,7 +10,7 @@ import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineArgs } from '../../utils/define-args.mjs'
 import { defineCommand } from '../../utils/define-command.mjs'
 import { getTemplateExtension } from '../../utils/get-template-extension.mjs'
-import { runWithOutput } from '../../utils/json.mjs'
+import { printJSON } from '../../utils/json.mjs'
 
 const args = defineArgs({
 	...CommonArgs,
@@ -23,60 +24,66 @@ const Command = defineCommand(args, {
 	},
 	async run(context) {
 		const { args } = context
-		await runWithOutput(args, async () => {
-			const { extension } = args
+		const filePath = await createMigrationFile(args)
 
-			const config = await getConfigOrFail(args)
+		if (args.json) {
+			return printJSON({ status: 'success', path: filePath })
+		}
 
-			try {
-				assertExtension(extension, config, 'migrations')
-
-				const { getMigrationPrefix, migrationFolder } = config.migrations
-
-				const wasMigrationsFolderCreated = Boolean(
-					await mkdir(migrationFolder, { recursive: true }),
-				)
-
-				if (wasMigrationsFolderCreated) {
-					consola.debug('Migrations folder created')
-				}
-
-				const filename = `${await getMigrationPrefix()}${
-					args.migration_name
-				}.${extension}`
-
-				consola.debug('Filename:', filename)
-
-				const filePath = join(migrationFolder, filename)
-
-				consola.debug('File path:', filePath)
-
-				const templateExtension = await getTemplateExtension(extension)
-
-				const templatePath = join(
-					__dirname,
-					`templates/migration-template.${templateExtension}`,
-				)
-
-				consola.debug('Template path:', templatePath)
-
-				await copyFile(templatePath, filePath)
-
-				if (args.json) {
-					return { status: 'success', path: filePath }
-				}
-
-				consola.success(`Created migration file at ${filePath}`)
-			} finally {
-				const { destroyOnExit, kysely } = config
-
-				if (destroyOnExit !== false && kysely && typeof kysely !== 'function') {
-					await kysely.destroy()
-				}
-			}
-		})
+		consola.success(`Created migration file at ${filePath}`)
 	},
 })
 
 export const MakeCommand = createSubcommand('make', Command)
 export const LegacyMakeCommand = createSubcommand('migrate:make', Command)
+
+async function createMigrationFile(
+	argz: ParsedArgs<typeof args>,
+): Promise<string> {
+	const { extension } = argz
+
+	const config = await getConfigOrFail(argz)
+
+	try {
+		assertExtension(extension, config, 'migrations')
+
+		const { getMigrationPrefix, migrationFolder } = config.migrations
+
+		const wasMigrationsFolderCreated = Boolean(
+			await mkdir(migrationFolder, { recursive: true }),
+		)
+
+		if (wasMigrationsFolderCreated) {
+			consola.debug('Migrations folder created')
+		}
+
+		const filename = `${await getMigrationPrefix()}${
+			argz.migration_name
+		}.${extension}`
+
+		consola.debug('Filename:', filename)
+
+		const filePath = join(migrationFolder, filename)
+
+		consola.debug('File path:', filePath)
+
+		const templateExtension = await getTemplateExtension(extension)
+
+		const templatePath = join(
+			__dirname,
+			`templates/migration-template.${templateExtension}`,
+		)
+
+		consola.debug('Template path:', templatePath)
+
+		await copyFile(templatePath, filePath)
+
+		return filePath
+	} finally {
+		const { destroyOnExit, kysely } = config
+
+		if (destroyOnExit !== false && kysely && typeof kysely !== 'function') {
+			await kysely.destroy()
+		}
+	}
+}

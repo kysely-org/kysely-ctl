@@ -23,20 +23,3 @@ export function serializeError(error: unknown): {
 		? { name: error.name, message: error.message }
 		: { name: 'Error', message: String(error) }
 }
-
-export async function runWithOutput(
-	args: { json: boolean },
-	callback: () => Promise<unknown>,
-): Promise<void> {
-	if (!args.json) {
-		await callback()
-		return
-	}
-
-	try {
-		printJSON(await callback())
-	} catch (error) {
-		process.exitCode = 1
-		printJSON({ status: 'error', error: serializeError(error) })
-	}
-}
