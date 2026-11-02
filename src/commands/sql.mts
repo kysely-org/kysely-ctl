@@ -12,7 +12,7 @@ import { usingKysely } from '../kysely/using-kysely.mjs'
 import { createSubcommand } from '../utils/create-subcommand.mjs'
 import { defineArgs } from '../utils/define-args.mjs'
 import { defineCommand } from '../utils/define-command.mjs'
-import { printJSON } from '../utils/output.mjs'
+import { printJSON, serializeError } from '../utils/output.mjs'
 import { printCSV } from '../utils/print-csv.mjs'
 
 const isInteractive = !isCI && !isAgent && hasTTY && !!process.stdin?.isTTY
@@ -43,19 +43,28 @@ const Command = defineCommand(args, {
 	async run(context) {
 		const { args } = context
 
-		assertQuery(args)
+		try {
+			assertQuery(args)
 
-		const config = await getConfigOrFail(args)
+			const config = await getConfigOrFail(args)
 
-		await usingKysely(config, async (kysely) => {
-			const hydratedConfig = { ...config, kysely }
+			await usingKysely(config, async (kysely) => {
+				const hydratedConfig = { ...config, kysely }
 
-			if (args.query) {
-				return await executeQueryAndPrint(args, hydratedConfig)
+				if (args.query) {
+					return await executeQueryAndPrint(args, hydratedConfig)
+				}
+
+				await startInteractiveExecution(args, hydratedConfig)
+			})
+		} catch (error) {
+			if (!args.json && args.format !== 'json') {
+				throw error
 			}
 
-			await startInteractiveExecution(args, hydratedConfig)
-		})
+			process.exitCode = 1
+			printJSON({ status: 'error', error: serializeError(error) })
+		}
 	},
 })
 
@@ -148,7 +157,11 @@ async function startInteractiveExecution(
 		try {
 			await executeQueryAndPrint({ ...argz, query } as never, config)
 		} catch (error) {
-			consola.error(error instanceof Error ? error.message : error)
+			if (argz.json || argz.format === 'json') {
+				printJSON({ status: 'error', error: serializeError(error) })
+			} else {
+				consola.error(error instanceof Error ? error.message : error)
+			}
 		}
 	}
 }
