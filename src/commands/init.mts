@@ -9,6 +9,7 @@ import { createSubcommand } from '../utils/create-subcommand.mjs'
 import { defineArgs } from '../utils/define-args.mjs'
 import { defineCommand } from '../utils/define-command.mjs'
 import { getTemplateExtension } from '../utils/get-template-extension.mjs'
+import { runWithOutput } from '../utils/output.mjs'
 
 const {
 	// TODO: consider supporting passing a config path to init command that controls the filepath to be created.
@@ -29,46 +30,56 @@ const Command = defineCommand(args, {
 	},
 	async run(context) {
 		const { args } = context
-		const { extension } = args
+		await runWithOutput(args, async () => {
+			const { extension } = args
 
-		const config = await getConfig(args)
+			const config = await getConfig(args)
 
-		if (configFileExists(config)) {
-			return consola.warn(
-				`Init skipped: config file already exists at ${config.configMetadata.configFile}`,
+			if (configFileExists(config)) {
+				if (args.json) {
+					return { status: 'skipped', path: config.configMetadata.configFile }
+				}
+
+				return consola.warn(
+					`Init skipped: config file already exists at ${config.configMetadata.configFile}`,
+				)
+			}
+
+			assertExtension(extension)
+
+			const configFolderPath = join(getCWD(), '.config')
+
+			consola.debug('Config folder path:', configFolderPath)
+
+			const wasConfigFolderCreated = Boolean(
+				await mkdir(configFolderPath, { recursive: true }),
 			)
-		}
 
-		assertExtension(extension)
+			if (wasConfigFolderCreated) {
+				consola.debug('Config folder created')
+			}
 
-		const configFolderPath = join(getCWD(), '.config')
+			const filePath = join(configFolderPath, `kysely.config.${extension}`)
 
-		consola.debug('Config folder path:', configFolderPath)
+			consola.debug('File path:', filePath)
 
-		const wasConfigFolderCreated = Boolean(
-			await mkdir(configFolderPath, { recursive: true }),
-		)
+			const templateExtension = await getTemplateExtension(extension)
 
-		if (wasConfigFolderCreated) {
-			consola.debug('Config folder created')
-		}
+			const templatePath = join(
+				__dirname,
+				`templates/config-template.${templateExtension}`,
+			)
 
-		const filePath = join(configFolderPath, `kysely.config.${extension}`)
+			consola.debug('Template path:', templatePath)
 
-		consola.debug('File path:', filePath)
+			await copyFile(templatePath, filePath)
 
-		const templateExtension = await getTemplateExtension(extension)
+			if (args.json) {
+				return { status: 'success', path: filePath }
+			}
 
-		const templatePath = join(
-			__dirname,
-			`templates/config-template.${templateExtension}`,
-		)
-
-		consola.debug('Template path:', templatePath)
-
-		await copyFile(templatePath, filePath)
-
-		consola.success(`Config file created at ${filePath}`)
+			consola.success(`Config file created at ${filePath}`)
+		})
 	},
 })
 

@@ -239,6 +239,56 @@ CLI.
 
 </details>
 
+#### JSON output
+
+`init`, all migration commands and all seed commands accept `--json`. The legacy
+colon commands support it too. JSON is the default in detected AI coding agents;
+use `--no-json` to request text output.
+
+```bash
+kysely init --json
+kysely migrate make create_users --json
+kysely seed make users --json
+kysely migrate latest --json
+kysely migrate list --json --fail-on-pending
+kysely seed run --json
+```
+
+```json
+{
+  "status": "success",
+  "migrations": [
+    { "name": "001_create_users", "direction": "up", "status": "success" }
+  ]
+}
+```
+
+JSON results go to stdout; CLI diagnostics and console logs go to stderr, and
+upgrade checks are skipped. Direct stream writes from your config, migrations
+and seeds should use stderr to keep stdout parseable. SQL also accepts `--json`
+as shorthand for `--format json`. `--json` takes precedence when both are supplied.
+SQL bigint values, including affected-row counts, are serialized as decimal strings.
+
+`init` returns `status: "success"` and the created config's absolute `path`, or
+`status: "skipped"` and the existing config's path.
+
+`migrate make` and `seed make` return `status: "success"` and the created file's
+absolute `path` after any database cleanup completes.
+
+Run results use `status: "success"`, `"error"` or `"skipped"`, with a `migrations`
+or `seeds` array. Each entry has a `name` and a `status` of `"success"`, `"error"`
+or `"not_executed"`; migration entries also include `direction: "up"` or `"down"`
+in execution order. An operation with nothing to run returns `"skipped"` and an
+empty array.
+
+Migration lists include `name`, `status: "pending"` or `"executed"`, and
+`executedAt` as an ISO timestamp or `null`. Seed lists include names. Errors
+include an `error` object with `name` and `message`, and exit with code 1.
+`--fail-on-pending` also exits with code 1 while retaining the migration list.
+Errors before results are available, such as config or connection failures,
+return `status: "error"` and `error` without a result array. Argument parsing and
+help output retain the CLI's usual behavior.
+
 #### SQL
 
 <details>

@@ -3,9 +3,11 @@ import {
 	type CommandContext,
 	type CommandDef,
 	type ParsedArgs,
+	parseArgs,
 	showUsage,
 } from 'citty'
 import { consola } from 'consola'
+import { CommonArgs } from '../arguments/common.mjs'
 import type { StrictArgsDef } from './define-args.mjs'
 import { hydrate } from './hydrate.mjs'
 import { isInSubcommand } from './is-in-subcommand.mjs'
@@ -116,10 +118,16 @@ function mergeContexts(
 	previousContext: CommandContext<any> | undefined,
 	// biome-ignore lint/suspicious/noExplicitAny: it's fine.
 ): CommandContext<any> {
+	const rawArgs = previousContext?.rawArgs || currentContext.rawArgs
+	const args = mergeArgs(currentContext.args, previousContext?.args)
+	if ('json' in args) {
+		args.json = parseArgs(rawArgs, { json: CommonArgs.json }).json
+	}
+
 	return {
 		...currentContext,
-		args: mergeArgs(currentContext.args, previousContext?.args),
-		rawArgs: previousContext?.rawArgs || currentContext.rawArgs,
+		args,
+		rawArgs,
 	}
 }
 

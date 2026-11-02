@@ -3,25 +3,37 @@ import { CommonArgs } from '../../arguments/common.mjs'
 import { usingSeeder } from '../../seeds/using-seeder.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineCommand } from '../../utils/define-command.mjs'
+import { runWithOutput } from '../../utils/output.mjs'
 
 const Command = defineCommand(CommonArgs, {
 	meta: {
 		description: 'List seeds',
 	},
 	async run(context) {
-		const seeds = await usingSeeder(context.args, (seeder) => seeder.getSeeds())
+		await runWithOutput(context.args, async () => {
+			const seeds = await usingSeeder(context.args, (seeder) =>
+				seeder.getSeeds(),
+			)
 
-		consola.debug(seeds)
+			consola.debug(seeds)
 
-		if (!seeds.length) {
-			return consola.info('No seeds found.')
-		}
+			if (context.args.json) {
+				return {
+					status: 'success',
+					seeds: seeds.map((seed) => ({ name: seed.name })),
+				}
+			}
 
-		consola.info(`Found ${seeds.length} seed${seeds.length > 1 ? 's' : ''}:`)
+			if (!seeds.length) {
+				return consola.info('No seeds found.')
+			}
 
-		for (const seed of seeds) {
-			consola.log(seed.name)
-		}
+			consola.info(`Found ${seeds.length} seed${seeds.length > 1 ? 's' : ''}:`)
+
+			for (const seed of seeds) {
+				consola.log(seed.name)
+			}
+		})
 	},
 })
 
