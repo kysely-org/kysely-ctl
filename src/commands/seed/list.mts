@@ -3,7 +3,7 @@ import { CommonArgs } from '../../arguments/common.mjs'
 import { usingSeeder } from '../../seeds/using-seeder.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineCommand } from '../../utils/define-command.mjs'
-import { runWithOutput } from '../../utils/output.mjs'
+import { runWithOutput } from '../../utils/json.mjs'
 
 const Command = defineCommand(CommonArgs, {
 	meta: {

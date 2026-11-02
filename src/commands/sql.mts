@@ -13,7 +13,7 @@ import { usingKysely } from '../kysely/using-kysely.mjs'
 import { createSubcommand } from '../utils/create-subcommand.mjs'
 import { defineArgs } from '../utils/define-args.mjs'
 import { defineCommand } from '../utils/define-command.mjs'
-import { printJSON, serializeError } from '../utils/output.mjs'
+import { printJSON, serializeError } from '../utils/json.mjs'
 import { printCSV } from '../utils/print-csv.mjs'
 
 const isInteractive = !isCI && !isAgent && hasTTY && !!process.stdin?.isTTY

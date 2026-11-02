@@ -1,7 +1,7 @@
 import { createMain, runCommand } from 'citty'
 import { process } from 'std-env'
 import { RootCommand } from './commands/root.mjs'
-import { isJSONOutput, printJSON, serializeError } from './utils/output.mjs'
+import { isJSONOutput, printJSON, serializeError } from './utils/json.mjs'
 
 export interface CLI {
 	parse(argv: string[]): Promise<void>

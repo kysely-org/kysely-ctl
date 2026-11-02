@@ -4,7 +4,7 @@ import type { MigrationResultSet, Migrator } from 'kysely/migration'
 import { process } from 'std-env'
 import { assertDefined } from '../utils/assert-defined.mjs'
 import { exitWithError } from '../utils/error.mjs'
-import { serializeError } from '../utils/output.mjs'
+import { serializeError } from '../utils/json.mjs'
 import { getMigrations } from './get-migrations.mjs'
 
 export async function processMigrationResultSet(

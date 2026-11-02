@@ -8,7 +8,7 @@ import { usingMigrator } from '../../kysely/using-migrator.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineArgs } from '../../utils/define-args.mjs'
 import { defineCommand } from '../../utils/define-command.mjs'
-import { runWithOutput } from '../../utils/output.mjs'
+import { runWithOutput } from '../../utils/json.mjs'
 
 const args = defineArgs({
 	...CommonArgs,

@@ -7,7 +7,7 @@ import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineArgs } from '../../utils/define-args.mjs'
 import { defineCommand } from '../../utils/define-command.mjs'
 import { exitWithError } from '../../utils/error.mjs'
-import { runWithOutput, serializeError } from '../../utils/output.mjs'
+import { runWithOutput, serializeError } from '../../utils/json.mjs'
 
 const args = defineArgs({
 	...CommonArgs,
