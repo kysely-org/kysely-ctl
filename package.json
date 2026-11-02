@@ -63,7 +63,7 @@
 		"@biomejs/biome": "2.5.15",
 		"@tsconfig/node24": "24.0.5",
 		"@types/better-sqlite3": "catalog:",
-		"@types/node": "26.6.5",
+		"@types/node": "26.6.6",
 		"better-sqlite3": "catalog:",
 		"kysely": "catalog:",
 		"kysely-neon": "3.0.0",
