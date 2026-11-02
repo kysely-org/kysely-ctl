@@ -65,11 +65,12 @@ jobs:
         run: pnpm --dir scripts/opencode install --frozen-lockfile
 
       - name: Run CLI flow with a free coding agent
+        timeout-minutes: 3
         working-directory: examples/node-esm
         env:
           OPENCODE_CONFIG_CONTENT: '{"autoupdate":false,"share":"disabled","snapshot":false,"permission":{"*":"deny","bash":{"pnpm kysely *":"allow"}},"agent":{"build":{"steps":30}}}'
         run: |
-          ../../scripts/opencode/node_modules/.bin/opencode run --pure --model opencode/big-pickle "
+          ../../scripts/opencode/node_modules/.bin/opencode run --print-logs --pure --model opencode/big-pickle "
             Exercise the installed CLI using only pnpm kysely commands. Discover its interface with --help.
             Invoke init and confirm it skips the existing config.
             Create an empty migration named agent_probe, list migrations, apply them all, then list again.
