@@ -239,28 +239,6 @@ CLI.
 
 </details>
 
-#### JSON output
-
-All commands accept `--json`, including the legacy colon commands. Detected AI
-coding agents get JSON by default; use `--no-json` to request text output.
-SQL also accepts `--json` as shorthand for `--format json`.
-
-```bash
-kysely migrate latest --json
-```
-
-```json
-{
-  "status": "success",
-  "migrations": [
-    { "name": "001_create_users", "direction": "up", "status": "success" }
-  ]
-}
-```
-
-JSON goes to stdout and diagnostics go to stderr. Failures return a structured
-error and exit with code 1. Explicit help and version output remain text.
-
 #### SQL
 
 <details>
@@ -291,7 +269,30 @@ select 1;
 exit
 ```
 
+`--json` is shorthand for `--format json`.
+
 </details>
+
+#### JSON output
+
+All commands accept `--json`, including the legacy colon commands. Detected AI
+coding agents get JSON by default; use `--no-json` to request text output.
+
+```bash
+kysely migrate latest --json
+```
+
+```json
+{
+  "status": "success",
+  "migrations": [
+    { "name": "001_create_users", "direction": "up", "status": "success" }
+  ]
+}
+```
+
+JSON goes to stdout and diagnostics go to stderr. Failures return a structured
+error and exit with code 1. Explicit help and version output remain text.
 
 ## Acknowledgements
 
