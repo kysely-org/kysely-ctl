@@ -60,7 +60,7 @@
 	"devDependencies": {
 		"@arethetypeswrong/core": "0.18.5",
 		"@arktype/attest": "0.57.0",
-		"@biomejs/biome": "2.5.15",
+		"@biomejs/biome": "2.6.4",
 		"@tsconfig/node24": "24.0.5",
 		"@types/better-sqlite3": "catalog:",
 		"@types/node": "26.6.5",
