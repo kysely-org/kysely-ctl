@@ -268,6 +268,7 @@ upgrade checks are skipped. Direct stream writes from your config, migrations
 and seeds should use stderr to keep stdout parseable. SQL also accepts `--json`
 as shorthand for `--format json`. `--json` takes precedence when both are supplied.
 SQL bigint values, including affected-row counts, are serialized as decimal strings.
+SQL query results are printed after database cleanup completes.
 
 `init` returns `status: "success"` and the created config's absolute `path`, or
 `status: "skipped"` and the existing config's path.
@@ -286,8 +287,9 @@ Migration lists include `name`, `status: "pending"` or `"executed"`, and
 include an `error` object with `name` and `message`, and exit with code 1.
 `--fail-on-pending` also exits with code 1 while retaining the migration list.
 Errors before results are available, such as config or connection failures,
-return `status: "error"` and `error` without a result array. Argument parsing and
-help output retain the CLI's usual behavior.
+return `status: "error"` and `error` without a result array. Argument errors,
+including missing required arguments, invalid option values and unknown commands,
+use the same JSON error shape. Explicit help and version output remain text.
 
 #### SQL
 
