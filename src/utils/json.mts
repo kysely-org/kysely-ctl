@@ -18,8 +18,17 @@ export function printJSON(value: unknown): void {
 export function serializeError(error: unknown): {
 	name: string
 	message: string
+	code?: string | number
 } {
-	return error instanceof Error
-		? { name: error.name, message: error.message }
-		: { name: 'Error', message: String(error) }
+	if (!(error instanceof Error)) {
+		return { name: 'Error', message: String(error) }
+	}
+
+	const code = 'code' in error ? error.code : undefined
+
+	return {
+		name: error.name,
+		message: error.message,
+		...(typeof code === 'string' || typeof code === 'number' ? { code } : {}),
+	}
 }
