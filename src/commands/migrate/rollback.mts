@@ -6,6 +6,7 @@ import { usingMigrator } from '../../kysely/using-migrator.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineArgs } from '../../utils/define-args.mjs'
 import { defineCommand } from '../../utils/define-command.mjs'
+import { printJSON } from '../../utils/json.mjs'
 
 const args = defineArgs({
 	...CommonArgs,
@@ -22,7 +23,7 @@ const Command = defineCommand(args, {
 		description: 'Rollback all the completed migrations',
 	},
 	async run(context) {
-		await usingMigrator(context.args, async (migrator) => {
+		const result = await usingMigrator(context.args, async (migrator) => {
 			consola.start('Starting migration rollback')
 
 			const { NO_MIGRATIONS } = await import('kysely/migration').catch(
@@ -31,8 +32,12 @@ const Command = defineCommand(args, {
 
 			const resultSet = await migrator.migrateTo(NO_MIGRATIONS)
 
-			await processMigrationResultSet(resultSet, 'down', migrator)
+			return await processMigrationResultSet(resultSet, 'down', migrator)
 		})
+
+		if (context.args.json) {
+			printJSON(result)
+		}
 	},
 })
 
