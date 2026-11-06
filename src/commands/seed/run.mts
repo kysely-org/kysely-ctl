@@ -6,7 +6,6 @@ import { usingSeeder } from '../../seeds/using-seeder.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineArgs } from '../../utils/define-args.mjs'
 import { defineCommand } from '../../utils/define-command.mjs'
-import { exitWithError } from '../../utils/error.mjs'
 import { printJSON, serializeError } from '../../utils/json.mjs'
 
 const args = defineArgs({
@@ -33,12 +32,43 @@ const Command = defineCommand(args, {
 
 		const { error, results } = resultSet
 
-		if (args.json) {
-			if (error) {
-				process.exitCode = 1
+		if (!results.length) {
+			consola.info('No seeds found.')
+		} else {
+			if (!error) {
+				consola.success('Seed successful')
 			}
 
-			return printJSON({
+			const actuallyRan = error
+				? results.filter((result) => result.status !== 'NotExecuted')
+				: results
+
+			consola.info(
+				`Ran ${actuallyRan.length} seed${actuallyRan.length > 1 ? 's' : ''}:`,
+			)
+
+			for (const result of results) {
+				consola.log(
+					`[${
+						{
+							Error: colorize('red', '✗'),
+							NotExecuted: ' ',
+							Success: colorize('green', '✓'),
+						}[result.status]
+					}] ${result.seedName}${
+						error && result.status === 'Error' ? ` - ${error}` : ''
+					}`,
+				)
+			}
+		}
+
+		if (error) {
+			process.exitCode = 1
+			consola.error(error)
+		}
+
+		if (args.json) {
+			printJSON({
 				status: error ? 'error' : results.length ? 'success' : 'skipped',
 				seeds: results.map((result) => ({
 					name: result.seedName,
@@ -50,40 +80,6 @@ const Command = defineCommand(args, {
 				})),
 				...(error ? { error: serializeError(error) } : {}),
 			})
-		}
-
-		if (!results.length) {
-			return consola.info('No seeds found.')
-		}
-
-		if (!error) {
-			consola.success('Seed successful')
-		}
-
-		const actuallyRan = error
-			? results.filter((result) => result.status !== 'NotExecuted')
-			: results
-
-		consola.info(
-			`Ran ${actuallyRan.length} seed${actuallyRan.length > 1 ? 's' : ''}:`,
-		)
-
-		for (const result of results) {
-			consola.log(
-				`[${
-					{
-						Error: colorize('red', '✗'),
-						NotExecuted: ' ',
-						Success: colorize('green', '✓'),
-					}[result.status]
-				}] ${result.seedName}${
-					error && result.status === 'Error' ? ` - ${error}` : ''
-				}`,
-			)
-		}
-
-		if (error) {
-			exitWithError(error)
 		}
 	},
 })

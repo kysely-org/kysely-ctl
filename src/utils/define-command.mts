@@ -4,7 +4,7 @@ import {
 	type CommandDef,
 	type ParsedArgs,
 	parseArgs,
-	showUsage,
+	renderUsage,
 } from 'citty'
 import { consola } from 'consola'
 import { CommonArgs } from '../arguments/common.mjs'
@@ -75,6 +75,13 @@ export function defineCommand<
 	}
 
 	return definedCommand
+}
+
+async function showUsage(
+	command: CommandDef,
+	parent?: CommandDef,
+): Promise<void> {
+	process.stdout.write(`${await renderUsage(command, parent)}\n`)
 }
 
 async function showHelp(command: CommandDef, names: string[]): Promise<void> {

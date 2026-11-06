@@ -35,16 +35,14 @@ const Command = defineCommand(args, {
 		const config = await getConfig(args)
 
 		if (configFileExists(config)) {
-			if (args.json) {
-				return printJSON({
-					status: 'skipped',
-					path: config.configMetadata.configFile,
-				})
-			}
-
-			return consola.warn(
+			consola.warn(
 				`Init skipped: config file already exists at ${config.configMetadata.configFile}`,
 			)
+
+			if (args.json) {
+				printJSON({ status: 'skipped', path: config.configMetadata.configFile })
+			}
+			return
 		}
 
 		assertExtension(extension)
@@ -76,11 +74,11 @@ const Command = defineCommand(args, {
 
 		await copyFile(templatePath, filePath)
 
-		if (args.json) {
-			return printJSON({ status: 'success', path: filePath })
-		}
-
 		consola.success(`Config file created at ${filePath}`)
+
+		if (args.json) {
+			printJSON({ status: 'success', path: filePath })
+		}
 	},
 })
 

@@ -291,7 +291,7 @@ kysely migrate latest --json
 }
 ```
 
-JSON goes to stdout and diagnostics go to stderr. Failures return a structured
+JSON goes to stdout and human logging is silenced. Failures return a structured
 error and exit with code 1. Explicit help and version output remain text.
 
 ## Acknowledgements

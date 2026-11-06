@@ -20,12 +20,7 @@ const Command = defineCommand(args, {
 
 			const resultSet = await migrator.migrateToLatest()
 
-			return await processMigrationResultSet(
-				resultSet,
-				'up',
-				migrator,
-				context.args.json,
-			)
+			return await processMigrationResultSet(resultSet, 'up', migrator)
 		})
 
 		if (context.args.json) {

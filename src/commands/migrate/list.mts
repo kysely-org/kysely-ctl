@@ -6,7 +6,6 @@ import { usingMigrator } from '../../kysely/using-migrator.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineArgs } from '../../utils/define-args.mjs'
 import { defineCommand } from '../../utils/define-command.mjs'
-import { exitWithError } from '../../utils/error.mjs'
 import { printJSON, serializeError } from '../../utils/json.mjs'
 
 const args = defineArgs({
@@ -27,15 +26,28 @@ const Command = defineCommand(args, {
 
 		consola.debug(migrations)
 
-		if (context.args.json) {
-			const failed =
-				context.args['fail-on-pending'] &&
-				migrations.some((migration) => migration.executedAt == null)
-			if (failed) {
-				process.exitCode = 1
-			}
+		if (!migrations.length) {
+			consola.info('No migrations found.')
+		} else {
+			consola.info(
+				`Found ${migrations.length} migration${migrations.length > 1 ? 's' : ''}:`,
+			)
+		}
 
-			return printJSON({
+		for (const migration of migrations) {
+			consola.log(`[${migration.executedAt ? '`✓`' : ' '}] ${migration.name}`)
+		}
+
+		const failed =
+			context.args['fail-on-pending'] &&
+			migrations.some((migration) => migration.executedAt == null)
+		if (failed) {
+			process.exitCode = 1
+			consola.error('Failed due to pending migrations.')
+		}
+
+		if (context.args.json) {
+			printJSON({
 				status: failed ? 'error' : 'success',
 				migrations: migrations.map((migration) => ({
 					name: migration.name,
@@ -46,30 +58,6 @@ const Command = defineCommand(args, {
 					? { error: serializeError('Failed due to pending migrations.') }
 					: {}),
 			})
-		}
-
-		if (!migrations.length) {
-			return consola.info('No migrations found.')
-		}
-
-		consola.info(
-			`Found ${migrations.length} migration${migrations.length > 1 ? 's' : ''}:`,
-		)
-
-		for (const migration of migrations) {
-			consola.log(`[${migration.executedAt ? '`✓`' : ' '}] ${migration.name}`)
-		}
-
-		if (!context.args['fail-on-pending']) {
-			return
-		}
-
-		const hasPending = migrations.some(
-			(migration) => migration.executedAt == null,
-		)
-
-		if (hasPending) {
-			exitWithError('Failed due to pending migrations.')
 		}
 	},
 })

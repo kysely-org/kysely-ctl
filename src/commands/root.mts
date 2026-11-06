@@ -39,17 +39,20 @@ export const RootCommand = defineCommand(CommonArgs, {
 	},
 	setup(context) {
 		const { args } = context
+		const json = isJSONOutput(context.rawArgs)
 
 		if (isAgent) {
 			consola.setReporters(createConsola({ fancy: false }).options.reporters)
 		}
 
-		if (isJSONOutput(context.rawArgs)) {
+		if (json) {
 			consola.options.stdout = process.stderr
 			consola.wrapConsole()
 		}
 
-		if (args.debug) {
+		if (json && !args.version) {
+			consola.level = LogLevels.silent
+		} else if (args.debug) {
 			consola.level = LogLevels.debug
 		}
 

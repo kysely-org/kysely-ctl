@@ -26,11 +26,11 @@ const Command = defineCommand(args, {
 		const { args } = context
 		const filePath = await createMigrationFile(args)
 
+		consola.success(`Created migration file at ${filePath}`)
+
 		if (args.json) {
 			return printJSON({ status: 'success', path: filePath })
 		}
-
-		consola.success(`Created migration file at ${filePath}`)
 	},
 })
 

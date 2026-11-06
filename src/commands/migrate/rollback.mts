@@ -32,12 +32,7 @@ const Command = defineCommand(args, {
 
 			const resultSet = await migrator.migrateTo(NO_MIGRATIONS)
 
-			return await processMigrationResultSet(
-				resultSet,
-				'down',
-				migrator,
-				context.args.json,
-			)
+			return await processMigrationResultSet(resultSet, 'down', migrator)
 		})
 
 		if (context.args.json) {

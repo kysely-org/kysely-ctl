@@ -14,21 +14,21 @@ const Command = defineCommand(CommonArgs, {
 
 		consola.debug(seeds)
 
-		if (context.args.json) {
-			return printJSON({
-				status: 'success',
-				seeds: seeds.map((seed) => ({ name: seed.name })),
-			})
-		}
-
 		if (!seeds.length) {
-			return consola.info('No seeds found.')
+			consola.info('No seeds found.')
+		} else {
+			consola.info(`Found ${seeds.length} seed${seeds.length > 1 ? 's' : ''}:`)
 		}
-
-		consola.info(`Found ${seeds.length} seed${seeds.length > 1 ? 's' : ''}:`)
 
 		for (const seed of seeds) {
 			consola.log(seed.name)
+		}
+
+		if (context.args.json) {
+			printJSON({
+				status: 'success',
+				seeds: seeds.map((seed) => ({ name: seed.name })),
+			})
 		}
 	},
 })

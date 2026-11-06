@@ -3,7 +3,6 @@ import { colorize } from 'consola/utils'
 import type { MigrationResultSet, Migrator } from 'kysely/migration'
 import { process } from 'std-env'
 import { assertDefined } from '../utils/assert-defined.mjs'
-import { exitWithError } from '../utils/error.mjs'
 import { serializeError } from '../utils/json.mjs'
 import { getMigrations } from './get-migrations.mjs'
 
@@ -11,32 +10,24 @@ export async function processMigrationResultSet(
 	resultSet: MigrationResultSet,
 	direction: 'up' | 'down',
 	migrator: Migrator,
-	json = false,
 ) {
 	consola.debug(resultSet)
 
 	let { error, results } = resultSet
 
-	if (json) {
-		if (error) {
-			process.exitCode = 1
-		}
-
-		return {
-			status: error ? 'error' : results?.length ? 'success' : 'skipped',
-			migrations: (results || []).map((result) => ({
-				name: result.migrationName,
-				direction: result.direction === 'Up' ? 'up' : 'down',
-				status: {
-					Success: 'success',
-					Error: 'error',
-					NotExecuted: 'not_executed',
-				}[result.status],
-			})),
-			...(error ? { error: serializeError(error) } : {}),
-		}
+	const output = {
+		status: error ? 'error' : results?.length ? 'success' : 'skipped',
+		migrations: (results || []).map((result) => ({
+			name: result.migrationName,
+			direction: result.direction === 'Up' ? 'up' : 'down',
+			status: {
+				Success: 'success',
+				Error: 'error',
+				NotExecuted: 'not_executed',
+			}[result.status],
+		})),
+		...(error ? { error: serializeError(error) } : {}),
 	}
-
 	if (error) {
 		const failedMigration = results?.find((result) => result.status === 'Error')
 
@@ -46,15 +37,18 @@ export async function processMigrationResultSet(
 			}`,
 		)
 
-		exitWithError(error)
+		process.exitCode = 1
+		consola.error(error)
+		return output
 	}
 
 	if (!results?.length) {
-		return consola.info(
+		consola.info(
 			`Migration skipped: no ${
 				direction === 'up' ? 'new' : 'completed'
 			} migrations found`,
 		)
+		return output
 	}
 
 	consola.success('Migration complete')
@@ -109,4 +103,6 @@ export async function processMigrationResultSet(
 	for (const migration of untouchedMigrationsAfter) {
 		consola.log(`[ ] ${migration.name}`)
 	}
+
+	return output
 }

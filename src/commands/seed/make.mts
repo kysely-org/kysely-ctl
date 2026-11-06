@@ -29,11 +29,11 @@ const Command = defineCommand(args, {
 		const { args } = context
 		const filePath = await createSeedFile(args)
 
+		consola.success(`Created seed file at ${filePath}`)
+
 		if (args.json) {
 			return printJSON({ status: 'success', path: filePath })
 		}
-
-		consola.success(`Created seed file at ${filePath}`)
 	},
 })
 
