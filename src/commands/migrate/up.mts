@@ -26,10 +26,9 @@ const Command = defineCommand(args, {
 
 		const result = await usingMigrator(args, async (migrator) => {
 			if (await isWrongDirection(migration_name, 'up', migrator)) {
-				consola.info(
-					`Migration skipped: migration "${migration_name}" has already been run`,
-				)
-				return { status: 'skipped', migrations: [] }
+				const reason = `migration "${migration_name}" has already been run`
+				consola.info(`Migration skipped: ${reason}`)
+				return { status: 'skipped', reason, migrations: [] }
 			}
 
 			consola.start('Starting migration up')

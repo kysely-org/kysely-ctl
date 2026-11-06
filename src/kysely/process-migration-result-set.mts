@@ -43,12 +43,9 @@ export async function processMigrationResultSet(
 	}
 
 	if (!results?.length) {
-		consola.info(
-			`Migration skipped: no ${
-				direction === 'up' ? 'new' : 'completed'
-			} migrations found`,
-		)
-		return output
+		const reason = `no ${direction === 'up' ? 'new' : 'completed'} migrations found`
+		consola.info(`Migration skipped: ${reason}`)
+		return { ...output, reason }
 	}
 
 	consola.success('Migration complete')

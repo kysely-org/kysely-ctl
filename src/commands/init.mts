@@ -35,12 +35,15 @@ const Command = defineCommand(args, {
 		const config = await getConfig(args)
 
 		if (configFileExists(config)) {
-			consola.warn(
-				`Init skipped: config file already exists at ${config.configMetadata.configFile}`,
-			)
+			const reason = `config file already exists at ${config.configMetadata.configFile}`
+			consola.warn(`Init skipped: ${reason}`)
 
 			if (args.json) {
-				printJSON({ status: 'skipped', path: config.configMetadata.configFile })
+				printJSON({
+					status: 'skipped',
+					reason,
+					path: config.configMetadata.configFile,
+				})
 			}
 			return
 		}

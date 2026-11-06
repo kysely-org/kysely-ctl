@@ -31,9 +31,10 @@ const Command = defineCommand(args, {
 		consola.debug(resultSet)
 
 		const { error, results } = resultSet
+		const reason = 'No seeds found.'
 
 		if (!results.length) {
-			consola.info('No seeds found.')
+			consola.info(reason)
 		} else {
 			if (!error) {
 				consola.success('Seed successful')
@@ -79,6 +80,7 @@ const Command = defineCommand(args, {
 					}[result.status],
 				})),
 				...(error ? { error: serializeError(error) } : {}),
+				...(!error && !results.length ? { reason } : {}),
 			})
 		}
 	},
