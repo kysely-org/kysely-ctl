@@ -2,6 +2,7 @@ import { createInterface } from 'node:readline/promises'
 import type { ParsedArgs } from 'citty'
 import { consola } from 'consola'
 import { colorize } from 'consola/utils'
+import type { QueryResult } from 'kysely'
 import { hasTTY, isAgent, isCI, process } from 'std-env'
 import { CommonArgs } from '../arguments/common.mjs'
 import { getConfigOrFail } from '../config/get-config.mjs'
@@ -12,6 +13,7 @@ import { usingKysely } from '../kysely/using-kysely.mjs'
 import { createSubcommand } from '../utils/create-subcommand.mjs'
 import { defineArgs } from '../utils/define-args.mjs'
 import { defineCommand } from '../utils/define-command.mjs'
+import { printJSON, serializeError } from '../utils/json.mjs'
 import { printCSV } from '../utils/print-csv.mjs'
 
 const isInteractive = !isCI && !isAgent && hasTTY && !!process.stdin?.isTTY
@@ -46,15 +48,16 @@ const Command = defineCommand(args, {
 
 		const config = await getConfigOrFail(args)
 
-		await usingKysely(config, async (kysely) => {
-			const hydratedConfig = { ...config, kysely }
+		if (args.query) {
+			const result = await usingKysely(config, (kysely) =>
+				executeQuery({ sql: args.query }, { ...config, kysely }),
+			)
+			return printQueryResult(args, result)
+		}
 
-			if (args.query) {
-				return await executeQueryAndPrint(args, hydratedConfig)
-			}
-
-			await startInteractiveExecution(args, hydratedConfig)
-		})
+		await usingKysely(config, (kysely) =>
+			startInteractiveExecution(args, { ...config, kysely }),
+		)
 	},
 })
 
@@ -75,14 +78,13 @@ function assertQuery(
 	throw new Error('Query must be a non-empty string!')
 }
 
-async function executeQueryAndPrint(
-	argz: ParsedArgs<typeof args> & { readonly query: string },
-	config: ResolvedKyselyCTLConfigWithKyselyInstance,
-): Promise<void> {
-	const result = await executeQuery({ sql: argz.query }, config)
-
-	if (argz.format === 'json') {
-		return consola.log(JSON.stringify(result, null, 2))
+function printQueryResult(
+	argz: ParsedArgs<typeof args>,
+	result: QueryResult<unknown>,
+): void {
+	if (argz.json || argz.format === 'json') {
+		printJSON(result)
+		return
 	}
 
 	const { insertId, numAffectedRows, numChangedRows, rows } = result
@@ -100,10 +102,11 @@ async function executeQueryAndPrint(
 			rowCount: rows.length,
 		}
 
-		return printCSV([summary])
+		printCSV([summary])
+		return
 	}
 
-	return printCSV(rows)
+	printCSV(rows)
 }
 
 async function startInteractiveExecution(
@@ -145,9 +148,14 @@ async function startInteractiveExecution(
 		}
 
 		try {
-			await executeQueryAndPrint({ ...argz, query } as never, config)
+			const result = await executeQuery({ sql: query }, config)
+			printQueryResult(argz, result)
 		} catch (error) {
-			consola.error(error instanceof Error ? error.message : error)
+			if (argz.json || argz.format === 'json') {
+				printJSON({ status: 'error', error: serializeError(error) })
+			} else {
+				consola.error(error instanceof Error ? error.message : error)
+			}
 		}
 	}
 }
