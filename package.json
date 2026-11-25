@@ -59,7 +59,7 @@
 	},
 	"devDependencies": {
 		"@arethetypeswrong/core": "0.18.5",
-		"@arktype/attest": "0.57.0",
+		"@arktype/attest": "0.58.0",
 		"@biomejs/biome": "2.5.15",
 		"@tsconfig/node24": "24.0.5",
 		"@types/better-sqlite3": "catalog:",
