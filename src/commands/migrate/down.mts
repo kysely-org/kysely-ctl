@@ -8,6 +8,7 @@ import { usingMigrator } from '../../kysely/using-migrator.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineArgs } from '../../utils/define-args.mjs'
 import { defineCommand } from '../../utils/define-command.mjs'
+import { printJSON } from '../../utils/json.mjs'
 
 const args = defineArgs({
 	...CommonArgs,
@@ -23,11 +24,11 @@ const Command = defineCommand(args, {
 		const { args } = context
 		const { migration_name } = args
 
-		await usingMigrator(args, async (migrator) => {
+		const result = await usingMigrator(args, async (migrator) => {
 			if (await isWrongDirection(migration_name, 'down', migrator)) {
-				return consola.info(
-					`Migration skipped: "${migration_name}" has not been run yet`,
-				)
+				const reason = `"${migration_name}" has not been run yet`
+				consola.info(`Migration skipped: ${reason}`)
+				return { status: 'skipped', reason, migrations: [] }
 			}
 
 			consola.start('Starting migration down')
@@ -36,8 +37,12 @@ const Command = defineCommand(args, {
 				? await migrator.migrateTo(migration_name)
 				: await migrator.migrateDown()
 
-			await processMigrationResultSet(resultSet, 'down', migrator)
+			return await processMigrationResultSet(resultSet, 'down', migrator)
 		})
+
+		if (args.json) {
+			printJSON(result)
+		}
 	},
 })
 

@@ -3,6 +3,7 @@ import { CommonArgs } from '../../arguments/common.mjs'
 import { usingSeeder } from '../../seeds/using-seeder.mjs'
 import { createSubcommand } from '../../utils/create-subcommand.mjs'
 import { defineCommand } from '../../utils/define-command.mjs'
+import { printJSON } from '../../utils/json.mjs'
 
 const Command = defineCommand(CommonArgs, {
 	meta: {
@@ -14,13 +15,20 @@ const Command = defineCommand(CommonArgs, {
 		consola.debug(seeds)
 
 		if (!seeds.length) {
-			return consola.info('No seeds found.')
+			consola.info('No seeds found.')
+		} else {
+			consola.info(`Found ${seeds.length} seed${seeds.length > 1 ? 's' : ''}:`)
 		}
-
-		consola.info(`Found ${seeds.length} seed${seeds.length > 1 ? 's' : ''}:`)
 
 		for (const seed of seeds) {
 			consola.log(seed.name)
+		}
+
+		if (context.args.json) {
+			printJSON({
+				status: 'success',
+				seeds: seeds.map((seed) => ({ name: seed.name })),
+			})
 		}
 	},
 })

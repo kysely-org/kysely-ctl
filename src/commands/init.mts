@@ -9,6 +9,7 @@ import { createSubcommand } from '../utils/create-subcommand.mjs'
 import { defineArgs } from '../utils/define-args.mjs'
 import { defineCommand } from '../utils/define-command.mjs'
 import { getTemplateExtension } from '../utils/get-template-extension.mjs'
+import { printJSON } from '../utils/json.mjs'
 
 const {
 	// TODO: consider supporting passing a config path to init command that controls the filepath to be created.
@@ -34,9 +35,17 @@ const Command = defineCommand(args, {
 		const config = await getConfig(args)
 
 		if (configFileExists(config)) {
-			return consola.warn(
-				`Init skipped: config file already exists at ${config.configMetadata.configFile}`,
-			)
+			const reason = `config file already exists at ${config.configMetadata.configFile}`
+			consola.warn(`Init skipped: ${reason}`)
+
+			if (args.json) {
+				printJSON({
+					status: 'skipped',
+					reason,
+					path: config.configMetadata.configFile,
+				})
+			}
+			return
 		}
 
 		assertExtension(extension)
@@ -69,6 +78,10 @@ const Command = defineCommand(args, {
 		await copyFile(templatePath, filePath)
 
 		consola.success(`Config file created at ${filePath}`)
+
+		if (args.json) {
+			printJSON({ status: 'success', path: filePath })
+		}
 	},
 })
 
